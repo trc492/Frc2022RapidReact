@@ -22,54 +22,191 @@
 
 package team492;
 
+import java.util.Locale;
+
 import TrcCommonLib.command.CmdDriveMotorsTest;
 import TrcCommonLib.command.CmdPidDrive;
 import TrcCommonLib.command.CmdTimedDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import TrcFrcLib.frclib.FrcChoiceMenu;
+import TrcFrcLib.frclib.FrcUserChoices;
+import TrcCommonLib.trclib.TrcMotorController;
+import TrcCommonLib.trclib.TrcPidController;
+import TrcCommonLib.trclib.TrcPose2D;
+import TrcCommonLib.trclib.TrcRobot;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 
+/**
+ * This class implements the code to run in Test Mode.
+ */
 public class FrcTest extends FrcTeleOp
 {
+    private static final String moduleName = "FrcTest";
     //
     // Global constants.
     //
 
     //
-    // Tests enum.
+    // Tests.
     //
     private enum Test
     {
         SENSORS_TEST,
         SUBSYSTEMS_TEST,
+        SWERVE_CALIBRATION,
+        DRIVE_SPEED_TEST,
         DRIVE_MOTORS_TEST,
         X_TIMED_DRIVE,
         Y_TIMED_DRIVE,
-        X_PID_DRIVE,
-        Y_PID_DRIVE,
-        TURN_PID_DRIVE,
+        PID_DRIVE,
         TUNE_X_PID,
         TUNE_Y_PID,
         TUNE_TURN_PID,
         LIVE_WINDOW
     }   //enum Test
 
+    /**
+     * This class encapsulates all user choices for test mode from the smart dashboard.
+     *
+     * To add a test choice, follow the steps below:
+     * 1. Add a DBKEY string constant.
+     * 2. If the choice is a choice menu, create a FrcChoiceMenu variable for it, create the enum type if necessary,
+     *    add code to create the FrcChoiceMenu object and add choices to it.
+     * 3. Call userChoices to add the new choice object and provide default value if necessary.
+     * 4. Add a getter method for the new choice.
+     * 5. Add an entry of the new choice to the toString method.
+     */
+    class TestChoices
+    {
+        // Smart dashboard keys for Autonomous choices.
+        private static final String DBKEY_TEST_TESTS = "Test/Tests";
+        private static final String DBKEY_TEST_X_DRIVE_DISTANCE = "Test/XDriveDistance";
+        private static final String DBKEY_TEST_Y_DRIVE_DISTANCE = "Test/YDriveDistance";
+        private static final String DBKEY_TEST_TURN_ANGLE = "Test/TurnAngle";
+        private static final String DBKEY_TEST_DRIVE_TIME = "Test/DriveTime";
+        private static final String DBKEY_TEST_DRIVE_POWER = "Test/DrivePower";
+        private static final String DBKEY_TEST_TUNE_KP = "Test/TuneKp";
+        private static final String DBKEY_TEST_TUNE_KI = "Test/TuneKi";
+        private static final String DBKEY_TEST_TUNE_KD = "Test/TuneKd";
+        private static final String DBKEY_TEST_TUNE_KF = "Test/TuneKf";
+    
+        private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
+        private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
+        private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
+        private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
+        private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
+
+        private final FrcUserChoices userChoices = new FrcUserChoices();
+        private final FrcChoiceMenu<Test> testMenu;
+
+        public TestChoices()
+        {
+            //
+            // Create test mode specific choice menus.
+            //
+            testMenu = new FrcChoiceMenu<>("Tests:");
+            //
+            // Populate test mode menus.
+            //
+            testMenu.addChoice("Sensors Test", Test.SENSORS_TEST, true, false);
+            testMenu.addChoice("Subsystems Test", Test.SUBSYSTEMS_TEST);
+            testMenu.addChoice("Swerve Calibration", Test.SWERVE_CALIBRATION);
+            testMenu.addChoice("Drive Speed Test", Test.DRIVE_SPEED_TEST);
+            testMenu.addChoice("Drive Motors Test", Test.DRIVE_MOTORS_TEST);
+            testMenu.addChoice("X Timed Drive", Test.X_TIMED_DRIVE);
+            testMenu.addChoice("Y Timed Drive", Test.Y_TIMED_DRIVE);
+            testMenu.addChoice("PID Drive", Test.PID_DRIVE);
+            testMenu.addChoice("Tune X PID", Test.TUNE_X_PID);
+            testMenu.addChoice("Tune Y PID", Test.TUNE_Y_PID);
+            testMenu.addChoice("Tune Turn PID", Test.TUNE_TURN_PID);
+            testMenu.addChoice("Live Window", Test.LIVE_WINDOW, false, true);
+            //
+            // Initialize dashboard with default choice values.
+            //
+            userChoices.addChoiceMenu(DBKEY_TEST_TESTS, testMenu);
+            userChoices.addNumber(DBKEY_TEST_X_DRIVE_DISTANCE, 6.0);    // in ft
+            userChoices.addNumber(DBKEY_TEST_Y_DRIVE_DISTANCE, 6.0);    // in ft
+            userChoices.addNumber(DBKEY_TEST_TURN_ANGLE, 90.0);         // in degrees
+            userChoices.addNumber(DBKEY_TEST_DRIVE_TIME, 4.0);          // in seconds
+            userChoices.addNumber(DBKEY_TEST_DRIVE_POWER, 0.5);
+            userChoices.addNumber(DBKEY_TEST_TUNE_KP, 1.0);
+            userChoices.addNumber(DBKEY_TEST_TUNE_KI, 0.0);
+            userChoices.addNumber(DBKEY_TEST_TUNE_KD, 0.0);
+            userChoices.addNumber(DBKEY_TEST_TUNE_KF, 0.0);
+        }   //TestChoices
+
+        //
+        // Getters for test mode choices.
+        //
+
+        public Test getTest()
+        {
+            return testMenu.getCurrentChoiceObject();            
+        }   //getTest
+
+        public double getXDriveDistance()
+        {
+            return userChoices.getUserNumber(DBKEY_TEST_X_DRIVE_DISTANCE);
+        }   //getXDriveDistance
+
+        public double getYDriveDistance()
+        {
+            return userChoices.getUserNumber(DBKEY_TEST_Y_DRIVE_DISTANCE);
+        }   //getYDriveDistance
+
+        public double getTurnAngle()
+        {
+            return userChoices.getUserNumber(DBKEY_TEST_TURN_ANGLE);
+        }   //getTurnAngle
+
+        public double getDriveTime()
+        {
+            return userChoices.getUserNumber(DBKEY_TEST_DRIVE_TIME);
+        }   //getDriveTime
+
+        public double getDrivePower()
+        {
+            return userChoices.getUserNumber(DBKEY_TEST_DRIVE_POWER);
+        }   //getDrivePower
+
+        public TrcPidController.PidCoefficients getTunePidCoefficients()
+        {
+            return new TrcPidController.PidCoefficients(
+                userChoices.getUserNumber(DBKEY_TEST_TUNE_KD),
+                userChoices.getUserNumber(DBKEY_TEST_TUNE_KI),
+                userChoices.getUserNumber(DBKEY_TEST_TUNE_KD),
+                userChoices.getUserNumber(DBKEY_TEST_TUNE_KF));
+        }   //getTunePidCoefficients
+
+        @Override
+        public String toString()
+        {
+            return String.format(
+                Locale.US,
+                "Test=\"%s\" " +
+                "xDistance=%.1f ft " +
+                "yDistance=%.1f ft " +
+                "turnDegrees=%.0f deg " +
+                "driveTime=%.0f sec " +
+                "drivePower=%.1f " +
+                "tunePidCoeff=%s ",
+                getTest(), getXDriveDistance(), getYDriveDistance(), getTurnAngle(), getDriveTime(), getDrivePower(),
+                getTunePidCoefficients());
+        }   //toString
+
+    }   //class TestChocies
+
     //
     // Global objects.
     //
-
-    //
-    // Test choice menu.
-    //
-    private FrcChoiceMenu<Test> testMenu;
-    private Test test;
-
-    //
-    // Test Cmd objects.
-    //
-    private CmdDriveMotorsTest driveMotorsTestCmd;
-    private CmdTimedDrive timedDriveCmd;
-    private CmdPidDrive pidDriveCmd;
+    private final TestChoices testChoices = new TestChoices();
+    private final Robot robot;
+    private TrcRobot.RobotCommand testCommand;
+    private double maxDriveVelocity = 0.0;
+    private double maxDriveAcceleration = 0.0;
+    private double prevTime = 0.0;
+    private double prevVelocity = 0.0;
 
     public FrcTest(Robot robot)
     {
@@ -77,29 +214,11 @@ public class FrcTest extends FrcTeleOp
         // Call TeleOp constructor.
         //
         super(robot);
-
         //
         // Create and initialize global objects.
         //
-
-        //
-        // Create and populate Test Mode specific menus.
-        //
-        testMenu = new FrcChoiceMenu<>("Test/Tests:");
-        testMenu.addChoice("Sensors Test", FrcTest.Test.SENSORS_TEST, true, false);
-        testMenu.addChoice("Subsystems Test", FrcTest.Test.SUBSYSTEMS_TEST);
-        testMenu.addChoice("Drive Motors Test", FrcTest.Test.DRIVE_MOTORS_TEST);
-        testMenu.addChoice("X Timed Drive", FrcTest.Test.X_TIMED_DRIVE);
-        testMenu.addChoice("Y Timed Drive", FrcTest.Test.Y_TIMED_DRIVE);
-        testMenu.addChoice("X PID Drive", FrcTest.Test.X_PID_DRIVE);
-        testMenu.addChoice("Y PID Drive", FrcTest.Test.Y_PID_DRIVE);
-        testMenu.addChoice("Turn PID Drive", FrcTest.Test.TURN_PID_DRIVE);
-        testMenu.addChoice("Tune X PID", FrcTest.Test.TUNE_X_PID);
-        testMenu.addChoice("Tune Y PID", FrcTest.Test.TUNE_Y_PID);
-        testMenu.addChoice("Tune Turn PID", FrcTest.Test.TUNE_TURN_PID);
-        testMenu.addChoice("Live Window", FrcTest.Test.LIVE_WINDOW, false, true);
-
-    } // FrcTest
+        this.robot = robot;
+    }   //FrcTest
 
     //
     // Overriding TrcRobot.RobotMode.
@@ -112,24 +231,22 @@ public class FrcTest extends FrcTeleOp
         // Call TeleOp startMode.
         //
         super.startMode(prevMode, nextMode);
-
         //
-        // Retrieve menu choice values.
+        // Retrieve Test choices.
         //
-        test = testMenu.getCurrentChoiceObject();
-
+        robot.globalTracer.logInfo(moduleName, "TestChoices", "%s", testChoices);
         //
-        // Create Cmd objects according to test choice.
+        // Create Command objects according to test choice.
         //
         boolean liveWindowEnabled = false;
 
-        switch (test)
+        switch (testChoices.getTest())
         {
             case SENSORS_TEST:
                 //
                 // Make sure no joystick controls on sensors test.
                 //
-
+                setControlsEnabled(false);
                 //
                 // Sensors Test is the same as Subsystems Test without joystick control.
                 // So let it flow to the next case.
@@ -137,57 +254,67 @@ public class FrcTest extends FrcTeleOp
             case SUBSYSTEMS_TEST:
                 break;
 
+            case SWERVE_CALIBRATION:
+                setControlsEnabled(false);
+                robot.robotDrive.lfSteerMotor.set(0);
+                robot.robotDrive.rfSteerMotor.set(0);
+                robot.robotDrive.lbSteerMotor.set(0);
+                robot.robotDrive.rbSteerMotor.set(0);
+                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false);
+                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_RUN_MOTORS, false);
+                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false);
+                break;
+
             case DRIVE_MOTORS_TEST:
                 //
                 // Initialize motor array with the wheel motors. For 2-motor drive base, it is leftWheel and
                 // rightWheel. For 4-motor drive base, it is lfWheel, rfWheel, lbWheel, rbWheel.
                 //
-                // driveMotorsTestCmd = new CmdDriveMotorsTest(
-                //     new TrcMotor[] {robot.lfWheel, robot.rfWheel, robot.lbWheel, robot.rbWheel}, 5.0, 0.5);
+                testCommand = new CmdDriveMotorsTest(
+                    new TrcMotorController[] {
+                        robot.robotDrive.lfWheel, robot.robotDrive.rfWheel,
+                        robot.robotDrive.lbWheel, robot.robotDrive.rbWheel},
+                    5.0, 0.5);
                 break;
 
             case X_TIMED_DRIVE:
-                // timedDriveCmd = new CmdTimedDrive(robot, 0.0, robot.driveTime, robot.drivePower, 0.0, 0.0);
+                testCommand = new CmdTimedDrive(
+                    robot.robotDrive.driveBase, 0.0, testChoices.getDriveTime(), testChoices.getDrivePower(),
+                    0.0, 0.0);
                 break;
 
             case Y_TIMED_DRIVE:
-                // timedDriveCmd = new CmdTimedDrive(robot, 0.0, robot.driveTime, 0.0, robot.drivePower, 0.0);
+                testCommand = new CmdTimedDrive(
+                    robot.robotDrive.driveBase, 0.0, testChoices.getDriveTime(), 0.0, testChoices.getDrivePower(),
+                    0.0);
                 break;
 
-            case X_PID_DRIVE:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, robot.driveDistance, 0.0, 0.0, robot.drivePowerLimit,
-                //     false, null);
-                break;
-
-            case Y_PID_DRIVE:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, 0.0, robot.driveDistance, 0.0, robot.drivePowerLimit,
-                //     false, null);
-                break;
-
-            case TURN_PID_DRIVE:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, 0.0, 0.0, robot.turnDegrees, robot.drivePowerLimit,
-                //     false, null);
+            case PID_DRIVE:
+                testCommand = new CmdPidDrive(
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(), null,
+                    new TrcPose2D(
+                        testChoices.getXDriveDistance()*12.0, testChoices.getYDriveDistance()*12.0,
+                        testChoices.getTurnAngle()));
                 break;
 
             case TUNE_X_PID:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, robot.driveDistance, 0.0, 0.0, robot.drivePowerLimit,
-                //     false, robot.tunePidCoeff);
+                testCommand = new CmdPidDrive(
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(),
+                    testChoices.getTunePidCoefficients(), new TrcPose2D(testChoices.getXDriveDistance()*12.0,
+                    0.0, 0.0));
                 break;
 
             case TUNE_Y_PID:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, 0.0, robot.driveDistance, 0.0, robot.drivePowerLimit,
-                //     false, robot.tunePidCoeff);
+                testCommand = new CmdPidDrive(
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(),
+                    testChoices.getTunePidCoefficients(), new TrcPose2D(0.0, testChoices.getYDriveDistance()*12.0,
+                    0.0));
                 break;
 
             case TUNE_TURN_PID:
-                // pidDriveCmd = new CmdPidDrive(
-                //     robot.driveBase, robot.pidDrive, 0.0, 0.0, 0.0, robot.turnDegrees, robot.drivePowerLimit,
-                //     false, robot.tunePidCoeff);
+                testCommand = new CmdPidDrive(
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(),
+                    testChoices.getTunePidCoefficients(), new TrcPose2D(0.0, 0.0, testChoices.getTurnAngle()));
                 break;
 
             case LIVE_WINDOW:
@@ -199,18 +326,17 @@ public class FrcTest extends FrcTeleOp
         }
 
         LiveWindow.setEnabled(liveWindowEnabled);
-
         //
         // Start test state machine if necessary.
         //
 
-    } // startMode
+    }   //startMode
 
     @Override
     public void stopMode(RunMode prevMode, RunMode nextMode)
     {
         super.stopMode(prevMode, nextMode);
-    }   // stopMode
+    }   //stopMode
 
     //
     // Must override TeleOp so it doesn't fight with us.
@@ -221,7 +347,7 @@ public class FrcTest extends FrcTeleOp
         //
         // Call super.runPeriodic only if you need TeleOp control of the robot.
         //
-        switch (test)
+        switch (testChoices.getTest())
         {
             case SENSORS_TEST:
                 doSensorsTest();
@@ -235,74 +361,114 @@ public class FrcTest extends FrcTeleOp
                 doSensorsTest();
                 break;
 
-            default:
+            case SWERVE_CALIBRATION:
+                if (robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false))
+                {
+                    robot.robotDrive.driveBase.setSteerAngle(
+                        robot.dashboard.getNumber(TestChoices.DBKEY_TEST_ANGLE_TARGET, 0), false);
+                    robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false);
+                }
+                if (robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false))
+                {
+                    robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false);
+                    robot.robotDrive.saveSteerZeroPositions();
+                }
+                double power = robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
+                robot.robotDrive.lfWheel.set(power);
+                robot.robotDrive.rfWheel.set(power);
+                robot.robotDrive.lbWheel.set(power);
+                robot.robotDrive.rbWheel.set(power);
+                robot.dashboard.putString(
+                    TestChoices.DBKEY_TEST_SWERVE_ANGLES,
+                    String.format(
+                        "lf=%.2f,rf=%.2f,lr=%.2f,rr=%.2f",
+                        robot.robotDrive.lfWheel.getSteerAngle(), robot.robotDrive.rfWheel.getSteerAngle(),
+                        robot.robotDrive.lbWheel.getSteerAngle(), robot.robotDrive.rbWheel.getSteerAngle()));
+                doSensorsTest();
                 break;
-        }
 
+                case X_TIMED_DRIVE:
+                case Y_TIMED_DRIVE:
+                    double lfEnc = robot.robotDrive.lfWheel.getPosition();
+                    double rfEnc = robot.robotDrive.rfWheel.getPosition();
+                    double lbEnc = robot.robotDrive.lfWheel.getPosition();
+                    double rbEnc = robot.robotDrive.rbWheel.getPosition();
+                    robot.dashboard.displayPrintf(2, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
+                    robot.dashboard.displayPrintf(3, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
+                    robot.dashboard.displayPrintf(4, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
+                    robot.dashboard.displayPrintf(5, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                    break;
+    
+                case PID_DRIVE:
+                case TUNE_X_PID:
+                case TUNE_Y_PID:
+                case TUNE_TURN_PID:
+                    robot.dashboard.displayPrintf(2, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                    robot.robotDrive.encoderXPidCtrl.displayPidInfo(3);
+                    robot.robotDrive.encoderYPidCtrl.displayPidInfo(5);
+                    robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(7);
+                    break;
+    
+                default:
+                    break;
+        }
         //
-        // Update Dashboard here.
+        // Update Dashboard.
         //
-        robot.updateDashboard(RunMode.TEST_MODE);
-    } // runPeriodic
+        if (RobotParams.Preferences.doAutoUpdates)
+        {
+            robot.updateStatus();
+        }
+    }   //runPeriodic
 
     @Override
     public void runContinuous(double elapsedTime)
     {
+        if (testCommand != null)
+        {
+            testCommand.cmdPeriodic(elapsedTime);
+        }
         //
         // Run test Cmd.
         //
-        switch (test)
+        switch (testChoices.getTest())
         {
             case SENSORS_TEST:
                 super.runContinuous(elapsedTime);
                 break;
 
-            case DRIVE_MOTORS_TEST:
-                driveMotorsTestCmd.cmdPeriodic(elapsedTime);
-                break;
+            case DRIVE_SPEED_TEST:
+                double currTime = TrcUtil.getCurrentTime();
+                TrcPose2D velPose = robot.robotDrive.driveBase.getFieldVelocity();
+                double velocity = TrcUtil.magnitude(velPose.x, velPose.y);
+                double acceleration = 0.0;
 
-            case X_TIMED_DRIVE:
-            case Y_TIMED_DRIVE:
-                // double lfEnc = robot.lfWheel.getPosition();
-                // double rfEnc = robot.rfWheel.getPosition();
-                // double lbEnc = robot.lfWheel.getPosition();
-                // double rbEnc = robot.rbWheel.getPosition();
-                // robot.dashboard.displayPrintf(2, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
-                // robot.dashboard.displayPrintf(3, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
-                // robot.dashboard.displayPrintf(4, "average=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
-                // robot.dashboard.displayPrintf(5, "xPos=%.1f,yPos=%.1f,heading=%.1f",
-                //     robot.driveBase.getXPosition(), robot.driveBase.getYPosition(), robot.driveBase.getHeading());
-                timedDriveCmd.cmdPeriodic(elapsedTime);
-                break;
+                if (prevTime != 0.0)
+                {
+                    acceleration = (velocity - prevVelocity)/(currTime - prevTime);
+                }
 
-            case X_PID_DRIVE:
-            case Y_PID_DRIVE:
-            case TURN_PID_DRIVE:
-            case TUNE_X_PID:
-            case TUNE_Y_PID:
-            case TUNE_TURN_PID:
-                // robot.dashboard.displayPrintf(2, "xPos=%.1f,yPos=%.1f,heading=%.1f, lf=%.2f,rf=%.2f,lb=%.2f,rb=%.2f",
-                //     robot.driveBase.getXPosition(), robot.driveBase.getYPosition(), robot.driveBase.getHeading(),
-                //     robot.lfWheel.getPosition(), robot.rfWheel.getPosition(),
-                //     robot.lbWheel.getPosition(), robot.rbWheel.getPosition());
-                // robot.encoderXPidCtrl.displayPidInfo(3);
-                // robot.encoderYPidCtrl.displayPidInfo(5);
-                // robot.gyroTurnPidCtrl.displayPidInfo(7);
-                pidDriveCmd.cmdPeriodic(elapsedTime);
+                if (velocity > maxDriveVelocity)
+                {
+                    maxDriveVelocity = velocity;
+                }
+
+                if (acceleration > maxDriveAcceleration)
+                {
+                    maxDriveAcceleration = acceleration;
+                }
+
+                prevTime = currTime;
+                prevVelocity = velocity;
+
+                robot.dashboard.displayPrintf(8, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
+                robot.dashboard.displayPrintf(9, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
                 break;
 
             default:
                 break;
         }
-
-        // if (robot.pidDrive.isActive())
-        // {
-        //     robot.encoderXPidCtrl.printPidInfo(robot.globalTracer, false, robot.battery);
-        //     robot.encoderYPidCtrl.printPidInfo(robot.globalTracer, false, robot.battery);
-        //     robot.gyroTurnPidCtrl.printPidInfo(robot.globalTracer, false, robot.battery);
-        // }
-
-    } // runContinuous
+    }   //runContinuous
 
     //
     // Overriding ButtonEvent here if necessary.
@@ -341,4 +507,4 @@ public class FrcTest extends FrcTeleOp
 
     }   //doSensorsTest
 
-} // class FrcTest
+}   //class FrcTest

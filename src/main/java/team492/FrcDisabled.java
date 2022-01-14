@@ -25,6 +25,9 @@ package team492;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 
+/**
+ * This class implements the code to run in Disabled Mode.
+ */
 public class FrcDisabled implements TrcRobot.RobotMode
 {
     //
@@ -32,41 +35,76 @@ public class FrcDisabled implements TrcRobot.RobotMode
     //
     private final Robot robot;
 
+    /**
+     * Constructor: Create an instance of the object.
+     *
+     * @param robot specifies the robot object to access all robot hardware and subsystems.
+     */
     public FrcDisabled(Robot robot)
     {
         //
         // Create and initialize global objects.
         //
         this.robot = robot;
-
-    }   // FrcDisabled
+    }   //FrcDisabled
 
     //
     // Implements TrcRobot.RunMode interface.
     //
 
+    /**
+     * This method is called when the disabled mode is about to start. Typically, you put code that will prepare the
+     * robot for start of disabled mode here such as enabling vision or other sensors that are used during disabled
+     * mode to scour the competition field for targets and possibly localize the robot's location.
+     *
+     * @param prevMode specifies the previous RunMode it is coming from.
+     * @param nextMode specifies the next RunMode it is going into.
+     */
     @Override
     public void startMode(RunMode prevMode, RunMode nextMode)
     {
-    }   // startMode
+    }   //startMode
 
+    /**
+     * This method is called when disabled mode is about to end. Typically, you put code that will do clean
+     * up here such as disabling vision or other sensors that were enabled in startMode.
+     *
+     * @param prevMode specifies the previous RunMode it is coming from.
+     * @param nextMode specifies the next RunMode it is going into.
+     */
     @Override
     public void stopMode(RunMode prevMode, RunMode nextMode)
     {
-    }   // stopMode
+    }   //stopMode
 
+    /**
+     * This method is called periodically about 50 times a second. Typically, you put code that doesn't require
+     * frequent update here such as updating the dashboard or responding to dashboard input.
+     * 
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
     @Override
     public void runPeriodic(double elapsedTime)
     {
         //
-        // Update dashboard
+        // Update dashboard.
         //
-        robot.updateDashboard(RunMode.DISABLED_MODE);
-    }   // runPeriodic
+        if (RobotParams.Preferences.doAutoUpdates)
+        {
+            robot.updateStatus();
+        }
+    }   //runPeriodic
 
+    /**
+     * This method is called periodically as fast as the control system allows. Typically, you put code that requires
+     * servicing at a higher frequency here such as sampling sensor readings that require high accuracy and
+     * responsiveness.
+     * 
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
     @Override
     public void runContinuous(double elapsedTime)
     {
-    }   // runContinuous
+    }   //runContinuous
 
-}   // class FrcDisabled
+}   //class FrcDisabled

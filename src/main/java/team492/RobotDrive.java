@@ -53,16 +53,10 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotDrive
 {
-    public enum DriveOrientation
-    {
-        ROBOT, FIELD, INVERTED
-    }   // enum DriveOrientation
-
     //
     // Global objects.
     //
     private final Robot robot;
-    private DriveOrientation driveOrientation = DriveOrientation.FIELD;
 
     //
     // Sensors.
@@ -108,10 +102,10 @@ public class RobotDrive
         rbDriveMotor = createSparkMax("rbDrive", RobotParams.CANID_RIGHTBACK_DRIVE);
 
         // rf lb are inverted always, lf and rb are inverted on comp, not inverted on practice
-        lfSteerMotor = createSteerTalon("lfSteer", RobotParams.CANID_LEFTFRONT_STEER, !RobotParams.Preferences.isPracticeBot);
+        lfSteerMotor = createSteerTalon("lfSteer", RobotParams.CANID_LEFTFRONT_STEER, true);
         rfSteerMotor = createSteerTalon("rfSteer", RobotParams.CANID_RIGHTFRONT_STEER, true);
         lbSteerMotor = createSteerTalon("lbSteer", RobotParams.CANID_LEFTBACK_STEER, true);
-        rbSteerMotor = createSteerTalon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER, !RobotParams.Preferences.isPracticeBot);
+        rbSteerMotor = createSteerTalon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER, true);
 
         int[] zeros = getSteerZeroPositions();
         lfWheel = createModule("lfWheel", lfDriveMotor, lfSteerMotor, zeros[0]);
@@ -196,6 +190,12 @@ public class RobotDrive
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
     }   //RobotDrive
 
+    /**
+     * This method is called to prepare the robot base before a robot mode is about to start.
+     *
+     * @param runMode specifies the current run mode.
+     * @param prevMode specifies the previous run mode.
+     */
     public void startMode(RunMode runMode, RunMode prevMode)
     {
         if (runMode != RunMode.DISABLED_MODE)
@@ -217,8 +217,14 @@ public class RobotDrive
             lbDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
             rbDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
         }
-}   //startMode
+    }   //startMode
 
+    /**
+     * This method is called to prepare the robot base right after a robot mode has been stopped.
+     *
+     * @param runMode specifies the current run mode.
+     * @param nextMode specifies the next run mode.
+     */
     public void stopMode(RunMode runMode, RunMode nextMode)
     {
         if (runMode != RunMode.DISABLED_MODE)
@@ -260,6 +266,13 @@ public class RobotDrive
         driveBase.setOdometryEnabled(enabled);
     }   //setOdometryEnabled
 
+    /**
+     * This method creates and initializes a SparkMax motor controller as one of the drive wheels motors.
+     *
+     * @param name specifies the name of the drive wheel motor.
+     * @param id specifies the CAN ID of the motor controller.
+     * @return the created SparkMax controller.
+     */
     private FrcCANSparkMax createSparkMax(String name, int id)
     {
         FrcCANSparkMax spark = new FrcCANSparkMax(name, id, true);
@@ -270,8 +283,15 @@ public class RobotDrive
         spark.motor.enableVoltageCompensation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         spark.motor.burnFlash();
         return spark;
-    }
+    }   //createSparkMax
 
+    /**
+     * This method creates and initializes a Talon motor controller as one of the steering motors.
+     *
+     * @param name specifies the name of the steering motor.
+     * @param id specifies the CAN ID of the motor controller.
+     * @return the created Talon controller.
+     */
     private FrcCANTalon createSteerTalon(String name, int id, boolean inverted)
     {
         FrcCANTalon talon = new FrcCANTalon(name, id);
@@ -285,8 +305,17 @@ public class RobotDrive
         talon.setPositionSensorInverted(inverted);
         talon.setInverted(!inverted);
         return talon;
-    }
+    }   //createSteerTalon
 
+    /**
+     * This method creates and initializes a swerve module that consists of a drive motor and a steering motor.
+     *
+     * @param name specifies the name of the swerve module.
+     * @param drive specifies the drive motor object.
+     * @param steer specifies the steering motor object.
+     * @param steerZero specifies the zero offset of the steering encoder.
+     * @return the created swerve module.
+     */
     private TrcSwerveModule createModule(String name, FrcCANSparkMax drive, FrcCANTalon steer, int steerZero)
     {
         final String funcName = "createModule";
@@ -313,8 +342,13 @@ public class RobotDrive
         TrcSwerveModule module = new TrcSwerveModule(name, drive, new TrcEnhancedServo(name + ".enhancedServo", servo));
         module.disableSteeringLimits();
         return module;
-    }
+    }   //createModule
 
+    /**
+     * This method retrieves the steering zero calibration data from the calibration data file.
+     *
+     * @return calibration data of all four swerve modules.
+     */
     private int[] getSteerZeroPositions()
     {
         final String funcName = "getSteerZeroPositions";
@@ -328,8 +362,11 @@ public class RobotDrive
             robot.globalTracer.traceErr(funcName, "ERROR! Steer zero position file not found!");
             return RobotParams.STEER_ZEROS;
         }
-    }
+    }   //getSteerZeroPositions
 
+    /**
+     * This method saves the steering zero calibration data to the calibration data file.
+     */
     public void saveSteerZeroPositions()
     {
         final String funcName = "saveSteerZeroPositions";
@@ -350,33 +387,6 @@ public class RobotDrive
         {
             e.printStackTrace();
         }
-    }
-
-    public DriveOrientation getDriveOrientation()
-    {
-        return driveOrientation;
-    }
-
-    public void setDriveOrientation(DriveOrientation driveOrientation)
-    {
-        this.driveOrientation = driveOrientation;
-        // ledIndicator.setDriveOrientation(driveOrientation);
-    }
-
-    public double getDriveGyroAngle()
-    {
-        switch (driveOrientation)
-        {
-            case ROBOT:
-                return 0;
-
-            case INVERTED:
-                return 180;
-
-            default:
-            case FIELD:
-                return driveBase.getHeading();
-        }
-    }
+    }   //saveSteerZeroPositions
 
 }   //class RobotDrive

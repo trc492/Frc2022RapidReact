@@ -33,6 +33,7 @@ import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
 import TrcFrcLib.frclib.FrcPdp;
+import TrcFrcLib.frclib.FrcRemoteVisionProcessor;
 import TrcFrcLib.frclib.FrcRobotBase;
 import TrcFrcLib.frclib.FrcRobotBattery;
 import TrcFrcLib.frclib.FrcXboxController;
@@ -78,6 +79,7 @@ public class Robot extends FrcRobotBase
     //
     // Vision subsystem.
     //
+    public VisionTargeting vision = null;
 
     //
     // Other subsystems.
@@ -148,6 +150,10 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize Vision subsystem.
         //
+        if (RobotParams.Preferences.useVision)
+        {
+            vision = new VisionTargeting();
+        }
 
         //
         // Create and initialize other subsystems.
@@ -293,6 +299,19 @@ public class Robot extends FrcRobotBase
 
             if (RobotParams.Preferences.debugSubsystems)
             {
+                if (RobotParams.Preferences.debugVision && vision != null)
+                {
+                    FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
+                    if (pose != null)
+                    {
+                        dashboard.displayPrintf(
+                            13, "VisionTarget: x=%.1f,y=%.1f,objectYaw=%.1f", pose.x, pose.y,pose.objectYaw);
+                    }
+                    else
+                    {
+                        dashboard.displayPrintf(13, "VisionTarget: No target found!");
+                    }
+                }
             }
         }
     }   //updateStatus

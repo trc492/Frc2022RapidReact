@@ -129,6 +129,16 @@ public class RobotParams
     //
     // Vision subsystem.
     //
+    public static final double CAMERA_Y_OFFSET                  = 12;   // in from pivot of arm + is forward
+    public static final double CAMERA_Y_OFFSET_TO_PIVOT         = 26;
+    public static final double CAMERA_X_OFFSET                  = 0;    //Inches from pivot of arm to center of camera, + = right
+    public static final double CAMERA_DATA_TIMEOUT              = 0.5;  //500ms
+    public static final double CAMERA_CENTERED_THRESHOLD        = 2;    // +- 2 inches in x axis
+    public static final double VISION_HIGH_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
+    public static final double HIGH_TARGET_HEIGHT               = 98.25;
+    public static final double HIGH_VISION_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
+    public static final double PIVOT_HEIGHT                     = 23.5; // in from ground
+    public static final double SHOOTER_BARREL_LENGTH            = 30; // inches TODO: tune
 
     //
     // Ultrasonic sensors.

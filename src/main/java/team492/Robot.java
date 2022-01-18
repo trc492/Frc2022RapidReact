@@ -53,8 +53,8 @@ public class Robot extends FrcRobotBase
     //
     public final FrcDashboard dashboard = FrcDashboard.getInstance();
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
-    private boolean traceLogOpened = false;
     private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
+    private boolean traceLogOpened = false;
 
     //
     // Inputs.
@@ -80,7 +80,7 @@ public class Robot extends FrcRobotBase
     //
     // Vision subsystem.
     //
-    public VisionTargeting vision = null;
+    public VisionTargeting vision;
 
     //
     // Other subsystems.

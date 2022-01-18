@@ -171,11 +171,11 @@ public class RobotParams
     public static final double ROBOT_VEL_KF                     = 1.0 / ROBOT_MAX_VELOCITY;
 
     public static final double DRIVE_SLOW_SCALE                 = 0.5;
-    public static final double DRIVE_SLOW_TURNSCALE             = 0.3;
+    public static final double TURN_SLOW_SCALE                  = 0.3;
     public static final double DRIVE_MEDIUM_SCALE               = 0.75;
-    public static final double DRIVE_MEDIUM_TURNSCALE           = 0.6;
+    public static final double TURN_MEDIUM_SCALE                = 0.6;
     public static final double DRIVE_FAST_SCALE                 = 1.0;
-    public static final double DRIVE_FAST_TURNSCALE             = 0.8;
+    public static final double TURN_FAST_SCALE                  = 0.8;
 
     public static final double DRIVE_MAX_XPID_POWER             = 0.5;
     public static final double DRIVE_MAX_YPID_POWER             = 0.6;

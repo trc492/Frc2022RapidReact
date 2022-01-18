@@ -46,6 +46,11 @@ public class FrcTest extends FrcTeleOp
     //
     // Global constants.
     //
+    private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
+    private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
+    private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
+    private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
+    private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
 
     //
     // Tests.
@@ -91,12 +96,6 @@ public class FrcTest extends FrcTeleOp
         private static final String DBKEY_TEST_TUNE_KD = "Test/TuneKd";
         private static final String DBKEY_TEST_TUNE_KF = "Test/TuneKf";
     
-        private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
-        private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
-        private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
-        private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
-        private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
-
         private final FrcUserChoices userChoices = new FrcUserChoices();
         private final FrcChoiceMenu<Test> testMenu;
 
@@ -260,9 +259,9 @@ public class FrcTest extends FrcTeleOp
                 robot.robotDrive.rfSteerMotor.set(0);
                 robot.robotDrive.lbSteerMotor.set(0);
                 robot.robotDrive.rbSteerMotor.set(0);
-                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false);
-                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_RUN_MOTORS, false);
-                robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false);
+                robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
+                robot.dashboard.putBoolean(DBKEY_TEST_RUN_MOTORS, false);
+                robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
                 break;
 
             case DRIVE_MOTORS_TEST:
@@ -350,7 +349,7 @@ public class FrcTest extends FrcTeleOp
         switch (testChoices.getTest())
         {
             case SENSORS_TEST:
-                doSensorsTest();
+                displaySensorStates();
                 break;
 
             case SUBSYSTEMS_TEST:
@@ -358,33 +357,33 @@ public class FrcTest extends FrcTeleOp
                 // Allow TeleOp to run so we can control the robot in subsystems test mode.
                 //
                 super.runPeriodic(elapsedTime);
-                doSensorsTest();
+                displaySensorStates();
                 break;
 
             case SWERVE_CALIBRATION:
-                if (robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false))
+                if (robot.dashboard.getBoolean(DBKEY_TEST_SET_ANGLE, false))
                 {
                     robot.robotDrive.driveBase.setSteerAngle(
-                        robot.dashboard.getNumber(TestChoices.DBKEY_TEST_ANGLE_TARGET, 0), false);
-                    robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SET_ANGLE, false);
+                        robot.dashboard.getNumber(DBKEY_TEST_ANGLE_TARGET, 0), false);
+                    robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
                 }
-                if (robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false))
+                if (robot.dashboard.getBoolean(DBKEY_TEST_SAVE_ANGLES, false))
                 {
-                    robot.dashboard.putBoolean(TestChoices.DBKEY_TEST_SAVE_ANGLES, false);
+                    robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
                     robot.robotDrive.saveSteerZeroPositions();
                 }
-                double power = robot.dashboard.getBoolean(TestChoices.DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
+                double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
                 robot.robotDrive.lfWheel.set(power);
                 robot.robotDrive.rfWheel.set(power);
                 robot.robotDrive.lbWheel.set(power);
                 robot.robotDrive.rbWheel.set(power);
                 robot.dashboard.putString(
-                    TestChoices.DBKEY_TEST_SWERVE_ANGLES,
+                    DBKEY_TEST_SWERVE_ANGLES,
                     String.format(
                         "lf=%.2f,rf=%.2f,lr=%.2f,rr=%.2f",
                         robot.robotDrive.lfWheel.getSteerAngle(), robot.robotDrive.rfWheel.getSteerAngle(),
                         robot.robotDrive.lbWheel.getSteerAngle(), robot.robotDrive.rbWheel.getSteerAngle()));
-                doSensorsTest();
+                displaySensorStates();
                 break;
 
                 case X_TIMED_DRIVE:
@@ -484,27 +483,27 @@ public class FrcTest extends FrcTeleOp
      * the joysticks to turn the motors and check the corresponding encoder
      * counts.
      */
-    private void doSensorsTest()
+    private void displaySensorStates()
     {
         //
         // Display drivebase info.
         //
-        // robot.dashboard.displayPrintf(1, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(),
-        //     robot.battery.getLowestVoltage());
-        // robot.dashboard.displayPrintf(2, "DriveBase: X=%.1f,Y=%.1f,Heading=%.1f,xVel=%.2f,yVel=%.2f",
-        //     robot.driveBase.getXPosition(), robot.driveBase.getYPosition(), robot.driveBase.getHeading(),
-        //     robot.driveBase.getXVelocity(), robot.driveBase.getYVelocity());
-        // robot.dashboard.displayPrintf(3, "Encoders: lf=%.1f,rf=%.1f,lr=%.1f,rr=%.1f",
-        //     robot.lfWheel.getPosition(), robot.rfWheel.getPosition(), robot.lbWheel.getPosition(),
-        //     robot.rbWheel.getPosition());
-        // robot.dashboard.displayPrintf(4, "Power: lf=%.2f,rf=%.2f,lr=%.2f,rr=%.2f",
-        //     robot.lfWheel.getPower(), robot.rfWheel.getPower(), robot.lbWheel.getPower(),
-        //     robot.rbWheel.getPower());
+        robot.dashboard.displayPrintf(
+            1, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(), robot.battery.getLowestVoltage());
+        robot.dashboard.displayPrintf(
+            2, "DriveBase: Pose=%s,Vel=%s", robot.robotDrive.driveBase.getFieldPosition(),
+            robot.robotDrive.driveBase.getFieldVelocity());
+        robot.dashboard.displayPrintf(3, "DriveEncoders: lf=%.1f,rf=%.1f,lb=%.1f,rb=%.1f",
+            robot.robotDrive.lfWheel.getPosition(), robot.robotDrive.rfWheel.getPosition(),
+            robot.robotDrive.lbWheel.getPosition(), robot.robotDrive.rbWheel.getPosition());
+        robot.dashboard.displayPrintf(4, "DrivePower: lf=%.2f,rf=%.2f,lb=%.2f,rb=%.2f",
+            robot.robotDrive.lfWheel.getPower(), robot.robotDrive.rfWheel.getPower(),
+            robot.robotDrive.lbWheel.getPower(), robot.robotDrive.rbWheel.getPower());
 
         //
         // Display other subsystems and sensor info.
         //
 
-    }   //doSensorsTest
+    }   //displaySensorStates
 
 }   //class FrcTest

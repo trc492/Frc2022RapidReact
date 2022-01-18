@@ -38,6 +38,7 @@ import TrcFrcLib.frclib.FrcRobotBase;
 import TrcFrcLib.frclib.FrcRobotBattery;
 import TrcFrcLib.frclib.FrcXboxController;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 /**
  * The Main class is configured to instantiate and automatically run this class,
@@ -138,7 +139,7 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize sensors.
         //
-        pdp = new FrcPdp(RobotParams.CANID_PDP);
+        pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kCTRE);
         battery = new FrcRobotBattery(pdp);
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
 

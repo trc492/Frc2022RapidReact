@@ -51,7 +51,7 @@ import edu.wpi.first.wpilibj.SPI;
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
  * robot.
  */
-public class RobotDrive
+public class RobotDriveSwerve
 {
     //
     // Global objects.
@@ -91,7 +91,7 @@ public class RobotDrive
     /**
      * Constructor: Create an instance of the object.
      */
-    public RobotDrive(Robot robot)
+    public RobotDriveSwerve(Robot robot)
     {
         this.robot = robot;
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
@@ -188,7 +188,7 @@ public class RobotDrive
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_OUTPUT_LIMIT);
         purePursuitDrive.setStallDetectionEnabled(true);
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
-    }   //RobotDrive
+    }   //RobotDriveSwerve
 
     /**
      * This method is called to prepare the robot base before a robot mode is about to start.
@@ -389,4 +389,4 @@ public class RobotDrive
         }
     }   //saveSteerZeroPositions
 
-}   //class RobotDrive
+}   //class RobotDriveSwerve

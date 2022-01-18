@@ -74,7 +74,7 @@ public class Robot extends FrcRobotBase
     //
     // DriveBase subsystem.
     //
-    public RobotDrive robotDrive;
+    public RobotDriveSwerve robotDrive;
 
     //
     // Vision subsystem.
@@ -145,7 +145,7 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize DriveBase subsystem.
         //
-        robotDrive = new RobotDrive(this);
+        robotDrive = new RobotDriveSwerve(this);
 
         //
         // Create and initialize Vision subsystem.

@@ -138,7 +138,7 @@ public class RobotParams
     public static final double HIGH_TARGET_HEIGHT               = 98.25;
     public static final double HIGH_VISION_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
     public static final double PIVOT_HEIGHT                     = 23.5; // in from ground
-    public static final double SHOOTER_BARREL_LENGTH            = 30; // inches TODO: tune
+    public static final double SHOOTER_BARREL_LENGTH            = 30; // inches
 
     //
     // Ultrasonic sensors.

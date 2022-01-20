@@ -51,8 +51,13 @@ import edu.wpi.first.wpilibj.SPI;
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
  * robot.
  */
-public class RobotDriveSwerve
+public class SwerveDrive
 {
+    private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
+    private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
+    private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
+    private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
+    private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
     //
     // Global objects.
     //
@@ -90,8 +95,10 @@ public class RobotDriveSwerve
 
     /**
      * Constructor: Create an instance of the object.
+     *
+     * @param robot specifies the robot object.
      */
-    public RobotDriveSwerve(Robot robot)
+    public SwerveDrive(Robot robot)
     {
         this.robot = robot;
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
@@ -188,7 +195,7 @@ public class RobotDriveSwerve
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_OUTPUT_LIMIT);
         purePursuitDrive.setStallDetectionEnabled(true);
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
-    }   //RobotDriveSwerve
+    }   //SwerveDrive
 
     /**
      * This method is called to prepare the robot base before a robot mode is about to start.
@@ -265,6 +272,43 @@ public class RobotDriveSwerve
         rbDriveMotor.setOdometryEnabled(enabled);
         driveBase.setOdometryEnabled(enabled);
     }   //setOdometryEnabled
+
+    public void startCalibrate()
+    {
+        lfSteerMotor.set(0);
+        rfSteerMotor.set(0);
+        lbSteerMotor.set(0);
+        rbSteerMotor.set(0);
+        robot.dashboard.putBoolean(DBKEY_TEST_RUN_MOTORS, false);
+        robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
+        robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
+    }   //startCalibrate
+
+    public void calibratePeriodic()
+    {
+        if (robot.dashboard.getBoolean(DBKEY_TEST_SET_ANGLE, false))
+        {
+            driveBase.setSteerAngle(
+                robot.dashboard.getNumber(DBKEY_TEST_ANGLE_TARGET, 0), false);
+            robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
+        }
+        if (robot.dashboard.getBoolean(DBKEY_TEST_SAVE_ANGLES, false))
+        {
+            robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
+            saveSteerZeroPositions();
+        }
+        double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
+        robot.robotDrive.lfWheel.set(power);
+        robot.robotDrive.rfWheel.set(power);
+        robot.robotDrive.lbWheel.set(power);
+        robot.robotDrive.rbWheel.set(power);
+        robot.dashboard.putString(
+            DBKEY_TEST_SWERVE_ANGLES,
+            String.format(
+                "lf=%.2f,rf=%.2f,lr=%.2f,rr=%.2f",
+                lfWheel.getSteerAngle(), rfWheel.getSteerAngle(),
+                lbWheel.getSteerAngle(), rbWheel.getSteerAngle()));
+    }   //calibratePeriodic
 
     /**
      * This method creates and initializes a SparkMax motor controller as one of the drive wheels motors.
@@ -353,7 +397,7 @@ public class RobotDriveSwerve
     {
         final String funcName = "getSteerZeroPositions";
 
-        try (Scanner in = new Scanner(new FileReader("/home/lvuser/steerzeros.txt")))
+        try (Scanner in = new Scanner(new FileReader(RobotParams.TEAM_FOLDER + "/steerzeros.txt")))
         {
             return IntStream.range(0, 4).map(e -> in.nextInt()).toArray();
         }
@@ -372,7 +416,7 @@ public class RobotDriveSwerve
         final String funcName = "saveSteerZeroPositions";
 
         robot.globalTracer.traceInfo(funcName, "Saved steer zeros!");
-        try (PrintStream out = new PrintStream(new FileOutputStream("/home/lvuser/steerzeros.txt")))
+        try (PrintStream out = new PrintStream(new FileOutputStream(RobotParams.TEAM_FOLDER + "/steerzeros.txt")))
         {
             out.printf("%.0f\n",
                 TrcUtil.modulo(lfSteerMotor.motor.getSensorCollection().getPulseWidthPosition(), 4096));
@@ -389,4 +433,5 @@ public class RobotDriveSwerve
         }
     }   //saveSteerZeroPositions
 
-}   //class RobotDriveSwerve
+}   //class SwerveDrive
+

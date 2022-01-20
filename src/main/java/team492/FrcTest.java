@@ -46,11 +46,6 @@ public class FrcTest extends FrcTeleOp
     //
     // Global constants.
     //
-    private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
-    private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
-    private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
-    private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
-    private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
 
     //
     // Tests.
@@ -255,13 +250,7 @@ public class FrcTest extends FrcTeleOp
 
             case SWERVE_CALIBRATION:
                 setControlsEnabled(false);
-                robot.robotDrive.lfSteerMotor.set(0);
-                robot.robotDrive.rfSteerMotor.set(0);
-                robot.robotDrive.lbSteerMotor.set(0);
-                robot.robotDrive.rbSteerMotor.set(0);
-                robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
-                robot.dashboard.putBoolean(DBKEY_TEST_RUN_MOTORS, false);
-                robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
+                robot.robotDrive.startCalibrate();
                 break;
 
             case DRIVE_MOTORS_TEST:
@@ -277,9 +266,12 @@ public class FrcTest extends FrcTeleOp
                 break;
 
             case X_TIMED_DRIVE:
-                testCommand = new CmdTimedDrive(
-                    robot.robotDrive.driveBase, 0.0, testChoices.getDriveTime(), testChoices.getDrivePower(),
-                    0.0, 0.0);
+                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                {
+                    testCommand = new CmdTimedDrive(
+                        robot.robotDrive.driveBase, 0.0, testChoices.getDriveTime(), testChoices.getDrivePower(),
+                        0.0, 0.0);
+                }
                 break;
 
             case Y_TIMED_DRIVE:
@@ -297,10 +289,13 @@ public class FrcTest extends FrcTeleOp
                 break;
 
             case TUNE_X_PID:
-                testCommand = new CmdPidDrive(
-                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(),
-                    testChoices.getTunePidCoefficients(), new TrcPose2D(testChoices.getXDriveDistance()*12.0,
-                    0.0, 0.0));
+                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                {
+                    testCommand = new CmdPidDrive(
+                        robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(),
+                        testChoices.getTunePidCoefficients(), new TrcPose2D(testChoices.getXDriveDistance()*12.0,
+                        0.0, 0.0));
+                }
                 break;
 
             case TUNE_Y_PID:
@@ -361,28 +356,7 @@ public class FrcTest extends FrcTeleOp
                 break;
 
             case SWERVE_CALIBRATION:
-                if (robot.dashboard.getBoolean(DBKEY_TEST_SET_ANGLE, false))
-                {
-                    robot.robotDrive.driveBase.setSteerAngle(
-                        robot.dashboard.getNumber(DBKEY_TEST_ANGLE_TARGET, 0), false);
-                    robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
-                }
-                if (robot.dashboard.getBoolean(DBKEY_TEST_SAVE_ANGLES, false))
-                {
-                    robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
-                    robot.robotDrive.saveSteerZeroPositions();
-                }
-                double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
-                robot.robotDrive.lfWheel.set(power);
-                robot.robotDrive.rfWheel.set(power);
-                robot.robotDrive.lbWheel.set(power);
-                robot.robotDrive.rbWheel.set(power);
-                robot.dashboard.putString(
-                    DBKEY_TEST_SWERVE_ANGLES,
-                    String.format(
-                        "lf=%.2f,rf=%.2f,lr=%.2f,rr=%.2f",
-                        robot.robotDrive.lfWheel.getSteerAngle(), robot.robotDrive.rfWheel.getSteerAngle(),
-                        robot.robotDrive.lbWheel.getSteerAngle(), robot.robotDrive.rbWheel.getSteerAngle()));
+                robot.robotDrive.calibratePeriodic();
                 displaySensorStates();
                 break;
 
@@ -402,10 +376,16 @@ public class FrcTest extends FrcTeleOp
                 case TUNE_X_PID:
                 case TUNE_Y_PID:
                 case TUNE_TURN_PID:
+                    int lineNum = 3;
                     robot.dashboard.displayPrintf(2, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                    robot.robotDrive.encoderXPidCtrl.displayPidInfo(3);
-                    robot.robotDrive.encoderYPidCtrl.displayPidInfo(5);
-                    robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(7);
+                    if (robot.robotDrive.encoderXPidCtrl != null)
+                    {
+                        robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
+                        lineNum += 2;
+                    }
+                    robot.robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
+                    lineNum += 2;
+                    robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
                     break;
     
                 default:

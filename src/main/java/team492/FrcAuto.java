@@ -108,7 +108,7 @@ public class FrcAuto implements TrcRobot.RobotMode
             userChoices.addChoiceMenu(DBKEY_AUTO_ALLIANCE, allianceMenu);
             userChoices.addChoiceMenu(DBKEY_AUTO_STRATEGY, autoStrategyMenu);
             userChoices.addNumber(DBKEY_AUTO_START_DELAY, 0.0);
-            userChoices.addString(DBKEY_AUTO_PATHFILE, "/home/lvuser/trc492/DrivePath.csv");
+            userChoices.addString(DBKEY_AUTO_PATHFILE, "DrivePath.csv");
             userChoices.addNumber(DBKEY_AUTO_X_DRIVE_DISTANCE, 6.0);    // in feet
             userChoices.addNumber(DBKEY_AUTO_Y_DRIVE_DISTANCE, 6.0);    // in feet
             userChoices.addNumber(DBKEY_AUTO_TURN_ANGLE, 90.0);         // in degrees
@@ -266,7 +266,8 @@ public class FrcAuto implements TrcRobot.RobotMode
                     robot.robotDrive.driveBase, robot.robotDrive.xPosPidCoeff, robot.robotDrive.yPosPidCoeff,
                     robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
                 ((CmdPurePursuitDrive) autoCommand).start(
-                    0.0, robot.robotDrive.driveBase.getFieldPosition(), false, autoChoices.getPathFile(), false);
+                    0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                    RobotParams.TEAM_FOLDER + "/" + autoChoices.getPathFile(), false);
                 break;
 
             case PID_DRIVE:

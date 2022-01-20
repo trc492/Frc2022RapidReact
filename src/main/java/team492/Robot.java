@@ -75,7 +75,7 @@ public class Robot extends FrcRobotBase
     //
     // DriveBase subsystem.
     //
-    public RobotDriveSwerve robotDrive;
+    public WestCoastDrive robotDrive;
 
     //
     // Vision subsystem.
@@ -146,7 +146,7 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize DriveBase subsystem.
         //
-        robotDrive = new RobotDriveSwerve(this);
+        robotDrive = new WestCoastDrive(this);
 
         //
         // Create and initialize Vision subsystem.
@@ -292,9 +292,15 @@ public class Robot extends FrcRobotBase
 
                 if (RobotParams.Preferences.debugPidDrive)
                 {
-                    robotDrive.encoderXPidCtrl.displayPidInfo(10);
-                    robotDrive.encoderYPidCtrl.displayPidInfo(12);
-                    robotDrive.gyroTurnPidCtrl.displayPidInfo(14);
+                    int lineNum = 10;
+                    if (robotDrive.encoderXPidCtrl != null)
+                    {
+                        robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
+                        lineNum += 2;
+                    }
+                    robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
+                    lineNum += 2;
+                    robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
                 }
             }
 
@@ -332,7 +338,7 @@ public class Robot extends FrcRobotBase
                 String.format(Locale.US, "%s_%s%03d", matchInfo.eventName, matchInfo.matchType, matchInfo.matchNumber):
                 getCurrentRunMode().name();
 
-            traceLogOpened = globalTracer.openTraceLog("/home/lvuser/trc492", fileName);
+            traceLogOpened = globalTracer.openTraceLog(RobotParams.TEAM_FOLDER + "/tracelogs", fileName);
         }
     }   //openTraceLog
 

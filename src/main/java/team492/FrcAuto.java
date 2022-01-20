@@ -265,7 +265,8 @@ public class FrcAuto implements TrcRobot.RobotMode
                 autoCommand = new CmdPurePursuitDrive(
                     robot.robotDrive.driveBase, robot.robotDrive.xPosPidCoeff, robot.robotDrive.yPosPidCoeff,
                     robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
-                ((CmdPurePursuitDrive) autoCommand).start(autoChoices.getPathFile());
+                ((CmdPurePursuitDrive) autoCommand).start(
+                    0.0, robot.robotDrive.driveBase.getFieldPosition(), false, autoChoices.getPathFile(), false);
                 break;
 
             case PID_DRIVE:

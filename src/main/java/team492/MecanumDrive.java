@@ -22,10 +22,10 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcMecanumDriveBase;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
-import TrcCommonLib.trclib.TrcSimpleDriveBase;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcCANTalon;
@@ -36,7 +36,7 @@ import edu.wpi.first.wpilibj.SPI;
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
  * robot.
  */
-public class WestCoastDrive
+public class MecanumDrive
 {
     //
     // Global objects.
@@ -55,7 +55,7 @@ public class WestCoastDrive
     //
     // Drive Base.
     //
-    public final TrcSimpleDriveBase driveBase;
+    public final TrcMecanumDriveBase driveBase;
 
     public final TrcPidController encoderXPidCtrl;
     public final TrcPidController encoderYPidCtrl;
@@ -75,7 +75,7 @@ public class WestCoastDrive
      *
      * @param robot specifies the robot object.
      */
-    public WestCoastDrive(Robot robot)
+    public MecanumDrive(Robot robot)
     {
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
 
@@ -92,11 +92,8 @@ public class WestCoastDrive
         rfWheel.setInverted(true);
         rbWheel.setInverted(true);
 
-        lbWheel.follow(lfWheel);
-        rbWheel.follow(rfWheel);
-
-        driveBase = new TrcSimpleDriveBase(lfWheel, rfWheel, gyro);
-        driveBase.setOdometryScales(RobotParams.WCD_INCHES_PER_COUNT);
+        driveBase = new TrcMecanumDriveBase(lfWheel, lbWheel, rfWheel, rbWheel, gyro);
+        driveBase.setOdometryScales(RobotParams.MECANUM_X_INCHES_PER_COUNT, RobotParams.MECANUM_Y_INCHES_PER_COUNT);
 
         robot.pdp.registerEnergyUsed(
             new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_WHEEL, "lfWheel"),
@@ -131,27 +128,31 @@ public class WestCoastDrive
         //
         // Create and initialize PID controllers.
         //
-        xPosPidCoeff = null;
+        xPosPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.MECANUM_X_KP, RobotParams.MECANUM_X_KI, RobotParams.MECANUM_X_KD, RobotParams.MECANUM_X_KF);
         yPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.WCD_KP, RobotParams.WCD_KI, RobotParams.WCD_KD, RobotParams.WCD_KF);
+            RobotParams.MECANUM_Y_KP, RobotParams.MECANUM_Y_KI, RobotParams.MECANUM_Y_KD, RobotParams.MECANUM_Y_KF);
         turnPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
         velPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
 
-        encoderXPidCtrl = null;
+        encoderXPidCtrl = new TrcPidController(
+            "encoderXPidCtrl", xPosPidCoeff, RobotParams.MECANUM_X_TOLERANCE, driveBase::getXPosition);
         encoderYPidCtrl = new TrcPidController(
-            "encoderYPidCtrl", yPosPidCoeff, RobotParams.WCD_TOLERANCE, driveBase::getYPosition);
+            "encoderYPidCtrl", yPosPidCoeff, RobotParams.MECANUM_Y_TOLERANCE, driveBase::getYPosition);
         gyroTurnPidCtrl = new TrcPidController(
             "gyroPidCtrl", turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
         gyroTurnPidCtrl.setAbsoluteSetPoint(true);
 
+        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
         encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
         gyroTurnPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_TURNPID_POWER);
+        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
         encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
         gyroTurnPidCtrl.setRampRate(RobotParams.DRIVE_MAX_TURNPID_RAMP_RATE);
 
-        pidDrive = new TrcPidDrive("pidDrive", driveBase, null, encoderYPidCtrl, gyroTurnPidCtrl);
+        pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
         // AbsoluteTargetMode eliminates cumulative errors on multi-segment runs because drive base is keeping track
         // of the absolute target position.
         pidDrive.setAbsoluteTargetModeEnabled(true);
@@ -160,11 +161,11 @@ public class WestCoastDrive
 
         purePursuitDrive = new TrcPurePursuitDrive(
             "purePursuitDrive", driveBase, RobotParams.PPD_FOLLOWING_DISTANCE, RobotParams.PPD_POS_TOLERANCE,
-            RobotParams.PPD_TURN_TOLERANCE, null, yPosPidCoeff, turnPidCoeff, velPidCoeff);
+            RobotParams.PPD_TURN_TOLERANCE, xPosPidCoeff, yPosPidCoeff, turnPidCoeff, velPidCoeff);
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_OUTPUT_LIMIT);
         purePursuitDrive.setStallDetectionEnabled(true);
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
-    }   //WestCoastDrive
+    }   //MecanumDrive
 
     /**
      * This method is called to prepare the robot base before a robot mode is about to start.
@@ -214,12 +215,12 @@ public class WestCoastDrive
 
     public void startCalibrate()
     {
-        throw new UnsupportedOperationException("West Coast Drive does not support calibration.");
+        throw new UnsupportedOperationException("Mecanum Drive does not support calibration.");
     }   //startCalibrate
 
     public void calibratePeriodic()
     {
-        throw new UnsupportedOperationException("West Coast Drive does not support calibration.");
+        throw new UnsupportedOperationException("Mecanum Drive does not support calibration.");
     }   //calibratePeriodic
 
-}   //class WestCoastDrive
+}   //class MecanumDrive

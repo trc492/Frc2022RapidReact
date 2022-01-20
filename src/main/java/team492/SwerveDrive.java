@@ -129,7 +129,7 @@ public class SwerveDrive
         driveBase = new TrcSwerveDriveBase(
             lfWheel, lbWheel, rfWheel, rbWheel, gyro, RobotParams.ROBOT_DRIVE_WIDTH, RobotParams.ROBOT_DRIVE_LENGTH);
         driveBase.setSynchronizeOdometriesEnabled(false);
-        driveBase.setOdometryScales(RobotParams.ENCODER_INCHES_PER_COUNT);
+        driveBase.setOdometryScales(RobotParams.SWERVE_INCHES_PER_COUNT);
 
         // if (RobotParams.Preferences.useExternalOdometry)
         // {
@@ -158,19 +158,20 @@ public class SwerveDrive
         //
         // Create and initialize PID controllers.
         //
+        // PID Coefficients for X and Y are the same for Swerve Drive.
         xPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.ENCODER_KP, RobotParams.ENCODER_KI, RobotParams.ENCODER_KD, RobotParams.ENCODER_KF);
+            RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
         yPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.ENCODER_KP, RobotParams.ENCODER_KI, RobotParams.ENCODER_KD, RobotParams.ENCODER_KF);
+            RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
         turnPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
         velPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
 
         encoderXPidCtrl = new TrcPidController(
-            "encoderXPidCtrl", xPosPidCoeff, RobotParams.ENCODER_TOLERANCE, driveBase::getXPosition);
+            "encoderXPidCtrl", xPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getXPosition);
         encoderYPidCtrl = new TrcPidController(
-            "encoderYPidCtrl", yPosPidCoeff, RobotParams.ENCODER_TOLERANCE, driveBase::getYPosition);
+            "encoderYPidCtrl", yPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getYPosition);
         gyroTurnPidCtrl = new TrcPidController(
             "gyroPidCtrl", turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
         gyroTurnPidCtrl.setAbsoluteSetPoint(true);
@@ -207,7 +208,7 @@ public class SwerveDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
-            setOdometryEnabled(true);
+            driveBase.setOdometryEnabled(true);
         }
 
         if (runMode == RunMode.AUTO_MODE)
@@ -236,7 +237,7 @@ public class SwerveDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
-            setOdometryEnabled(false);
+            driveBase.setOdometryEnabled(false);
         }
     }   //stopMode
 
@@ -257,21 +258,6 @@ public class SwerveDrive
 
         driveBase.stop();
     }   //cancel
-
-    /**
-     * This method enables/disables robot base odometry.
-     *
-     * @param enabled specifies true to enable odometry, false to disable.
-     */
-    public void setOdometryEnabled(boolean enabled)
-    {
-        if (enabled) driveBase.resetOdometry(true, false);
-        lfDriveMotor.setOdometryEnabled(enabled);
-        rfDriveMotor.setOdometryEnabled(enabled);
-        lbDriveMotor.setOdometryEnabled(enabled);
-        rbDriveMotor.setOdometryEnabled(enabled);
-        driveBase.setOdometryEnabled(enabled);
-    }   //setOdometryEnabled
 
     public void startCalibrate()
     {
@@ -434,4 +420,3 @@ public class SwerveDrive
     }   //saveSteerZeroPositions
 
 }   //class SwerveDrive
-

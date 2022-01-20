@@ -151,12 +151,33 @@ public class RobotParams
     //
     // DriveBase subsystem.
     //
-    public static final double ENCODER_INCHES_PER_COUNT         = 2.2421;
-    public static final double ENCODER_KP                       = 0.011;
-    public static final double ENCODER_KI                       = 0.0;
-    public static final double ENCODER_KD                       = 0.0013;
-    public static final double ENCODER_KF                       = 0.0;
-    public static final double ENCODER_TOLERANCE                = 2.0;
+    public static final double WCD_INCHES_PER_COUNT             = 2.2421;
+    public static final double WCD_KP                           = 0.011;
+    public static final double WCD_KI                           = 0.0;
+    public static final double WCD_KD                           = 0.0013;
+    public static final double WCD_KF                           = 0.0;
+    public static final double WCD_TOLERANCE                    = 2.0;
+
+    public static final double MECANUM_X_INCHES_PER_COUNT       = 2.2421;
+    public static final double MECANUM_X_KP                     = 0.011;
+    public static final double MECANUM_X_KI                     = 0.0;
+    public static final double MECANUM_X_KD                     = 0.0013;
+    public static final double MECANUM_X_KF                     = 0.0;
+    public static final double MECANUM_X_TOLERANCE              = 2.0;
+
+    public static final double MECANUM_Y_INCHES_PER_COUNT       = 2.2421;
+    public static final double MECANUM_Y_KP                     = 0.011;
+    public static final double MECANUM_Y_KI                     = 0.0;
+    public static final double MECANUM_Y_KD                     = 0.0013;
+    public static final double MECANUM_Y_KF                     = 0.0;
+    public static final double MECANUM_Y_TOLERANCE              = 2.0;
+
+    public static final double SWERVE_INCHES_PER_COUNT          = 2.2421;
+    public static final double SWERVE_KP                        = 0.011;
+    public static final double SWERVE_KI                        = 0.0;
+    public static final double SWERVE_KD                        = 0.0013;
+    public static final double SWERVE_KF                        = 0.0;
+    public static final double SWERVE_TOLERANCE                 = 2.0;
 
     public static final double GYRO_TURN_KP                     = 0.013;
     public static final double GYRO_TURN_KI                     = 0.0;

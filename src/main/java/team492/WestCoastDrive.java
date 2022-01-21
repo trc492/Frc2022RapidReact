@@ -28,7 +28,7 @@ import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSimpleDriveBase;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
-import TrcFrcLib.frclib.FrcCANTalon;
+import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPdp;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -50,7 +50,7 @@ public class WestCoastDrive
     //
     // Drive motors.
     //
-    public final FrcCANTalon lfWheel, lbWheel, rfWheel, rbWheel;
+    public final FrcCANFalcon lfWheel, lbWheel, rfWheel, rbWheel;
 
     //
     // Drive Base.
@@ -79,10 +79,10 @@ public class WestCoastDrive
     {
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
 
-        lfWheel = new FrcCANTalon("lfWheel", RobotParams.CANID_LEFTFRONT_DRIVE);
-        lbWheel = new FrcCANTalon("lbWheel", RobotParams.CANID_LEFTBACK_DRIVE);
-        rfWheel = new FrcCANTalon("rfWheel", RobotParams.CANID_RIGHTFRONT_DRIVE);
-        rbWheel = new FrcCANTalon("rbWheel", RobotParams.CANID_RIGHTBACK_DRIVE);
+        lfWheel = new FrcCANFalcon("lfWheel", RobotParams.CANID_LEFTFRONT_DRIVE);
+        lbWheel = new FrcCANFalcon("lbWheel", RobotParams.CANID_LEFTBACK_DRIVE);
+        rfWheel = new FrcCANFalcon("rfWheel", RobotParams.CANID_RIGHTFRONT_DRIVE);
+        rbWheel = new FrcCANFalcon("rbWheel", RobotParams.CANID_RIGHTBACK_DRIVE);
 
         lfWheel.setBrakeModeEnabled(true);
         lbWheel.setBrakeModeEnabled(true);

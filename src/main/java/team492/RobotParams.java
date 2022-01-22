@@ -36,6 +36,7 @@ public class RobotParams
     {
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
+        public static final boolean useButtonPanels             = false;
         public static final boolean useTraceLog                 = false;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
@@ -85,6 +86,9 @@ public class RobotParams
     public static final int CANID_RIGHTFRONT_DRIVE              = 4;    // 40A: Yellow
     public static final int CANID_LEFTBACK_DRIVE                = 5;    // 40A: Green
     public static final int CANID_RIGHTBACK_DRIVE               = 6;    // 40A: Blue
+    public static final int CANID_INTAKE                        = 7;    // 40A: Purple
+    public static final int CANID_SHOOTER_LOWER                 = 8;    // 40A: Gray
+    public static final int CANID_SHOOTER_UPPER                 = 9;    // 40A: White
     // Applicable only for Swerve Drive.
     public static final int CANID_LEFTFRONT_STEER               = 23;   // 40A: Orange
     public static final int CANID_RIGHTFRONT_STEER              = 24;   // 40A: Yellow

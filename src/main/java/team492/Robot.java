@@ -30,7 +30,6 @@ import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcCANFalcon;
-import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
@@ -95,7 +94,8 @@ public class Robot extends FrcRobotBase
     /**
      * Constructor: Create an instance of the object.
      */
-    public Robot() {
+    public Robot()
+    {
     
         super(RobotParams.GAME_NAME);
     }   //Robot
@@ -130,18 +130,24 @@ public class Robot extends FrcRobotBase
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
-            buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
-            switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
             driverController.setLeftYInverted(true);
+            if (RobotParams.Preferences.useButtonPanels)
+            {
+                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
+                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
+            }
         }
         else
         {
             leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.XBOX_DRIVERCONTROLLER);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.XBOX_DRIVERCONTROLLER + 1);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK + 1);
-            buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
-            switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
+            if (RobotParams.Preferences.useButtonPanels)
             rightDriveStick.setYInverted(true);
+            {
+                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
+                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
+            }
         }
         operatorStick.setYInverted(false);
 
@@ -153,7 +159,7 @@ public class Robot extends FrcRobotBase
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
 
         //
-        // Create and initialize DriveBase subsystem.
+        // Create and initialize RobotDrive subsystem.
         //
         robotDrive = new WestCoastDrive(this);
 
@@ -169,9 +175,9 @@ public class Robot extends FrcRobotBase
         // Create and initialize other subsystems.
         //
         ledIndicator = new LEDIndicator();
-        intakeMotor = new FrcCANFalcon("intakeMotor", 7);
-        shooterLowerMotor = new FrcCANFalcon("shooterLowerMotor", 8);
-        shooterUpperMotor = new FrcCANFalcon("shooterUpperMotor", 9);
+        intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
+        shooterLowerMotor = new FrcCANFalcon("shooterLowerMotor", RobotParams.CANID_SHOOTER_LOWER);
+        shooterUpperMotor = new FrcCANFalcon("shooterUpperMotor", RobotParams.CANID_SHOOTER_UPPER);
 
         //
         // AutoAssist commands.

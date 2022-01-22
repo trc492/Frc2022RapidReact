@@ -26,7 +26,6 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcCANFalcon;
-import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
 
@@ -48,8 +47,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-    private FrcCANFalcon[] motors = new FrcCANFalcon[3];
-    private int selectedMotor = 0;
+    // private FrcCANFalcon[] motors = new FrcCANFalcon[3];
+    // private int selectedMotor = 0;
 
     /**
      * Constructor: Create an instance of the object.
@@ -62,9 +61,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Create and initialize global object.
         //
         this.robot = robot;
-        motors[0] = robot.intakeMotor;
-        motors[1] = robot.shooterLowerMotor;
-        motors[2] = robot.shooterUpperMotor;
+        // motors[0] = robot.intakeMotor;
+        // motors[1] = robot.shooterLowerMotor;
+        // motors[2] = robot.shooterUpperMotor;
     }   //FrcTeleOp
 
     //
@@ -215,8 +214,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
 
         robot.operatorStick.setButtonHandler(enabled? this::operatorStickButtonEvent: null);
-        // robot.buttonPanel.setButtonHandler(enabled? this::buttonPanelButtonEvent: null);
-        // robot.switchPanel.setButtonHandler(enabled? this::switchPanelButtonEvent: null);
+        if (RobotParams.Preferences.useButtonPanels)
+        {
+            robot.buttonPanel.setButtonHandler(enabled? this::buttonPanelButtonEvent: null);
+            robot.switchPanel.setButtonHandler(enabled? this::switchPanelButtonEvent: null);
+        }
     }   //setControlsEnabled
 
     /**
@@ -404,10 +406,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                if(pressed) {
-                    // selectedMotor++;
-                    // selectedMotor %= 3;
-                }
+                // if (pressed)
+                // {
+                //     selectedMotor++;
+                //     selectedMotor %= 3;
+                // }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

@@ -37,7 +37,7 @@ public class RobotParams
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
         public static final boolean useButtonPanels             = false;
-        public static final boolean useTraceLog                 = false;
+        public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = true;

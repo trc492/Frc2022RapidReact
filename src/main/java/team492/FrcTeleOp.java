@@ -25,7 +25,6 @@ package team492;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
-import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
 

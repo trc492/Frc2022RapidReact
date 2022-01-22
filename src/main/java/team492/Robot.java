@@ -29,6 +29,8 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
+import TrcFrcLib.frclib.FrcCANFalcon;
+import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
@@ -86,12 +88,15 @@ public class Robot extends FrcRobotBase
     // Other subsystems.
     //
     public LEDIndicator ledIndicator;
+    public FrcCANFalcon intakeMotor;
+    public FrcCANFalcon shooterLowerMotor;
+    public FrcCANFalcon shooterUpperMotor;
 
     /**
      * Constructor: Create an instance of the object.
      */
-    public Robot()
-    {
+    public Robot() {
+    
         super(RobotParams.GAME_NAME);
     }   //Robot
 
@@ -117,6 +122,10 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize inputs.
         //
+        // driverController = new FrcXboxController("DriverController", 0);
+        // operatorStick = new FrcJoystick("operatorStick", 1);
+        // leftDriveStick = new FrcJoystick("DriverLeftStick", 2);
+        // rightDriveStick = new FrcJoystick("DriverRightStick", 3);
         if (RobotParams.Preferences.useXboxController)
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
@@ -160,6 +169,9 @@ public class Robot extends FrcRobotBase
         // Create and initialize other subsystems.
         //
         ledIndicator = new LEDIndicator();
+        intakeMotor = new FrcCANFalcon("intakeMotor", 7);
+        shooterLowerMotor = new FrcCANFalcon("shooterLowerMotor", 8);
+        shooterUpperMotor = new FrcCANFalcon("shooterUpperMotor", 9);
 
         //
         // AutoAssist commands.

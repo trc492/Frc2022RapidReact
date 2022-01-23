@@ -35,7 +35,7 @@ public class RobotParams
     public static class Preferences
     {
         public static final boolean useExternalOdometry         = false;
-        public static final boolean useXboxController           = false;
+        public static final boolean useXboxController           = true;
         public static final boolean useButtonPanels             = false;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
@@ -75,9 +75,11 @@ public class RobotParams
     // Joystick ports.
     //
     public static final int XBOX_DRIVERCONTROLLER               = 0;
-    public static final int JSPORT_OPERATORSTICK                = 1;
-    public static final int JSPORT_BUTTON_PANEL                 = 2;
-    public static final int JSPORT_SWITCH_PANEL                 = 3;
+    public static final int JSPORT_DRIVER_LEFTSTICK             = 1;
+    public static final int JSPORT_DRIVER_RIGHTSTICK            = 2;
+    public static final int JSPORT_OPERATORSTICK                = 3;
+    public static final int JSPORT_BUTTON_PANEL                 = 4;
+    public static final int JSPORT_SWITCH_PANEL                 = 5;
 
     //
     // CAN IDs.

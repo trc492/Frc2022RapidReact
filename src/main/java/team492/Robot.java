@@ -122,10 +122,6 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize inputs.
         //
-        // driverController = new FrcXboxController("DriverController", 0);
-        // operatorStick = new FrcJoystick("operatorStick", 1);
-        // leftDriveStick = new FrcJoystick("DriverLeftStick", 2);
-        // rightDriveStick = new FrcJoystick("DriverRightStick", 3);
         if (RobotParams.Preferences.useXboxController)
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
@@ -143,7 +139,7 @@ public class Robot extends FrcRobotBase
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
             if (RobotParams.Preferences.useButtonPanels)
-            rightDriveStick.setYInverted(true);
+            rightDriveStick.setYInverted(true); //TODO: Mike?
             {
                 buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
                 switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);

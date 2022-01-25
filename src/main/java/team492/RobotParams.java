@@ -35,7 +35,7 @@ public class RobotParams
     public static class Preferences
     {
         public static final boolean useExternalOdometry         = false;
-        public static final boolean useXboxController           = true;
+        public static final boolean useXboxController           = false;
         public static final boolean useButtonPanels             = false;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
@@ -43,6 +43,7 @@ public class RobotParams
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = false;
+        public static final boolean timDrive                    = true;
 
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugDriveBase              = false;

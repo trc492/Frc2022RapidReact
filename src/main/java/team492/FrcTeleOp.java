@@ -46,8 +46,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-    // private FrcCANFalcon[] motors = new FrcCANFalcon[3];
-    // private int selectedMotor = 0;
+    private double intakePower = 0.0;
 
     /**
      * Constructor: Create an instance of the object.
@@ -60,9 +59,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Create and initialize global object.
         //
         this.robot = robot;
-        // motors[0] = robot.intakeMotor;
-        // motors[1] = robot.shooterLowerMotor;
-        // motors[2] = robot.shooterUpperMotor;
     }   //FrcTeleOp
 
     //
@@ -125,6 +121,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             // DriveBase operation.
             //
+
+            // Not sure what this does?
             // switch (robot.driverController.getPOV())
             // {
             //     case 0:
@@ -155,19 +153,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             // Analog control of subsystem is done here if necessary.
             //
-            // double motorPower = robot.operatorStick.getZ();
-            // motors[selectedMotor].set(motorPower);
-            // robot.dashboard.displayPrintf(10, "motor:%s, power:%.1f", selectedMotor == 0 ? "intake" : selectedMotor == 1 ? "lower" : "upper", motorPower);
-            // double intakePower = -1*robot.driverController.getRightTriggerWithDeadband(true);
-            double intakePower = robot.operatorStick.getZ();
             robot.intakeMotor.set(intakePower);
-            double shooterUpperPower = robot.leftDriveStick.getZ();
-            robot.shooterUpperMotor.set(shooterUpperPower);
-            double shooterLowerPower = robot.rightDriveStick.getZ();
-            robot.shooterLowerMotor.set(shooterLowerPower);
-            robot.dashboard.displayPrintf(10, "intake:%.1f", intakePower);
-            robot.dashboard.displayPrintf(11, "upperShooter:%.1f", shooterUpperPower);
-            robot.dashboard.displayPrintf(12, "lowerShooter:%.1f", shooterLowerPower);
+            double shooterPower = robot.operatorStick.getZ();
+            robot.shooterUpperMotor.set(shooterPower);
+            robot.shooterLowerMotor.set(shooterPower);
+            robot.dashboard.displayPrintf(10, "Intake:%.1f", intakePower);
+            robot.dashboard.displayPrintf(11, "Shooters:%.1f", shooterPower);
+            //robot.dashboard.displayPrintf(12, "lowerShooter:%.1f", shooterPower); (If we need to separate motors later)
         }
         //
         // Update dashboard.
@@ -271,7 +263,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             x = robot.rightDriveStick.getXWithDeadband(false);
             y = robot.rightDriveStick.getYWithDeadband(false);
-            rot = robot.leftDriveStick.getXWithDeadband(true);
+            if(RobotParams.Preferences.timDrive) {
+                rot = robot.rightDriveStick.getTwistWithDeadband(true);
+            } else {
+                rot = robot.leftDriveStick.getXWithDeadband(true);
+            }
             mag = TrcUtil.magnitude(x, y);
             if (mag > 1.0)
             {
@@ -405,11 +401,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                // if (pressed)
-                // {
-                //     selectedMotor++;
-                //     selectedMotor %= 3;
-                // }
+                if(pressed) {
+                    intakePower = -1.0;
+                } else {
+                    intakePower = 0.0;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

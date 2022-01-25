@@ -138,8 +138,8 @@ public class Robot extends FrcRobotBase
             leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
+            rightDriveStick.setYInverted(true);
             if (RobotParams.Preferences.useButtonPanels)
-            rightDriveStick.setYInverted(true); //TODO: Mike?
             {
                 buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
                 switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);

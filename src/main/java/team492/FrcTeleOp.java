@@ -122,7 +122,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             // DriveBase operation.
             //
 
-            // Not sure what this does?
+            // D-pad Gearshift
             // switch (robot.driverController.getPOV())
             // {
             //     case 0:
@@ -154,11 +154,12 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             // Analog control of subsystem is done here if necessary.
             //
             robot.intakeMotor.set(intakePower);
-            double shooterPower = robot.operatorStick.getZ();
-            robot.shooterUpperMotor.set(shooterPower);
-            robot.shooterLowerMotor.set(shooterPower);
+            double shooterLowerPower = robot.operatorStick.getZ();
+            double shooterUpperPower = robot.leftDriveStick.getZ();
+            robot.shooterUpperMotor.set(shooterUpperPower);
+            robot.shooterLowerMotor.set(shooterLowerPower);
             robot.dashboard.displayPrintf(10, "Intake:%.1f", intakePower);
-            robot.dashboard.displayPrintf(11, "Shooters:%.1f", shooterPower);
+            robot.dashboard.displayPrintf(11, "Shooters: Upper:%.1f,Bottom:%.1f", shooterUpperPower,shooterLowerPower);
             //robot.dashboard.displayPrintf(12, "lowerShooter:%.1f", shooterPower); (If we need to separate motors later)
         }
         //
@@ -264,7 +265,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             x = robot.rightDriveStick.getXWithDeadband(false);
             y = robot.rightDriveStick.getYWithDeadband(false);
             if(RobotParams.Preferences.timDrive) {
-                rot = robot.rightDriveStick.getTwistWithDeadband(true);
+                rot = -1*robot.rightDriveStick.getTwistWithDeadband(true);
             } else {
                 rot = robot.leftDriveStick.getXWithDeadband(true);
             }

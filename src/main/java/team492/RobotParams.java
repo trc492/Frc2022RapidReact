@@ -79,8 +79,8 @@ public class RobotParams
     public static final int JSPORT_DRIVER_LEFTSTICK             = 1;
     public static final int JSPORT_DRIVER_RIGHTSTICK            = 2;
     public static final int JSPORT_OPERATORSTICK                = 3;
-    public static final int JSPORT_BUTTON_PANEL                 = 4;
-    public static final int JSPORT_SWITCH_PANEL                 = 5;
+    public static final int JSPORT_BUTTON_PANEL                 = 0;
+    public static final int JSPORT_SWITCH_PANEL                 = 0;
 
     //
     // CAN IDs.

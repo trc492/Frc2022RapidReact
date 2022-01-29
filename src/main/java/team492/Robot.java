@@ -86,10 +86,9 @@ public class Robot extends FrcRobotBase
     //
     // Other subsystems.
     //
+    public Shooter shooter;
     public LEDIndicator ledIndicator;
     public FrcCANFalcon intakeMotor;
-    public FrcCANFalcon shooterLowerMotor;
-    public FrcCANFalcon shooterUpperMotor;
 
     /**
      * Constructor: Create an instance of the object.
@@ -173,10 +172,7 @@ public class Robot extends FrcRobotBase
         ledIndicator = new LEDIndicator();
         intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
         intakeMotor.setBrakeModeEnabled(false);
-        shooterLowerMotor = new FrcCANFalcon("shooterLowerMotor", RobotParams.CANID_SHOOTER_LOWER);
-        shooterLowerMotor.setBrakeModeEnabled(false);
-        shooterUpperMotor = new FrcCANFalcon("shooterUpperMotor", RobotParams.CANID_SHOOTER_UPPER);
-        shooterUpperMotor.setBrakeModeEnabled(false);
+        shooter = new Shooter(this);
 
         //
         // AutoAssist commands.

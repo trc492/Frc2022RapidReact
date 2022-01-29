@@ -158,11 +158,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             robot.intakeMotor.set(intakePower);
             double shooterLowerPower = robot.operatorStick.getZ();
             double shooterUpperPower = robot.leftDriveStick.getZ();
-            robot.shooterUpperMotor.set(shooterUpperPower);
-            robot.shooterLowerMotor.set(shooterLowerPower);
+            robot.shooter.setLowerPower(shooterLowerPower);
+            robot.shooter.setUpperPower(shooterUpperPower);
             robot.dashboard.displayPrintf(10, "Intake:%.1f", intakePower);
             robot.dashboard.displayPrintf(11, "Shooters: Upper:%.1f,Bottom:%.1f", shooterUpperPower,shooterLowerPower);
-            double shooterUpperVelocity = robot.shooterUpperMotor.getMotorVelocity();
+            double shooterUpperVelocity = robot.shooter.upperShooterMotor.getMotorVelocity();
             robot.dashboard.putNumber("Shooter exit velocity", shooterUpperVelocity);
             //robot.dashboard.displayPrintf(12, "lowerShooter:%.1f", shooterPower); (If we need to separate motors later)
         }

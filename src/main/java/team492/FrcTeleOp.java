@@ -24,6 +24,7 @@ package team492;
 
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcUtil;
+import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
@@ -123,23 +124,23 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
 
             // D-pad Gearshift
-            // switch (robot.driverController.getPOV())
-            // {
-            //     case 0:
-            //         driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
-            //         turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-            //         break;
+            switch (robot.driverController.getPOV())
+            {
+                case 0:
+                    driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
+                    turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                    break;
 
-            //     case 270:
-            //         driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-            //         turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-            //         break;
+                case 270:
+                    driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+                    turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                    break;
 
-            //     case 180:
-            //         driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
-            //         turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
-            //         break;
-            // }
+                case 180:
+                    driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
+                    turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
+                    break;
+            }
 
             double[] inputs = getDriveInputs();
             if (robot.robotDrive.driveBase.supportsHolonomicDrive())
@@ -153,18 +154,20 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             // Analog control of subsystem is done here if necessary.
             //
+
             //Tim XUter
             double intakePower = robot.operatorStick.getY();
             robot.intakeMotor.set(intakePower);
-            double shooterLowerPower = robot.operatorStick.getZ();
-            double shooterUpperPower = robot.leftDriveStick.getZ();
-            robot.shooter.setLowerPower(shooterLowerPower);
-            robot.shooter.setUpperPower(shooterUpperPower);
+            double shooterLowerPower = (robot.operatorStick.getZ()+1)/2;
+            double shooterUpperPower = (robot.leftDriveStick.getZ()+1)/2;
+            robot.shooter.bottomShooterMotor.enableVelocityMode(RobotParams.SHOOTER_MAX_RPM, new PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000));
+            robot.shooter.upperShooterMotor.enableVelocityMode(RobotParams.SHOOTER_MAX_RPM, new PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000));
+            robot.shooter.bottomShooterMotor.set(shooterLowerPower);
+            robot.shooter.upperShooterMotor.set(shooterUpperPower);
             robot.dashboard.displayPrintf(10, "Intake:%.1f", intakePower);
-            robot.dashboard.displayPrintf(11, "Shooters: Upper:%.1f,Bottom:%.1f", shooterUpperPower,shooterLowerPower);
+            robot.dashboard.displayPrintf(11, "Shooter power: Upper:%.1f,Bottom:%.1f", shooterUpperPower,shooterLowerPower);
             double shooterUpperVelocity = robot.shooter.upperShooterMotor.getMotorVelocity();
             robot.dashboard.putNumber("Shooter exit velocity", shooterUpperVelocity);
-            //robot.dashboard.displayPrintf(12, "lowerShooter:%.1f", shooterPower); (If we need to separate motors later)
         }
         //
         // Update dashboard.

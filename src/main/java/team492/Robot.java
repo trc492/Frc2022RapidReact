@@ -172,7 +172,7 @@ public class Robot extends FrcRobotBase
         ledIndicator = new LEDIndicator();
         intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
         intakeMotor.setBrakeModeEnabled(false);
-        shooter = new Shooter(this);
+        shooter = new Shooter();
 
         //
         // AutoAssist commands.

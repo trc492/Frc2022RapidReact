@@ -239,5 +239,6 @@ public class RobotParams
     //
     // Other subsystems.
     //
+    public static final int SHOOTER_MAX_RPM                     = 2200; //Sensor units per second
 
 }   //class RobotParams

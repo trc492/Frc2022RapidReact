@@ -16,10 +16,8 @@ public class Shooter implements TrcPidController.PidInput{
     public final FrcCANTalonLimitSwitch tiltingElevatorUpperLimitSwitch, tiltingElevatorBottomLimitSwitch;
     public final TrcPidActuator.Parameters tiltingElevatorParamaters;
     public final TrcPidActuator tiltingElevator;
-    private Robot robot;
 
-    public Shooter(Robot robot) {
-        this.robot = robot;
+    public Shooter() {
         bottomShooterMotor = new FrcCANFalcon("bottomShooterMotor", RobotParams.CANID_SHOOTER_LOWER);
         bottomShooterMotor.setBrakeModeEnabled(false);
         upperShooterMotor = new FrcCANFalcon("upperShooterMotor", RobotParams.CANID_SHOOTER_UPPER);

@@ -20,17 +20,18 @@
  * SOFTWARE.
  */
 
+package team492;
+
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
-import TrcCommonLib.trclib.TrcUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 
 class CmdAuto implements TrcRobot.RobotCommand
 {
     private static final String moduleName = "CmdAuto";
-    private static final double PARK_WAREHOUSE_TIME = 8.0;
 
     private enum State
     {
@@ -111,7 +112,7 @@ class CmdAuto implements TrcRobot.RobotCommand
         else
         {
             boolean traceState = true;
-            String msg;
+            TrcPose2D startPose;
 
             robot.dashboard.displayPrintf(1, "State: %s", state);
             switch (state)
@@ -120,30 +121,28 @@ class CmdAuto implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    robot.robotDrive.driveBase.setFieldPosition(
-                        autoChoices.alliance == FrcAuto.Alliance.RED_ALLIANCE?
-                            RobotParams.STARTPOS_RED_NEAR : RobotParams.STARTPOS_BLUE_NEAR);
-                    // Call vision at the beginning to figure out the position of the duck.
-                    if (robot.vision != null)
-                    {
-                    //TODO: code to initialize vision 
-                    }
+                    startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+                        RobotParams.RED_START_POSES[autoChoices.getStartPos()]:
+                        RobotParams.BLUE_START_POSES[autoChoices.getStartPos()];
+                    robot.robotDrive.driveBase.setFieldPosition(startPose);
                     //
                     // Do start delay if any.
                     //
-                    if (autoChoices.startDelay == 0.0)
+                    double startDelay = autoChoices.getStartDelay();
+                    if (startDelay == 0.0)
                     {
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.DRIVE_TO_CAROUSEL);
+                        sm.setState(State.CALL_VISION);
                     }
                     else
                     {
-                        timer.set(autoChoices.startDelay, event);
-                        sm.waitForSingleEvent(event, State.DRIVE_TO_CAROUSEL);
+                        timer.set(startDelay, event);
+                        sm.waitForSingleEvent(event, State.CALL_VISION);
                         break;
                     }
+
                 case CALL_VISION:
                 //todo vision code for calling vision 
                     break;
@@ -172,12 +171,12 @@ class CmdAuto implements TrcRobot.RobotCommand
             if (traceState)
             {
                 robot.globalTracer.traceStateInfo(
-                    state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive, robot.robotDrive.purePursuitDrive,
-                    null);
+                    state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
+                    robot.robotDrive.purePursuitDrive, null);
             }
         }
 
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAutoNearCarousel
+}   //class CmdAuto

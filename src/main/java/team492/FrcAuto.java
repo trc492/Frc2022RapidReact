@@ -49,7 +49,7 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
     // Auto strategies.
     //
-    private enum AutoStrategy
+    public static enum AutoStrategy
     {
         AUTO,
         PP_DRIVE,
@@ -57,12 +57,13 @@ public class FrcAuto implements TrcRobot.RobotMode
         TIMED_DRIVE,
         DO_NOTHING
     }   //enum AutoStrategy
-    private enum AutoStartPos
+
+    public static enum AutoStartPos
     {
         POS_1,
         POS_2,
         POS_3
-    }
+    }   //enum AutoStartPos
 
     /**
      * This class encapsulates all user choices for autonomous mode from the smart dashboard.
@@ -150,10 +151,28 @@ public class FrcAuto implements TrcRobot.RobotMode
             return autoStrategyMenu.getCurrentChoiceObject();
         }   //getStrategy
 
-        public AutoStartPos getStartPos()
+        public int getStartPos()
         {
-            return autoStartPosMenu.getCurrentChoiceObject();
-        }   //getStrategy
+            int startPos;
+
+            switch (autoStartPosMenu.getCurrentChoiceObject())
+            {
+                default:
+                case POS_1:
+                    startPos = 0;
+                    break;
+
+                case POS_2:
+                    startPos = 1;
+                    break;
+
+                case POS_3:
+                    startPos = 2;
+                    break;
+            }
+
+            return startPos;
+        }   //getStartPos
 
         public double getStartDelay()
         {

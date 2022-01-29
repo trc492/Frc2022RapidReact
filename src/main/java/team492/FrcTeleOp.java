@@ -158,16 +158,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //Tim XUter
             double intakePower = robot.operatorStick.getY();
             robot.intakeMotor.set(intakePower);
-            double shooterLowerPower = (robot.operatorStick.getZ()+1)/2;
-            double shooterUpperPower = (robot.leftDriveStick.getZ()+1)/2;
-            robot.shooter.bottomShooterMotor.enableVelocityMode(RobotParams.SHOOTER_MAX_RPM, new PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000));
-            robot.shooter.upperShooterMotor.enableVelocityMode(RobotParams.SHOOTER_MAX_RPM, new PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000));
-            robot.shooter.bottomShooterMotor.set(shooterLowerPower);
-            robot.shooter.upperShooterMotor.set(shooterUpperPower);
-            robot.dashboard.displayPrintf(10, "Intake:%.1f", intakePower);
-            robot.dashboard.displayPrintf(11, "Shooter power: Upper:%.1f,Bottom:%.1f", shooterUpperPower,shooterLowerPower);
-            double shooterUpperVelocity = robot.shooter.upperShooterMotor.getMotorVelocity();
-            robot.dashboard.putNumber("Shooter exit velocity", shooterUpperVelocity);
+
+            double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
+            double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
+            double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
+            double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
+
+            robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+            robot.dashboard.displayPrintf(11, "Shooter: Lower:%.1f/%.1f, Upper:%.1f/%.1f",
+                shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
+                shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
         }
         //
         // Update dashboard.

@@ -23,6 +23,7 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcPidController;
+import TrcCommonLib.trclib.TrcPose2D;
 
 /**
  * This class contains parameters and preferences related to all robot operations.
@@ -73,6 +74,26 @@ public class RobotParams
     public static final double ROBOT_DRIVE_LENGTH               = 21.0;
 
     //
+    // Autonomous constants.
+    //
+    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D[] RED_START_POSES = new TrcPose2D[] {
+        STARTPOS_RED_POS1,
+        STARTPOS_RED_POS2,
+        STARTPOS_RED_POS3
+    };
+    public static final TrcPose2D[] BLUE_START_POSES = new TrcPose2D[] {
+        STARTPOS_BLUE_POS1,
+        STARTPOS_BLUE_POS2,
+        STARTPOS_BLUE_POS3
+    };
+
+    //
     // Joystick ports.
     //
     public static final int XBOX_DRIVERCONTROLLER               = 0;
@@ -90,9 +111,9 @@ public class RobotParams
     public static final int CANID_LEFTBACK_DRIVE                = 5;    // 40A: Green
     public static final int CANID_RIGHTBACK_DRIVE               = 6;    // 40A: Blue
     public static final int CANID_INTAKE                        = 7;    // 40A: Purple
-    public static final int CANID_SHOOTER_LOWER                 = 8;    // 40A: Gray
-    public static final int CANID_SHOOTER_UPPER                 = 9;    // 40A: White
-    public static final int CANID_TILTING_ELEVATOR              = 15;   // Temporary
+    public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // 40A: Gray
+    public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // 40A: White
+    public static final int CANID_SHOOTER_TILTER                = 10;   // Temporary
     // Applicable only for Swerve Drive.
     public static final int CANID_LEFTFRONT_STEER               = 23;   // 40A: Orange
     public static final int CANID_RIGHTFRONT_STEER              = 24;   // 40A: Yellow
@@ -239,6 +260,6 @@ public class RobotParams
     //
     // Other subsystems.
     //
-    public static final int SHOOTER_MAX_RPM                     = 2200; //Sensor units per second
+    public static final int SHOOTER_FLYWHEEL_MAX_VEL                     = 2200; //Sensor units per second
 
 }   //class RobotParams

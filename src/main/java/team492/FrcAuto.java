@@ -51,11 +51,18 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
     private enum AutoStrategy
     {
+        AUTO,
         PP_DRIVE,
         PID_DRIVE,
         TIMED_DRIVE,
         DO_NOTHING
     }   //enum AutoStrategy
+    private enum AutoStartPos
+    {
+        POS_1,
+        POS_2,
+        POS_3
+    }
 
     /**
      * This class encapsulates all user choices for autonomous mode from the smart dashboard.
@@ -73,6 +80,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Smart dashboard keys for Autonomous choices.
         private static final String DBKEY_AUTO_ALLIANCE = "Auto/Alliance";
         private static final String DBKEY_AUTO_STRATEGY = "Auto/Strategy";
+        private static final String DBKEY_AUTO_START_POS = "Auto/StartPos";
         private static final String DBKEY_AUTO_START_DELAY = "Auto/StartDelay";
         private static final String DBKEY_AUTO_PATHFILE = "Auto/PathFile";
         private static final String DBKEY_AUTO_X_DRIVE_DISTANCE = "Auto/XDriveDistance";
@@ -84,6 +92,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         private final FrcUserChoices userChoices = new FrcUserChoices();
         private final FrcChoiceMenu<DriverStation.Alliance> allianceMenu;
         private final FrcChoiceMenu<AutoStrategy> autoStrategyMenu;
+        private final FrcChoiceMenu<AutoStartPos> autoStartPosMenu; 
 
         public AutoChoices()
         {
@@ -92,21 +101,30 @@ public class FrcAuto implements TrcRobot.RobotMode
             //
             allianceMenu = new FrcChoiceMenu<>("Alliance:");
             autoStrategyMenu = new FrcChoiceMenu<>("Autonomous Strategies:");
+            autoStartPosMenu = new FrcChoiceMenu<>("Autonomous Start Positions");
+
             //
             // Populate autonomous mode choice menus.
             //
             allianceMenu.addChoice("Red", DriverStation.Alliance.Red, true, false);
             allianceMenu.addChoice("Blue", DriverStation.Alliance.Blue, false, true);
-
+            
+            autoStrategyMenu.addChoice("Cmd Auto", AutoStrategy.AUTO, true, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
-            autoStrategyMenu.addChoice("Do Nothing", AutoStrategy.DO_NOTHING, true, true);
+            autoStrategyMenu.addChoice("Do Nothing", AutoStrategy.DO_NOTHING, false, true);
+
+            autoStartPosMenu.addChoice("Start Position 1", AutoStartPos.POS_1);
+            autoStartPosMenu.addChoice("Start Position 2", AutoStartPos.POS_2);
+            autoStartPosMenu.addChoice("Start Position 3", AutoStartPos.POS_3);
+
             //
             // Initialize dashboard with default choice values.
             //
             userChoices.addChoiceMenu(DBKEY_AUTO_ALLIANCE, allianceMenu);
             userChoices.addChoiceMenu(DBKEY_AUTO_STRATEGY, autoStrategyMenu);
+            userChoices.addChoiceMenu(DBKEY_AUTO_START_POS, autoStartPosMenu);
             userChoices.addNumber(DBKEY_AUTO_START_DELAY, 0.0);
             userChoices.addString(DBKEY_AUTO_PATHFILE, "DrivePath.csv");
             userChoices.addNumber(DBKEY_AUTO_X_DRIVE_DISTANCE, 6.0);    // in feet
@@ -130,6 +148,11 @@ public class FrcAuto implements TrcRobot.RobotMode
         public AutoStrategy getStrategy()
         {
             return autoStrategyMenu.getCurrentChoiceObject();
+        }   //getStrategy
+
+        public AutoStartPos getStartPos()
+        {
+            return autoStartPosMenu.getCurrentChoiceObject();
         }   //getStrategy
 
         public double getStartDelay()
@@ -174,6 +197,7 @@ public class FrcAuto implements TrcRobot.RobotMode
                 Locale.US,
                 "alliance=\"%s\" " +
                 "strategy=\"%s\" " +
+                "startPos=\"%s\" " +
                 "startDelay=%.0f sec " +
                 "pathFile=\"%s\" " +
                 "xDistance=%.1f ft " +
@@ -181,7 +205,7 @@ public class FrcAuto implements TrcRobot.RobotMode
                 "turnDegrees=%.0f deg " +
                 "driveTime=%.0f sec " +
                 "drivePower=%.1f",
-                getAlliance(), getStrategy(), getStartDelay(), getPathFile(), getXDriveDistance(),
+                getAlliance(), getStrategy(), getStartPos(), getStartDelay(), getPathFile(), getXDriveDistance(),
                 getYDriveDistance(), getTurnAngle(), getDriveTime(), getDrivePower());
         }   //toString
 

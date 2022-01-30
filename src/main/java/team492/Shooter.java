@@ -2,7 +2,6 @@ package team492;
 
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidActuator;
-import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
 import TrcCommonLib.trclib.TrcPidController.PidParameters;
@@ -21,10 +20,12 @@ public class Shooter implements TrcExclusiveSubsystem
 
     public Shooter() {
         lowerFlywheelMotor = new FrcCANFalcon("lowerFlywheelMotor", RobotParams.CANID_SHOOTER_LOWER_FLYWHEEL);
+        lowerFlywheelMotor.setInverted(true);
         lowerFlywheelMotor.setBrakeModeEnabled(false);
         upperFlywheelMotor = new FrcCANFalcon("upperFlywheelMotor", RobotParams.CANID_SHOOTER_UPPER_FLYWHEEL);
+        upperFlywheelMotor.setInverted(true);
         upperFlywheelMotor.setBrakeModeEnabled(false);
-        setFlywheelVelocityModeEnabled(true);
+        setFlywheelVelocityModeEnabled(false);
 
         tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
         tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
@@ -92,6 +93,11 @@ public class Shooter implements TrcExclusiveSubsystem
     public double getUpperFlywheelVelocity()
     {
         return upperFlywheelMotor.getVelocity();
+    }
+
+    public void setTilterPower(double power)
+    {
+        tilter.setPower(power);
     }
 
     public double getTilterPosition()

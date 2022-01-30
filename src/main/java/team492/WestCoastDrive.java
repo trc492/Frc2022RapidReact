@@ -89,8 +89,8 @@ public class WestCoastDrive
         rfWheel.setBrakeModeEnabled(true);
         rbWheel.setBrakeModeEnabled(true);
 
-        rfWheel.setInverted(true);
-        rbWheel.setInverted(true);
+        lfWheel.setInverted(true);
+        lbWheel.setInverted(true);
 
         lbWheel.follow(lfWheel);
         rbWheel.follow(rfWheel);

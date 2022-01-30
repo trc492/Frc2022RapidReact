@@ -102,7 +102,7 @@ public class FrcAuto implements TrcRobot.RobotMode
             //
             allianceMenu = new FrcChoiceMenu<>("Alliance:");
             autoStrategyMenu = new FrcChoiceMenu<>("Autonomous Strategies:");
-            autoStartPosMenu = new FrcChoiceMenu<>("Autonomous Start Positions");
+            autoStartPosMenu = new FrcChoiceMenu<>("Autonomous Start Positions:");
 
             //
             // Populate autonomous mode choice menus.
@@ -110,15 +110,15 @@ public class FrcAuto implements TrcRobot.RobotMode
             allianceMenu.addChoice("Red", DriverStation.Alliance.Red, true, false);
             allianceMenu.addChoice("Blue", DriverStation.Alliance.Blue, false, true);
             
-            autoStrategyMenu.addChoice("Cmd Auto", AutoStrategy.AUTO, true, false);
+            autoStrategyMenu.addChoice("Autonomous", AutoStrategy.AUTO, true, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
             autoStrategyMenu.addChoice("Do Nothing", AutoStrategy.DO_NOTHING, false, true);
 
-            autoStartPosMenu.addChoice("Start Position 1", AutoStartPos.POS_1);
+            autoStartPosMenu.addChoice("Start Position 1", AutoStartPos.POS_1, true, false);
             autoStartPosMenu.addChoice("Start Position 2", AutoStartPos.POS_2);
-            autoStartPosMenu.addChoice("Start Position 3", AutoStartPos.POS_3);
+            autoStartPosMenu.addChoice("Start Position 3", AutoStartPos.POS_3, false, true);
 
             //
             // Initialize dashboard with default choice values.
@@ -304,6 +304,10 @@ public class FrcAuto implements TrcRobot.RobotMode
         //
         switch (autoChoices.getStrategy())
         {
+            case AUTO:
+                autoCommand = new CmdAuto(robot, autoChoices);
+                break;
+
             case PP_DRIVE:
                 autoCommand = new CmdPurePursuitDrive(
                     robot.robotDrive.driveBase, robot.robotDrive.xPosPidCoeff, robot.robotDrive.yPosPidCoeff,

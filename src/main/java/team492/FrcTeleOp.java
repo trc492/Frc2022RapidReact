@@ -24,7 +24,6 @@ package team492;
 
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcUtil;
-import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
@@ -47,7 +46,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-    private double intakePower = 0.0;
 
     /**
      * Constructor: Create an instance of the object.
@@ -124,22 +122,25 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
 
             // D-pad Gearshift
-            switch (robot.driverController.getPOV())
+            if (robot.driverController != null)
             {
-                case 0:
-                    driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
-                    turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-                    break;
+                switch (robot.driverController.getPOV())
+                {
+                    case 0:
+                        driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
+                        turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                        break;
 
-                case 270:
-                    driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-                    turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-                    break;
+                    case 270:
+                        driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+                        turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                        break;
 
-                case 180:
-                    driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
-                    turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
-                    break;
+                    case 180:
+                        driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
+                        turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
+                        break;
+                }
             }
 
             double[] inputs = getDriveInputs();
@@ -151,6 +152,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             {
                 robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
             }
+
             //
             // Analog control of subsystem is done here if necessary.
             //
@@ -409,11 +411,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                if(pressed) {
-                    intakePower = -1.0;
-                } else {
-                    intakePower = 0.0;
-                }
+                robot.intakeMotor.set(pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

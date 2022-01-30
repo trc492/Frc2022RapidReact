@@ -260,6 +260,11 @@ public class RobotParams
     //
     // Other subsystems.
     //
-    public static final int SHOOTER_FLYWHEEL_MAX_VEL                     = 2200; //Sensor units per second
+
+    // Shooter subsystem.
+    public static final int SHOOTER_FLYWHEEL_MAX_VEL            = 2200; //Sensor units per second
+
+    // Intake subsystem.
+    public static final double INTAKE_PICKUP_POWER              = 1.0;
 
 }   //class RobotParams

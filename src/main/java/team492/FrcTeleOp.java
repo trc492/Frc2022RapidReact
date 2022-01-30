@@ -273,9 +273,12 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             x = robot.rightDriveStick.getXWithDeadband(false);
             y = robot.rightDriveStick.getYWithDeadband(false);
-            if(RobotParams.Preferences.timDrive) {
-                rot = -1*robot.rightDriveStick.getTwistWithDeadband(true);
-            } else {
+            if(RobotParams.Preferences.timDrive)
+            {
+                rot = robot.rightDriveStick.getTwistWithDeadband(true);
+            }
+            else
+            {
                 rot = robot.leftDriveStick.getXWithDeadband(true);
             }
             mag = TrcUtil.magnitude(x, y);

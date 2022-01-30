@@ -62,22 +62,19 @@ public class SwerveDrive
     // Global objects.
     //
     private final Robot robot;
-
     //
     // Sensors.
     //
     public final FrcAHRSGyro gyro;
-
     //
     // Drive motors.
-    //
-
-    //
-    // Drive Base.
     //
     public final FrcCANSparkMax lfDriveMotor, rfDriveMotor, lbDriveMotor, rbDriveMotor;
     public final FrcCANTalon lfSteerMotor, rfSteerMotor, lbSteerMotor, rbSteerMotor;
     public final TrcSwerveModule lfWheel, lbWheel, rfWheel, rbWheel;
+    //
+    // Drive Base.
+    //
     public final TrcSwerveDriveBase driveBase;
 
     public final TrcPidController encoderXPidCtrl;

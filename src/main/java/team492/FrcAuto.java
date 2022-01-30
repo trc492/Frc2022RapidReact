@@ -47,7 +47,7 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
 
     //
-    // Auto strategies.
+    // Auto Choices Enums.
     //
     public static enum AutoStrategy
     {
@@ -109,7 +109,6 @@ public class FrcAuto implements TrcRobot.RobotMode
             allianceMenu = new FrcChoiceMenu<>("Alliance:");
             autoStrategyMenu = new FrcChoiceMenu<>("Autonomous Strategies:");
             autoStartPosMenu = new FrcChoiceMenu<>("Autonomous Start Positions:");
-
             //
             // Populate autonomous mode choice menus.
             //
@@ -125,7 +124,6 @@ public class FrcAuto implements TrcRobot.RobotMode
             autoStartPosMenu.addChoice("Start Position 1", AutoStartPos.POS_1, true, false);
             autoStartPosMenu.addChoice("Start Position 2", AutoStartPos.POS_2);
             autoStartPosMenu.addChoice("Start Position 3", AutoStartPos.POS_3, false, true);
-
             //
             // Initialize dashboard with default choice values.
             //
@@ -237,7 +235,6 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Create and initialize global objects.
         //
         this.robot = robot;
-
         //
         // Create auto-assist commands if necessary.
         //
@@ -355,7 +352,7 @@ public class FrcAuto implements TrcRobot.RobotMode
     public void runPeriodic(double elapsedTime)
     {
         //
-        // Update dashboard.
+        // Update robot status.
         //
         if (RobotParams.Preferences.doAutoUpdates)
         {

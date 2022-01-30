@@ -157,7 +157,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             // Analog control of subsystem is done here if necessary.
             //
 
-            //Tim XUter
             double intakePower = robot.operatorStick.getY();
             robot.intakeMotor.set(intakePower);
 
@@ -172,7 +171,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
         }
         //
-        // Update dashboard.
+        // Update robot status.
         //
         if (RobotParams.Preferences.doAutoUpdates)
         {

@@ -87,7 +87,7 @@ public class FrcDisabled implements TrcRobot.RobotMode
     public void runPeriodic(double elapsedTime)
     {
         //
-        // Update dashboard.
+        // Update robot status.
         //
         if (RobotParams.Preferences.doAutoUpdates)
         {

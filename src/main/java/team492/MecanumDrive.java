@@ -46,12 +46,10 @@ public class MecanumDrive
     // Sensors.
     //
     public final FrcAHRSGyro gyro;
-
     //
     // Drive motors.
     //
     public final FrcCANTalon lfWheel, lbWheel, rfWheel, rbWheel;
-
     //
     // Drive Base.
     //

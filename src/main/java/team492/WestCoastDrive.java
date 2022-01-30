@@ -46,12 +46,10 @@ public class WestCoastDrive
     // Sensors.
     //
     public final FrcAHRSGyro gyro;
-
     //
     // Drive motors.
     //
     public final FrcCANFalcon lfWheel, lbWheel, rfWheel, rbWheel;
-
     //
     // Drive Base.
     //

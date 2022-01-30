@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022 Titan Robotics Club (http://www.titanrobotics.com)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHEPIXYRWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package team492;
 
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
@@ -18,7 +40,8 @@ public class Shooter implements TrcExclusiveSubsystem
     public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
 
-    public Shooter() {
+    public Shooter()
+    {
         lowerFlywheelMotor = new FrcCANFalcon("lowerFlywheelMotor", RobotParams.CANID_SHOOTER_LOWER_FLYWHEEL);
         lowerFlywheelMotor.setInverted(true);
         lowerFlywheelMotor.setBrakeModeEnabled(false);
@@ -33,13 +56,6 @@ public class Shooter implements TrcExclusiveSubsystem
         tilterParams = new Parameters()
             .setPidParams(new PidParameters(new PidCoefficients(0.0, 0.0, 0.0, 0.0), 0.0, 0.0));
         tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
-    }
-
-    public void shoot() {
-        //Start spinning flywheels
-        //Auto-aim (Turn to target)
-        //If flywheels are spinning fast enough & the robot is asligned with the target,
-        //Tell the conveyor to send a ball into the shooter
     }
 
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
@@ -65,10 +81,18 @@ public class Shooter implements TrcExclusiveSubsystem
         setFlywheelVelocityModeEnabled(null, enabled);
     }
 
+    public void setFlywheelPower(String owner, double lowerPower, double upperPower)
+    {
+        if (validateOwnership(owner))
+        {
+            lowerFlywheelMotor.set(lowerPower);
+            upperFlywheelMotor.set(upperPower);
+        }
+    }
+
     public void setFlywheelPower(double lowerPower, double upperPower)
     {
-        lowerFlywheelMotor.set(lowerPower);
-        upperFlywheelMotor.set(upperPower);
+        setFlywheelPower(null, lowerPower, upperPower);
     }
 
     public void setFlywheelPower(String owner, double power)
@@ -95,9 +119,17 @@ public class Shooter implements TrcExclusiveSubsystem
         return upperFlywheelMotor.getVelocity();
     }
 
+    public void setTilterPower(String owner, double power)
+    {
+        if (validateOwnership(owner))
+        {
+            tilter.setPower(power);
+        }
+    }
+
     public void setTilterPower(double power)
     {
-        tilter.setPower(power);
+        setTilterPower(null, power);
     }
 
     public double getTilterPosition()
@@ -118,4 +150,12 @@ public class Shooter implements TrcExclusiveSubsystem
         setTilterPosition(null, pos);
     }
 
-}
+    public void shoot()
+    {
+        //Start spinning flywheels
+        //Auto-aim (Turn to target)
+        //If flywheels are spinning fast enough & the robot is asligned with the target,
+        //Tell the conveyor to send a ball into the shooter
+    }
+
+}   //class Shooter

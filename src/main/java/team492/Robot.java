@@ -56,12 +56,11 @@ public class Robot extends FrcRobotBase
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
     private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
     private boolean traceLogOpened = false;
-
     //
     // Inputs.
     //
-    public FrcJoystick leftDriveStick, rightDriveStick;
     public FrcXboxController driverController;
+    public FrcJoystick leftDriveStick, rightDriveStick;
     public FrcJoystick operatorStick;
     public FrcJoystick buttonPanel;
     public FrcJoystick switchPanel;
@@ -86,8 +85,8 @@ public class Robot extends FrcRobotBase
     //
     // Other subsystems.
     //
-    public Shooter shooter;
     public LEDIndicator ledIndicator;
+    public Shooter shooter;
     public FrcCANFalcon intakeMotor;
 
     /**
@@ -95,7 +94,6 @@ public class Robot extends FrcRobotBase
      */
     public Robot()
     {
-    
         super(RobotParams.GAME_NAME);
     }   //Robot
 
@@ -137,6 +135,7 @@ public class Robot extends FrcRobotBase
             leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
+            leftDriveStick.setYInverted(true);
             rightDriveStick.setYInverted(true);
             if (RobotParams.Preferences.useButtonPanels)
             {
@@ -145,19 +144,16 @@ public class Robot extends FrcRobotBase
             }
         }
         operatorStick.setYInverted(false);
-
         //
         // Create and initialize sensors.
         //
         pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kCTRE);
         battery = new FrcRobotBattery(pdp);
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
-
         //
         // Create and initialize RobotDrive subsystem.
         //
         robotDrive = new WestCoastDrive(this);
-
         //
         // Create and initialize Vision subsystem.
         //
@@ -170,16 +166,15 @@ public class Robot extends FrcRobotBase
         // Create and initialize other subsystems.
         //
         ledIndicator = new LEDIndicator();
+        shooter = new Shooter();
         intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
         intakeMotor.setBrakeModeEnabled(false);
-        shooter = new Shooter();
 
         //
         // AutoAssist commands.
         //
 
         pdp.registerEnergyUsedForAllUnregisteredChannels();
-
         //
         // Create Robot Modes.
         //
@@ -196,12 +191,10 @@ public class Robot extends FrcRobotBase
     public void robotStartMode(RunMode runMode, RunMode prevMode)
     {
         final String funcName = "robotStartMode";
-
         //
         // Read FMS Match info.
         //
         FrcMatchInfo matchInfo = FrcMatchInfo.getMatchInfo();
-
         //
         // Start trace logging.
         //
@@ -213,7 +206,6 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(
             funcName, "[%.3f] %s: ***** %s *****", TrcUtil.getModeElapsedTime(),
             matchInfo.eventDate, runMode);
-
         //
         // Start subsystems.
         //
@@ -231,13 +223,11 @@ public class Robot extends FrcRobotBase
     public void robotStopMode(RunMode runMode, RunMode nextMode)
     {
         final String funcName = "robotStopMode";
-
         //
         // Stop subsystems.
         //
         robotDrive.stopMode(runMode, nextMode);
         ledIndicator.reset();
-
         //
         // Performance status report.
         //
@@ -245,7 +235,6 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(
             funcName, "TotalEnergy=%.3fWh (%.2f%%)",
             totalEnergy, totalEnergy * 100.0 / RobotParams.BATTERY_CAPACITY_WATT_HOUR);
-
         //
         // Stop trace logging.
         //

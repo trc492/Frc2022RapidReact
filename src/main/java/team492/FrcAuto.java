@@ -60,9 +60,15 @@ public class FrcAuto implements TrcRobot.RobotMode
 
     public static enum AutoStartPos
     {
-        POS_1,
-        POS_2,
-        POS_3
+        POS_1(0),
+        POS_2(1),
+        POS_3(2);
+        // The value can be used as index into arrays if necessary.
+        int value;
+        AutoStartPos(int value)
+        {
+            this.value = value;
+        }   //AutoStartPos
     }   //enum AutoStartPos
 
     /**
@@ -153,25 +159,7 @@ public class FrcAuto implements TrcRobot.RobotMode
 
         public int getStartPos()
         {
-            int startPos;
-
-            switch (autoStartPosMenu.getCurrentChoiceObject())
-            {
-                default:
-                case POS_1:
-                    startPos = 0;
-                    break;
-
-                case POS_2:
-                    startPos = 1;
-                    break;
-
-                case POS_3:
-                    startPos = 2;
-                    break;
-            }
-
-            return startPos;
+            return autoStartPosMenu.getCurrentChoiceObject().value;
         }   //getStartPos
 
         public double getStartDelay()

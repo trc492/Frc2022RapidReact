@@ -263,6 +263,10 @@ public class RobotParams
 
     // Shooter subsystem.
     public static final int SHOOTER_FLYWHEEL_MAX_VEL            = 2200; //Sensor units per second
+    //Constants from Infinite Recharge
+    public static final double FLYWHEEL_DIAMETER                = 4.0;
+    public static final double FLYWHEEL_GEAR_RATIO              = 18.0 / 12.0;
+    public static final double FLYWHEEL_INCHES_PER_TICK = Math.PI * FLYWHEEL_DIAMETER / FLYWHEEL_GEAR_RATIO / 2048.0; // falcon has 2048 cpr encoder
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;

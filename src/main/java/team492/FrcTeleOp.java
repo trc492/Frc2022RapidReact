@@ -166,7 +166,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
 
             robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
-            robot.dashboard.displayPrintf(11, "Shooter: Lower:%.1f/%.1f, Upper:%.1f/%.1f",
+            robot.dashboard.displayPrintf(11, "Shooter velocities (current/max): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
                 shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
                 shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
         }

@@ -119,6 +119,19 @@ public class Shooter implements TrcExclusiveSubsystem
         return upperFlywheelMotor.getVelocity();
     }
 
+    /* Once the proper constant for conversion is set, we can replace the two functions above
+        This was copied from Infinite Recharge code
+    public double getLowerFlywheelVelocity()
+    {
+        return lowerFlywheelMotor.getVelocity() * RobotParams.FLYWHEEL_INCHES_PER_TICK;
+    }
+
+    public double getUpperFlywheelVelocity()
+    {
+        return upperFlywheelMotor.getVelocity() * RobotParams.FLYWHEEL_INCHES_PER_TICK;
+    }
+    */
+
     public void setTilterPower(String owner, double power)
     {
         if (validateOwnership(owner))
@@ -150,12 +163,23 @@ public class Shooter implements TrcExclusiveSubsystem
         setTilterPosition(null, pos);
     }
 
+    public void autoShoot() {
+        aim();
+        shoot();
+    }
+
+    public void aim()
+    {
+        //Get vision data
+        //Turn robot
+        //Tilt to correct height
+    }
+
     public void shoot()
     {
         //Start spinning flywheels
-        //Auto-aim (Turn to target)
-        //If flywheels are spinning fast enough & the robot is asligned with the target,
-        //Tell the conveyor to send a ball into the shooter
+        //If flywheels are spinning fast enough
+        //Tell conveyor to send a ball into the shooter
     }
 
 }   //class Shooter

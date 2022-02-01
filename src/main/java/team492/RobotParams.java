@@ -113,7 +113,8 @@ public class RobotParams
     public static final int CANID_INTAKE                        = 7;    // 40A: Purple
     public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // 40A: Gray
     public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // 40A: White
-    public static final int CANID_SHOOTER_TILTER                = 10;   // Temporary
+    public static final int CANID_CONVEYOR                      = 10;   // 40A: Orange
+    public static final int CANID_SHOOTER_TILTER                = 11;   // 40A: Yellow
     // Applicable only for Swerve Drive.
     public static final int CANID_LEFTFRONT_STEER               = 23;   // 40A: Orange
     public static final int CANID_RIGHTFRONT_STEER              = 24;   // 40A: Yellow

@@ -157,6 +157,8 @@ public class RobotParams
     //
     // Solenoid channels.
     //
+    public static final int PNEUMATIC_INTAKE_RETRACT            = 0;
+    public static final int PNEUMATIC_INTAKE_EXTEND             = 1;
 
     //
     // Vision subsystem.

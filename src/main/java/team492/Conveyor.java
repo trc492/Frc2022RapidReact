@@ -53,7 +53,7 @@ public class Conveyor {
     public void advanceTwoBalls(){
         conveyor.setTarget(2 * RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE);
 
-    }s
+    }
     //when trigger happens call this method: adds a ball, if anybody wants to know about entrance receiver, call him
     //need state bc there is one state for beam broken and another when ball passes the beam 
     void entranceTriggerEvent(boolean state)

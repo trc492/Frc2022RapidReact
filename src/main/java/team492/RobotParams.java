@@ -33,6 +33,9 @@ public class RobotParams
     //
     // Robot preferences.
     //
+    //HARDWARE_NAMES
+    static final String HWNAME_CONVEYOR                         = "conveyor";
+    //
     public static class Preferences
     {
         public static final boolean useExternalOdometry         = false;
@@ -143,6 +146,9 @@ public class RobotParams
     //
     // Digital Input/Output ports.
     //
+    public static final int CONVEYOR_ENTRANCE_SENSOR_PORT            = 1; 
+    public static final int CONVEYOR_EXIT_SENSOR_PORT                = 2; 
+
 
     //
     // PWM channels.
@@ -290,6 +296,8 @@ public class RobotParams
     public static final double CONVEYOR_STALL_MIN_POWER         = 0.0; 
     public static final double CONVEYOR_STALL_TIMEOUT           = 0.0; 
     public static final double CONVEYOR_RESET_TIMEOUT           = 2.0; 
+    //conveyor ball advance
+    public static final double CONVEYOR_ADVANCE_BALL_DISTANCE   = 12.0; 
 
 }
     

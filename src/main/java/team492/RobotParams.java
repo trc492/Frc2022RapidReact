@@ -274,4 +274,22 @@ public class RobotParams
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;
 
-}   //class RobotParams
+    //Conveyor subsystem
+    public static final double CONVEYOR_KP                      = 0.1;
+    public static final double CONVEYOR_KI                      = 0.0;
+    public static final double CONVEYOR_KD                      = 0.0; 
+    public static final double CONVEYOR_TOLERANCE               = 0.1;
+    public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
+    public static final double CONVEYOR_CAL_POWER               = 0.1; 
+    //enter and exit sensor 
+    public static final boolean CONVEYOR_HAS_ENTRANCE_SENSOR    = true; 
+    public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED = false;
+    public static final boolean CONVEYOR_HAS_EXIT_SENSOR        = true;
+    public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false; 
+    //conveyor stall detection 
+    public static final double CONVEYOR_STALL_MIN_POWER         = 0.0; 
+    public static final double CONVEYOR_STALL_TIMEOUT           = 0.0; 
+    public static final double CONVEYOR_RESET_TIMEOUT           = 2.0; 
+
+}
+    

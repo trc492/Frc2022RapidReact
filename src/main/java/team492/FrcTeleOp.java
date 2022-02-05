@@ -417,6 +417,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
+                robot.conveyor.advanceOneBall();
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:

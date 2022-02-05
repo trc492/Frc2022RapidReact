@@ -49,6 +49,8 @@ class CmdAuto implements TrcRobot.RobotCommand
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
+    private final String pathForm; 
+    private int pathNumber; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -64,6 +66,8 @@ class CmdAuto implements TrcRobot.RobotCommand
         this.autoChoices = autoChoices;
         timer = new TrcTimer(moduleName);
         event = new TrcEvent(moduleName);
+        pathForm = autoChoices.getAlliance().toString() + "_STARTPOS_" + autoChoices.getStartPos() + "_" + "Path_";
+        pathNumber = 1; 
         sm = new TrcStateMachine<>(moduleName);
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
         sm.start(State.START_DELAY);
@@ -151,12 +155,18 @@ class CmdAuto implements TrcRobot.RobotCommand
                     break;
 
                 case SHOOT:
+
                     break;
 
                 case GO_TO_NEXT_BALL:
+                    String path = pathForm + pathNumber;
+                    robot.robotDrive.purePursuitDrive.start(event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,  null, null, path, false);
+                    pathNumber++; 
+                    sm.waitForSingleEvent(event, State.PICK_UP);
                     break;
 
                 case PICK_UP:
+                    
                     break;
 
                 case DONE:

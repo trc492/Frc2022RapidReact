@@ -29,7 +29,6 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
-import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
@@ -87,7 +86,7 @@ public class Robot extends FrcRobotBase
     //
     public LEDIndicator ledIndicator;
     public Shooter shooter;
-    public FrcCANFalcon intakeMotor;
+    public Intake intake;
 
     /**
      * Constructor: Create an instance of the object.
@@ -167,8 +166,7 @@ public class Robot extends FrcRobotBase
         //
         ledIndicator = new LEDIndicator();
         shooter = new Shooter();
-        intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
-        intakeMotor.setBrakeModeEnabled(false);
+        intake = new Intake("Intake");
 
         //
         // AutoAssist commands.

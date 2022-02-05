@@ -47,6 +47,7 @@ public class Intake
     {
         this.instanceName = instanceName;
         intakeMotor = new FrcCANFalcon(instanceName + ".motor", RobotParams.CANID_INTAKE);
+        intakeMotor.setBrakeModeEnabled(false);
         intakePneumatic = new FrcPneumatic(
             instanceName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);

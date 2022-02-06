@@ -43,6 +43,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
     protected final Robot robot;
     private boolean controlsEnabled = false;
+    private boolean flywheelOn = false;
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -164,8 +165,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
             double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
             double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
-
-            robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+            robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
+            if(flywheelOn) {
+                robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+            }
             robot.dashboard.displayPrintf(11, "Shooter velocities (current/max): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
                 shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
                 shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
@@ -417,10 +420,15 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                robot.conveyor.advanceOneBall();
+                if(pressed) {
+                    robot.conveyor.advanceOneBall();
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
+                if(pressed) {
+                    flywheelOn = !flywheelOn;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:

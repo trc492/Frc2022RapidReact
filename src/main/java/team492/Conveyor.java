@@ -9,13 +9,13 @@ import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 
 public class Conveyor {
-    TrcPidActuator conveyor ;
+    TrcPidActuator conveyor;
     FrcCANTalon conveyorMotor; 
-    FrcDigitalInput entranceSensor; 
-    FrcDigitalInput exitSensor;
-    TrcDigitalInputTrigger entranceTrigger; 
+    FrcDigitalInput entranceSensor, exitSensor; 
+    TrcDigitalInputTrigger entranceTrigger, exitTrigger; 
     Receiver entranceReceiver; 
-    int numBallsInConveyor = 0; 
+    int numBallsInConveyor = 0;
+
     public Conveyor(String instanceName, int port, int numberPreloadBalls){
         numBallsInConveyor = numberPreloadBalls ; 
         conveyorMotor = new FrcCANTalon("conveyor", port);
@@ -34,26 +34,30 @@ public class Conveyor {
         if (RobotParams.CONVEYOR_HAS_ENTRANCE_SENSOR)
         {
             entranceSensor =
-                new FrcDigitalInput(instanceName + ".entranceSensor", RobotParams.CONVEYOR_ENTRANCE_SENSOR_PORT);
-            entranceTrigger = new TrcDigitalInputTrigger(instanceName + ".entranceTrigger", entranceSensor, this::entranceTriggerEvent);
+                new FrcDigitalInput(instanceName + "EntranceSensor", RobotParams.CONVEYOR_ENTRANCE_SENSOR_PORT);
+            entranceTrigger = new TrcDigitalInputTrigger(instanceName + "EntranceTrigger", entranceSensor, this::entranceTriggerEvent);
     
         }
-        exitSensor =
-        RobotParams.CONVEYOR_HAS_EXIT_SENSOR?
-            new FrcDigitalInput(RobotParams.HWNAME_CONVEYOR + ".exitSensor", RobotParams.CONVEYOR_EXIT_SENSOR_PORT): null;
+        if(RobotParams.CONVEYOR_HAS_EXIT_SENSOR)
+        {
+            exitSensor = new FrcDigitalInput(instanceName + "ExitSensor", RobotParams.CONVEYOR_EXIT_SENSOR_PORT);
+            exitTrigger = new TrcDigitalInputTrigger(instanceName + "ExitTrigger", exitSensor, this::exitTriggerEvent);
+        }
 
         conveyor = new TrcPidActuator(RobotParams.HWNAME_CONVEYOR, conveyorMotor, entranceSensor, exitSensor, conveyorParams);
             
 
         //write autochoices for number of preload ball 
     }
+
     public void advanceOneBall(){
         conveyor.setTarget(RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE);
     }
+    
     public void advanceTwoBalls(){
         conveyor.setTarget(2 * RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE);
-
     }
+    
     //when trigger happens call this method: adds a ball, if anybody wants to know about entrance receiver, call him
     //need state bc there is one state for beam broken and another when ball passes the beam 
     void entranceTriggerEvent(boolean state)
@@ -65,6 +69,7 @@ public class Conveyor {
             }
         }
     }
+
     void exitTriggerEvent(boolean state)
     {
         if(state){
@@ -74,6 +79,7 @@ public class Conveyor {
             }
         }   
     }
+
     public int numBallsInConveyor(){
         return numBallsInConveyor;
     }
@@ -82,9 +88,5 @@ public class Conveyor {
     public void registerEntranceTrigger(TrcNotifier.Receiver receiver){
         entranceReceiver = receiver; 
 
-    }
-
-
-    
-    
+    }   
 }

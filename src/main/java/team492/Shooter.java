@@ -34,10 +34,10 @@ import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
 public class Shooter implements TrcExclusiveSubsystem
 {
     public final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
-    public final FrcCANTalon tilterMotor;
-    public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
-    public final TrcPidActuator.Parameters tilterParams;
-    public final TrcPidActuator tilter;
+    // public final FrcCANTalon tilterMotor;
+    // public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
+    // public final TrcPidActuator.Parameters tilterParams;
+    // public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
 
     public Shooter()
@@ -50,12 +50,12 @@ public class Shooter implements TrcExclusiveSubsystem
         upperFlywheelMotor.setBrakeModeEnabled(false);
         setFlywheelVelocityModeEnabled(false);
 
-        tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
-        tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
-        tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
-        tilterParams = new Parameters()
-            .setPidParams(new PidParameters(new PidCoefficients(0.0, 0.0, 0.0, 0.0), 0.0, 0.0));
-        tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
+        // tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
+        // tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
+        // tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
+        // tilterParams = new Parameters()
+        //     .setPidParams(new PidParameters(new PidCoefficients(0.0, 0.0, 0.0, 0.0), 0.0, 0.0));
+        // tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
     }
 
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
@@ -132,48 +132,36 @@ public class Shooter implements TrcExclusiveSubsystem
     }
     */
 
-    public void setTilterPower(String owner, double power)
-    {
-        if (validateOwnership(owner))
-        {
-            tilter.setPower(power);
-        }
-    }
+    // public void setTilterPower(String owner, double power)
+    // {
+    //     if (validateOwnership(owner))
+    //     {
+    //         tilter.setPower(power);
+    //     }
+    // }
 
-    public void setTilterPower(double power)
-    {
-        setTilterPower(null, power);
-    }
+    // public void setTilterPower(double power)
+    // {
+    //     setTilterPower(null, power);
+    // }
 
-    public double getTilterPosition()
-    {
-        return tilter.getPosition();
-    }
+    // public double getTilterPosition()
+    // {
+    //     return tilter.getPosition();
+    // }
 
-    public void setTilterPosition(String owner, double pos)
-    {
-        if (validateOwnership(owner))
-        {
-            tilter.setTarget(pos);
-        }
-    }
+    // public void setTilterPosition(String owner, double pos)
+    // {
+    //     if (validateOwnership(owner))
+    //     {
+    //         tilter.setTarget(pos);
+    //     }
+    // }
 
-    public void setTilterPosition(double pos)
-    {
-        setTilterPosition(null, pos);
-    }
-
-    public void autoShoot() {
-        aim();
-        shoot();
-    }
-
-    public void aim()
-    {
-        //Get vision data
-        //Turn robot
-        //Tilt to correct height
-    }
+    // public void setTilterPosition(double pos)
+    // {
+    //     setTilterPosition(null, pos);
+    // }
 
     public void shoot()
     {

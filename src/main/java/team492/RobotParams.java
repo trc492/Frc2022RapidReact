@@ -117,7 +117,7 @@ public class RobotParams
     public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // 40A: Gray
     public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // 40A: White
     public static final int CANID_CONVEYOR                      = 10;   // 40A: Orange
-    public static final int CANID_SHOOTER_TILTER                = 11;   // 40A: Yellow
+    // public static final int CANID_SHOOTER_TILTER                = 11;   // 40A: Yellow
     // Applicable only for Swerve Drive.
     public static final int CANID_LEFTFRONT_STEER               = 23;   // 40A: Orange
     public static final int CANID_RIGHTFRONT_STEER              = 24;   // 40A: Yellow
@@ -273,9 +273,8 @@ public class RobotParams
     // Shooter subsystem.
     public static final int SHOOTER_FLYWHEEL_MAX_VEL            = 2200; //Sensor units per second
     //Constants from Infinite Recharge
-    public static final double FLYWHEEL_DIAMETER                = 4.0;
+    public static final double FLYWHEEL_PULSE_PER_REVOLUTION    = 4.0;
     public static final double FLYWHEEL_GEAR_RATIO              = 18.0 / 12.0;
-    public static final double FLYWHEEL_INCHES_PER_TICK = Math.PI * FLYWHEEL_DIAMETER / FLYWHEEL_GEAR_RATIO / 2048.0; // falcon has 2048 cpr encoder
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;
@@ -300,5 +299,4 @@ public class RobotParams
     //conveyor ball advance
     public static final double CONVEYOR_ADVANCE_BALL_DISTANCE   = 12.0; 
 
-}
-    
+}   //class RobotParams

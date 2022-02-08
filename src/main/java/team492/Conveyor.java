@@ -89,4 +89,13 @@ public class Conveyor {
         entranceReceiver = receiver; 
 
     }   
+
+    //pipeline notes
+    // when entrance is broken,
+    // if there is NOT a ball breaking the exit one,
+    //  then activate conveyor until the intook ball breaks exit
+    // if there IS a ball already breaking the exit one,
+    //  stop the intake, because we have two balls
+    //  lift the intake back up
+
 }

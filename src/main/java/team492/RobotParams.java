@@ -146,8 +146,8 @@ public class RobotParams
     //
     // Digital Input/Output ports.
     //
-    public static final int CONVEYOR_ENTRANCE_SENSOR_PORT            = 1; 
-    public static final int CONVEYOR_EXIT_SENSOR_PORT                = 2; 
+    public static final int CONVEYOR_ENTRANCE_SENSOR_PORT            = 0; 
+    public static final int CONVEYOR_EXIT_SENSOR_PORT                = 1; 
 
 
     //

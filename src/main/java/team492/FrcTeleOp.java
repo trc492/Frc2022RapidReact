@@ -159,7 +159,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
 
             double intakePower = robot.operatorStick.getY();
-            robot.intakeMotor.set(intakePower);
+            robot.intake.setPower(intakePower);
 
             double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
             double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
@@ -416,7 +416,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                robot.intakeMotor.set(pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0);
+                robot.intake.setPower(pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

@@ -87,8 +87,8 @@ public class Robot extends FrcRobotBase
     //
     public LEDIndicator ledIndicator;
     public Shooter shooter;
-    public FrcCANFalcon intakeMotor;
     public Conveyor conveyor; 
+    public Intake intake;
 
     /**
      * Constructor: Create an instance of the object.
@@ -168,9 +168,8 @@ public class Robot extends FrcRobotBase
         //
         ledIndicator = new LEDIndicator();
         shooter = new Shooter();
-        intakeMotor = new FrcCANFalcon("intakeMotor", RobotParams.CANID_INTAKE);
-        intakeMotor.setBrakeModeEnabled(false);
         conveyor = new Conveyor("conveyor", RobotParams.CANID_CONVEYOR, 1);
+        intake = new Intake();
 
         //
         // AutoAssist commands.

@@ -433,11 +433,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:
-                robot.conveyor.conveyorMotor.setMotorPower(pressed? 0.5: 0);
+                robot.conveyor.conveyorMotor.set(pressed? 0.5: 0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON5:
-                robot.conveyor.conveyorMotor.setMotorPower(pressed? -0.5: 0);
+                robot.conveyor.conveyorMotor.set(pressed? -0.5: 0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:

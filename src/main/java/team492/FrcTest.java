@@ -30,7 +30,7 @@ import TrcCommonLib.command.CmdTimedDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import TrcFrcLib.frclib.FrcChoiceMenu;
 import TrcFrcLib.frclib.FrcUserChoices;
-import TrcCommonLib.trclib.TrcMotorController;
+import TrcCommonLib.trclib.TrcMotor;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
@@ -259,7 +259,7 @@ public class FrcTest extends FrcTeleOp
                 // rightWheel. For 4-motor drive base, it is lfWheel, rfWheel, lbWheel, rbWheel.
                 //
                 testCommand = new CmdDriveMotorsTest(
-                    new TrcMotorController[] {
+                    new TrcMotor[] {
                         robot.robotDrive.lfWheel, robot.robotDrive.rfWheel,
                         robot.robotDrive.lbWheel, robot.robotDrive.rbWheel},
                     5.0, 0.5);
@@ -477,8 +477,8 @@ public class FrcTest extends FrcTeleOp
             robot.robotDrive.lfWheel.getPosition(), robot.robotDrive.rfWheel.getPosition(),
             robot.robotDrive.lbWheel.getPosition(), robot.robotDrive.rbWheel.getPosition());
         robot.dashboard.displayPrintf(4, "DrivePower: lf=%.2f,rf=%.2f,lb=%.2f,rb=%.2f",
-            robot.robotDrive.lfWheel.getPower(), robot.robotDrive.rfWheel.getPower(),
-            robot.robotDrive.lbWheel.getPower(), robot.robotDrive.rbWheel.getPower());
+            robot.robotDrive.lfWheel.getMotorPower(), robot.robotDrive.rfWheel.getMotorPower(),
+            robot.robotDrive.lbWheel.getMotorPower(), robot.robotDrive.rbWheel.getMotorPower());
 
         //
         // Display other subsystems and sensor info.

@@ -90,8 +90,8 @@ public class WestCoastDrive
         lfWheel.setInverted(true);
         lbWheel.setInverted(true);
 
-        lbWheel.follow(lfWheel);
-        rbWheel.follow(rfWheel);
+        lbWheel.followMotor(lfWheel);
+        rbWheel.followMotor(rfWheel);
 
         driveBase = new TrcSimpleDriveBase(lfWheel, rfWheel, gyro);
         driveBase.setOdometryScales(RobotParams.WCD_INCHES_PER_COUNT);

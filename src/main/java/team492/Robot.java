@@ -25,6 +25,7 @@ package team492;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
+import TrcCommonLib.trclib.TrcPidConveyor;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
@@ -86,7 +87,7 @@ public class Robot extends FrcRobotBase
     //
     public LEDIndicator ledIndicator;
     public Shooter shooter;
-    public Conveyor conveyor; 
+    public TrcPidConveyor conveyor;
     public Intake intake;
 
     /**
@@ -167,7 +168,7 @@ public class Robot extends FrcRobotBase
         //
         ledIndicator = new LEDIndicator();
         shooter = new Shooter();
-        conveyor = new Conveyor("conveyor", RobotParams.CANID_CONVEYOR, 1);
+        conveyor = new Conveyor().getConveyor();
         intake = new Intake();
 
         //

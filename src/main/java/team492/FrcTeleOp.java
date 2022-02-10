@@ -172,7 +172,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             robot.dashboard.displayPrintf(11, "Shooter velocities (current/max): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
                 shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
                 shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
-            robot.dashboard.displayPrintf(9, "breakers: 0:%s, 1:%s", robot.conveyor.entranceSensor.isActive(), robot.conveyor.exitSensor.isActive());
+            robot.dashboard.displayPrintf(
+                9, "breakers: 0:%s, 1:%s",
+                robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
         }
         //
         // Update robot status
@@ -421,8 +423,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                if(pressed) {
-                    robot.conveyor.advanceOneBall();
+                if(pressed)
+                {
+                    robot.conveyor.advance();
                 }
                 break;
 
@@ -433,11 +436,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:
-                robot.conveyor.conveyorMotor.set(pressed? 0.5: 0);
+                robot.conveyor.setPower(pressed? 0.5: 0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON5:
-                robot.conveyor.conveyorMotor.set(pressed? -0.5: 0);
+                robot.conveyor.setPower(pressed? -0.5: 0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:

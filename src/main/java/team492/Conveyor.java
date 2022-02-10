@@ -1,94 +1,70 @@
+/*
+ * Copyright (c) 2022 Titan Robotics Club (http://www.titanrobotics.com)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package team492;
 
-import TrcCommonLib.trclib.TrcDigitalInputTrigger;
-import TrcCommonLib.trclib.TrcNotifier;
-import TrcCommonLib.trclib.TrcPidActuator;
-import TrcCommonLib.trclib.TrcPidController;
-import TrcCommonLib.trclib.TrcNotifier.Receiver;
+import TrcCommonLib.trclib.TrcPidConveyor;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 
-public class Conveyor {
-    TrcPidActuator conveyor;
-    FrcCANTalon conveyorMotor; 
-    FrcDigitalInput entranceSensor, exitSensor; 
-    TrcDigitalInputTrigger entranceTrigger, exitTrigger; 
-    Receiver entranceReceiver; 
-    int numBallsInConveyor = 0;
+public class Conveyor
+{
+    private static final String moduleName = "Conveyor";
+    private FrcCANTalon conveyorMotor;
+    private FrcDigitalInput entranceSensor, exitSensor;
+    private TrcPidConveyor conveyor;
 
-    public Conveyor(String instanceName, int port, int numberPreloadBalls){
-        numBallsInConveyor = numberPreloadBalls ; 
-        conveyorMotor = new FrcCANTalon("conveyor", port);
-        final TrcPidActuator.Parameters conveyorParams = new TrcPidActuator.Parameters()
-        .setPidParams(new TrcPidController.PidParameters(
-            RobotParams.CONVEYOR_KP, RobotParams.CONVEYOR_KI, RobotParams.CONVEYOR_KD, RobotParams.CONVEYOR_TOLERANCE))
-        .setMotorParams(
-            RobotParams.CONVEYOR_MOTOR_INVERTED,
-            RobotParams.CONVEYOR_HAS_ENTRANCE_SENSOR, RobotParams.CONVEYOR_ENTRANCE_SENSOR_INVERTED,
-            RobotParams.CONVEYOR_HAS_EXIT_SENSOR, RobotParams.CONVEYOR_EXIT_SENSOR_INVERTED,
-            RobotParams.CONVEYOR_CAL_POWER)
-        .setStallProtectionParams(
-            RobotParams.CONVEYOR_STALL_MIN_POWER, RobotParams.CONVEYOR_STALL_TIMEOUT, RobotParams.CONVEYOR_RESET_TIMEOUT);
+    public Conveyor()
+    {
+        conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
+        conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
 
-        //make exit and entrance sensors
         if (RobotParams.CONVEYOR_HAS_ENTRANCE_SENSOR)
         {
             entranceSensor =
-                new FrcDigitalInput(instanceName + "EntranceSensor", RobotParams.CONVEYOR_ENTRANCE_SENSOR_PORT);
-            entranceTrigger = new TrcDigitalInputTrigger(instanceName + "EntranceTrigger", entranceSensor, this::entranceTriggerEvent);
-    
+                new FrcDigitalInput(moduleName + ".entranceSensor", RobotParams.DIO_CONVEYOR_ENTRANCE_SENSOR);
+            entranceSensor.setInverted(RobotParams.CONVEYOR_ENTRANCE_SENSOR_INVERTED);
         }
+
         if(RobotParams.CONVEYOR_HAS_EXIT_SENSOR)
         {
-            exitSensor = new FrcDigitalInput(instanceName + "ExitSensor", RobotParams.CONVEYOR_EXIT_SENSOR_PORT);
-            exitTrigger = new TrcDigitalInputTrigger(instanceName + "ExitTrigger", exitSensor, this::exitTriggerEvent);
+            exitSensor = new FrcDigitalInput(moduleName + ".exitSensor", RobotParams.DIO_CONVEYOR_EXIT_SENSOR);
+            exitSensor.setInverted(RobotParams.CONVEYOR_EXIT_SENSOR_INVERTED);
         }
 
-        conveyor = new TrcPidActuator(RobotParams.HWNAME_CONVEYOR, conveyorMotor, entranceSensor, exitSensor, conveyorParams);
-            
-
+        TrcPidConveyor.Parameters params = new TrcPidConveyor.Parameters()
+            .setScale(RobotParams.CONVEYOR_INCHES_PER_COUNT)
+            .setPidParams(RobotParams.CONVEYOR_KP, RobotParams.CONVEYOR_KI, RobotParams.CONVEYOR_KD,
+                          RobotParams.CONVEYOR_TOLERANCE)
+            .setMovePower(RobotParams.CONVEYOR_MOVE_POWER)
+            .setObjectDistance(RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE)
+            .setMaxCapacity(RobotParams.CONVEYOR_MAX_CAPACITY);
+        conveyor = new TrcPidConveyor(moduleName, conveyorMotor, entranceSensor, exitSensor, params);
         //write autochoices for number of preload ball 
     }
 
-    public void advanceOneBall(){
-        conveyor.setTarget(RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE);
-    }
-    
-    public void advanceTwoBalls(){
-        conveyor.setTarget(2 * RobotParams.CONVEYOR_ADVANCE_BALL_DISTANCE);
-    }
-    
-    //when trigger happens call this method: adds a ball, if anybody wants to know about entrance receiver, call him
-    //need state bc there is one state for beam broken and another when ball passes the beam 
-    void entranceTriggerEvent(boolean state)
+    public TrcPidConveyor getConveyor()
     {
-        if(state){
-            numBallsInConveyor++;
-            if(entranceReceiver!=null){
-                entranceReceiver.notify(null);
-            }
-        }
-    }
-
-    void exitTriggerEvent(boolean state)
-    {
-        if(state){
-            numBallsInConveyor--;
-            if(entranceReceiver!=null){
-                entranceReceiver.notify(null);
-            }
-        }   
-    }
-
-    public int numBallsInConveyor(){
-        return numBallsInConveyor;
-    }
-    
-    //call this method if you want to receive notifications for entrance trigger. 
-    public void registerEntranceTrigger(TrcNotifier.Receiver receiver){
-        entranceReceiver = receiver; 
-
-    }   
+        return conveyor;
+    }   //getConveyor
 
     //pipeline notes
     // when entrance is broken,
@@ -98,4 +74,4 @@ public class Conveyor {
     //  stop the intake, because we have two balls
     //  lift the intake back up
 
-}
+}   //class Conveyor

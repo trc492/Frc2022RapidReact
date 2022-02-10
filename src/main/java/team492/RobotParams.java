@@ -146,8 +146,8 @@ public class RobotParams
     //
     // Digital Input/Output ports.
     //
-    public static final int CONVEYOR_ENTRANCE_SENSOR_PORT            = 0; 
-    public static final int CONVEYOR_EXIT_SENSOR_PORT                = 1; 
+    public static final int DIO_CONVEYOR_ENTRANCE_SENSOR        = 0;
+    public static final int DIO_CONVEYOR_EXIT_SENSOR            = 1;
 
 
     //
@@ -281,22 +281,18 @@ public class RobotParams
     public static final double INTAKE_SPITOUT_POWER             = -1.0;
 
     //Conveyor subsystem
+    public static final double CONVEYOR_INCHES_PER_COUNT        = 1.0;
     public static final double CONVEYOR_KP                      = 0.1;
     public static final double CONVEYOR_KI                      = 0.0;
-    public static final double CONVEYOR_KD                      = 0.0; 
+    public static final double CONVEYOR_KD                      = 0.0;
     public static final double CONVEYOR_TOLERANCE               = 0.1;
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
-    public static final double CONVEYOR_CAL_POWER               = 0.1; 
-    //enter and exit sensor 
-    public static final boolean CONVEYOR_HAS_ENTRANCE_SENSOR    = true; 
-    public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED = false;
+    public static final double CONVEYOR_MOVE_POWER              = 1.0;
+    public static final boolean CONVEYOR_HAS_ENTRANCE_SENSOR    = true;
+    public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=false;
     public static final boolean CONVEYOR_HAS_EXIT_SENSOR        = true;
-    public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false; 
-    //conveyor stall detection 
-    public static final double CONVEYOR_STALL_MIN_POWER         = 0.0; 
-    public static final double CONVEYOR_STALL_TIMEOUT           = 0.0; 
-    public static final double CONVEYOR_RESET_TIMEOUT           = 2.0; 
-    //conveyor ball advance
-    public static final double CONVEYOR_ADVANCE_BALL_DISTANCE   = 12.0; 
+    public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
+    public static final double CONVEYOR_ADVANCE_BALL_DISTANCE   = 12.0;
+    public static final int CONVEYOR_MAX_CAPACITY               = 2;
 
 }   //class RobotParams

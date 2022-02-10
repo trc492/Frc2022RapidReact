@@ -23,13 +23,8 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
-import TrcCommonLib.trclib.TrcPidActuator;
-import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
-import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcFrcLib.frclib.FrcCANFalcon;
-import TrcFrcLib.frclib.FrcCANTalon;
-import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
 
 public class Shooter implements TrcExclusiveSubsystem
 {

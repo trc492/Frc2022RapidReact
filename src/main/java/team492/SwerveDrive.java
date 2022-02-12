@@ -281,10 +281,10 @@ public class SwerveDrive
             saveSteerZeroPositions();
         }
         double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
-        robot.robotDrive.lfWheel.set(power);
-        robot.robotDrive.rfWheel.set(power);
-        robot.robotDrive.lbWheel.set(power);
-        robot.robotDrive.rbWheel.set(power);
+        robot.robotDrive.lfWheel.driveMotor.set(power);
+        robot.robotDrive.rfWheel.driveMotor.set(power);
+        robot.robotDrive.lbWheel.driveMotor.set(power);
+        robot.robotDrive.rbWheel.driveMotor.set(power);
         robot.dashboard.putString(
             DBKEY_TEST_SWERVE_ANGLES,
             String.format(

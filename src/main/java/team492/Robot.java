@@ -25,6 +25,7 @@ package team492;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
+import TrcCommonLib.trclib.TrcPidConveyor;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
@@ -86,6 +87,9 @@ public class Robot extends FrcRobotBase
     // Other subsystems.
     //
     public LEDIndicator ledIndicator;
+    public Shooter shooter;
+    public TrcPidConveyor conveyor;
+    public Intake intake;
 
     /**
      * Constructor: Create an instance of the object.
@@ -121,18 +125,25 @@ public class Robot extends FrcRobotBase
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
             operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
-            buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
-            switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
             driverController.setLeftYInverted(true);
+            if (RobotParams.Preferences.useButtonPanels)
+            {
+                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
+                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
+            }
         }
         else
         {
-            leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.XBOX_DRIVERCONTROLLER);
-            rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.XBOX_DRIVERCONTROLLER + 1);
-            operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK + 1);
-            buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
-            switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
+            leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
+            rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
+            operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
+            leftDriveStick.setYInverted(true);
             rightDriveStick.setYInverted(true);
+            if (RobotParams.Preferences.useButtonPanels)
+            {
+                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
+                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
+            }
         }
         operatorStick.setYInverted(false);
 
@@ -160,6 +171,9 @@ public class Robot extends FrcRobotBase
         // Create and initialize other subsystems.
         //
         ledIndicator = new LEDIndicator();
+        shooter = new Shooter();
+        conveyor = new Conveyor().getConveyor();
+        intake = new Intake();
 
         //
         // AutoAssist commands.

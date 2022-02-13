@@ -15,7 +15,7 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
@@ -56,11 +56,12 @@ public class Robot extends FrcRobotBase
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
     private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
     private boolean traceLogOpened = false;
+
     //
     // Inputs.
     //
-    public FrcXboxController driverController;
     public FrcJoystick leftDriveStick, rightDriveStick;
+    public FrcXboxController driverController;
     public FrcJoystick operatorStick;
     public FrcJoystick buttonPanel;
     public FrcJoystick switchPanel;
@@ -75,7 +76,7 @@ public class Robot extends FrcRobotBase
     //
     // DriveBase subsystem.
     //
-    public WestCoastDrive robotDrive;
+    public SwerveDrive robotDrive;
 
     //
     // Vision subsystem.
@@ -145,16 +146,19 @@ public class Robot extends FrcRobotBase
             }
         }
         operatorStick.setYInverted(false);
+
         //
         // Create and initialize sensors.
         //
         pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kCTRE);
         battery = new FrcRobotBattery(pdp);
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
+
         //
-        // Create and initialize RobotDrive subsystem.
+        // Create and initialize DriveBase subsystem.
         //
-        robotDrive = new WestCoastDrive(this);
+        robotDrive = new SwerveDrive(this);
+
         //
         // Create and initialize Vision subsystem.
         //
@@ -176,6 +180,7 @@ public class Robot extends FrcRobotBase
         //
 
         pdp.registerEnergyUsedForAllUnregisteredChannels();
+
         //
         // Create Robot Modes.
         //
@@ -192,10 +197,12 @@ public class Robot extends FrcRobotBase
     public void robotStartMode(RunMode runMode, RunMode prevMode)
     {
         final String funcName = "robotStartMode";
+
         //
         // Read FMS Match info.
         //
         FrcMatchInfo matchInfo = FrcMatchInfo.getMatchInfo();
+
         //
         // Start trace logging.
         //
@@ -207,6 +214,7 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(
             funcName, "[%.3f] %s: ***** %s *****", TrcUtil.getModeElapsedTime(),
             matchInfo.eventDate, runMode);
+
         //
         // Start subsystems.
         //
@@ -224,11 +232,13 @@ public class Robot extends FrcRobotBase
     public void robotStopMode(RunMode runMode, RunMode nextMode)
     {
         final String funcName = "robotStopMode";
+
         //
         // Stop subsystems.
         //
         robotDrive.stopMode(runMode, nextMode);
         ledIndicator.reset();
+
         //
         // Performance status report.
         //
@@ -236,6 +246,7 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(
             funcName, "TotalEnergy=%.3fWh (%.2f%%)",
             totalEnergy, totalEnergy * 100.0 / RobotParams.BATTERY_CAPACITY_WATT_HOUR);
+
         //
         // Stop trace logging.
         //
@@ -283,15 +294,23 @@ public class Robot extends FrcRobotBase
                 //
                 // DriveBase debug info.
                 //
-                double lfEnc = robotDrive.lfWheel.getPosition();
-                double rfEnc = robotDrive.rfWheel.getPosition();
-                double lbEnc = robotDrive.lbWheel.getPosition();
-                double rbEnc = robotDrive.rbWheel.getPosition();
+                double lfDriveEnc = robotDrive.lfWheel.driveMotor.getPosition();
+                double rfDriveEnc = robotDrive.rfWheel.driveMotor.getPosition();
+                double lbDriveEnc = robotDrive.lbWheel.driveMotor.getPosition();
+                double rbDriveEnc = robotDrive.rbWheel.driveMotor.getPosition();
+
+                double lfSteerEnc = robotDrive.lfWheel.steerMotor.getPosition();
+                double rfSteerEnc = robotDrive.rfWheel.steerMotor.getPosition();
+                double lbSteerEnc = robotDrive.lbWheel.steerMotor.getPosition();
+                double rbSteerEnc = robotDrive.rbWheel.steerMotor.getPosition();
 
                 dashboard.displayPrintf(
                     8, "DriveBase: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f, avg=%.0f",
-                    lfEnc, rfEnc, lbEnc, rbEnc, (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
-                dashboard.displayPrintf(9, "DriveBase: pose=%s", robotPose);
+                    lfDriveEnc, rfDriveEnc, lbDriveEnc, rbDriveEnc, (lfDriveEnc + rfDriveEnc + lbDriveEnc + rbDriveEnc) / 4.0);
+                dashboard.displayPrintf(
+                    9, "DriveBase: lf steering=%.0f, rf steering=%.0f, lb steering=%.0f, rb steering =%.0f",
+                    lfSteerEnc, rfSteerEnc, lbSteerEnc, rbSteerEnc);
+                dashboard.displayPrintf(10, "DriveBase: pose=%s", robotPose);
 
                 if (RobotParams.Preferences.debugPidDrive)
                 {
@@ -385,3 +404,4 @@ public class Robot extends FrcRobotBase
     }   //getPressure
 
 }   //class Robot
+  

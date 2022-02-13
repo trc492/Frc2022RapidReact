@@ -33,11 +33,9 @@ public class RobotParams
     //
     // Robot preferences.
     //
-    //HARDWARE_NAMES
-    static final String HWNAME_CONVEYOR                         = "conveyor";
-    //
     public static class Preferences
     {
+        public static final boolean useSubsystems               = true;
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
         public static final boolean useButtonPanels             = false;
@@ -85,12 +83,14 @@ public class RobotParams
     public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(0.0, 0.0, 0.0);
     public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(0.0, 0.0, 0.0);
     public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(0.0, 0.0, 0.0);
-    public static final TrcPose2D[] RED_START_POSES = new TrcPose2D[] {
+    public static final TrcPose2D[] RED_START_POSES = new TrcPose2D[]
+    {
         STARTPOS_RED_POS1,
         STARTPOS_RED_POS2,
         STARTPOS_RED_POS3
     };
-    public static final TrcPose2D[] BLUE_START_POSES = new TrcPose2D[] {
+    public static final TrcPose2D[] BLUE_START_POSES = new TrcPose2D[]
+    {
         STARTPOS_BLUE_POS1,
         STARTPOS_BLUE_POS2,
         STARTPOS_BLUE_POS3
@@ -130,10 +130,10 @@ public class RobotParams
     //
     // PDP Channels.
     //
-    public static final int PDP_CHANNEL_LEFT_FRONT_WHEEL        = 3;
-    public static final int PDP_CHANNEL_RIGHT_FRONT_WHEEL       = 0;
-    public static final int PDP_CHANNEL_LEFT_BACK_WHEEL         = 12;
-    public static final int PDP_CHANNEL_RIGHT_BACK_WHEEL        = 15;
+    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 3;
+    public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 0;
+    public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 12;
+    public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 15;
 
     public static final double BATTERY_NOMINAL_VOLTAGE          = 12.0;
     public static final double BATTERY_CAPACITY_WATT_HOUR       = 18.0*12.0;

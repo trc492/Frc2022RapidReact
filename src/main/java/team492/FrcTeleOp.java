@@ -157,24 +157,27 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             // Analog control of subsystem is done here if necessary.
             //
+            if (RobotParams.Preferences.useSubsystems)
+            {
+                double intakePower = robot.operatorStick.getY();
+                robot.intake.setPower(intakePower);
 
-            double intakePower = robot.operatorStick.getY();
-            robot.intake.setPower(intakePower);
-
-            double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
-            double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
-            double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
-            double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
-            robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
-            if(flywheelOn) {
-                robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+                double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
+                double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
+                double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
+                double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
+                robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
+                if(flywheelOn)
+                {
+                    robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+                }
+                robot.dashboard.displayPrintf(11, "Shooter velocities (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
+                    shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
+                    shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
+                robot.dashboard.displayPrintf(
+                    9, "breakers: 0:%s, 1:%s",
+                    robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
             }
-            robot.dashboard.displayPrintf(11, "Shooter velocities (current/max): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
-                shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
-                shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
-            robot.dashboard.displayPrintf(
-                9, "breakers: 0:%s, 1:%s",
-                robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
         }
         //
         // Update robot status
@@ -313,35 +316,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
 
     /**
-     * This method is called when a right driver stick button event is detected.
-     *
-     * @param button specifies the button ID that generates the event
-     * @param pressed specifies true if the button is pressed, false otherwise.
-     */
-    private void rightDriveStickButtonEvent(int button, boolean pressed)
-    {
-        robot.dashboard.displayPrintf(
-            8, " RightDriveStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
-
-        switch (button)
-        {
-            case FrcJoystick.SIDEWINDER_TRIGGER:
-                if (pressed)
-                {
-                    if (driveOrientation != DriveOrientation.FIELD)
-                    {
-                        driveOrientation = DriveOrientation.FIELD;
-                    }
-                    else
-                    {
-                        driveOrientation = DriveOrientation.ROBOT;
-                    }
-                }
-                break;
-        }
-    }   //rightDriveStickButtonEvent
-
-    /**
      * This method is called when a driver stick button event is detected.
      *
      * @param button specifies the button ID that generates the event
@@ -406,6 +380,35 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     }   //driverControllerButtonEvent
 
     /**
+     * This method is called when a right driver stick button event is detected.
+     *
+     * @param button specifies the button ID that generates the event
+     * @param pressed specifies true if the button is pressed, false otherwise.
+     */
+    private void rightDriveStickButtonEvent(int button, boolean pressed)
+    {
+        robot.dashboard.displayPrintf(
+            8, " RightDriveStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
+
+        switch (button)
+        {
+            case FrcJoystick.SIDEWINDER_TRIGGER:
+                if (pressed)
+                {
+                    if (driveOrientation != DriveOrientation.FIELD)
+                    {
+                        driveOrientation = DriveOrientation.FIELD;
+                    }
+                    else
+                    {
+                        driveOrientation = DriveOrientation.ROBOT;
+                    }
+                }
+                break;
+        }
+    }   //rightDriveStickButtonEvent
+
+    /**
      * This method is called when an operator stick button event is detected.
      *
      * @param button specifies the button ID that generates the event
@@ -430,7 +433,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
-                if(pressed) {
+                if (pressed)
+                {
                     flywheelOn = !flywheelOn;
                 }
                 break;

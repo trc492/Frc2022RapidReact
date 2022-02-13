@@ -22,7 +22,7 @@
 
 package team492;
 
-// import TrcCommonLib.trclib.TrcPidConveyor;
+import TrcCommonLib.trclib.TrcPidConveyor;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -40,15 +40,14 @@ public class Intake
      * @param instanceName specifies the instance name.
      * @param conveyor specifies the conveyor object.
      */
-    // public Intake(TrcPidConveyor conveyor)
-    public Intake()
+    public Intake(TrcPidConveyor conveyor)
     {
         intakeMotor = new FrcCANFalcon(moduleName + ".motor", RobotParams.CANID_INTAKE);
         intakePneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
 
-        // conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
+        conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
     }   //Intake
 
     public boolean hasBall()
@@ -97,10 +96,10 @@ public class Intake
         return intakePneumatic.isExtended();
     }   //isExtended
 
-    // private void conveyorEntranceTrigger(Object active)
-    // {
-    //     this.gotBall = (Boolean) active;
-    //     setPower(0.0);
-    // }   //conveyorEntranceTrigger
+    private void conveyorEntranceTrigger(Object active)
+    {
+        this.gotBall = (Boolean) active;
+        setPower(0.0);
+    }   //conveyorEntranceTrigger
 
 }   //class Intake

@@ -49,7 +49,7 @@ public class WestCoastDrive
     //
     // Drive motors.
     //
-    public final FrcCANFalcon lfWheel, lbWheel, rfWheel, rbWheel;
+    public final FrcCANFalcon lfDriveMotor, lbDriveMotor, rfDriveMotor, rbDriveMotor;
     //
     // Drive Base.
     //
@@ -77,30 +77,30 @@ public class WestCoastDrive
     {
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
 
-        lfWheel = new FrcCANFalcon("lfWheel", RobotParams.CANID_LEFTFRONT_DRIVE);
-        lbWheel = new FrcCANFalcon("lbWheel", RobotParams.CANID_LEFTBACK_DRIVE);
-        rfWheel = new FrcCANFalcon("rfWheel", RobotParams.CANID_RIGHTFRONT_DRIVE);
-        rbWheel = new FrcCANFalcon("rbWheel", RobotParams.CANID_RIGHTBACK_DRIVE);
+        lfDriveMotor = new FrcCANFalcon("lfDriveMotor", RobotParams.CANID_LEFTFRONT_DRIVE);
+        lbDriveMotor = new FrcCANFalcon("lbDriveMotor", RobotParams.CANID_LEFTBACK_DRIVE);
+        rfDriveMotor = new FrcCANFalcon("rfDriveMotor", RobotParams.CANID_RIGHTFRONT_DRIVE);
+        rbDriveMotor = new FrcCANFalcon("rbDriveMotor", RobotParams.CANID_RIGHTBACK_DRIVE);
 
-        lfWheel.setBrakeModeEnabled(true);
-        lbWheel.setBrakeModeEnabled(true);
-        rfWheel.setBrakeModeEnabled(true);
-        rbWheel.setBrakeModeEnabled(true);
+        lfDriveMotor.setBrakeModeEnabled(true);
+        lbDriveMotor.setBrakeModeEnabled(true);
+        rfDriveMotor.setBrakeModeEnabled(true);
+        rbDriveMotor.setBrakeModeEnabled(true);
 
-        lfWheel.setInverted(true);
-        lbWheel.setInverted(true);
+        lfDriveMotor.setInverted(true);
+        lbDriveMotor.setInverted(true);
 
-        lbWheel.followMotor(lfWheel);
-        rbWheel.followMotor(rfWheel);
+        lbDriveMotor.followMotor(lfDriveMotor);
+        rbDriveMotor.followMotor(rfDriveMotor);
 
-        driveBase = new TrcSimpleDriveBase(lfWheel, rfWheel, gyro);
+        driveBase = new TrcSimpleDriveBase(lfDriveMotor, rfDriveMotor, gyro);
         driveBase.setOdometryScales(RobotParams.WCD_INCHES_PER_COUNT);
 
         robot.pdp.registerEnergyUsed(
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_WHEEL, "lfWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_WHEEL, "lbWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_WHEEL, "rfWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_WHEEL, "rbWheel"));
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfDriveMotor"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_DRIVE, "lbDriveMotor"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_DRIVE, "rfDriveMotor"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_DRIVE, "rbDriveMotor"));
 
         // if (RobotParams.Preferences.useExternalOdometry)
         // {

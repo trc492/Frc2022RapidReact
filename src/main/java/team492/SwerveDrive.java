@@ -118,10 +118,10 @@ public class SwerveDrive
         rbWheel = createModule("rbWheel", rbDriveMotor, rbSteerMotor, zeros[3]);
 
         robot.pdp.registerEnergyUsed(
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_WHEEL, "lfWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_WHEEL, "lbWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_WHEEL, "rfWheel"),
-            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_WHEEL, "rbWheel"));
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfWheel"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_DRIVE, "lbWheel"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_DRIVE, "rfWheel"),
+            new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_DRIVE, "rbWheel"));
 
         driveBase = new TrcSwerveDriveBase(
             lfWheel, lbWheel, rfWheel, rbWheel, gyro, RobotParams.ROBOT_DRIVE_WIDTH, RobotParams.ROBOT_DRIVE_LENGTH);
@@ -281,10 +281,10 @@ public class SwerveDrive
             saveSteerZeroPositions();
         }
         double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
-        robot.robotDrive.lfWheel.driveMotor.set(power);
-        robot.robotDrive.rfWheel.driveMotor.set(power);
-        robot.robotDrive.lbWheel.driveMotor.set(power);
-        robot.robotDrive.rbWheel.driveMotor.set(power);
+        lfDriveMotor.set(power);
+        rfDriveMotor.set(power);
+        lbDriveMotor.set(power);
+        rbDriveMotor.set(power);
         robot.dashboard.putString(
             DBKEY_TEST_SWERVE_ANGLES,
             String.format(

@@ -360,7 +360,7 @@ public class SwerveDrive
         TrcUtil.sleep(50);
 
         robot.globalTracer.traceInfo(
-            funcName, "Module=%s, Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%d",
+            funcName, "Module=%s, Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%f",
             name, steerZero, steer.motor.getSensorCollection().getPulseWidthPosition(),
             steer.motor.getSensorCollection().getQuadraturePosition(), steer.motor.getSelectedSensorPosition());
 

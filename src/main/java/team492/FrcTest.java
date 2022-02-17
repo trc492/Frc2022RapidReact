@@ -194,7 +194,7 @@ public class FrcTest extends FrcTeleOp
     //
     // Global objects.
     //
-    private final TestChoices testChoices = new TestChoices();
+    private final TestChoices testChoices;
     private TrcRobot.RobotCommand testCommand;
     private double maxDriveVelocity = 0.0;
     private double maxDriveAcceleration = 0.0;
@@ -207,6 +207,7 @@ public class FrcTest extends FrcTeleOp
         // Call TeleOp constructor.
         //
         super(robot);
+        testChoices = new TestChoices();
         //
         // Create and initialize global objects.
         //
@@ -249,7 +250,7 @@ public class FrcTest extends FrcTeleOp
 
             case SWERVE_CALIBRATION:
                 setControlsEnabled(false);
-                robot.robotDrive.startCalibrate();
+                robot.robotDrive.startSteerCalibrate();
                 break;
 
             case DRIVE_MOTORS_TEST:
@@ -355,40 +356,40 @@ public class FrcTest extends FrcTeleOp
                 break;
 
             case SWERVE_CALIBRATION:
-                robot.robotDrive.calibratePeriodic();
+                robot.robotDrive.steerCalibratePeriodic();
                 displaySensorStates();
                 break;
 
-                case X_TIMED_DRIVE:
-                case Y_TIMED_DRIVE:
-                    double lfEnc = robot.robotDrive.lfDriveMotor.getPosition();
-                    double rfEnc = robot.robotDrive.rfDriveMotor.getPosition();
-                    double lbEnc = robot.robotDrive.lbDriveMotor.getPosition();
-                    double rbEnc = robot.robotDrive.rbDriveMotor.getPosition();
-                    robot.dashboard.displayPrintf(2, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
-                    robot.dashboard.displayPrintf(3, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
-                    robot.dashboard.displayPrintf(4, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
-                    robot.dashboard.displayPrintf(5, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                    break;
+            case X_TIMED_DRIVE:
+            case Y_TIMED_DRIVE:
+                double lfEnc = robot.robotDrive.lfDriveMotor.getPosition();
+                double rfEnc = robot.robotDrive.rfDriveMotor.getPosition();
+                double lbEnc = robot.robotDrive.lbDriveMotor.getPosition();
+                double rbEnc = robot.robotDrive.rbDriveMotor.getPosition();
+                robot.dashboard.displayPrintf(2, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
+                robot.dashboard.displayPrintf(3, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
+                robot.dashboard.displayPrintf(4, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
+                robot.dashboard.displayPrintf(5, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                break;
     
-                case PID_DRIVE:
-                case TUNE_X_PID:
-                case TUNE_Y_PID:
-                case TUNE_TURN_PID:
-                    int lineNum = 3;
-                    robot.dashboard.displayPrintf(2, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                    if (robot.robotDrive.encoderXPidCtrl != null)
-                    {
-                        robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
-                        lineNum += 2;
-                    }
-                    robot.robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
+            case PID_DRIVE:
+            case TUNE_X_PID:
+            case TUNE_Y_PID:
+            case TUNE_TURN_PID:
+                int lineNum = 3;
+                robot.dashboard.displayPrintf(2, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                if (robot.robotDrive.encoderXPidCtrl != null)
+                {
+                    robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
                     lineNum += 2;
-                    robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
-                    break;
+                }
+                robot.robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
+                lineNum += 2;
+                robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
+                break;
     
-                default:
-                    break;
+            default:
+                break;
         }
         //
         // Update Dashboard.

@@ -49,7 +49,7 @@ class CmdAuto implements TrcRobot.RobotCommand
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
-    private final String pathForm; 
+    private final String pathFilePrefix;
     private int pathNumber; 
 
     /**
@@ -66,7 +66,7 @@ class CmdAuto implements TrcRobot.RobotCommand
         this.autoChoices = autoChoices;
         timer = new TrcTimer(moduleName);
         event = new TrcEvent(moduleName);
-        pathForm = autoChoices.getAlliance().toString() + "_STARTPOS_" + autoChoices.getStartPos() + "_" + "Path_";
+        pathFilePrefix = autoChoices.getAlliance().toString() + "_StartPos" + autoChoices.getStartPos() + "_" + "Path";
         pathNumber = 1; 
         sm = new TrcStateMachine<>(moduleName);
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
@@ -159,8 +159,10 @@ class CmdAuto implements TrcRobot.RobotCommand
                     break;
 
                 case GO_TO_NEXT_BALL:
-                    String path = pathForm + pathNumber;
-                    robot.robotDrive.purePursuitDrive.start(event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,  null, null, path, false);
+                    String pathFile = pathFilePrefix + pathNumber;
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,  null, null,
+                        pathFile, false);
                     pathNumber++; 
                     sm.waitForSingleEvent(event, State.PICK_UP);
                     break;

@@ -25,11 +25,11 @@ package team492;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
-import TrcCommonLib.trclib.TrcPidConveyor;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
+import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
@@ -39,6 +39,7 @@ import TrcFrcLib.frclib.FrcRobotBase;
 import TrcFrcLib.frclib.FrcRobotBattery;
 import TrcFrcLib.frclib.FrcXboxController;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 /**
@@ -59,6 +60,7 @@ public class Robot extends FrcRobotBase
     //
     // Inputs.
     //
+    // TO-DO: decide what joysticks or game controllers to use.
     public FrcXboxController driverController;
     public FrcJoystick leftDriveStick, rightDriveStick;
     public FrcJoystick operatorStick;
@@ -69,26 +71,26 @@ public class Robot extends FrcRobotBase
     //
     public FrcPdp pdp;
     public TrcRobotBattery battery;
-    public AnalogInput pressureSensor;
+    public AnalogInput pressureSensor;  // TO-DO: change to use the REV PCM to read the pressure sensor.
     //
     // Miscellaneous hardware.
     //
-    public LEDIndicator ledIndicator;
+    public LEDIndicator ledIndicator;   // TO-DO: decide what kind of LEDs to use and what status to show.
     //
     // DriveBase subsystem.
     //
-    // public WestCoastDrive robotDrive;
     public SwerveDrive robotDrive;
     //
     // Vision subsystem.
     //
-    public VisionTargeting vision;
+    public VisionTargeting vision;  // TO-DO: decide what vision processing to use.
     //
     // Other subsystems.
     //
     public Shooter shooter;
-    public TrcPidConveyor conveyor;
+    public Conveyor conveyor;
     public Intake intake;
+    // public Climber climber;  // TO-DO: need to write this.
 
     /**
      * Constructor: Create an instance of the object.
@@ -119,11 +121,11 @@ public class Robot extends FrcRobotBase
 
         //
         // Create and initialize inputs.
+        // TO-DO: decide what joystck and game controller to use.
         //
         if (RobotParams.Preferences.useXboxController)
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
-            operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
             driverController.setLeftYInverted(true);
             if (RobotParams.Preferences.useButtonPanels)
             {
@@ -135,7 +137,6 @@ public class Robot extends FrcRobotBase
         {
             leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
-            operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
             leftDriveStick.setYInverted(true);
             rightDriveStick.setYInverted(true);
             if (RobotParams.Preferences.useButtonPanels)
@@ -144,6 +145,7 @@ public class Robot extends FrcRobotBase
                 switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
             }
         }
+        operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
         operatorStick.setYInverted(false);
         //
         // Create and initialize sensors.
@@ -173,7 +175,7 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useSubsystems)
         {
             shooter = new Shooter();
-            conveyor = new Conveyor().getConveyor();
+            conveyor = new Conveyor();
             intake = new Intake(conveyor);
         }
         //
@@ -282,7 +284,7 @@ public class Robot extends FrcRobotBase
 
                 dashboard.putNumber("DriveBase/xPos", robotPose.x);
                 dashboard.putNumber("DriveBase/yPos", robotPose.y);
-                dashboard.putData("DriveBase/heading", robotDrive.gyro.getGyroSendable());
+                dashboard.putData("DriveBase/heading", ((FrcAHRSGyro)robotDrive.gyro).getGyroSendable());
 
                 //
                 // DriveBase debug info.

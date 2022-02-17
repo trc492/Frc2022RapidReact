@@ -51,7 +51,7 @@ import edu.wpi.first.wpilibj.SPI;
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
  * robot.
  */
-public class SwerveDrive
+public class SwerveDrive extends RobotDrive
 {
     private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
     private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
@@ -59,36 +59,10 @@ public class SwerveDrive
     private static final String DBKEY_TEST_ANGLE_TARGET = "Test/AngleTarget";
     private static final String DBKEY_TEST_SWERVE_ANGLES = "Test/SwerveAngles";
     //
-    // Global objects.
+    // Swerve steering motors and modules.
     //
-    private final Robot robot;
-    //
-    // Sensors.
-    //
-    public final FrcAHRSGyro gyro;
-    //
-    // Drive motors.
-    //
-    public final FrcCANSparkMax lfDriveMotor, rfDriveMotor, lbDriveMotor, rbDriveMotor;
     public final FrcCANTalon lfSteerMotor, rfSteerMotor, lbSteerMotor, rbSteerMotor;
     public final TrcSwerveModule lfWheel, lbWheel, rfWheel, rbWheel;
-    //
-    // Drive Base.
-    //
-    public final TrcSwerveDriveBase driveBase;
-
-    public final TrcPidController encoderXPidCtrl;
-    public final TrcPidController encoderYPidCtrl;
-    public final TrcPidController gyroTurnPidCtrl;
-    public final TrcPidDrive pidDrive;
-    public final TrcPurePursuitDrive purePursuitDrive;
-    //
-    // Coefficients for PID controllers.
-    //
-    public final TrcPidController.PidCoefficients xPosPidCoeff;
-    public final TrcPidController.PidCoefficients yPosPidCoeff;
-    public final TrcPidController.PidCoefficients turnPidCoeff;
-    public final TrcPidController.PidCoefficients velPidCoeff;
 
     /**
      * Constructor: Create an instance of the object.
@@ -112,10 +86,10 @@ public class SwerveDrive
         rbSteerMotor = createSteerTalon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER, true);
 
         int[] zeros = getSteerZeroPositions();
-        lfWheel = createModule("lfWheel", lfDriveMotor, lfSteerMotor, zeros[0]);
-        rfWheel = createModule("rfWheel", rfDriveMotor, rfSteerMotor, zeros[1]);
-        lbWheel = createModule("lbWheel", lbDriveMotor, lbSteerMotor, zeros[2]);
-        rbWheel = createModule("rbWheel", rbDriveMotor, rbSteerMotor, zeros[3]);
+        lfWheel = createModule("lfWheel", (FrcCANSparkMax)lfDriveMotor, lfSteerMotor, zeros[0]);
+        rfWheel = createModule("rfWheel", (FrcCANSparkMax)rfDriveMotor, rfSteerMotor, zeros[1]);
+        lbWheel = createModule("lbWheel", (FrcCANSparkMax)lbDriveMotor, lbSteerMotor, zeros[2]);
+        rbWheel = createModule("rbWheel", (FrcCANSparkMax)rbDriveMotor, rbSteerMotor, zeros[3]);
 
         robot.pdp.registerEnergyUsed(
             new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfWheel"),
@@ -158,27 +132,28 @@ public class SwerveDrive
         // PID Coefficients for X and Y are the same for Swerve Drive.
         xPosPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
-        yPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
-        turnPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
-        velPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
-
         encoderXPidCtrl = new TrcPidController(
             "encoderXPidCtrl", xPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getXPosition);
+        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
+        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
+    
+        yPosPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
         encoderYPidCtrl = new TrcPidController(
             "encoderYPidCtrl", yPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getYPosition);
+        encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
+        encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
+    
+        turnPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
         gyroTurnPidCtrl = new TrcPidController(
             "gyroPidCtrl", turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
-        gyroTurnPidCtrl.setAbsoluteSetPoint(true);
-
-        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
-        encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
         gyroTurnPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_TURNPID_POWER);
-        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
-        encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
         gyroTurnPidCtrl.setRampRate(RobotParams.DRIVE_MAX_TURNPID_RAMP_RATE);
+        gyroTurnPidCtrl.setAbsoluteSetPoint(true);
+    
+        velPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
 
         pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
         // AbsoluteTargetMode eliminates cumulative errors on multi-segment runs because drive base is keeping track
@@ -203,60 +178,26 @@ public class SwerveDrive
      */
     public void startMode(RunMode runMode, RunMode prevMode)
     {
-        if (runMode != RunMode.DISABLED_MODE)
-        {
-            driveBase.setOdometryEnabled(true);
-        }
+        super.startMode(runMode, prevMode);
 
         if (runMode == RunMode.AUTO_MODE)
         {
-            lfDriveMotor.motor.setOpenLoopRampRate(0);
-            rfDriveMotor.motor.setOpenLoopRampRate(0);
-            lbDriveMotor.motor.setOpenLoopRampRate(0);
-            rbDriveMotor.motor.setOpenLoopRampRate(0);
+            ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(0);
+            ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(0);
+            ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(0);
+            ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(0);
         }
         else
         {
-            lfDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            rfDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            lbDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            rbDriveMotor.motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+            ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+            ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+            ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+            ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
         }
     }   //startMode
 
-    /**
-     * This method is called to prepare the robot base right after a robot mode has been stopped.
-     *
-     * @param runMode specifies the current run mode.
-     * @param nextMode specifies the next run mode.
-     */
-    public void stopMode(RunMode runMode, RunMode nextMode)
-    {
-        if (runMode != RunMode.DISABLED_MODE)
-        {
-            driveBase.setOdometryEnabled(false);
-        }
-    }   //stopMode
-
-    /**
-     * This method cancels any PIDDrive operation still in progress.
-     */
-    public void cancel()
-    {
-        if (pidDrive.isActive())
-        {
-            pidDrive.cancel();
-        }
-
-        if (purePursuitDrive.isActive())
-        {
-            purePursuitDrive.cancel();
-        }
-
-        driveBase.stop();
-    }   //cancel
-
-    public void startCalibrate()
+    @Override
+    public void startSteerCalibrate()
     {
         lfSteerMotor.set(0);
         rfSteerMotor.set(0);
@@ -267,11 +208,12 @@ public class SwerveDrive
         robot.dashboard.putBoolean(DBKEY_TEST_SAVE_ANGLES, false);
     }   //startCalibrate
 
-    public void calibratePeriodic()
+    @Override
+    public void steerCalibratePeriodic()
     {
         if (robot.dashboard.getBoolean(DBKEY_TEST_SET_ANGLE, false))
         {
-            driveBase.setSteerAngle(
+            ((TrcSwerveDriveBase)driveBase).setSteerAngle(
                 robot.dashboard.getNumber(DBKEY_TEST_ANGLE_TARGET, 0), false);
             robot.dashboard.putBoolean(DBKEY_TEST_SET_ANGLE, false);
         }

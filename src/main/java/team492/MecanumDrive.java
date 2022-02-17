@@ -26,7 +26,6 @@ import TrcCommonLib.trclib.TrcMecanumDriveBase;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
-import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcPdp;
@@ -36,38 +35,8 @@ import edu.wpi.first.wpilibj.SPI;
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
  * robot.
  */
-public class MecanumDrive
+public class MecanumDrive extends RobotDrive
 {
-    //
-    // Global objects.
-    //
-
-    //
-    // Sensors.
-    //
-    public final FrcAHRSGyro gyro;
-    //
-    // Drive motors.
-    //
-    public final FrcCANTalon lfDriveMotor, lbDriveMotor, rfDriveMotor, rbDriveMotor;
-    //
-    // Drive Base.
-    //
-    public final TrcMecanumDriveBase driveBase;
-
-    public final TrcPidController encoderXPidCtrl;
-    public final TrcPidController encoderYPidCtrl;
-    public final TrcPidController gyroTurnPidCtrl;
-    public final TrcPidDrive pidDrive;
-    public final TrcPurePursuitDrive purePursuitDrive;
-    //
-    // Coefficients for PID controllers.
-    //
-    public final TrcPidController.PidCoefficients xPosPidCoeff;
-    public final TrcPidController.PidCoefficients yPosPidCoeff;
-    public final TrcPidController.PidCoefficients turnPidCoeff;
-    public final TrcPidController.PidCoefficients velPidCoeff;
-
     /**
      * Constructor: Create an instance of the object.
      *
@@ -75,6 +44,7 @@ public class MecanumDrive
      */
     public MecanumDrive(Robot robot)
     {
+        this.robot = robot;
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
 
         lfDriveMotor = new FrcCANTalon("lfDriveMotor", RobotParams.CANID_LEFTFRONT_DRIVE);
@@ -128,27 +98,28 @@ public class MecanumDrive
         //
         xPosPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.MECANUM_X_KP, RobotParams.MECANUM_X_KI, RobotParams.MECANUM_X_KD, RobotParams.MECANUM_X_KF);
-        yPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.MECANUM_Y_KP, RobotParams.MECANUM_Y_KI, RobotParams.MECANUM_Y_KD, RobotParams.MECANUM_Y_KF);
-        turnPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
-        velPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
-
         encoderXPidCtrl = new TrcPidController(
             "encoderXPidCtrl", xPosPidCoeff, RobotParams.MECANUM_X_TOLERANCE, driveBase::getXPosition);
+        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
+        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
+    
+        yPosPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.MECANUM_Y_KP, RobotParams.MECANUM_Y_KI, RobotParams.MECANUM_Y_KD, RobotParams.MECANUM_Y_KF);
         encoderYPidCtrl = new TrcPidController(
             "encoderYPidCtrl", yPosPidCoeff, RobotParams.MECANUM_Y_TOLERANCE, driveBase::getYPosition);
+        encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
+        encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
+    
+        turnPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
         gyroTurnPidCtrl = new TrcPidController(
             "gyroPidCtrl", turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
-        gyroTurnPidCtrl.setAbsoluteSetPoint(true);
-
-        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
-        encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
         gyroTurnPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_TURNPID_POWER);
-        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
-        encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
         gyroTurnPidCtrl.setRampRate(RobotParams.DRIVE_MAX_TURNPID_RAMP_RATE);
+        gyroTurnPidCtrl.setAbsoluteSetPoint(true);
+    
+        velPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
 
         pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
         // AbsoluteTargetMode eliminates cumulative errors on multi-segment runs because drive base is keeping track
@@ -164,61 +135,5 @@ public class MecanumDrive
         purePursuitDrive.setStallDetectionEnabled(true);
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
     }   //MecanumDrive
-
-    /**
-     * This method is called to prepare the robot base before a robot mode is about to start.
-     *
-     * @param runMode specifies the current run mode.
-     * @param prevMode specifies the previous run mode.
-     */
-    public void startMode(RunMode runMode, RunMode prevMode)
-    {
-        if (runMode != RunMode.DISABLED_MODE)
-        {
-            driveBase.setOdometryEnabled(true);
-        }
-    }   //startMode
-
-    /**
-     * This method is called to prepare the robot base right after a robot mode has been stopped.
-     *
-     * @param runMode specifies the current run mode.
-     * @param nextMode specifies the next run mode.
-     */
-    public void stopMode(RunMode runMode, RunMode nextMode)
-    {
-        if (runMode != RunMode.DISABLED_MODE)
-        {
-            driveBase.setOdometryEnabled(false);
-        }
-    }   //stopMode
-
-    /**
-     * This method cancels any PIDDrive operation still in progress.
-     */
-    public void cancel()
-    {
-        if (pidDrive.isActive())
-        {
-            pidDrive.cancel();
-        }
-
-        if (purePursuitDrive.isActive())
-        {
-            purePursuitDrive.cancel();
-        }
-
-        driveBase.stop();
-    }   //cancel
-
-    public void startCalibrate()
-    {
-        throw new UnsupportedOperationException("Mecanum Drive does not support calibration.");
-    }   //startCalibrate
-
-    public void calibratePeriodic()
-    {
-        throw new UnsupportedOperationException("Mecanum Drive does not support calibration.");
-    }   //calibratePeriodic
 
 }   //class MecanumDrive

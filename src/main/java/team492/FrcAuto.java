@@ -220,8 +220,8 @@ public class FrcAuto implements TrcRobot.RobotMode
     // Global objects.
     //
 
-    private final AutoChoices autoChoices = new AutoChoices();
     private final Robot robot;
+    private final AutoChoices autoChoices;
     private TrcRobot.RobotCommand autoCommand;
 
     /**
@@ -235,6 +235,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Create and initialize global objects.
         //
         this.robot = robot;
+        autoChoices = new AutoChoices();
         //
         // Create auto-assist commands if necessary.
         //

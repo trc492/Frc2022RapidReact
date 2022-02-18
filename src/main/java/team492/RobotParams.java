@@ -109,21 +109,26 @@ public class RobotParams
     //
     // CAN IDs.
     //
-    public static final int CANID_LEFTFRONT_DRIVE               = 3;    // 40A: Orange
-    public static final int CANID_RIGHTFRONT_DRIVE              = 4;    // 40A: Yellow
-    public static final int CANID_LEFTBACK_DRIVE                = 5;    // 40A: Green
-    public static final int CANID_RIGHTBACK_DRIVE               = 6;    // 40A: Blue
-    public static final int CANID_INTAKE                        = 7;    // 40A: Purple
-    public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // 40A: Gray
-    public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // 40A: White
-    public static final int CANID_CONVEYOR                      = 10;   // 40A: Orange
-    public static final int CANID_SHOOTER_TILTER                = 11;   // 40A: Yellow
-    public static final int CANID_CLIMBER                       = 12;   // 40A: Green
+    public static final int CANID_LEFTFRONT_DRIVE               = 3;    // Orange: 40A
+    public static final int CANID_RIGHTFRONT_DRIVE              = 4;    // Yellow: 40A
+    public static final int CANID_LEFTBACK_DRIVE                = 5;    // Green: 40A
+    public static final int CANID_RIGHTBACK_DRIVE               = 6;    // Blue: 40A
+    public static final int CANID_INTAKE                        = 7;    // Purple: 40A
+    public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // Gray: 40A
+    public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // White: 40A
+    public static final int CANID_CONVEYOR                      = 10;   // Orange: 40A
+    public static final int CANID_SHOOTER_TILTER                = 11;   // Yellow: ??
+    public static final int CANID_CLIMBER                       = 12;   // Green: 40A
     // Applicable only for Swerve Drive.
-    public static final int CANID_LEFTFRONT_STEER               = 23;   // 40A: Orange
-    public static final int CANID_RIGHTFRONT_STEER              = 24;   // 40A: Yellow
-    public static final int CANID_LEFTBACK_STEER                = 25;   // 40A: Green
-    public static final int CANID_RIGHTBACK_STEER               = 26;   // 40A: Blue
+    public static final int CANID_LEFTFRONT_STEER               = 23;   // Orange: 40A
+    public static final int CANID_RIGHTFRONT_STEER              = 24;   // Yellow: 40A
+    public static final int CANID_LEFTBACK_STEER                = 25;   // Green: 40A
+    public static final int CANID_RIGHTBACK_STEER               = 26;   // Blue: 40A
+
+    public static final int CANID_LEFTFRONT_STEER_ENCODER       = 33;   // Orange
+    public static final int CANID_RIGHTFRONT_STEER_ENCODER      = 34;   // Yellow
+    public static final int CANID_LEFTBACK_STEER_ENCODER        = 35;   // Green
+    public static final int CANID_RIGHTBACK_STEER_ENCODER       = 36;   // Blue
 
     public static final int CANID_PDP                           = 16;
     public static final int CANID_PCM                           = 17;
@@ -131,10 +136,22 @@ public class RobotParams
     //
     // PDP Channels.
     //
-    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 3;
-    public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 0;
-    public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 12;
-    public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 15;
+    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 10;
+    public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 4;
+    public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 11;
+    public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 3;
+    public static final int PDP_CHANNEL_LEFT_FRONT_STEER        = 15;
+    public static final int PDP_CHANNEL_RIGHT_FRONT_STEER       = 6;
+    public static final int PDP_CHANNEL_LEFT_BACK_STEER         = 16;
+    public static final int PDP_CHANNEL_RIGHT_BACK_STEER        = 5;
+    public static final int PDP_CHANNEL_SHOOTER_LOWER_FLYWHEEL  = 12;
+    public static final int PDP_CHANNEL_SHOOTER_UPPER_FLYWHEEL  = 1;
+    public static final int PDP_CHANNEL_SHOOTER_TILTER          = 14;
+    public static final int PDP_CHANNEL_CLIMBER                 = 0;
+    public static final int PDP_CHANNEL_INTAKE                  = 2;
+    public static final int PDP_CHANNEL_CONVEYOR                = 13;
+
+    public static final int PDP_CHANNEL_VRM                     = 19;
 
     public static final double BATTERY_NOMINAL_VOLTAGE          = 12.0;
     public static final double BATTERY_CAPACITY_WATT_HOUR       = 18.0*12.0;

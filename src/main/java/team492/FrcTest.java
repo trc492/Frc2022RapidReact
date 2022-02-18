@@ -99,7 +99,7 @@ public class FrcTest extends FrcTeleOp
             //
             // Create test mode specific choice menus.
             //
-            testMenu = new FrcChoiceMenu<>("Tests:");
+            testMenu = new FrcChoiceMenu<>(DBKEY_TEST_TESTS);
             //
             // Populate test mode menus.
             //
@@ -194,7 +194,7 @@ public class FrcTest extends FrcTeleOp
     //
     // Global objects.
     //
-    private final TestChoices testChoices;
+    private final TestChoices testChoices = new TestChoices();
     private TrcRobot.RobotCommand testCommand;
     private double maxDriveVelocity = 0.0;
     private double maxDriveAcceleration = 0.0;
@@ -207,7 +207,6 @@ public class FrcTest extends FrcTeleOp
         // Call TeleOp constructor.
         //
         super(robot);
-        testChoices = new TestChoices();
         //
         // Create and initialize global objects.
         //

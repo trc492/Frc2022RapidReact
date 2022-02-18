@@ -106,9 +106,9 @@ public class FrcAuto implements TrcRobot.RobotMode
             //
             // Create autonomous mode specific choice menus.
             //
-            allianceMenu = new FrcChoiceMenu<>("Alliance:");
-            autoStrategyMenu = new FrcChoiceMenu<>("Autonomous Strategies:");
-            autoStartPosMenu = new FrcChoiceMenu<>("Autonomous Start Positions:");
+            allianceMenu = new FrcChoiceMenu<>(DBKEY_AUTO_ALLIANCE);
+            autoStrategyMenu = new FrcChoiceMenu<>(DBKEY_AUTO_STRATEGY);
+            autoStartPosMenu = new FrcChoiceMenu<>(DBKEY_AUTO_START_POS);
             //
             // Populate autonomous mode choice menus.
             //
@@ -221,7 +221,7 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
 
     private final Robot robot;
-    private final AutoChoices autoChoices;
+    private final AutoChoices autoChoices = new AutoChoices();
     private TrcRobot.RobotCommand autoCommand;
 
     /**
@@ -235,7 +235,6 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Create and initialize global objects.
         //
         this.robot = robot;
-        autoChoices = new AutoChoices();
         //
         // Create auto-assist commands if necessary.
         //

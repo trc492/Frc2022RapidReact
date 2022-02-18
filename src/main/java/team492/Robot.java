@@ -180,6 +180,7 @@ public class Robot extends FrcRobotBase
         //
         // AutoAssist commands.
         //
+
         pdp.registerEnergyUsedForAllUnregisteredChannels();
         //
         // Create Robot Modes.

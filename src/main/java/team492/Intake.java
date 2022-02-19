@@ -22,11 +22,12 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
-public class Intake
+public class Intake implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Intake";
     private final FrcCANFalcon intakeMotor;
@@ -54,40 +55,88 @@ public class Intake
         return gotBall;
     }   //gotBall
 
-    public void setPower(double power)
+    public void setPower(String owner, double power)
     {
-        intakeMotor.set(power);
+        if (validateOwnership(owner))
+        {
+            intakeMotor.set(power);
+        }
     }   //setPower
 
-    public void pickup()
+    public void setPower(double power)
     {
-        if (!gotBall)
+        setPower(null, power);
+    }   //setPower
+
+    public void pickup(String owner)
+    {
+        if (validateOwnership(owner))
         {
-            setPower(RobotParams.INTAKE_PICKUP_POWER);
+            if (!gotBall)
+            {
+                setPower(RobotParams.INTAKE_PICKUP_POWER);
+            }
         }
     }   //pickup
 
-    public void spitOut()
+    public void pickup()
     {
-        if (gotBall)
+        pickup(null);
+    }   //pickup
+
+    public void spitOut(String owner)
+    {
+        if (validateOwnership(owner))
         {
-            setPower(RobotParams.INTAKE_SPITOUT_POWER);
+            if (gotBall)
+            {
+                setPower(RobotParams.INTAKE_SPITOUT_POWER);
+            }
         }
     }   //spitOut
 
+    public void spitOut()
+    {
+        spitOut(null);
+    }   //spitOut
+
+    public void stop(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            setPower(0.0);
+        }
+    }   //stop
+
     public void stop()
     {
-        setPower(0.0);
+        stop(null);
     }   //stop
+
+    public void extend(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            intakePneumatic.extend();
+        }
+    }   //extend
 
     public void extend()
     {
-        intakePneumatic.extend();
+        extend(null);
     }   //extend
+
+    public void retract(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            intakePneumatic.retract();
+        }
+    }   //retract
 
     public void retract()
     {
-        intakePneumatic.retract();
+        retract(null);
     }   //retract
 
     public boolean isExtended()

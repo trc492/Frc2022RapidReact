@@ -86,10 +86,10 @@ public class Robot extends FrcRobotBase
     //
     // Other subsystems.
     //
-    public Climber climber;
     public Conveyor conveyor;
     public Intake intake;
     public Shooter shooter;
+    public Climber climber;
 
     /**
      * Constructor: Create an instance of the object.
@@ -173,9 +173,10 @@ public class Robot extends FrcRobotBase
         //
         if (RobotParams.Preferences.useSubsystems)
         {
-            shooter = new Shooter();
+            // Intake needs Conveyor, so Conveyor must be created before Intake.
             conveyor = new Conveyor();
             intake = new Intake(conveyor);
+            shooter = new Shooter();
             climber = new Climber();
         }
         //

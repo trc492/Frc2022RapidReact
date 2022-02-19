@@ -42,9 +42,9 @@ public class RobotParams
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
-        public static final boolean useVision                   = true;
-        public static final boolean useStreamCamera             = true;
-        public static final boolean doAutoUpdates               = false;
+        public static final boolean useVision                   = false;
+        public static final boolean useStreamCamera             = false;
+        public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
 
         public static final boolean debugPowerConsumption       = false;
@@ -99,12 +99,12 @@ public class RobotParams
     //
     // Joystick ports.
     //
-    public static final int XBOX_DRIVERCONTROLLER               = 0;
-    public static final int JSPORT_DRIVER_LEFTSTICK             = 1;
-    public static final int JSPORT_DRIVER_RIGHTSTICK            = 2;
-    public static final int JSPORT_OPERATORSTICK                = 3;
-    public static final int JSPORT_BUTTON_PANEL                 = 0;
-    public static final int JSPORT_SWITCH_PANEL                 = 0;
+    public static final int JSPORT_DRIVER_LEFTSTICK             = 0;
+    public static final int JSPORT_DRIVER_RIGHTSTICK            = 1;
+    public static final int JSPORT_OPERATORSTICK                = 2;
+    public static final int JSPORT_BUTTON_PANEL                 = 3;
+    public static final int JSPORT_SWITCH_PANEL                 = 4;
+    public static final int XBOX_DRIVERCONTROLLER               = 5;
 
     //
     // CAN IDs.

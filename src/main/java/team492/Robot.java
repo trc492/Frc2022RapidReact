@@ -149,7 +149,7 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize sensors.
         //
-        pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kCTRE);
+        pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
         battery = new FrcRobotBattery(pdp);
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
         //

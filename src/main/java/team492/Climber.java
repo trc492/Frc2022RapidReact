@@ -38,6 +38,9 @@ public class Climber
     public final Parameters climberParamaters;
     public final TrcPidActuator climber;
 
+    /**
+     * Constructor: Create an instance of the object.
+     */
     public Climber()
     {
         climberMotor = new FrcCANTalon("climberMotor", RobotParams.CANID_CLIMBER);
@@ -48,52 +51,58 @@ public class Climber
         climberParamaters = new Parameters();
         climberParamaters.setPidParams(RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD, RobotParams.CLIMBER_TOLERANCE);
         climber = new TrcPidActuator("climber", climberMotor, climberLowerLimitSwitch, climberUpperLimitSwitch, climberParamaters);
-    }
+    }   //Climber
 
     public void extendPneumatic() {
         climberPneumatic.extend();
-    }
+    }   //extendPneumatic
 
     public void retractPneumatic() {
         climberPneumatic.retract();
-    }
+    }   //retractPneumatic
 
     public void extendClimber(double target) {
         climber.setTarget(target);
-    }
+    }   //extendClimber
 
     public void retractClimber(double target) {
         climber.setTarget(target);
-    }
+    }   //retractClimber
 
     public void zeroClimber() {
         climber.setTarget(0.0);
-    }
+    }   //zeroClimber
 
     /**
      * Before climbing, extends the climber all the way up so that the driver can drive forward into the bar
      */
     public void prepareClimb()
     {
-        extendClimber(1.0);
-    }
+        //Extend pneumatic to pull out the pin
+        extendPneumatic();
+        //No need to extend arm since it will be spring-loaded with slack in the string
+    }   //prepareClimb
 
     /**
-     * Second step in climbing, goes from one bar to another
+     * Climbing, goes from one bar to another
+     * @param goToNext Whether the robot should go to the next bar or just hang on the current bar (false for traversal)
      */
-    public void ascend()
+    public void ascend(boolean goToNext)
     {
-        //Squeeze hook, make sure the hook is in same position to the climber
+        //Retract pneumatic to line up for climb
         retractPneumatic();
         //Retract climber, pull robot up
         zeroClimber();
-        //Deploy hook so that it locks on the current bar
-        extendPneumatic();
-        //Extend climber halfway to swing robot because of CG
-        extendClimber(0.2);
-        //Wait for the robot to swing back
-        //wait();
-        //Extend climber so that it hits the next bar
-        extendClimber(1.0);
-    }
-}
+        if(goToNext)
+        {
+            //Deploy hook so that it locks on the current bar
+            extendPneumatic();
+            //Extend climber halfway to swing robot because of CG
+            extendClimber(0.2);
+            //Wait for the robot to swing back
+            //wait();
+            //Extend climber so that it hits the next bar
+            extendClimber(1.0);
+        }
+    }   //ascend
+}   //class Climber

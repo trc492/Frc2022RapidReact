@@ -183,6 +183,8 @@ public class RobotParams
     //
     public static final int PNEUMATIC_INTAKE_RETRACT            = 0;
     public static final int PNEUMATIC_INTAKE_EXTEND             = 1;
+    public static final int PNEUMATIC_CLIMBER_RETRACT           = 2;
+    public static final int PNEUMATIC_CLIMBER_EXTEND            = 3;
 
     //
     // Vision subsystem.
@@ -303,5 +305,13 @@ public class RobotParams
     public static final double CONVEYOR_MOVE_POWER              = 1.0;
     public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=false;
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
+
+    // Climber subsystem.
+    public static final double CLIMBER_EXTEND_POWER             = 0.3;
+    public static final double CLIMBER_RETRACT_POWER            = 0.3;
+    public static final double CLIMBER_KP                       = 0.3;
+    public static final double CLIMBER_KI                       = 0.0;
+    public static final double CLIMBER_KD                       = 0.0;
+    public static final double CLIMBER_TOLERANCE                = 2.0;
 
 }   //class RobotParams

@@ -86,10 +86,10 @@ public class Robot extends FrcRobotBase
     //
     // Other subsystems.
     //
-    public Shooter shooter;
+    public Climber climber;
     public Conveyor conveyor;
     public Intake intake;
-    // public Climber climber;  // TO-DO: need to write this.
+    public Shooter shooter;
 
     /**
      * Constructor: Create an instance of the object.
@@ -176,6 +176,7 @@ public class Robot extends FrcRobotBase
             shooter = new Shooter();
             conveyor = new Conveyor();
             intake = new Intake(conveyor);
+            climber = new Climber();
         }
         //
         // AutoAssist commands.

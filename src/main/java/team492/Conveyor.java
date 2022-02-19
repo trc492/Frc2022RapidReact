@@ -22,11 +22,13 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcDigitalInputTrigger;
+import TrcCommonLib.trclib.TrcEvent;
+import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcNotifier;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 
-public class Conveyor
+public class Conveyor implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Conveyor";
     private FrcCANTalon conveyorMotor;
@@ -99,12 +101,73 @@ public class Conveyor
     /**
      * This method sets the power of the conveyor.
      *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
+     *              ownership aware.
+     * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
+     * @param power specifies the power to set the conveyor to.
+     * @param duration specifies the duration in seconds to run the motor and turns it off afterwards, 0.0 if not
+     *                 turning off.
+     * @param event specifies the event to signal when the motor operation is completed
+     */
+    public void setPower(String owner, double delay, double power, double duration, TrcEvent event)
+    {
+        if (validateOwnership(owner))
+        {
+            conveyorMotor.set(delay, power, duration, event);
+        }
+    }   //setPower
+
+    /**
+     * This method sets the power of the conveyor.
+     *
+     * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
+     * @param power specifies the power to set the conveyor to.
+     * @param duration specifies the duration in seconds to run the motor and turns it off afterwards, 0.0 if not
+     *                 turning off.
+     * @param event specifies the event to signal when the motor operation is completed
+     */
+    public void setPower(double delay, double power, double duration, TrcEvent event)
+    {
+        setPower(null, delay, power, duration, event);
+    }   //setPower
+
+    /**
+     * This method sets the power of the conveyor.
+     *
+     * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
+     * @param power specifies the power to set the conveyor to.
+     * @param duration specifies the duration in seconds to run the motor and turns it off afterwards, 0.0 if not
+     *                 turning off.
+     */
+    public void setPower(double delay, double power, double duration)
+    {
+        setPower(null, delay, power, duration, null);
+    }   //setPower
+
+    /**
+     * This method sets the power of the conveyor.
+     *
      * @param power specifies the power to set the conveyor to.
      */
     public void setPower(double power)
     {
-        conveyorMotor.set(power);
+        setPower(null, 0.0, power, 0.0, null);
     }   //setPower
+
+    /**
+     * This method moves the ball(s) forward. It will either take in a ball from the entrance or shoot a ball at
+     * the exit.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
+     *              ownership aware.
+     */
+    public void advance(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            move(RobotParams.CONVEYOR_MOVE_POWER);
+        }
+    }   //advance
 
     /**
      * This method moves the ball(s) forward. It will either take in a ball from the entrance or shoot a ball at
@@ -112,8 +175,23 @@ public class Conveyor
      */
     public void advance()
     {
-        move(RobotParams.CONVEYOR_MOVE_POWER);
+        advance(null);
     }   //advance
+
+    /**
+     * This method moves the ball(s) backward. It will either move a ball from the exit back to the entrance or
+     * eject a ball out to the intake.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
+     *              ownership aware.
+     */
+    public void backup(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            move(-RobotParams.CONVEYOR_MOVE_POWER);
+        }
+    }   //backup
 
     /**
      * This method moves the ball(s) backward. It will either move a ball from the exit back to the entrance or
@@ -121,9 +199,14 @@ public class Conveyor
      */
     public void backup()
     {
-        move(-RobotParams.CONVEYOR_MOVE_POWER);
+        backup(null);
     }   //backup
 
+    /**
+     * This method moves the ball forward or backward with the given power.
+     *
+     * @param power specifies positive power to move the ball forward, negative to move backward.
+     */
     private void move(double power)
     {
         // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a

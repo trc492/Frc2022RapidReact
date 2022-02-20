@@ -113,25 +113,29 @@ public class RobotParams
     public static final int CANID_RIGHTFRONT_DRIVE              = 4;    // Yellow: 40A
     public static final int CANID_LEFTBACK_DRIVE                = 5;    // Green: 40A
     public static final int CANID_RIGHTBACK_DRIVE               = 6;    // Blue: 40A
-    public static final int CANID_INTAKE                        = 7;    // Purple: 40A
-    public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 8;    // Gray: 40A
-    public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 9;    // White: 40A
-    public static final int CANID_CONVEYOR                      = 10;   // Orange: 40A
-    public static final int CANID_SHOOTER_TILTER                = 11;   // Yellow: ??
-    public static final int CANID_CLIMBER                       = 12;   // Green: 40A
+
+    public static final int CANID_LEFTFRONT_STEER_ENCODER       = 7;    // Orange
+    public static final int CANID_RIGHTFRONT_STEER_ENCODER      = 8;    // Yellow
+    public static final int CANID_LEFTBACK_STEER_ENCODER        = 9;    // Green
+    public static final int CANID_RIGHTBACK_STEER_ENCODER       = 10;   // Blue
+
+    public static final int CANID_LEFTFRONT_STEER               = 13;   // Orange: 40A
+    public static final int CANID_RIGHTFRONT_STEER              = 14;   // Yellow: 40A
+    public static final int CANID_LEFTBACK_STEER                = 15;   // Green: 40A
+    public static final int CANID_RIGHTBACK_STEER               = 16;   // Blue: 40A
+
+    public static final int CANID_CONVEYOR                      = 23;   // Orange: 40A
+    public static final int CANID_SHOOTER_TILTER                = 24;   // Yellow: ??
+    public static final int CANID_CLIMBER                       = 25;   // Green: 40A
+    public static final int CANID_INTAKE                        = 27;   // Purple: 40A
+    public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 28;   // Gray: 40A
+    public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 29;   // White: 40A
+
     // Applicable only for Swerve Drive.
-    public static final int CANID_LEFTFRONT_STEER               = 23;   // Orange: 40A
-    public static final int CANID_RIGHTFRONT_STEER              = 24;   // Yellow: 40A
-    public static final int CANID_LEFTBACK_STEER                = 25;   // Green: 40A
-    public static final int CANID_RIGHTBACK_STEER               = 26;   // Blue: 40A
 
-    public static final int CANID_LEFTFRONT_STEER_ENCODER       = 33;   // Orange
-    public static final int CANID_RIGHTFRONT_STEER_ENCODER      = 34;   // Yellow
-    public static final int CANID_LEFTBACK_STEER_ENCODER        = 35;   // Green
-    public static final int CANID_RIGHTBACK_STEER_ENCODER       = 36;   // Blue
 
-    public static final int CANID_PDP                           = 16;
-    public static final int CANID_PCM                           = 17;
+    public static final int CANID_PDP                           = 63;
+    public static final int CANID_PCM                           = 62;
 
     //
     // PDP Channels.

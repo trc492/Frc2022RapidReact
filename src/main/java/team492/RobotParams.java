@@ -309,6 +309,7 @@ public class RobotParams
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;
     public static final double INTAKE_SPITOUT_POWER             = -1.0;
+    public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;

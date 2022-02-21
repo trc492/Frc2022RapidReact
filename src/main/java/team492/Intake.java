@@ -30,9 +30,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Intake implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Intake";
+    private final Conveyor conveyor;
     private final FrcCANFalcon intakeMotor;
     private final FrcPneumatic intakePneumatic;
-    private boolean gotBall = false;
 
     /**
      * Constructor: Create an instance of the object.
@@ -42,6 +42,7 @@ public class Intake implements TrcExclusiveSubsystem
      */
     public Intake(Conveyor conveyor)
     {
+        this.conveyor = conveyor;
         intakeMotor = new FrcCANFalcon(moduleName + ".motor", RobotParams.CANID_INTAKE);
         intakePneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH,
@@ -50,31 +51,42 @@ public class Intake implements TrcExclusiveSubsystem
         conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
     }   //Intake
 
-    public boolean hasBall()
-    {
-        return gotBall;
-    }   //gotBall
-
-    public void setPower(String owner, double power)
+    public void setPower(String owner, double delay, double power, double duration)
     {
         if (validateOwnership(owner))
         {
-            intakeMotor.set(power);
+            intakeMotor.set(delay, power, duration);
         }
     }   //setPower
 
-    public void setPower(double power)
+    public void setPower(double delay, double power, double duration)
     {
-        setPower(null, power);
+        setPower(null, delay, power, duration);
     }   //setPower
 
     public void pickup(String owner)
     {
         if (validateOwnership(owner))
         {
-            if (!gotBall)
+            boolean ballAtEntrance = conveyor.isEntranceSensorActive();
+            boolean ballAtExit = conveyor.isExitSensorActive();
+
+            // Only do this if there is room. There are 4 scenarios:
+            // 1. Ball at the entrnace and ball at the exit (full): do nothing.
+            // 2. Ball at the entrance: move ball to the exit and start intake.
+            // 3. Ball at the exit: start intake.
+            // 4. No ball at all (empty): start intake.
+            if (!ballAtEntrance || !ballAtExit)
             {
-                setPower(RobotParams.INTAKE_PICKUP_POWER);
+                if (ballAtEntrance)
+                {
+                    conveyor.advance();
+                    setPower(RobotParams.INTAKE_PICKUP_DELAY, RobotParams.INTAKE_PICKUP_POWER, 0.0);
+                }
+                else
+                {
+                    setPower(0.0, RobotParams.INTAKE_PICKUP_POWER, 0.0);
+                }
             }
         }
     }   //pickup
@@ -88,9 +100,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         if (validateOwnership(owner))
         {
-            if (gotBall)
+            if (conveyor.isEntranceSensorActive())
             {
-                setPower(RobotParams.INTAKE_SPITOUT_POWER);
+                setPower(0.0, RobotParams.INTAKE_SPITOUT_POWER, 0.0);
             }
         }
     }   //spitOut
@@ -104,7 +116,7 @@ public class Intake implements TrcExclusiveSubsystem
     {
         if (validateOwnership(owner))
         {
-            setPower(0.0);
+            setPower(0.0, 0.0, 0.0);
         }
     }   //stop
 
@@ -146,8 +158,7 @@ public class Intake implements TrcExclusiveSubsystem
 
     private void conveyorEntranceTrigger(Object active)
     {
-        this.gotBall = (Boolean) active;
-        setPower(0.0);
+        setPower(0.0, 0.0, 0.0);
     }   //conveyorEntranceTrigger
 
 }   //class Intake

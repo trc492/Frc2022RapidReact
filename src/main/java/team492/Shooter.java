@@ -22,17 +22,25 @@
 
 package team492;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
+
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
+import TrcCommonLib.trclib.TrcPidActuator;
+import TrcCommonLib.trclib.TrcPidMotor;
+import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
+import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcFrcLib.frclib.FrcCANFalcon;
+import TrcFrcLib.frclib.FrcCANTalon;
+import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
 
 public class Shooter implements TrcExclusiveSubsystem
 {
     public final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
-    // public final FrcCANTalon tilterMotor;
-    // public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
-    // public final TrcPidActuator.Parameters tilterParams;
-    // public final TrcPidActuator tilter;
+    public final FrcCANTalon tilterMotor;
+    public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
+    public final Parameters tilterParams;
+    public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
 
     public Shooter()
@@ -44,13 +52,12 @@ public class Shooter implements TrcExclusiveSubsystem
         upperFlywheelMotor.setInverted(true);
         upperFlywheelMotor.setBrakeModeEnabled(false);
         setFlywheelVelocityModeEnabled(false);
-
-        // tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
-        // tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
-        // tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
-        // tilterParams = new Parameters()
-        //     .setPidParams(new PidParameters(new PidCoefficients(0.0, 0.0, 0.0, 0.0), 0.0, 0.0));
-        // tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
+        
+        tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
+        tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
+        tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
+        tilterParams = new Parameters().setPidParams(new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_KF, RobotParams.TILTER_TOLERANCE));
+        tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
     }
 
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
@@ -104,59 +111,52 @@ public class Shooter implements TrcExclusiveSubsystem
         setFlywheelPower(null, power);
     }
 
+    /**
+     * @return In theory, will return lower flywheel RPM
+     */
     public double getLowerFlywheelVelocity()
     {
-        return lowerFlywheelMotor.getVelocity();
+        return lowerFlywheelMotor.getVelocity() / RobotParams.FLYWHEEL_COUNTS_PER_REVOLUTION / RobotParams.FLYWHEEL_GEAR_RATIO * 60.0;
     }
 
+    /**
+     * @return In theory, will return upper flywheel RPM
+     */
     public double getUpperFlywheelVelocity()
     {
-        return upperFlywheelMotor.getVelocity();
+        return upperFlywheelMotor.getVelocity() / RobotParams.FLYWHEEL_COUNTS_PER_REVOLUTION / RobotParams.FLYWHEEL_GEAR_RATIO;
     }
 
-    /* Once the proper constant for conversion is set, we can replace the two functions above
-        This was copied from Infinite Recharge code
-    public double getLowerFlywheelVelocity()
+    public void setTilterPower(String owner, double power)
     {
-        return lowerFlywheelMotor.getVelocity() * RobotParams.FLYWHEEL_INCHES_PER_TICK;
+        if (validateOwnership(owner))
+        {
+            tilter.setPower(power);
+        }
     }
 
-    public double getUpperFlywheelVelocity()
+    public void setTilterPower(double power)
     {
-        return upperFlywheelMotor.getVelocity() * RobotParams.FLYWHEEL_INCHES_PER_TICK;
+        setTilterPower(null, power);
     }
-    */
 
-    // public void setTilterPower(String owner, double power)
-    // {
-    //     if (validateOwnership(owner))
-    //     {
-    //         tilter.setPower(power);
-    //     }
-    // }
+    public double getTilterPosition()
+    {
+        return tilter.getPosition();
+    }
 
-    // public void setTilterPower(double power)
-    // {
-    //     setTilterPower(null, power);
-    // }
+    public void setTilterPosition(String owner, double pos)
+    {
+        if (validateOwnership(owner))
+        {
+            tilter.setTarget(pos);
+        }
+    }
 
-    // public double getTilterPosition()
-    // {
-    //     return tilter.getPosition();
-    // }
-
-    // public void setTilterPosition(String owner, double pos)
-    // {
-    //     if (validateOwnership(owner))
-    //     {
-    //         tilter.setTarget(pos);
-    //     }
-    // }
-
-    // public void setTilterPosition(double pos)
-    // {
-    //     setTilterPosition(null, pos);
-    // }
+    public void setTilterPosition(double pos)
+    {
+        setTilterPosition(null, pos);
+    }
 
     public void shoot()
     {

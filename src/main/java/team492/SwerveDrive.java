@@ -31,20 +31,26 @@ import java.util.stream.IntStream;
 
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.sensors.CANCoder;
 
 import TrcCommonLib.trclib.TrcEnhancedServo;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
+import TrcCommonLib.trclib.TrcPidMotor;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSwerveDriveBase;
 import TrcCommonLib.trclib.TrcSwerveModule;
 import TrcCommonLib.trclib.TrcUtil;
+import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
+import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcCANSparkMax;
 import TrcFrcLib.frclib.FrcCANTalon;
+import TrcFrcLib.frclib.FrcFalconServo;
 import TrcFrcLib.frclib.FrcPdp;
 import TrcFrcLib.frclib.FrcTalonServo;
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.SPI;
 
 /**
@@ -61,7 +67,9 @@ public class SwerveDrive extends RobotDrive
     //
     // Swerve steering motors and modules.
     //
-    public final FrcCANTalon lfSteerMotor, rfSteerMotor, lbSteerMotor, rbSteerMotor;
+    public final FrcCANFalcon lfDriveMotor, rfDriveMotor, lbDriveMotor, rbDriveMotor;
+    public final FrcCANFalcon lfSteerMotor, rfSteerMotor, lbSteerMotor, rbSteerMotor;
+    public final CANCoder lfEncoder, rfEncoder, lbEncoder, rbEncoder;
     public final TrcSwerveModule lfWheel, lbWheel, rfWheel, rbWheel;
 
     /**
@@ -74,22 +82,31 @@ public class SwerveDrive extends RobotDrive
         this.robot = robot;
         gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
 
-        lfDriveMotor = createSparkMax("lfDrive", RobotParams.CANID_LEFTFRONT_DRIVE);
-        rfDriveMotor = createSparkMax("rfDrive", RobotParams.CANID_RIGHTFRONT_DRIVE);
-        lbDriveMotor = createSparkMax("lbDrive", RobotParams.CANID_LEFTBACK_DRIVE);
-        rbDriveMotor = createSparkMax("rbDrive", RobotParams.CANID_RIGHTBACK_DRIVE);
+        lfDriveMotor = new FrcCANFalcon("lfDrive", RobotParams.CANID_LEFTFRONT_DRIVE);
+        rfDriveMotor = new FrcCANFalcon("rfDrive", RobotParams.CANID_RIGHTFRONT_DRIVE);
+        lbDriveMotor = new FrcCANFalcon("lbDrive", RobotParams.CANID_LEFTBACK_DRIVE);
+        rbDriveMotor = new FrcCANFalcon("rbDrive", RobotParams.CANID_RIGHTBACK_DRIVE);
 
         // rf lb are inverted always, lf and rb are inverted on comp, not inverted on practice
-        lfSteerMotor = createSteerTalon("lfSteer", RobotParams.CANID_LEFTFRONT_STEER, true);
-        rfSteerMotor = createSteerTalon("rfSteer", RobotParams.CANID_RIGHTFRONT_STEER, true);
-        lbSteerMotor = createSteerTalon("lbSteer", RobotParams.CANID_LEFTBACK_STEER, true);
-        rbSteerMotor = createSteerTalon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER, true);
+        lfSteerMotor = new FrcCANFalcon("lfSteer", RobotParams.CANID_LEFTFRONT_STEER);
+        rfSteerMotor = new FrcCANFalcon("rfSteer", RobotParams.CANID_RIGHTFRONT_STEER);
+        lbSteerMotor = new FrcCANFalcon("lbSteer", RobotParams.CANID_LEFTBACK_STEER);
+        rbSteerMotor = new FrcCANFalcon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER);
+        lfSteerMotor.setInverted(true);
+        rfSteerMotor.setInverted(true);
+        lbSteerMotor.setInverted(true);
+        rbSteerMotor.setInverted(true);
 
-        int[] zeros = getSteerZeroPositions();
-        lfWheel = createModule("lfWheel", (FrcCANSparkMax)lfDriveMotor, lfSteerMotor, zeros[0]);
-        rfWheel = createModule("rfWheel", (FrcCANSparkMax)rfDriveMotor, rfSteerMotor, zeros[1]);
-        lbWheel = createModule("lbWheel", (FrcCANSparkMax)lbDriveMotor, lbSteerMotor, zeros[2]);
-        rbWheel = createModule("rbWheel", (FrcCANSparkMax)rbDriveMotor, rbSteerMotor, zeros[3]);
+        lfEncoder = new CANCoder(RobotParams.CANID_LEFTFRONT_STEER_ENCODER);
+        rfEncoder = new CANCoder(RobotParams.CANID_RIGHTFRONT_STEER_ENCODER);
+        lbEncoder = new CANCoder(RobotParams.CANID_LEFTBACK_STEER_ENCODER);
+        rbEncoder = new CANCoder(RobotParams.CANID_RIGHTBACK_STEER_ENCODER);
+
+        // int[] zeros = getSteerZeroPositions();
+        lfWheel = createModule("lfWheel", lfDriveMotor, lfSteerMotor, lfEncoder);
+        rfWheel = createModule("rfWheel", rfDriveMotor, rfSteerMotor, rfEncoder);
+        lbWheel = createModule("lbWheel", lbDriveMotor, lbSteerMotor, lbEncoder);
+        rbWheel = createModule("rbWheel", rbDriveMotor, rbSteerMotor, rbEncoder);
 
         robot.pdp.registerEnergyUsed(
             new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfDriveMotor"),
@@ -184,20 +201,20 @@ public class SwerveDrive extends RobotDrive
     {
         super.startMode(runMode, prevMode);
 
-        if (runMode == RunMode.AUTO_MODE)
-        {
-            ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(0);
-            ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(0);
-            ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(0);
-            ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(0);
-        }
-        else
-        {
-            ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-            ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
-        }
+        // if (runMode == RunMode.AUTO_MODE)
+        // {
+        //     ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(0);
+        //     ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(0);
+        //     ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(0);
+        //     ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(0);
+        // }
+        // else
+        // {
+        //     ((FrcCANSparkMax)lfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+        //     ((FrcCANSparkMax)rfDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+        //     ((FrcCANSparkMax)lbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+        //     ((FrcCANSparkMax)rbDriveMotor).motor.setOpenLoopRampRate(RobotParams.DRIVE_RAMP_RATE);
+        // }
     }   //startMode
 
     @Override
@@ -317,6 +334,14 @@ public class SwerveDrive extends RobotDrive
         return module;
     }   //createModule
 
+    private TrcSwerveModule createModule(String name, FrcCANFalcon drive, FrcCANFalcon steer, CANCoder encoder)
+    {
+        // + encoder later
+        FrcFalconServo servo = new FrcFalconServo(name + "Servo", steer, RobotParams.magicSteerCoeff, RobotParams.STEER_DEGREES_PER_TICK, RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
+        TrcSwerveModule module = new TrcSwerveModule(name, drive, new TrcEnhancedServo(name + "EnhancedServo", servo));
+        return module;
+    }
+
     /**
      * This method retrieves the steering zero calibration data from the calibration data file.
      *
@@ -344,17 +369,13 @@ public class SwerveDrive extends RobotDrive
     {
         final String funcName = "saveSteerZeroPositions";
 
-        robot.globalTracer.traceInfo(funcName, "Saved steer zeros!");
         try (PrintStream out = new PrintStream(new FileOutputStream(RobotParams.TEAM_FOLDER + "/steerzeros.txt")))
         {
-            out.printf("%.0f\n",
-                TrcUtil.modulo(lfSteerMotor.motor.getSensorCollection().getPulseWidthPosition(), 4096));
-            out.printf("%.0f\n",
-                TrcUtil.modulo(rfSteerMotor.motor.getSensorCollection().getPulseWidthPosition(), 4096));
-            out.printf("%.0f\n",
-                TrcUtil.modulo(lbSteerMotor.motor.getSensorCollection().getPulseWidthPosition(), 4096));
-            out.printf("%.0f\n",
-                TrcUtil.modulo(rbSteerMotor.motor.getSensorCollection().getPulseWidthPosition(), 4096));
+            out.printf("%.0f\n", TrcUtil.modulo(lfSteerMotor.getMotorPosition(), 4096));
+            out.printf("%.0f\n", TrcUtil.modulo(rfSteerMotor.getMotorPosition(), 4096));
+            out.printf("%.0f\n", TrcUtil.modulo(lbSteerMotor.getMotorPosition(), 4096));
+            out.printf("%.0f\n", TrcUtil.modulo(rbSteerMotor.getMotorPosition(), 4096));
+            robot.globalTracer.traceInfo(funcName, "Saved steer zeros!");
         }
         catch (FileNotFoundException e)
         {

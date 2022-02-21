@@ -284,7 +284,8 @@ public class RobotParams
     public static final int[] STEER_ZEROS                       = new int[]{ 3551, 479, 3656, 1270 }; // this is a backup if the zeros file isn't found
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
-
+    public static final double STEER_CAL_POWER                  = 0.2;
+    public static final double STEER_TOLERANCE                  = 2.0;
     public static final double PPD_FOLLOWING_DISTANCE           = 10.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
     public static final double PPD_TURN_TOLERANCE               = 2.0;
@@ -295,10 +296,15 @@ public class RobotParams
     //
 
     // Shooter subsystem.
+    public static final double TILTER_KP                        = 0.3;
+    public static final double TILTER_KI                        = 0.0;
+    public static final double TILTER_KD                        = 0.0;
+    public static final double TILTER_KF                        = 0.0;
+    public static final double TILTER_TOLERANCE                 = 2.0;
     public static final int SHOOTER_FLYWHEEL_MAX_VEL            = 2200; //Sensor units per second
-    //Constants from Infinite Recharge
-    public static final double FLYWHEEL_PULSE_PER_REVOLUTION    = 4.0;
-    public static final double FLYWHEEL_GEAR_RATIO              = 18.0 / 12.0;
+    public static final double FLYWHEEL_COUNTS_PER_REVOLUTION   = 2048; //Falcon 2048 CPR encoder
+    //TODO: THIS IS INCORRECT!
+    public static final double FLYWHEEL_GEAR_RATIO              = 1.0 / 1.0;
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;

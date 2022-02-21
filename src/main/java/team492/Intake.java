@@ -125,18 +125,18 @@ public class Intake implements TrcExclusiveSubsystem
         stop(null);
     }   //stop
 
-    public void extend(String owner)
+    public void deploy(String owner)
     {
         if (validateOwnership(owner))
         {
             intakePneumatic.extend();
         }
-    }   //extend
+    }   //deploy
 
-    public void extend()
+    public void deploy()
     {
-        extend(null);
-    }   //extend
+        deploy(null);
+    }   //deploy
 
     public void retract(String owner)
     {

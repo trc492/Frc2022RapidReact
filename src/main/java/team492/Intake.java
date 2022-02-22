@@ -64,6 +64,11 @@ public class Intake implements TrcExclusiveSubsystem
         setPower(null, delay, power, duration);
     }   //setPower
 
+    public void setPower(double power)
+    {
+        setPower(null, 0.0, power, 0.0);
+    }   //setPower
+
     public void pickup(String owner)
     {
         if (validateOwnership(owner))

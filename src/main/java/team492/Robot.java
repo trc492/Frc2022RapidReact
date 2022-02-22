@@ -90,6 +90,7 @@ public class Robot extends FrcRobotBase
     public Intake intake;
     public Shooter shooter;
     public Climber climber;
+    public TaskAimShooter autoAssistShooter; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -181,6 +182,7 @@ public class Robot extends FrcRobotBase
         }
         //
         // AutoAssist commands.
+        autoAssistShooter = new TaskAimShooter(this);
         //
 
         pdp.registerEnergyUsedForAllUnregisteredChannels();
@@ -329,6 +331,7 @@ public class Robot extends FrcRobotBase
                 if (RobotParams.Preferences.debugVision && vision != null)
                 {
                     FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
+                    
                     if (pose != null)
                     {
                         dashboard.displayPrintf(

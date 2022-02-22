@@ -77,9 +77,9 @@ public class RobotParams
     //
     // Autonomous constants.
     //
-    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(0.0, 0.0, 0.0);
-    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(0.0, 0.0, 0.0);
-    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(0.0, 0.0, 0.0);
+    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(25, 90.8, -2);
+    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(57.4, 68, 44);
+    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(84.6, -43, 134);
     public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(0.0, 0.0, 0.0);
     public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(0.0, 0.0, 0.0);
     public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(0.0, 0.0, 0.0);

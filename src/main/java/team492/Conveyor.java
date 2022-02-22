@@ -35,6 +35,7 @@ public class Conveyor implements TrcExclusiveSubsystem
     private FrcDigitalInput entranceSensor, exitSensor;
     private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
     private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
+    private TrcEvent onFinishEvent; 
 
     /**
      * Constructor: Creates an instance of the object.
@@ -161,12 +162,14 @@ public class Conveyor implements TrcExclusiveSubsystem
      * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
      *              ownership aware.
      */
-    public void advance(String owner)
-    {
-        if (validateOwnership(owner))
-        {
+    public void advance(String owner, TrcEvent event){
+        if(validateOwnership(owner)){
             move(RobotParams.CONVEYOR_MOVE_POWER);
         }
+    }
+    public void advance(String owner)
+    {
+        advance(owner, null);
     }   //advance
 
     /**
@@ -244,6 +247,9 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (exitEventHandler != null)
         {
             exitEventHandler.notify(active);
+        }
+        if(onFinishEvent!=null){
+            onFinishEvent.notify();
         }
     }   //exitEvent
 

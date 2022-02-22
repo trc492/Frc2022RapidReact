@@ -22,6 +22,7 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
@@ -33,7 +34,7 @@ public class Intake implements TrcExclusiveSubsystem
     private final Conveyor conveyor;
     private final FrcCANFalcon intakeMotor;
     private final FrcPneumatic intakePneumatic;
-
+    private TrcEvent onFinishedEvent;
     /**
      * Constructor: Create an instance of the object.
      *
@@ -69,8 +70,9 @@ public class Intake implements TrcExclusiveSubsystem
         setPower(null, 0.0, power, 0.0);
     }   //setPower
 
-    public void pickup(String owner)
+    public void pickup(String owner, TrcEvent event)
     {
+        this.onFinishedEvent = event; 
         if (validateOwnership(owner))
         {
             boolean ballAtEntrance = conveyor.isEntranceSensorActive();
@@ -83,6 +85,7 @@ public class Intake implements TrcExclusiveSubsystem
             // 4. No ball at all (empty): start intake.
             if (!ballAtEntrance || !ballAtExit)
             {
+                this.onFinishedEvent = event;
                 if (ballAtEntrance)
                 {
                     conveyor.advance();
@@ -96,9 +99,14 @@ public class Intake implements TrcExclusiveSubsystem
         }
     }   //pickup
 
+    public void pickup(TrcEvent event)
+    {
+        pickup(null, event);
+    }   //pickup
+
     public void pickup()
     {
-        pickup(null);
+        pickup(null, null);
     }   //pickup
 
     public void spitOut(String owner)
@@ -164,6 +172,12 @@ public class Intake implements TrcExclusiveSubsystem
     private void conveyorEntranceTrigger(Object active)
     {
         setPower(0.0, 0.0, 0.0);
+        if (onFinishedEvent != null)
+        {
+            onFinishedEvent.signal();
+            onFinishedEvent = null;
+        }
+
     }   //conveyorEntranceTrigger
 
 }   //class Intake

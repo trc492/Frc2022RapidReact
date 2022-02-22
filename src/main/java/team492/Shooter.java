@@ -24,6 +24,7 @@ package team492;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
 
+import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcPidMotor;
@@ -42,6 +43,8 @@ public class Shooter implements TrcExclusiveSubsystem
     public final Parameters tilterParams;
     public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
+    public double idealShooterVelocity; 
+    public TrcEvent onFinishEvent = null; 
 
     public Shooter()
     {
@@ -145,24 +148,59 @@ public class Shooter implements TrcExclusiveSubsystem
         return tilter.getPosition();
     }
 
-    public void setTilterPosition(String owner, double pos)
+    public void setTilterPosition(String owner, double pos, TrcEvent event)
     {
         if (validateOwnership(owner))
         {
-            tilter.setTarget(pos);
+            tilter.setTarget(pos, false, event);
         }
     }
 
+    public void setTilterPosition(double pos, TrcEvent event)
+    {
+        setTilterPosition(null, pos, event);
+
+    }
     public void setTilterPosition(double pos)
     {
-        setTilterPosition(null, pos);
+        setTilterPosition(null, pos, null);
     }
+    public void prepForShoot(double tiltAngle, double distanceToTarget, TrcEvent event, boolean isSecondBall){
+        if(isSecondBall){
+            //dont tilt, set flywheel velocity to idealShooterVelocity  
+        }
+        else{
+            //set tilter to tiltAngle(ty from vision)+compensation(look up table and interpolation)
+            //calculate flywheel velocity based on distanceToTarget(look up table and interpolation)
+            //notify event once the shooter has the right flywheel velocity 
+            //set idealSHooterVelocity to what you want the flywheel velocity to be 
+        }
+    }
+    public void prepForShoot(double tiltAngle, double distanceToTarget, TrcEvent event){
+        prepForShoot(tiltAngle, distanceToTarget, event, false);
+    }
+    public void shoot(String owner, TrcEvent event){
 
+    }
+    //assumes there is already a ball at the exit sensor 
+    public void shoot(String owner){
+        if(validateOwnership(owner)){
+        //Start spinning flywheels
+        //If flywheels are spinning fast enough(based on this.idealShooterVelocity)
+        //Tell conveyor to shoot ball from the exitSensor
+        }   
+    }
     public void shoot()
     {
-        //Start spinning flywheels
-        //If flywheels are spinning fast enough
-        //Tell conveyor to send a ball into the shooter
+        shoot(null);
     }
-
+    //this method returns the ideal velocity of the shooter calculated for the first ball that can be used for the second ball 
+    public double idealShooterVelocity(){
+        return idealShooterVelocity; 
+    }
+    public void resetShooter(){
+        //set tilter angle to default position
+        idealShooterVelocity = 0.0; 
+        onFinishEvent = null; 
+    }
 }   //class Shooter

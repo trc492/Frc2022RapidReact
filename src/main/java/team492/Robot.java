@@ -150,8 +150,11 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize sensors.
         //
-        pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
-        battery = new FrcRobotBattery(pdp);
+        if (RobotParams.Preferences.debugPowerConsumption)
+        {
+            pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
+            battery = new FrcRobotBattery(pdp);
+        }
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
         //
         // Create and initialize miscellaneous hardware.
@@ -185,7 +188,10 @@ public class Robot extends FrcRobotBase
         autoAssistShooter = new TaskAimShooter(this);
         //
 
-        pdp.registerEnergyUsedForAllUnregisteredChannels();
+        if (pdp != null)
+        {
+            pdp.registerEnergyUsedForAllUnregisteredChannels();
+        }
         //
         // Create Robot Modes.
         //
@@ -242,10 +248,13 @@ public class Robot extends FrcRobotBase
         //
         // Performance status report.
         //
-        double totalEnergy = battery.getTotalEnergy();
-        globalTracer.traceInfo(
-            funcName, "TotalEnergy=%.3fWh (%.2f%%)",
-            totalEnergy, totalEnergy * 100.0 / RobotParams.BATTERY_CAPACITY_WATT_HOUR);
+        if (battery != null)
+        {
+            double totalEnergy = battery.getTotalEnergy();
+            globalTracer.traceInfo(
+                funcName, "TotalEnergy=%.3fWh (%.2f%%)",
+                totalEnergy, totalEnergy * 100.0 / RobotParams.BATTERY_CAPACITY_WATT_HOUR);
+        }
         //
         // Stop trace logging.
         //

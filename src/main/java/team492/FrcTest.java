@@ -467,8 +467,11 @@ public class FrcTest extends FrcTeleOp
         //
         // Display drivebase info.
         //
-        robot.dashboard.displayPrintf(
-            1, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(), robot.battery.getLowestVoltage());
+        if (robot.battery != null)
+        {
+            robot.dashboard.displayPrintf(
+                1, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(), robot.battery.getLowestVoltage());
+        }
         robot.dashboard.displayPrintf(
             2, "DriveBase: Pose=%s,Vel=%s", robot.robotDrive.driveBase.getFieldPosition(),
             robot.robotDrive.driveBase.getFieldVelocity());

@@ -44,7 +44,9 @@ public class Climber
     public Climber()
     {
         climberMotor = new FrcCANTalon("climberMotor", RobotParams.CANID_CLIMBER);
-        climberPneumatic = new FrcPneumatic("climberPneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH, RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
+        climberPneumatic = new FrcPneumatic(
+            "climberPneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH,
+            RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_CLIMBER_EXTEND);
         // Limit Switches may vary, not on robot yet
         climberLowerLimitSwitch = new FrcCANTalonLimitSwitch("climberLowerLimitSwitch", climberMotor, false);
         climberUpperLimitSwitch = new FrcCANTalonLimitSwitch("climberUpperLimitSwitch", climberMotor, true);

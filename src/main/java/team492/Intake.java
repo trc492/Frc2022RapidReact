@@ -35,6 +35,7 @@ public class Intake implements TrcExclusiveSubsystem
     private final FrcCANFalcon intakeMotor;
     private final FrcPneumatic intakePneumatic;
     private TrcEvent onFinishedEvent;
+
     /**
      * Constructor: Create an instance of the object.
      *

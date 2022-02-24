@@ -55,7 +55,7 @@ public class Conveyor implements TrcExclusiveSubsystem
         exitSensor = new FrcDigitalInput(moduleName + ".exitSensor", RobotParams.DIO_CONVEYOR_EXIT_SENSOR);
         exitSensor.setInverted(RobotParams.CONVEYOR_EXIT_SENSOR_INVERTED);
         exitTrigger = new TrcDigitalInputTrigger(
-            moduleName + ".exitTrigger", entranceSensor, this::exitEvent);
+            moduleName + ".exitTrigger", exitSensor, this::exitEvent);
         exitTrigger.setEnabled(true);
     }   //Conveyor
 
@@ -164,6 +164,7 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     public void advance(String owner, TrcEvent event){
         if(validateOwnership(owner)){
+            this.onFinishEvent = event; 
             move(RobotParams.CONVEYOR_MOVE_POWER);
         }
     }

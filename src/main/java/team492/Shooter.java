@@ -24,44 +24,204 @@ package team492;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
 
+import org.apache.commons.math3.linear.RealVector;
+
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcPidMotor;
+import TrcCommonLib.trclib.TrcPose2D;
+import TrcCommonLib.trclib.TrcRobot;
+import TrcCommonLib.trclib.TrcStateMachine;
+import TrcCommonLib.trclib.TrcTaskMgr;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
 import TrcCommonLib.trclib.TrcPidController.PidParameters;
+import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
+import TrcFrcLib.frclib.FrcRemoteVisionProcessor.RelativePose;
+import edu.wpi.first.math.trajectory.Trajectory;
 
 public class Shooter implements TrcExclusiveSubsystem
 {
+    private enum State{
+        SHIFT_BALL_IN_CONVEYOR, PREP_SHOOTER_BALL_1, PREP_SHOOTER_BALL_2, SHOOT, DONE
+
+    }
     public final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     public final FrcCANTalon tilterMotor;
     public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
     public final Parameters tilterParams;
     public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
-    public double idealShooterVelocity; 
     public TrcEvent onFinishEvent = null; 
+    public TrcEvent event;
+    public TrcEvent event2;
+    public TrcEvent event3;
+    public Robot robot; 
+    
+    //autoshooter stuff
+    //owner is the name of the thing using autoAssist shooter, ie a button 
+    public static final String owner = "auto shooter"; 
+    public int totalBallsToShoot; 
+    public TrcStateMachine<State> sm; 
+    public String instanceName  = "Shooter"; 
+    public TrcTaskMgr.TaskObject shooterTask; 
+    //vision stuff from limelight 
+    RelativePose targetPos; 
+    double tx; 
+    double ty;
+    // tilter stuff 
+    //tiltAngle = ty+compensation(from the lookup table )
+    double tiltAngle;
+    double distanceToTarget; 
+    //ideal flywheel velocity  
+    double targetFlywheelVelocity;//based on lookup table values
 
-    public Shooter()
+    
+
+
+    public Shooter(Robot robot)
     {
+        this.robot = robot; 
         lowerFlywheelMotor = new FrcCANFalcon("lowerFlywheelMotor", RobotParams.CANID_SHOOTER_LOWER_FLYWHEEL);
         lowerFlywheelMotor.setInverted(true);
         lowerFlywheelMotor.setBrakeModeEnabled(false);
         upperFlywheelMotor = new FrcCANFalcon("upperFlywheelMotor", RobotParams.CANID_SHOOTER_UPPER_FLYWHEEL);
         upperFlywheelMotor.setInverted(true);
         upperFlywheelMotor.setBrakeModeEnabled(false);
-        setFlywheelVelocityModeEnabled(false);
+        setFlywheelVelocityModeEnabled(false);//should be true later 
         
         tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
         tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
         tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
         tilterParams = new Parameters().setPidParams(new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_KF, RobotParams.TILTER_TOLERANCE));
         tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
+
+        //shooter task things
+        shooterTask = TrcTaskMgr.createTask(instanceName + ".shooterTask", this::aimAndShoot);
+        sm = new TrcStateMachine<>(instanceName);
     }
+    //assume the target is in view of limelight before this is called, at least one ball in the robot 
+    //this method shoots all the balls in the robot
+    //boolean tells you if it succeeded in starting the auto shooter
+    public boolean shootAllBalls (TrcEvent event){
+        boolean succeeded = true; 
+        //assume method in conveyor for get number of balls 
+        // totalBallsToShoot = robot.conveyor.getNumBalls();
+        this.onFinishEvent = event; 
+        if(robot.conveyor.isEntranceSensorActive()){
+            totalBallsToShoot++;
+        }
+        if(robot.conveyor.isExitSensorActive()){
+            totalBallsToShoot++;
+        }
+        if(totalBallsToShoot>0){
+            if(robot.shooter.acquireExclusiveAccess(owner)&&robot.conveyor.acquireExclusiveAccess(owner)
+                &&robot.intake.acquireExclusiveAccess(owner)&&robot.robotDrive.driveBase.acquireExclusiveAccess(owner)){
+                sm.start(State.SHIFT_BALL_IN_CONVEYOR);
+                shooterTask.registerTask(TaskType.POSTPERIODIC_TASK);
+            }
+            else{
+                succeeded = false; 
+
+            }
+        }
+        else{
+            succeeded = false; 
+        }
+        return succeeded; 
+
+    }
+    //the auto aim task 
+    public void aimAndShoot(TrcTaskMgr.TaskType taskMgr, TrcRobot.RunMode runmode){
+        State state = sm.checkReadyAndGetState();
+        switch(state){
+            case SHIFT_BALL_IN_CONVEYOR:
+                // if there is no ball at the exit sensor advance the ball to there 
+                if(!robot.conveyor.isExitSensorActive()){
+                    robot.conveyor.advance(instanceName, event);
+                    sm.waitForSingleEvent(event, State.PREP_SHOOTER_BALL_1 );
+                }
+                //otherwise go to the aim state
+                else{
+                    sm.setState(State.PREP_SHOOTER_BALL_1);
+                }
+            break; 
+            //this state prepares the shooter for shooting the first ball 
+            case PREP_SHOOTER_BALL_1:
+                //rotate robot tx degrees based on vision
+                //use vision.getLastPose() to find distance to target 
+                //prepare shooter to be ready to shoot(tilt and flywheel velocity )
+                if(robot.vision.vision.targetDetected()){
+                    targetPos = robot.vision.getLastPose();
+                    tx = robot.vision.vision.get("tx");
+                    ty = robot.vision.vision.get("ty");
+                    distanceToTarget = TrcUtil.magnitude(targetPos.x, targetPos.y);
+                    //turn the robot tx degrees
+                    robot.robotDrive.purePursuitDrive.start(event, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0, 0, tx));
+                    //Kenny, write method to  calculate flywheel Velocity and tilt angle, save to fields targetFlywheelVelocity and tiltAngle
+                    robot.shooter.setFlywheelVelocity(targetFlywheelVelocity, event2);
+                    robot.shooter.tilter.setTarget(tiltAngle, false, event3);
+                    //one event for turning robot, one event for turning tilter, one event for getting flywheels up to speed 
+                    sm.addEvent(event);
+                    sm.addEvent(event2);
+                    sm.addEvent(event3);
+                    sm.waitForEvents(State.SHOOT, 0.0, true);
+                }
+                else{
+                    sm.setState(State.DONE);     
+                }
+            break; 
+            //this state is for preparing to shoot the second ball(no longer need to turn robot or tilter )
+            case PREP_SHOOTER_BALL_2: 
+                //because we just shot a ball from the exit sensor, need to advance the other ball to the exit sensor in case 
+                //the conveyor did not advance the second ball to the exit sensor while it shot the first ball 
+                if(!robot.conveyor.isExitSensorActive()){
+                    robot.conveyor.advance(instanceName, event);
+                    sm.addEvent(event);
+
+                }
+                //spin flywheels up to speed
+                robot.shooter.setFlywheelVelocity(targetFlywheelVelocity, event2);
+                sm.addEvent(event2);
+                sm.waitForEvents(State.SHOOT, 0.0, true);
+            break; 
+            case SHOOT:
+                //this sends ball to flywheels, shooting the ball 
+                robot.conveyor.advance(owner, event);
+                totalBallsToShoot--;
+                if(totalBallsToShoot>0){
+                    sm.waitForSingleEvent(event, State.PREP_SHOOTER_BALL_2);
+                }
+                else{
+                    sm.setState(State.DONE);
+                }
+            break; 
+            case DONE:
+                cancel();
+            break; 
+        }
+    }
+    public void cancel(){
+        //after shooting do the following:
+        //set flywheel velocity to 0 
+        //notify auto shooter event
+        //clear all values associated with auto shooter
+        robot.shooter.setFlywheelPower(0.0);
+        sm.stop();
+        this.targetFlywheelVelocity = 0.0;
+        this.tiltAngle = 0.0; 
+        this.tx = 0.0; 
+        this.ty = 0.0;
+        this.distanceToTarget = 0.0; 
+        this.onFinishEvent.notify(); 
+
+    }
+
 
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
     {
@@ -80,6 +240,7 @@ public class Shooter implements TrcExclusiveSubsystem
             }
         }
     }
+
 
     public void setFlywheelVelocityModeEnabled(boolean enabled)
     {
@@ -112,6 +273,11 @@ public class Shooter implements TrcExclusiveSubsystem
     public void setFlywheelPower(double power)
     {
         setFlywheelPower(null, power);
+    }
+
+    public void setFlywheelVelocity(double velocity, TrcEvent event){
+        lowerFlywheelMotor.set(velocity/RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
+        upperFlywheelMotor.set(velocity/RobotParams.SHOOTER_FLYWHEEL_MAX_VEL, 0.0, event);
     }
 
     /**
@@ -165,42 +331,26 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         setTilterPosition(null, pos, null);
     }
-    public void prepForShoot(double tiltAngle, double distanceToTarget, TrcEvent event, boolean isSecondBall){
-        if(isSecondBall){
-            //dont tilt, set flywheel velocity to idealShooterVelocity  
-        }
-        else{
-            //set tilter to tiltAngle(ty from vision)+compensation(look up table and interpolation)
-            //calculate flywheel velocity based on distanceToTarget(look up table and interpolation)
-            //notify event once the shooter has the right flywheel velocity 
-            //set idealSHooterVelocity to what you want the flywheel velocity to be 
-        }
-    }
-    public void prepForShoot(double tiltAngle, double distanceToTarget, TrcEvent event){
-        prepForShoot(tiltAngle, distanceToTarget, event, false);
-    }
-    public void shoot(String owner, TrcEvent event){
 
-    }
-    //assumes there is already a ball at the exit sensor 
-    public void shoot(String owner){
-        if(validateOwnership(owner)){
-        //Start spinning flywheels
-        //If flywheels are spinning fast enough(based on this.idealShooterVelocity)
-        //Tell conveyor to shoot ball from the exitSensor
-        }   
-    }
-    public void shoot()
-    {
-        shoot(null);
-    }
-    //this method returns the ideal velocity of the shooter calculated for the first ball that can be used for the second ball 
-    public double idealShooterVelocity(){
-        return idealShooterVelocity; 
-    }
-    public void resetShooter(){
-        //set tilter angle to default position
-        idealShooterVelocity = 0.0; 
-        onFinishEvent = null; 
-    }
+    // public void shoot(String owner, TrcEvent event){
+
+    // }
+    // //assumes there is already a ball at the exit sensor 
+    // public void shoot(String owner){
+    //     if(validateOwnership(owner)){
+    //     //Start spinning flywheels
+    //     //If flywheels are spinning fast enough(based on this.idealShooterVelocity)
+    //     //Tell conveyor to shoot ball from the exitSensor
+    //     }   
+    // }
+    // public void shoot()
+    // {
+    //     shoot(null);
+    // }
+    // //this method returns the ideal velocity of the shooter calculated for the first ball that can be used for the second ball 
+
+
+
+
+
 }   //class Shooter

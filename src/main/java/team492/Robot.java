@@ -90,7 +90,6 @@ public class Robot extends FrcRobotBase
     public Intake intake;
     public Shooter shooter;
     public Climber climber;
-    public TaskAimShooter autoAssistShooter; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -180,12 +179,11 @@ public class Robot extends FrcRobotBase
             // Intake needs Conveyor, so Conveyor must be created before Intake.
             conveyor = new Conveyor();
             intake = new Intake(conveyor);
-            shooter = new Shooter();
+            shooter = new Shooter(this);
             climber = new Climber();
         }
         //
         // AutoAssist commands.
-        autoAssistShooter = new TaskAimShooter(this);
         //
 
         if (pdp != null)

@@ -42,7 +42,7 @@ public class RobotParams
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
-        public static final boolean useVision                   = false;
+        public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = false;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
@@ -310,8 +310,15 @@ public class RobotParams
     public static final int[] STEER_ZEROS                       = new int[]{ 3551, 479, 3656, 1270 }; // this is a backup if the zeros file isn't found
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
+    public static final TrcPidController.PidCoefficients steerCoeffs =
+        new TrcPidController.PidCoefficients(0.3, 0.0, 7.0, 0.0);
+    //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
+    public static final double STEER_KP                         = 0.3;
+    public static final double STEER_KI                         = 0.0;
+    public static final double STEER_KD                         = 7.0;
+    public static final double STEER_KF                         = 0.0;
     public static final double STEER_CAL_POWER                  = 0.2;
-    public static final double STEER_TOLERANCE                  = 2.0;
+    public static final double STEER_TOLERANCE                  = 0.0;
     public static final double PPD_FOLLOWING_DISTANCE           = 10.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
     public static final double PPD_TURN_TOLERANCE               = 2.0;

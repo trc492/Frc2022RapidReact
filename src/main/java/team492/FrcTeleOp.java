@@ -104,6 +104,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         //
         // Disable subsystems before exiting if necessary.
         //
+        robot.vision.vision.setEnabled(false);
 
     }   //stopMode
 
@@ -144,22 +145,27 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
             }
 
-            double[] inputs = getDriveInputs();
-            if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+            if (robot.robotDrive != null)
             {
-                robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                double[] inputs = getDriveInputs();
+                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                {
+                    robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                }
+                else
+                {
+                    robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
+                }
+                //Let's see if simulating the joystick directions will work
+                // double[] testInputs = simDriveInputs();
+                // robot.robotDrive.driveBase.holonomicDrive(testInputs[0], testInputs[1], testInputs[2], 0.0);
             }
-            else
-            {
-                robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
-            }
-
             //
             // Analog control of subsystem is done here if necessary.
             //
             if (RobotParams.Preferences.useSubsystems)
             {
-                double intakePower = robot.operatorStick.getY();
+                double intakePower = robot.operatorStick.getYWithDeadband(true);
                 robot.intake.setPower(intakePower);
 
                 double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
@@ -181,7 +187,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
         //
         // Update robot status
-        //
+        //  
         if (RobotParams.Preferences.doAutoUpdates)
         {
             robot.updateStatus();
@@ -311,6 +317,35 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         return new double[] { x, y, rot };
     }   //getDriveInput
 
+    // private double[] simDriveInputs()
+    // {
+    //     double x, y, rot;
+    //     double mag;
+    //     double newMag;
+    //     x = 0.0;
+    //     y = 0.5;
+    //     rot = 0.0;
+    //     mag = TrcUtil.magnitude(x, y);
+    //     if (mag > 1.0)
+    //     {
+    //         x /= mag;
+    //         y /= mag;
+    //         mag = 1.0;
+    //     }
+    //     newMag = Math.pow(mag, 2);
+
+    //     newMag *= driveSpeedScale;
+    //     rot *= turnSpeedScale;
+
+    //     if (mag != 0.0)
+    //     {
+    //         x *= newMag / mag;
+    //         y *= newMag / mag;
+    //     }
+
+    //     return new double[] { x, y, rot };
+    // }   //getDriveInput
+
     //
     // Implements FrcButtonHandler.
     //
@@ -416,13 +451,22 @@ public class FrcTeleOp implements TrcRobot.RobotMode
      */
     private void operatorStickButtonEvent(int button, boolean pressed)
     {
+        System.out.println("entered operator event");
         robot.dashboard.displayPrintf(
             8, "  OperatorStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
 
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                robot.intake.setPower(pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0);
+                if(pressed)
+                {
+                    System.out.println("TRIGGER PRESS");
+                    robot.intake.setPower(0.0, pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0, 0.0);
+                }
+                else
+                {
+                    robot.intake.stop();
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

@@ -29,28 +29,20 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.sensors.CANCoder;
 
 import TrcCommonLib.trclib.TrcEnhancedServo;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
-import TrcCommonLib.trclib.TrcPidMotor;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSwerveDriveBase;
 import TrcCommonLib.trclib.TrcSwerveModule;
 import TrcCommonLib.trclib.TrcUtil;
-import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcCANFalcon;
-import TrcFrcLib.frclib.FrcCANSparkMax;
-import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcFalconServo;
 import TrcFrcLib.frclib.FrcPdp;
-import TrcFrcLib.frclib.FrcTalonServo;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.SPI;
 
 /**
@@ -69,7 +61,6 @@ public class SwerveDrive extends RobotDrive
     //
     public final FrcCANFalcon lfDriveMotor, rfDriveMotor, lbDriveMotor, rbDriveMotor;
     public final FrcCANFalcon lfSteerMotor, rfSteerMotor, lbSteerMotor, rbSteerMotor;
-    public final CANCoder lfEncoder, rfEncoder, lbEncoder, rbEncoder;
     public final TrcSwerveModule lfWheel, lbWheel, rfWheel, rbWheel;
 
     /**
@@ -97,16 +88,16 @@ public class SwerveDrive extends RobotDrive
         lbSteerMotor.setInverted(true);
         rbSteerMotor.setInverted(true);
 
-        lfEncoder = new CANCoder(RobotParams.CANID_LEFTFRONT_STEER_ENCODER);
-        rfEncoder = new CANCoder(RobotParams.CANID_RIGHTFRONT_STEER_ENCODER);
-        lbEncoder = new CANCoder(RobotParams.CANID_LEFTBACK_STEER_ENCODER);
-        rbEncoder = new CANCoder(RobotParams.CANID_RIGHTBACK_STEER_ENCODER);
+        lfSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        rfSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        lbSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        rbSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
 
         // int[] zeros = getSteerZeroPositions();
-        lfWheel = createModule("lfWheel", lfDriveMotor, lfSteerMotor, lfEncoder);
-        rfWheel = createModule("rfWheel", rfDriveMotor, rfSteerMotor, rfEncoder);
-        lbWheel = createModule("lbWheel", lbDriveMotor, lbSteerMotor, lbEncoder);
-        rbWheel = createModule("rbWheel", rbDriveMotor, rbSteerMotor, rbEncoder);
+        lfWheel = createModule("lfWheel", lfDriveMotor, lfSteerMotor);
+        rfWheel = createModule("rfWheel", rfDriveMotor, rfSteerMotor);
+        lbWheel = createModule("lbWheel", lbDriveMotor, lbSteerMotor);
+        rbWheel = createModule("rbWheel", rbDriveMotor, rbSteerMotor);
 
         if (robot.pdp != null)
         {
@@ -259,88 +250,47 @@ public class SwerveDrive extends RobotDrive
                 lbWheel.getSteerAngle(), rbWheel.getSteerAngle()));
     }   //calibratePeriodic
 
-    /**
-     * This method creates and initializes a SparkMax motor controller as one of the drive wheels motors.
-     *
-     * @param name specifies the name of the drive wheel motor.
-     * @param id specifies the CAN ID of the motor controller.
-     * @return the created SparkMax controller.
-     */
-    private FrcCANSparkMax createSparkMax(String name, int id)
-    {
-        FrcCANSparkMax spark = new FrcCANSparkMax(name, id, true);
-        spark.motor.restoreFactoryDefaults();
-        spark.setInverted(false);
-        spark.setPositionSensorInverted(false);
-        spark.setBrakeModeEnabled(true);
-        spark.motor.enableVoltageCompensation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
-        spark.motor.burnFlash();
-        return spark;
-    }   //createSparkMax
+    // /**
+    //  * This method creates and initializes a swerve module that consists of a drive motor and a steering motor.
+    //  *
+    //  * @param name specifies the name of the swerve module.
+    //  * @param drive specifies the drive motor object.
+    //  * @param steer specifies the steering motor object.
+    //  * @param steerZero specifies the zero offset of the steering encoder.
+    //  * @return the created swerve module.
+    //  */
+    // private TrcSwerveModule createModule(String name, FrcCANFalcon drive, FrcCANTalon steer, int steerZero)
+    // {
+    //     final String funcName = "createModule";
+    //     steer.motor.getSensorCollection().setPulseWidthPosition(0, 10); // reset index
+    //     TrcUtil.sleep(50); // guarantee reset
+    //     ErrorCode error = steer.motor.getSensorCollection().syncQuadratureWithPulseWidth(0, 0, true, -steerZero, 10);
+    //     if (error != ErrorCode.OK)
+    //     {
+    //         robot.globalTracer.traceErr(funcName, "Encoder error: module=%s, error=%s", name, error.name());
+    //     }
+    //     TrcUtil.sleep(50); // guarantee reset
+    //     int modPos = (int) TrcUtil.modulo(steer.motor.getSelectedSensorPosition(), 4096);
+    //     int pos = modPos > 2048 ? modPos - 4096 : modPos;
+    //     steer.motor.setSelectedSensorPosition(pos, 0, 10);
+    //     TrcUtil.sleep(50);
 
-    /**
-     * This method creates and initializes a Talon motor controller as one of the steering motors.
-     *
-     * @param name specifies the name of the steering motor.
-     * @param id specifies the CAN ID of the motor controller.
-     * @return the created Talon controller.
-     */
-    private FrcCANTalon createSteerTalon(String name, int id, boolean inverted)
-    {
-        FrcCANTalon talon = new FrcCANTalon(name, id);
-        talon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        talon.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
-        talon.motor.enableVoltageCompensation(true);
-        talon.motor.overrideLimitSwitchesEnable(false);
-        talon.configFwdLimitSwitchNormallyOpen(true);
-        talon.configRevLimitSwitchNormallyOpen(true);
-        talon.setBrakeModeEnabled(true);
-        talon.setPositionSensorInverted(inverted);
-        talon.setInverted(!inverted);
-        return talon;
-    }   //createSteerTalon
+    //     robot.globalTracer.traceInfo(
+    //         funcName, "Module=%s, Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%f",
+    //         name, steerZero, steer.motor.getSensorCollection().getPulseWidthPosition(),
+    //         steer.motor.getSensorCollection().getQuadraturePosition(), steer.motor.getSelectedSensorPosition());
 
-    /**
-     * This method creates and initializes a swerve module that consists of a drive motor and a steering motor.
-     *
-     * @param name specifies the name of the swerve module.
-     * @param drive specifies the drive motor object.
-     * @param steer specifies the steering motor object.
-     * @param steerZero specifies the zero offset of the steering encoder.
-     * @return the created swerve module.
-     */
-    private TrcSwerveModule createModule(String name, FrcCANSparkMax drive, FrcCANTalon steer, int steerZero)
-    {
-        final String funcName = "createModule";
-        steer.motor.getSensorCollection().setPulseWidthPosition(0, 10); // reset index
-        TrcUtil.sleep(50); // guarantee reset
-        ErrorCode error = steer.motor.getSensorCollection().syncQuadratureWithPulseWidth(0, 0, true, -steerZero, 10);
-        if (error != ErrorCode.OK)
-        {
-            robot.globalTracer.traceErr(funcName, "Encoder error: module=%s, error=%s", name, error.name());
-        }
-        TrcUtil.sleep(50); // guarantee reset
-        int modPos = (int) TrcUtil.modulo(steer.motor.getSelectedSensorPosition(), 4096);
-        int pos = modPos > 2048 ? modPos - 4096 : modPos;
-        steer.motor.setSelectedSensorPosition(pos, 0, 10);
-        TrcUtil.sleep(50);
+    //     FrcTalonServo servo = new FrcTalonServo(name + ".servo", steer, RobotParams.magicSteerCoeff,
+    //         RobotParams.STEER_DEGREES_PER_TICK, RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
+    //     TrcSwerveModule module = new TrcSwerveModule(name, drive, new TrcEnhancedServo(name + ".enhancedServo", servo));
+    //     module.disableSteeringLimits();
+    //     return module;
+    // }   //createModule
 
-        robot.globalTracer.traceInfo(
-            funcName, "Module=%s, Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%f",
-            name, steerZero, steer.motor.getSensorCollection().getPulseWidthPosition(),
-            steer.motor.getSensorCollection().getQuadraturePosition(), steer.motor.getSelectedSensorPosition());
-
-        FrcTalonServo servo = new FrcTalonServo(name + ".servo", steer, RobotParams.magicSteerCoeff,
-            RobotParams.STEER_DEGREES_PER_TICK, RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
-        TrcSwerveModule module = new TrcSwerveModule(name, drive, new TrcEnhancedServo(name + ".enhancedServo", servo));
-        module.disableSteeringLimits();
-        return module;
-    }   //createModule
-
-    private TrcSwerveModule createModule(String name, FrcCANFalcon drive, FrcCANFalcon steer, CANCoder encoder)
+    private TrcSwerveModule createModule(String name, FrcCANFalcon drive, FrcCANFalcon steer)
     {
         // + encoder later
-        FrcFalconServo servo = new FrcFalconServo(name + "Servo", steer, RobotParams.magicSteerCoeff, RobotParams.STEER_DEGREES_PER_TICK, RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
+        FrcFalconServo servo = new FrcFalconServo(name + "Servo", steer, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
         TrcSwerveModule module = new TrcSwerveModule(name, drive, new TrcEnhancedServo(name + "EnhancedServo", servo));
         return module;
     }

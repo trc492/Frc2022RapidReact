@@ -156,6 +156,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
                 }
+                // robot.robotDrive.driveBase.holonomicDrive(0.2, 0.0, 0.0);
                 //Let's see if simulating the joystick directions will work
                 // double[] testInputs = simDriveInputs();
                 // robot.robotDrive.driveBase.holonomicDrive(testInputs[0], testInputs[1], testInputs[2], 0.0);

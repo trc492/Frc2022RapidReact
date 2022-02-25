@@ -77,16 +77,20 @@ public class SwerveDrive extends RobotDrive
         rfDriveMotor = new FrcCANFalcon("rfDrive", RobotParams.CANID_RIGHTFRONT_DRIVE);
         lbDriveMotor = new FrcCANFalcon("lbDrive", RobotParams.CANID_LEFTBACK_DRIVE);
         rbDriveMotor = new FrcCANFalcon("rbDrive", RobotParams.CANID_RIGHTBACK_DRIVE);
+        lfDriveMotor.setInverted(true);
+        rfDriveMotor.setInverted(true);
+        lbDriveMotor.setInverted(true);
+        rbDriveMotor.setInverted(true);
 
         // rf lb are inverted always, lf and rb are inverted on comp, not inverted on practice
         lfSteerMotor = new FrcCANFalcon("lfSteer", RobotParams.CANID_LEFTFRONT_STEER);
         rfSteerMotor = new FrcCANFalcon("rfSteer", RobotParams.CANID_RIGHTFRONT_STEER);
         lbSteerMotor = new FrcCANFalcon("lbSteer", RobotParams.CANID_LEFTBACK_STEER);
         rbSteerMotor = new FrcCANFalcon("rbSteer", RobotParams.CANID_RIGHTBACK_STEER);
-        lfSteerMotor.setInverted(true);
-        rfSteerMotor.setInverted(true);
-        lbSteerMotor.setInverted(true);
-        rbSteerMotor.setInverted(true);
+        // lfSteerMotor.setInverted(true);
+        // rfSteerMotor.setInverted(true);
+        // lbSteerMotor.setInverted(true);
+        // rbSteerMotor.setInverted(true);
 
         lfSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
         rfSteerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);

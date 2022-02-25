@@ -160,14 +160,11 @@ public class RobotParams
     public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 28;   // Gray: 40A
     public static final int CANID_SHOOTER_UPPER_FLYWHEEL        = 29;   // White: 40A
 
-    // Applicable only for Swerve Drive.
-
-
-    public static final int CANID_PDP                           = 63;
-    public static final int CANID_PCM                           = 62;
+    public static final int CANID_PCM                           = 30;
+    public static final int CANID_PDP                           = 31;
 
     //
-    // PDP Channels.
+    // PDP Channels. (TODO: Need to remap thses.)
     //
     public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 10;
     public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 4;

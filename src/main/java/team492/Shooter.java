@@ -223,6 +223,34 @@ public class Shooter implements TrcExclusiveSubsystem
     }
 
 
+                    //Kenny, write method to  calculate flywheel Velocity and tilt angle, save to fields targetFlywheelVelocity and tiltAngle
+
+
+
+
+
+
+    public static double[] interpolateVector(double distance)
+    {
+        double[] distances = new double[] { 76, 124, 180, 220, 280, 330 };   //these values from 2020, need new ones
+        double[] velocities = new double[] { 464, 537, 720, 780, 820, 920 }; //these values from 2020, need new ones
+        double[] angles = new double[] { 37, 30.5, 24.5, 25, 23, 21 };       //these values from 2020, need new ones
+        for (int i = 0; i < distances.length - 1; i++)
+        {
+            if (distances[i] <= distance && distance <= distances[i + 1])
+            {
+                double w = (distance - distances[i]) / (distances[i + 1] - distances[i]);
+                double v = (1 - w) * velocities[i] + w * velocities[i + 1];
+                double angle = (1 - w) * angles[i] + w * angles[i + 1];
+                double[] vector = {v, angle};
+                return vector;
+            }
+        }
+        double[] fail = {0.0, 0.0};
+        return fail;
+    }
+                
+                
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
     {
         if (validateOwnership(owner))

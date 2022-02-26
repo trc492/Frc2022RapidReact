@@ -203,13 +203,13 @@ public class SwerveDrive extends RobotDrive
         encoder.configFactoryDefault();
         encoder.configFeedbackCoefficient(1.0, "pulse", SensorTimeBase.PerSecond);
         encoder.configSensorDirection(true);
+        encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
         steerMotor.motor.configFactoryDefault();
         steerMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         steerMotor.motor.enableVoltageCompensation(true);
         steerMotor.motor.configRemoteFeedbackFilter(encoder, 0);
         steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
-        steerMotor.motor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
         steerMotor.setInverted(inverted);
         steerMotor.setBrakeModeEnabled(true);
 

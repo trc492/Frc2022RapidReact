@@ -31,6 +31,7 @@ import java.util.stream.IntStream;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
 import TrcCommonLib.trclib.TrcEnhancedServo;
@@ -208,6 +209,7 @@ public class SwerveDrive extends RobotDrive
         steerMotor.motor.enableVoltageCompensation(true);
         steerMotor.motor.configRemoteFeedbackFilter(encoder, 0);
         steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        steerMotor.motor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
         steerMotor.setInverted(inverted);
         steerMotor.setBrakeModeEnabled(true);
 

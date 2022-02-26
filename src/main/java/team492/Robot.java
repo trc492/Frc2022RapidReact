@@ -177,7 +177,7 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useSubsystems)
         {
             // Intake needs Conveyor, so Conveyor must be created before Intake.
-            conveyor = new Conveyor();
+            conveyor = new Conveyor(this);
             intake = new Intake(conveyor);
             shooter = new Shooter(this);
             climber = new Climber();

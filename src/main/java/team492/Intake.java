@@ -47,7 +47,7 @@ public class Intake implements TrcExclusiveSubsystem
         this.conveyor = conveyor;
         intakeMotor = new FrcCANFalcon(moduleName + ".motor", RobotParams.CANID_INTAKE);
         intakePneumatic = new FrcPneumatic(
-            moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH,
+            moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
 
         conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
@@ -151,6 +151,16 @@ public class Intake implements TrcExclusiveSubsystem
     {
         deploy(null);
     }   //deploy
+
+    public void extend(String owner) {
+        if(validateOwnership(owner)) {
+            intakePneumatic.extend();
+        }
+    }
+
+    public void extend() {
+        extend(null);
+    }
 
     public void retract(String owner)
     {

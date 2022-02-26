@@ -42,7 +42,7 @@ public class RobotParams
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
-        public static final boolean useVision                   = true;
+        public static final boolean useVision                   = false;
         public static final boolean useStreamCamera             = false;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
@@ -334,19 +334,21 @@ public class RobotParams
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_KF                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 2.0;
-    public static final int SHOOTER_FLYWHEEL_MAX_VEL            = 2200; //Sensor units per second
+    public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_COUNTS_PER_REVOLUTION   = 2048; //Falcon 2048 CPR encoder
-    //TODO: THIS IS INCORRECT!
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0 / 1.0;
+    public static final double FLYWHEEL_MAX_VEL                 = FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_COUNTS_PER_REVOLUTION; //Tested to be about 220000 SU/s
+    public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
+        new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 1.0;
-    public static final double INTAKE_SPITOUT_POWER             = -1.0;
+    public static final double INTAKE_PICKUP_POWER              = 0.5;
+    public static final double INTAKE_SPITOUT_POWER             = -0.5;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
-    public static final double CONVEYOR_MOVE_POWER              = 1.0;
+    public static final double CONVEYOR_MOVE_POWER              = 0.5;
     public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=false;
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
 

@@ -44,6 +44,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     protected final Robot robot;
     private boolean controlsEnabled = false;
     private boolean flywheelOn = false;
+    private boolean reverseConveyor = false;
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -147,28 +148,22 @@ public class FrcTeleOp implements TrcRobot.RobotMode
 
             if (robot.robotDrive != null)
             {
-                double[] inputs = getDriveInputs();
-                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
-                {
-                    robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
-                }
-                else
-                {
-                    robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
-                }
-                // robot.robotDrive.driveBase.holonomicDrive(0.2, 0.0, 0.0);
-                //Let's see if simulating the joystick directions will work
-                // double[] testInputs = simDriveInputs();
-                // robot.robotDrive.driveBase.holonomicDrive(testInputs[0], testInputs[1], testInputs[2], 0.0);
+                // double[] inputs = getDriveInputs();
+                // if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                // {
+                //     robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                // }
+                // else
+                // {
+                //     robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
+                // }
             }
             //
             // Analog control of subsystem is done here if necessary.
             //
+            //TODO
             if (RobotParams.Preferences.useSubsystems)
             {
-                double intakePower = robot.operatorStick.getYWithDeadband(true);
-                robot.intake.setPower(intakePower);
-
                 double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
                 double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
                 double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
@@ -176,14 +171,17 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
                 if(flywheelOn)
                 {
-                    robot.shooter.setFlywheelPower(shooterLowerPower, shooterUpperPower);
+                    robot.shooter.setFlywheelVelocity(shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
                 }
-                robot.dashboard.displayPrintf(11, "Shooter velocities (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
-                    shooterLowerVel, shooterLowerPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL,
-                    shooterUpperVel, shooterUpperPower*RobotParams.SHOOTER_FLYWHEEL_MAX_VEL);
+                robot.dashboard.displayPrintf(11, "Shooter rpm (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
+                    shooterLowerVel, shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM,
+                    shooterUpperVel, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
                 robot.dashboard.displayPrintf(
                     9, "breakers: 0:%s, 1:%s",
                     robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
+                double climberPower = robot.leftDriveStick.getYWithDeadband(true)/0.5;
+                robot.climber.climberMotor.setMotorPower(climberPower);
+                robot.dashboard.displayPrintf(4, "climber power:%.1f", climberPower);
             }
         }
         //
@@ -444,6 +442,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
     }   //rightDriveStickButtonEvent
 
+    //TODO: operator stick button event
     /**
      * This method is called when an operator stick button event is detected.
      *
@@ -461,19 +460,23 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if(pressed)
                 {
-                    System.out.println("TRIGGER PRESS");
-                    robot.intake.setPower(0.0, pressed? RobotParams.INTAKE_PICKUP_POWER: 0.0, 0.0);
-                }
-                else
-                {
-                    robot.intake.stop();
+                    robot.intake.extend();
+                    robot.intake.pickup();
+                } else {
+                    robot.intake.retract();
                 }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
                 if(pressed)
                 {
-                    robot.conveyor.advance();
+                    if(reverseConveyor) {
+                        robot.shooter.setFlywheelPower(-0.5);
+                        robot.conveyor.setPower(-0.5);
+                        robot.intake.setPower(-0.5);
+                    } else {
+                        robot.conveyor.advance();
+                    }
                 }
                 break;
 
@@ -485,11 +488,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:
-                robot.conveyor.setPower(pressed? 0.5: 0);
+                if(pressed) {
+                    robot.intake.extend();
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON5:
-                robot.conveyor.setPower(pressed? -0.5: 0);
+                robot.shooter.shootAllBalls(null);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
@@ -499,9 +504,20 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:
+                if(pressed) {
+                    robot.conveyor.setPower(0.0);
+                    robot.intake.setPower(0.0);
+                    robot.intake.retract();
+                    robot.shooter.setFlywheelPower(0.0);
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON9:
+                if(pressed) {
+                    reverseConveyor = true;
+                } else {
+                    reverseConveyor = false;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:

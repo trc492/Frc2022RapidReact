@@ -30,18 +30,21 @@ import TrcFrcLib.frclib.FrcDigitalInput;
 
 public class Conveyor implements TrcExclusiveSubsystem
 {
-    private static final String moduleName = "Conveyor";
+    public final Robot robot;
+    public static final String moduleName = "Conveyor";
     private FrcCANTalon conveyorMotor;
-    private FrcDigitalInput entranceSensor, exitSensor;
-    private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
-    private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
-    private TrcEvent onFinishEvent; 
+    public FrcDigitalInput entranceSensor, exitSensor;
+    public final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
+    public TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
+    public TrcEvent onFinishEvent;
+    public boolean movingForward = true;
 
     /**
      * Constructor: Creates an instance of the object.
      */
-    public Conveyor()
+    public Conveyor(Robot robot)
     {
+        this.robot = robot;
         conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
         conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
 
@@ -112,6 +115,7 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     public void setPower(String owner, double delay, double power, double duration, TrcEvent event)
     {
+        movingForward = power > 0;
         if (validateOwnership(owner))
         {
             conveyorMotor.set(delay, power, duration, event);
@@ -213,6 +217,7 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void move(double power)
     {
+        movingForward = power > 0;
         // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a
         // ball at the exit or to back up a ball to the entrance. The sensor trigger event will turn the conveyor off.
         if (entranceSensor.isActive() || exitSensor.isActive())
@@ -228,7 +233,15 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void entranceEvent(boolean active)
     {
-        conveyorMotor.setMotorPower(0.0);
+        // if(conveyorMotor.getMotorPower() >= 0.0 && active)
+        if(movingForward && active)
+        {
+            if(exitSensor.isActive()) {
+                conveyorMotor.setMotorPower(0.0);
+            } else {
+                robot.conveyor.advance();
+            }
+        }
 
         if (entranceEventHandler != null)
         {
@@ -243,7 +256,11 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void exitEvent(boolean active)
     {
-        conveyorMotor.setMotorPower(0.0);
+        // if(conveyorMotor.getMotorPower() >= 0.0 && active)
+        if(movingForward && active)
+        {
+            conveyorMotor.setMotorPower(0.0);
+        }
 
         if (exitEventHandler != null)
         {

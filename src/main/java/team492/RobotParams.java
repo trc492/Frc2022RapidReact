@@ -334,6 +334,7 @@ public class RobotParams
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_KF                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 2.0;
+    public static final double TILTER_DEG_PER_COUNT             = 360.0/4096;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_COUNTS_PER_REVOLUTION   = 2048; //Falcon 2048 CPR encoder
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0 / 1.0;

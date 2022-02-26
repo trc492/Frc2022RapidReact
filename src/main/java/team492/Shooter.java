@@ -119,7 +119,9 @@ public class Shooter implements TrcExclusiveSubsystem
 
         // tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
         // tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
-        tilterParams = new Parameters().setPidParams(new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_KF, RobotParams.TILTER_TOLERANCE));
+        tilterParams = new Parameters()
+            .setPidParams(new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_KF, RobotParams.TILTER_TOLERANCE))
+            .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, 0.0);
         tilter = new TrcPidActuator("tilter", tilterMotor, null, null, tilterParams);
         event = new TrcEvent("event");
         //shooter task things

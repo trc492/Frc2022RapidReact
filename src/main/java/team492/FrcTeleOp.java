@@ -148,20 +148,19 @@ public class FrcTeleOp implements TrcRobot.RobotMode
 
             if (robot.robotDrive != null)
             {
-                // double[] inputs = getDriveInputs();
-                // if (robot.robotDrive.driveBase.supportsHolonomicDrive())
-                // {
-                //     robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
-                // }
-                // else
-                // {
-                //     robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
-                // }
+                double[] inputs = getDriveInputs();
+                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                {
+                    robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                }
+                else
+                {
+                    robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
+                }
             }
             //
             // Analog control of subsystem is done here if necessary.
             //
-            //TODO
             if (RobotParams.Preferences.useSubsystems)
             {
                 double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
@@ -224,6 +223,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
         else
         {
+            robot.leftDriveStick.setButtonHandler(enabled? this::leftDriveStickButtonEvent: null);
             robot.rightDriveStick.setButtonHandler(enabled? this::rightDriveStickButtonEvent: null);
         }
 
@@ -358,7 +358,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private void driverControllerButtonEvent(int button, boolean pressed)
     {
         robot.dashboard.displayPrintf(
-            8, " DriverController: button=0x%04x %s, auto=%b", button, pressed ? "pressed" : "released");
+            8, "DriverController: button=0x%04x %s, auto=%b", button, pressed ? "pressed" : "released");
 
         switch (button)
         {
@@ -419,6 +419,35 @@ public class FrcTeleOp implements TrcRobot.RobotMode
      * @param button specifies the button ID that generates the event
      * @param pressed specifies true if the button is pressed, false otherwise.
      */
+    private void leftDriveStickButtonEvent(int button, boolean pressed)
+    {
+        robot.dashboard.displayPrintf(
+            8, "  LeftDriveStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
+
+        switch (button)
+        {
+            case FrcJoystick.SIDEWINDER_TRIGGER:
+                if (pressed)
+                {
+                    if (driveOrientation != DriveOrientation.FIELD)
+                    {
+                        driveOrientation = DriveOrientation.FIELD;
+                    }
+                    else
+                    {
+                        driveOrientation = DriveOrientation.ROBOT;
+                    }
+                }
+                break;
+        }
+    }   //rightDriveStickButtonEvent
+
+    /**
+     * This method is called when a right driver stick button event is detected.
+     *
+     * @param button specifies the button ID that generates the event
+     * @param pressed specifies true if the button is pressed, false otherwise.
+     */
     private void rightDriveStickButtonEvent(int button, boolean pressed)
     {
         robot.dashboard.displayPrintf(
@@ -453,7 +482,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     {
         System.out.println("entered operator event");
         robot.dashboard.displayPrintf(
-            8, "  OperatorStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
+            8, "   OperatorStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
 
         switch (button)
         {
@@ -540,7 +569,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private void buttonPanelButtonEvent(int button, boolean pressed)
     {
         robot.dashboard.displayPrintf(
-            8, "  ButtonPanel: button=0x%04x %s", button, pressed ? "pressed" : "released");
+            8, "     ButtonPanel: button=0x%04x %s", button, pressed ? "pressed" : "released");
 
         switch (button)
         {
@@ -585,7 +614,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private void switchPanelButtonEvent(int button, boolean pressed)
     {
         robot.dashboard.displayPrintf(
-            8, "  SwitchPanel: button=0x%04x %s", button, pressed ? "pressed" : "released");
+            8, "     SwitchPanel: button=0x%04x %s", button, pressed ? "pressed" : "released");
 
         switch (button)
         {

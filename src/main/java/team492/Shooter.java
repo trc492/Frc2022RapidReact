@@ -24,6 +24,9 @@ package team492;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
 
+import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+
 import org.apache.commons.math3.linear.RealVector;
 
 import TrcCommonLib.trclib.TrcEvent;
@@ -49,11 +52,10 @@ public class Shooter implements TrcExclusiveSubsystem
 {
     private enum State{
         SHIFT_BALL_IN_CONVEYOR, PREP_SHOOTER_BALL_1, PREP_SHOOTER_BALL_2, SHOOT, DONE
-
     }
     public final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     public final FrcCANTalon tilterMotor;
-    public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
+    // public final FrcCANTalonLimitSwitch tilterUpperLimitSwitch, tilterLowerLimitSwitch;
     public final Parameters tilterParams;
     public final TrcPidActuator tilter;
     public boolean flyWheelInVelocityMode = false;
@@ -82,9 +84,6 @@ public class Shooter implements TrcExclusiveSubsystem
     //ideal flywheel velocity  
     double targetFlywheelVelocity;//based on lookup table values
 
-    
-
-
     public Shooter(Robot robot)
     {
         this.robot = robot; 
@@ -97,10 +96,31 @@ public class Shooter implements TrcExclusiveSubsystem
         setFlywheelVelocityModeEnabled(true);
         
         tilterMotor = new FrcCANTalon("tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
-        tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
-        tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
+        tilterMotor.motor.configFactoryDefault();
+        tilterMotor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+        tilterMotor.motor.setSensorPhase(true);
+        tilterMotor.motor.getSensorCollection().setPulseWidthPosition(0, 10); // reset index
+        TrcUtil.sleep(50); // guarantee reset
+        ErrorCode error = tilterMotor.motor.getSensorCollection().syncQuadratureWithPulseWidth(0, 0, true, 1582, 10);
+        if (error != ErrorCode.OK)
+        {
+            System.out.printf("Encoder error! - Shooter Tilter, error=%s\n", error.name());
+        }
+        TrcUtil.sleep(50); // guarantee reset
+        int modPos = (int) TrcUtil.modulo(tilterMotor.motor.getSelectedSensorPosition(), 4096);
+        int pos = modPos > 2048 ? modPos - 4096 : modPos;
+        tilterMotor.motor.setSelectedSensorPosition(pos, 0, 10);
+        TrcUtil.sleep(50);
+
+        System.out.printf("TilterMotor: Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%d\n", 1582,
+            tilterMotor.motor.getSensorCollection().getPulseWidthPosition(),
+            tilterMotor.motor.getSensorCollection().getQuadraturePosition(),
+            tilterMotor.motor.getSelectedSensorPosition());
+
+        // tilterLowerLimitSwitch = new FrcCANTalonLimitSwitch("tilterLowerLimitSwitch", tilterMotor, false);
+        // tilterUpperLimitSwitch = new FrcCANTalonLimitSwitch("tilterUpperLimitSwitch", tilterMotor, true);
         tilterParams = new Parameters().setPidParams(new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_KF, RobotParams.TILTER_TOLERANCE));
-        tilter = new TrcPidActuator("tilter", tilterMotor, tilterLowerLimitSwitch, tilterUpperLimitSwitch, tilterParams);
+        tilter = new TrcPidActuator("tilter", tilterMotor, null, null, tilterParams);
         event = new TrcEvent("event");
         //shooter task things
         shooterTask = TrcTaskMgr.createTask(instanceName + ".shooterTask", this::aimAndShoot);

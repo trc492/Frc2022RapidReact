@@ -103,6 +103,28 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //isExitSensorActive
 
     /**
+     * This method determines the number of balls in the conveyor.
+     *
+     * @return number of balls in conveyor.
+     */
+    public int getNumBalls()
+    {
+        int numBalls = 0;
+
+        if (entranceSensor.isActive())
+        {
+            numBalls++;
+        }
+
+        if (exitSensor.isActive())
+        {
+            numBalls++;
+        }
+
+        return numBalls;
+    }   //getNumBalls
+
+    /**
      * This method sets the power of the conveyor.
      *
      * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not

@@ -195,7 +195,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         sm.waitForEvents(State.SHOOT, 0.0, true);
                     }
                     else{
-                       robot.shooter.setFlywheelVelocity(2000, event);
+                        robot.shooter.setFlywheelVelocity(2000, event);
                         sm.waitForSingleEvent(event, State.SHOOT);
                         //sm.setState(State.DONE);     
                     }

@@ -178,9 +178,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 robot.dashboard.displayPrintf(
                     9, "breakers: 0:%s, 1:%s",
                     robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
-                double climberPower = robot.leftDriveStick.getYWithDeadband(true)/0.5;
-                robot.climber.climberMotor.setMotorPower(climberPower);
-                robot.dashboard.displayPrintf(4, "climber power:%.1f", climberPower);
+                // double climberPower = robot.leftDriveStick.getYWithDeadband(true)/0.5;
+                // robot.climber.climberMotor.setMotorPower(climberPower);
+                // robot.dashboard.displayPrintf(4, "climber power:%.1f", climberPower);
             }
         }
         //

@@ -30,21 +30,27 @@ import TrcFrcLib.frclib.FrcDigitalInput;
 
 public class Conveyor implements TrcExclusiveSubsystem
 {
-    public final Robot robot;
-    public static final String moduleName = "Conveyor";
+    private static final String moduleName = "Conveyor";
+
+    private enum TriggerAction
+    {
+        DoNothing,
+        StopOnForward,
+        StopOnBackward
+    }   //enum TriggerState
+
     private FrcCANTalon conveyorMotor;
-    public FrcDigitalInput entranceSensor, exitSensor;
-    public final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
-    public TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
-    public TrcEvent onFinishEvent;
-    public boolean movingForward = true;
+    private FrcDigitalInput entranceSensor, exitSensor;
+    private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
+    private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
+    private TrcEvent onFinishEvent;
+    private TriggerAction triggerAction = TriggerAction.DoNothing;
 
     /**
      * Constructor: Creates an instance of the object.
      */
-    public Conveyor(Robot robot)
+    public Conveyor()
     {
-        this.robot = robot;
         conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
         conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
 
@@ -125,19 +131,20 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //getNumBalls
 
     /**
-     * This method sets the power of the conveyor.
+     * This method sets the power of the conveyor. Note that setPower methods do not pay attention to entrance or
+     * exit sensors. For moving the conveyor that will stop on entrance or exit sensor triggers use the advance or
+     * backup methods instead.
      *
-     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
-     *              ownership aware.
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
      * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
      * @param power specifies the power to set the conveyor to.
      * @param duration specifies the duration in seconds to run the motor and turns it off afterwards, 0.0 if not
      *                 turning off.
-     * @param event specifies the event to signal when the motor operation is completed
+     * @param event specifies the event to signal when the motor operation is completed.
      */
     public void setPower(String owner, double delay, double power, double duration, TrcEvent event)
     {
-        movingForward = power > 0;
         if (validateOwnership(owner))
         {
             conveyorMotor.set(delay, power, duration, event);
@@ -145,13 +152,15 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //setPower
 
     /**
-     * This method sets the power of the conveyor.
+     * This method sets the power of the conveyor. Note that setPower methods do not pay attention to entrance or
+     * exit sensors. For moving the conveyor that will stop on entrance or exit sensor triggers use the advance or
+     * backup methods instead.
      *
      * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
      * @param power specifies the power to set the conveyor to.
      * @param duration specifies the duration in seconds to run the motor and turns it off afterwards, 0.0 if not
      *                 turning off.
-     * @param event specifies the event to signal when the motor operation is completed
+     * @param event specifies the event to signal when the motor operation is completed.
      */
     public void setPower(double delay, double power, double duration, TrcEvent event)
     {
@@ -159,7 +168,9 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //setPower
 
     /**
-     * This method sets the power of the conveyor.
+     * This method sets the power of the conveyor. Note that setPower methods do not pay attention to entrance or
+     * exit sensors. For moving the conveyor that will stop on entrance or exit sensor triggers use the advance or
+     * backup methods instead.
      *
      * @param delay specifies the time in seconds to delay before setting the power, 0.0 if no delay.
      * @param power specifies the power to set the conveyor to.
@@ -172,7 +183,9 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //setPower
 
     /**
-     * This method sets the power of the conveyor.
+     * This method sets the power of the conveyor. Note that setPower methods do not pay attention to entrance or
+     * exit sensors. For moving the conveyor that will stop on entrance or exit sensor triggers use the advance or
+     * backup methods instead.
      *
      * @param power specifies the power to set the conveyor to.
      */
@@ -182,18 +195,47 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //setPower
 
     /**
+     * This method moves the ball forward or backward with the given power.
+     *
+     * @param power specifies positive power to move the ball forward, negative to move backward.
+     * @param event specifies the event to notify when done, can be null if not provided.
+     */
+    private void move(double power, TrcEvent event)
+    {
+        // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a
+        // ball at the exit or to back up a ball to the entrance. The sensor trigger event will turn the conveyor off
+        // if necessary.
+        if (entranceSensor.isActive() || exitSensor.isActive())
+        {
+            this.onFinishEvent = event;
+            conveyorMotor.set(power);
+        }
+    }   //move
+
+    /**
      * This method moves the ball(s) forward. It will either take in a ball from the entrance or shoot a ball at
      * the exit.
      *
-     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
-     *              ownership aware.
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     * @param event specifies the event to notify when done, can be null if not provided.
      */
-    public void advance(String owner, TrcEvent event){
-        if(validateOwnership(owner)){
-            this.onFinishEvent = event; 
-            move(RobotParams.CONVEYOR_MOVE_POWER);
+    public void advance(String owner, TrcEvent event)
+    {
+        if (validateOwnership(owner))
+        {
+            triggerAction = TriggerAction.StopOnForward;
+            move(RobotParams.CONVEYOR_MOVE_POWER, event);
         }
-    }
+    }   //advance
+
+    /**
+     * This method moves the ball(s) forward. It will either take in a ball from the entrance or shoot a ball at
+     * the exit.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     */
     public void advance(String owner)
     {
         advance(owner, null);
@@ -205,22 +247,36 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     public void advance()
     {
-        advance(null);
+        advance(null, null);
     }   //advance
 
     /**
      * This method moves the ball(s) backward. It will either move a ball from the exit back to the entrance or
      * eject a ball out to the intake.
      *
-     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller is not
-     *              ownership aware.
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     * @param event specifies the event to notify when done, can be null if not provided.
      */
-    public void backup(String owner)
+    public void backup(String owner, TrcEvent event)
     {
         if (validateOwnership(owner))
         {
-            move(-RobotParams.CONVEYOR_MOVE_POWER);
+            triggerAction = TriggerAction.StopOnBackward;
+            move(-RobotParams.CONVEYOR_MOVE_POWER, event);
         }
+    }   //backup
+
+    /**
+     * This method moves the ball(s) backward. It will either move a ball from the exit back to the entrance or
+     * eject a ball out to the intake.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     */
+    public void backup(String owner)
+    {
+        backup(owner, null);
     }   //backup
 
     /**
@@ -229,24 +285,8 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     public void backup()
     {
-        backup(null);
+        backup(null, null);
     }   //backup
-
-    /**
-     * This method moves the ball forward or backward with the given power.
-     *
-     * @param power specifies positive power to move the ball forward, negative to move backward.
-     */
-    private void move(double power)
-    {
-        movingForward = power > 0;
-        // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a
-        // ball at the exit or to back up a ball to the entrance. The sensor trigger event will turn the conveyor off.
-        if (entranceSensor.isActive() || exitSensor.isActive())
-        {
-            conveyorMotor.setMotorPower(power);
-        }
-    }   //move
 
     /**
      * This method is called when the entrance sensor is triggered.
@@ -255,14 +295,25 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void entranceEvent(boolean active)
     {
-        // if(conveyorMotor.getMotorPower() >= 0.0 && active)
-        if(movingForward && active)
+        if (active)
         {
-            if(exitSensor.isActive()) {
-                conveyorMotor.setMotorPower(0.0);
-            } else {
-                robot.dashboard.displayPrintf(14, "Entrance event advancing ball ");
-                robot.conveyor.advance();
+            if (triggerAction == TriggerAction.StopOnBackward)
+            {
+                conveyorMotor.set(0.0);
+                if (onFinishEvent != null)
+                {
+                    onFinishEvent.signal();
+                }
+            }
+            else if (triggerAction == TriggerAction.DoNothing)
+            {
+                // Entracne sensor is triggered not because of advance or backup calls. It must be caused by intake.
+                // In this case, we want to see if there is space to advance the ball to the exit. Can only do this
+                // if nobody is currently owning exclusive access.
+                if (!exitSensor.isActive())
+                {
+                    advance();
+                }
             }
         }
 
@@ -279,19 +330,21 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void exitEvent(boolean active)
     {
-        // if(conveyorMotor.getMotorPower() >= 0.0 && active)
-        robot.dashboard.displayPrintf(1, "exit event triggered, %s", active);
-        if(movingForward && active)
+        if (active)
         {
-            conveyorMotor.setMotorPower(0.0);
+            if (triggerAction == TriggerAction.StopOnForward)
+            {
+                conveyorMotor.set(0.0);
+                if (onFinishEvent != null)
+                {
+                    onFinishEvent.signal();
+                }
+            }
         }
-        
+
         if (exitEventHandler != null)
         {
             exitEventHandler.notify(active);
-        }
-        if(onFinishEvent!=null){
-            onFinishEvent.signal();
         }
     }   //exitEvent
 

@@ -50,7 +50,7 @@ public class Intake implements TrcExclusiveSubsystem
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
 
-        conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
+        //conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
     }   //Intake
 
     public void setPower(String owner, double delay, double power, double duration)
@@ -182,12 +182,12 @@ public class Intake implements TrcExclusiveSubsystem
 
     private void conveyorEntranceTrigger(Object active)
     {
-        setPower(0.0, 0.0, 0.0);
-        if (onFinishedEvent != null)
-        {
-            onFinishedEvent.signal();
-            onFinishedEvent = null;
-        }
+        // setPower(0.0, 0.0, 0.0);
+        // if (onFinishedEvent != null)
+        // {
+        //     onFinishedEvent.signal();
+        //     onFinishedEvent = null;
+        // }
 
     }   //conveyorEntranceTrigger
 

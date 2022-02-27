@@ -45,6 +45,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean controlsEnabled = false;
     private boolean flywheelOn = false;
     private boolean reverseConveyor = false;
+    private boolean tilterControl = false;
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -105,7 +106,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         //
         // Disable subsystems before exiting if necessary.
         //
-        robot.vision.vision.setEnabled(false);
+        if(RobotParams.Preferences.useVision)
+        {
+            robot.vision.vision.setEnabled(false);
+        }
 
     }   //stopMode
 
@@ -163,8 +167,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             if (RobotParams.Preferences.useSubsystems)
             {
-                double shooterLowerPower = (robot.operatorStick.getZ() + 1.0)/2.0;
-                double shooterUpperPower = (robot.leftDriveStick.getZ() + 1.0)/2.0;
+                double shooterLowerPower = robot.leftDriveStick.getYWithDeadband(true);
+                double shooterUpperPower = robot.leftDriveStick.getYWithDeadband(true);
                 double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
                 double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
                 robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
@@ -172,6 +176,12 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     robot.shooter.setFlywheelVelocity(shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
                 }
+                if(tilterControl)
+                {
+                    double tilterPower = robot.operatorStick.getYWithDeadband(true);
+                    robot.shooter.tilterMotor.setMotorPower(tilterPower);
+                }
+                robot.dashboard.displayPrintf(6, "tilter:%.1f", robot.shooter.tilter.getPosition());
                 robot.dashboard.displayPrintf(11, "Shooter rpm (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
                     shooterLowerVel, shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM,
                     shooterUpperVel, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
@@ -487,52 +497,82 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                if(pressed)
-                {
-                    robot.intake.extend();
-                    robot.intake.pickup();
-                } else {
-                    robot.intake.retract();
-                }
+                robot.shooter.shootAllBalls(null);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
                 if(pressed)
                 {
-                    if(reverseConveyor) {
+                    if(reverseConveyor)
+                    {
                         robot.shooter.setFlywheelPower(-0.5);
                         robot.conveyor.setPower(-0.5);
                         robot.intake.setPower(-0.5);
-                    } else {
+                    }
+                    else
+                    {
                         robot.conveyor.advance();
+                    }
+                }
+                else
+                {
+                    if(reverseConveyor)
+                    {
+                        robot.shooter.setFlywheelPower(0.0);
+                        robot.conveyor.setPower(0.0);
+                        robot.intake.setPower(0.0);
                     }
                 }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
-                if (pressed)
+                if(pressed)
                 {
-                    flywheelOn = !flywheelOn;
+                    robot.intake.extend();
+                    robot.intake.pickup();
+                }
+                else
+                {
+                    robot.intake.stop();
+                    robot.intake.retract();
                 }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:
-                if(pressed) {
+                if(pressed)
+                {
                     robot.intake.extend();
                 }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON5:
-                robot.shooter.shootAllBalls(null);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
+                if(pressed)
+                {
+                    tilterControl = true;
+                }
+                else
+                {
+                    robot.shooter.tilterMotor.setMotorPower(0.0);
+                    tilterControl = false;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON7:
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:
+                if(pressed) {
+                    reverseConveyor = true;
+                } else {
+                    reverseConveyor = false;
+                }
+                break;
+
+            case FrcJoystick.LOGITECH_BUTTON9:
+                //TODO: Owner overrides
                 if(pressed) {
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
@@ -541,18 +581,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 break;
 
-            case FrcJoystick.LOGITECH_BUTTON9:
-                if(pressed) {
-                    reverseConveyor = true;
-                } else {
-                    reverseConveyor = false;
-                }
-                break;
-
             case FrcJoystick.LOGITECH_BUTTON10:
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON11:
+                if(pressed) {
+                    flywheelOn = !flywheelOn;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON12:

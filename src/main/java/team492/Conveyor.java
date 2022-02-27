@@ -261,6 +261,7 @@ public class Conveyor implements TrcExclusiveSubsystem
             if(exitSensor.isActive()) {
                 conveyorMotor.setMotorPower(0.0);
             } else {
+                robot.dashboard.displayPrintf(14, "Entrance event advancing ball ");
                 robot.conveyor.advance();
             }
         }
@@ -279,17 +280,18 @@ public class Conveyor implements TrcExclusiveSubsystem
     private void exitEvent(boolean active)
     {
         // if(conveyorMotor.getMotorPower() >= 0.0 && active)
+        robot.dashboard.displayPrintf(1, "exit event triggered, %s", active);
         if(movingForward && active)
         {
             conveyorMotor.setMotorPower(0.0);
         }
-
+        
         if (exitEventHandler != null)
         {
             exitEventHandler.notify(active);
         }
         if(onFinishEvent!=null){
-            onFinishEvent.notify();
+            onFinishEvent.signal();
         }
     }   //exitEvent
 

@@ -37,6 +37,7 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidCoefficients;
@@ -84,6 +85,8 @@ public class Shooter implements TrcExclusiveSubsystem
     //ideal flywheel velocity  
     double targetFlywheelVelocity;//based on lookup table values
 
+    Double expireTime; 
+
     public Shooter(Robot robot)
     {
         this.robot = robot; 
@@ -112,7 +115,7 @@ public class Shooter implements TrcExclusiveSubsystem
         tilterMotor.motor.setSelectedSensorPosition(pos, 0, 10);
         TrcUtil.sleep(50);
 
-        System.out.printf("TilterMotor: Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%d\n", 1582,
+        System.out.printf("TilterMotor: Zero=%d, PwmPos=%d, quadPos=%d, selectedPos=%f\n", 1582,
             tilterMotor.motor.getSensorCollection().getPulseWidthPosition(),
             tilterMotor.motor.getSensorCollection().getQuadraturePosition(),
             tilterMotor.motor.getSelectedSensorPosition());
@@ -131,10 +134,14 @@ public class Shooter implements TrcExclusiveSubsystem
     //assume the target is in view of limelight before this is called, at least one ball in the robot 
     //this method shoots all the balls in the robot
     //boolean tells you if it succeeded in starting the auto shooter
+    //bug where if ball isnt triggering exit sensor the thing doesnt work 
     public boolean shootAllBalls (TrcEvent event){
+        robot.dashboard.displayPrintf(4, "SHOOT ALL BALLS WAS CALLED ");
         boolean succeeded = true; 
         //assume method in conveyor for get number of balls 
         // totalBallsToShoot = robot.conveyor.getNumBalls();
+        totalBallsToShoot = 0; 
+        expireTime = null; 
         this.onFinishEvent = event; 
         if(robot.conveyor.isEntranceSensorActive()){
             totalBallsToShoot++;
@@ -143,12 +150,15 @@ public class Shooter implements TrcExclusiveSubsystem
             totalBallsToShoot++;
         }
         if(totalBallsToShoot>0){
+            robot.dashboard.displayPrintf(12, "WE HAV BALL");
             if(robot.shooter.acquireExclusiveAccess(owner)&&robot.conveyor.acquireExclusiveAccess(owner)
                 &&robot.intake.acquireExclusiveAccess(owner)&&robot.robotDrive.driveBase.acquireExclusiveAccess(owner)){
                 sm.start(State.SHIFT_BALL_IN_CONVEYOR);
+                robot.dashboard.displayPrintf(5, "WILL SHOOT SOON, %d", totalBallsToShoot);
                 shooterTask.registerTask(TaskType.POSTPERIODIC_TASK);
             }
             else{
+                robot.dashboard.displayPrintf(12, "FAILED ");
                 succeeded = false; 
 
             }
@@ -167,7 +177,7 @@ public class Shooter implements TrcExclusiveSubsystem
                 case SHIFT_BALL_IN_CONVEYOR:
                     // if there is no ball at the exit sensor advance the ball to there 
                     if(!robot.conveyor.isExitSensorActive()){
-                        robot.conveyor.advance(instanceName, event);
+                        robot.conveyor.advance(owner, event);
                         sm.waitForSingleEvent(event, State.PREP_SHOOTER_BALL_1 );
                     }
                     //otherwise go to the aim state
@@ -197,39 +207,78 @@ public class Shooter implements TrcExclusiveSubsystem
                         sm.waitForEvents(State.SHOOT, 0.0, true);
                     }
                     else{
-                        robot.shooter.setFlywheelVelocity(2000, event);
-                        sm.waitForSingleEvent(event, State.SHOOT);
+                        if(expireTime==null){
+
+                            expireTime= TrcUtil.getCurrentTime()+2;
+                            robot.shooter.setFlywheelVelocity(2750, 2250);
+                        }
+                        else{
+                            if(TrcUtil.getCurrentTime()>=expireTime){
+                                expireTime = null; 
+                                sm.setState(State.SHOOT);
+                            }
+                        }
+                        // robot.shooter.setFlywheelVelocity(2750, 2250, event);
+                        // sm.waitForSingleEvent(event, State.SHOOT);
+                        //timer.set(2.0, event);
+                        //sm.waitForSingleEvent(event, State.SHOOT);
+
                         //sm.setState(State.DONE);     
                     }
                 break; 
+                //this method never gets called 
                 //this state is for preparing to shoot the second ball(no longer need to turn robot or tilter )
-                case PREP_SHOOTER_BALL_2: 
-                    //because we just shot a ball from the exit sensor, need to advance the other ball to the exit sensor in case 
-                    //the conveyor did not advance the second ball to the exit sensor while it shot the first ball 
-                    if(!robot.conveyor.isExitSensorActive()){
-                        robot.conveyor.advance(instanceName, event);
-                        sm.addEvent(event);
+                // case PREP_SHOOTER_BALL_2: 
+                //     //because we just shot a ball from the exit sensor, need to advance the other ball to the exit sensor in case 
+                //     //the conveyor did not advance the second ball to the exit sensor while it shot the first ball 
+                //     // if(!robot.conveyor.isExitSensorActive()){
+                //     //     robot.conveyor.advance(instanceName, event);
+                //     //     sm.addEvent(event);
     
-                    }
-                    //spin flywheels up to speed
-                    robot.shooter.setFlywheelVelocity(targetFlywheelVelocity, event2);
-                    sm.addEvent(event2);
-                    sm.waitForEvents(State.SHOOT, 0.0, true);
-                break; 
+                //     // }
+                //     //spin flywheels up to speed
+                //     //robot.shooter.setFlywheelVelocity(targetFlywheelVelocity-100, event);
+                //     robot.shooter.setFlywheelVelocity(targetFlywheelVelocity-100, 2250, event);
+                //     //sm.addEvent(event);
+                //     sm.waitForSingleEvent(event, State.SHOOT);
+                //     break; 
                 case SHOOT:
-                    //this sends ball to flywheels, shooting the ball 
-                    robot.conveyor.advance(owner, event);
+                    //this sends ball to flywheels, shooting the ball
+                    //robot.conveyor.advance(owner, event);// TODO DEBUG THE EVENT 
+                    robot.conveyor.advance(owner);
                     totalBallsToShoot--;
-                    if(totalBallsToShoot>0){
-                        sm.waitForSingleEvent(event, State.PREP_SHOOTER_BALL_1);
+                    if(expireTime==null){
+                        expireTime = TrcUtil.getCurrentTime() + 5; 
                     }
-                    else{
-                        sm.setState(State.DONE);
+                    else {
+                        if(TrcUtil.getCurrentTime()>=expireTime){
+                            if(totalBallsToShoot>0){
+                                expireTime = null; 
+
+                                sm.setState(State.PREP_SHOOTER_BALL_2);
+                            }
+                            else{
+                                robot.dashboard.displayPrintf(14, "DONE");
+
+                                sm.setState(State.DONE);
+                            }
+                        }
                     }
-                break; 
+                    // robot.dashboard.displayPrintf(2, "Shooting");
+                    // sm.waitForSingleEvent(event, State.DONE);
+                    // totalBallsToShoot--;
+                    // robot.dashboard.displayPrintf(1, "Cancel, %d", totalBallsToShoot);  
+                    // if(totalBallsToShoot>0){
+                    //     sm.waitForSingleEvent(event, State.PREP_SHOOTER_BALL_1);
+                    // }
+                    // else{
+
+                    //     sm.waitForSingleEvent(event, State.DONE);
+                    // }
+                    break; 
                 case DONE:
                     cancel();
-                break; 
+                    break; 
             }
         
         }
@@ -239,15 +288,27 @@ public class Shooter implements TrcExclusiveSubsystem
         //set flywheel velocity to 0 
         //notify auto shooter event
         //clear all values associated with auto shooter
-        robot.shooter.setFlywheelPower(0.0);
-        shooterTask.unregisterTask();
-        sm.stop();
+        robot.dashboard.displayPrintf(3, "CAncel cancel cancel ");
+        robot.conveyor.setPower(owner,0.0, 0.0, 0.0, null);
+        robot.shooter.setFlywheelPower(owner, 0.0);
+        robot.shooter.releaseExclusiveAccess(owner);
+        robot.conveyor.releaseExclusiveAccess(owner);
+        robot.intake.releaseExclusiveAccess(owner);
+        robot.robotDrive.driveBase.releaseExclusiveAccess(owner);
         this.targetFlywheelVelocity = 0.0;
         this.tiltAngle = 0.0; 
         this.tx = 0.0; 
         this.ty = 0.0;
         this.distanceToTarget = 0.0; 
-        this.onFinishEvent.notify(); 
+        if(onFinishEvent!=null){
+            this.onFinishEvent.notify(); 
+        }
+        sm.stop();
+        robot.dashboard.displayPrintf(4, "");
+        robot.dashboard.displayPrintf(5, "");
+        robot.dashboard.displayPrintf(12, "");
+        shooterTask.unregisterTask();
+
 
     }
 
@@ -331,7 +392,7 @@ public class Shooter implements TrcExclusiveSubsystem
      * @param event
      */
     public void setFlywheelVelocity(double lowerVelocity, double upperVelocity, TrcEvent event) {
-        lowerFlywheelMotor.set(lowerVelocity/RobotParams.FLYWHEEL_MAX_RPM);
+        lowerFlywheelMotor.set(lowerVelocity/RobotParams.FLYWHEEL_MAX_RPM, 0.0, event);
         upperFlywheelMotor.set(upperVelocity/RobotParams.FLYWHEEL_MAX_RPM, 0.0, event);
     }
 

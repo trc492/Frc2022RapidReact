@@ -343,8 +343,8 @@ public class RobotParams
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 0.5;
-    public static final double INTAKE_SPITOUT_POWER             = -0.5;
+    public static final double INTAKE_PICKUP_POWER              = 0.75;
+    public static final double INTAKE_SPITOUT_POWER             = -0.75;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.

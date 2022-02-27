@@ -24,11 +24,13 @@ package team492;
 
 import TrcCommonLib.trclib.TrcDriveBase;
 import TrcCommonLib.trclib.TrcGyro;
-import TrcCommonLib.trclib.TrcMotor;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
+import TrcFrcLib.frclib.FrcAHRSGyro;
+import TrcFrcLib.frclib.FrcCANFalcon;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class is intended to be extended by subclasses implementing different robot drive bases.
@@ -46,7 +48,7 @@ public class RobotDrive
     //
     // Drive motors.
     //
-    public TrcMotor lfDriveMotor, lbDriveMotor, rfDriveMotor, rbDriveMotor;
+    public FrcCANFalcon lfDriveMotor, lbDriveMotor, rfDriveMotor, rbDriveMotor;
     //
     // Drive Base.
     //
@@ -63,6 +65,17 @@ public class RobotDrive
     public TrcPurePursuitDrive purePursuitDrive;
 
     /**
+     * Constructor: Create an instance of the object.
+     *
+     * @param robot specifies the robot object.
+     */
+    public RobotDrive(Robot robot)
+    {
+        this.robot = robot;
+        gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
+    }   //RobotDrive
+
+    /**
      * This method is called to prepare the robot base before a robot mode is about to start.
      *
      * @param runMode specifies the current run mode.
@@ -73,6 +86,21 @@ public class RobotDrive
         if (runMode != RunMode.DISABLED_MODE)
         {
             driveBase.setOdometryEnabled(true);
+
+            if (runMode == RunMode.AUTO_MODE)
+            {
+                lfDriveMotor.motor.configOpenloopRamp(0.0);
+                rfDriveMotor.motor.configOpenloopRamp(0.0);
+                lbDriveMotor.motor.configOpenloopRamp(0.0);
+                rbDriveMotor.motor.configOpenloopRamp(0.0);
+            }
+            else
+            {
+                lfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+                rfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+                lbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+                rbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+            }
         }
     }   //startMode
 
@@ -107,6 +135,19 @@ public class RobotDrive
 
         driveBase.stop();
     }   //cancel
+
+    protected FrcCANFalcon createDriveMotor(String name, int motorCanID, boolean inverted)
+    {
+        FrcCANFalcon driveMotor = new FrcCANFalcon(name, motorCanID);
+
+        driveMotor.motor.configFactoryDefault();
+        driveMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+        driveMotor.motor.enableVoltageCompensation(true);
+        driveMotor.setInverted(inverted);
+        driveMotor.setBrakeModeEnabled(true);
+
+        return driveMotor;
+    }   //createDriveMotor
 
     /**
      * This method is called to start steering calibration for Swerve Drive.

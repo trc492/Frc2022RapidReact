@@ -26,10 +26,7 @@ import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSimpleDriveBase;
-import TrcFrcLib.frclib.FrcAHRSGyro;
-import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPdp;
-import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class creates the RobotDrive subsystem that consists of wheel motors and related objects for driving the
@@ -44,21 +41,12 @@ public class WestCoastDrive extends RobotDrive
      */
     public WestCoastDrive(Robot robot)
     {
-        this.robot = robot;
-        gyro = RobotParams.Preferences.useNavX ? new FrcAHRSGyro("NavX", SPI.Port.kMXP) : null;
+        super(robot);
 
-        lfDriveMotor = new FrcCANFalcon("lfDriveMotor", RobotParams.CANID_LEFTFRONT_DRIVE);
-        lbDriveMotor = new FrcCANFalcon("lbDriveMotor", RobotParams.CANID_LEFTBACK_DRIVE);
-        rfDriveMotor = new FrcCANFalcon("rfDriveMotor", RobotParams.CANID_RIGHTFRONT_DRIVE);
-        rbDriveMotor = new FrcCANFalcon("rbDriveMotor", RobotParams.CANID_RIGHTBACK_DRIVE);
-
-        lfDriveMotor.setBrakeModeEnabled(true);
-        lbDriveMotor.setBrakeModeEnabled(true);
-        rfDriveMotor.setBrakeModeEnabled(true);
-        rbDriveMotor.setBrakeModeEnabled(true);
-
-        lfDriveMotor.setInverted(true);
-        lbDriveMotor.setInverted(true);
+        lfDriveMotor = createDriveMotor("lfDriveMotor", RobotParams.CANID_LEFTFRONT_DRIVE, true);
+        lbDriveMotor = createDriveMotor("lbDriveMotor", RobotParams.CANID_LEFTBACK_DRIVE, true);
+        rfDriveMotor = createDriveMotor("rfDriveMotor", RobotParams.CANID_RIGHTFRONT_DRIVE, false);
+        rbDriveMotor = createDriveMotor("rbDriveMotor", RobotParams.CANID_RIGHTBACK_DRIVE, false);
 
         lbDriveMotor.followMotor(lfDriveMotor);
         rbDriveMotor.followMotor(rfDriveMotor);

@@ -299,7 +299,8 @@ public class RobotParams
     public static final double DRIVE_RAMP_RATE                  = 0.2;
 
     // Applicable only for Swerve Drive.
-    public static final double STEER_DEGREES_PER_TICK           = 360.0 / 4096.0;
+    public static final int STEER_ENCODER_PPR                   = 4096;
+    public static final double STEER_DEGREES_PER_TICK           = 360.0 / STEER_ENCODER_PPR;
     public static final double STEER_MAX_REQ_VEL                = 1000.0;   // deg/sec. max commanded velocity, not necessarily max vel
     public static final double STEER_MAX_ACCEL                  = 5000.0;   // deg/sec^2
     // ((theoretical max rpm * speed loss constant / gear ratio) / 60 sec/min) * 360 deg/rev
@@ -334,7 +335,8 @@ public class RobotParams
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_KF                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 2.0;
-    public static final double TILTER_DEG_PER_COUNT             = 360.0/4096;
+    public static final int TILTER_ENCODER_PPR                  = 4096;
+    public static final double TILTER_DEG_PER_COUNT             = 360.0 / TILTER_ENCODER_PPR;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_COUNTS_PER_REVOLUTION   = 2048; //Falcon 2048 CPR encoder
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0 / 1.0;

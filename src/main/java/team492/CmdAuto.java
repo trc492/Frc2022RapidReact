@@ -28,7 +28,6 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 class CmdAuto implements TrcRobot.RobotCommand
 {
@@ -41,7 +40,6 @@ class CmdAuto implements TrcRobot.RobotCommand
         DRIVE_TO_SHOOT_POSITION,
         SHOOT,  
         DONE
- 
     }   //enum State
 
     private final Robot robot;
@@ -51,9 +49,6 @@ class CmdAuto implements TrcRobot.RobotCommand
     private final TrcEvent event2; 
     private final TrcStateMachine<State> sm;
     private TrcPose2D[] path; 
-    //pathIndex is which point we are driving to 
-    private Integer pathIndex; 
-    private int pathNumber; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -68,33 +63,16 @@ class CmdAuto implements TrcRobot.RobotCommand
         this.robot = robot;
         this.autoChoices = autoChoices;
         timer = new TrcTimer(moduleName);
-        event = new TrcEvent(moduleName);
-        event2 = new TrcEvent("event2");
-        if(autoChoices.getAlliance()==DriverStation.Alliance.Red){
-            switch(autoChoices.getStartPos()){
-                case 1:
-                    path = RobotParams.RED_1_PATH; 
-                case 2:
-                    path = RobotParams.RED_2_PATH;
-                case 3: 
-                    path = RobotParams.RED_3_PATH; 
-                break; 
-            }
-        }
-        else{
-            switch(autoChoices.getStartPos()){
-                case 1:
-                    path = RobotParams.BLUE_1_PATH; 
-                case 2:
-                    path = RobotParams.BLUE_2_PATH;
-                case 3: 
-                    path = RobotParams.BLUE_3_PATH; 
-                break; 
-            }
-        }
+        event = new TrcEvent(moduleName + ".event");
+        event2 = new TrcEvent(moduleName + ".event2");
         sm = new TrcStateMachine<>(moduleName);
-        robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
         sm.start(State.START_DELAY);
+
+        int startPos = autoChoices.getStartPos();
+        path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+                    RobotParams.RED_PATHS[startPos]: RobotParams.BLUE_PATHS[startPos];
+
+        robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
     }   //CmdAuto
 
     //
@@ -140,7 +118,6 @@ class CmdAuto implements TrcRobot.RobotCommand
         else
         {
             boolean traceState = true;
-            TrcPose2D startPose;
 
             robot.dashboard.displayPrintf(1, "State: %s", state);
             switch (state)
@@ -149,11 +126,10 @@ class CmdAuto implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                        RobotParams.RED_START_POSES[autoChoices.getStartPos()]:
-                        RobotParams.BLUE_START_POSES[autoChoices.getStartPos()];
+                    int pos = autoChoices.getStartPos();
+                    TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+                        RobotParams.RED_START_POSES[pos]: RobotParams.BLUE_START_POSES[pos];
                     robot.robotDrive.driveBase.setFieldPosition(startPose);
-                    robot.intake.acquireExclusiveAccess(moduleName);
                     //
                     // Do start delay if any.
                     //
@@ -172,26 +148,28 @@ class CmdAuto implements TrcRobot.RobotCommand
                         break;
                     }
 
+                // CodeReview: should shoot the preloaded ball first.
                 case PICKUP_BALL:
                     //drive to the ball while running the intake 
-                    robot.robotDrive.purePursuitDrive.start(event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[0]);
-                    robot.intake.pickup(moduleName, event2);
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[0]);
+                    robot.intake.pickup(event2);
                     //when robot arrived at location and intake event is signaled, move on to shoot event 
                     sm.addEvent(event);
                     sm.addEvent(event2);
                     sm.waitForEvents(State.SHOOT, 0.0, true); 
-                break; 
+                    break;
 
                 case SHOOT:
                     //use the auto assist shooter to handle aiming and shooting both balls in the robot 
                     robot.shooter.shootAllBalls(event);
                     sm.waitForSingleEvent(event, State.DONE); 
-                break; 
+                    break;
                 
                 case DONE:
                 default:
                     //
-                    // We are done, zero calibrate the arm will lower it.
+                    // We are done.
                     //
                     cancel();
                     break;

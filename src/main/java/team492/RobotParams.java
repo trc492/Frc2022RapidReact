@@ -76,7 +76,7 @@ public class RobotParams
 
     //
     // Autonomous constants.
-    //points derived from desmos
+    //
     public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(25.0, 90.8, -2.0);
     public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(57.4, 68.0, 44.0);
     public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(84.6, -43.0, 134.0);
@@ -99,32 +99,45 @@ public class RobotParams
     //path points for each different auto path(right now only 2 ball autos)
     //first point: robot picking up the ball around the tarmacs
     //second point: robot moving into shooter position 
-    public static final TrcPose2D[] RED_3_PATH = new TrcPose2D[]{
-        new TrcPose2D(128.8, -79.8, 134),
-        new TrcPose2D(109, -43.2, -62)
-    };
-    public static final TrcPose2D[] RED_2_PATH = new TrcPose2D[]{
-        new TrcPose2D(123, 88, 44 ),
-        new TrcPose2D(44, 110.6, 200)
-    };
-    public static final TrcPose2D[] RED_1_PATH = new TrcPose2D[]{
+    public static final TrcPose2D[] RED_1_PATH = new TrcPose2D[]
+    {
         new TrcPose2D(27.4, 138.2, -2),
         new TrcPose2D(44, 110.6, 200)
     };
-    public static final TrcPose2D[] BLUE_1_PATH = new TrcPose2D[]{
+    public static final TrcPose2D[] RED_2_PATH = new TrcPose2D[]
+    {
+        new TrcPose2D(123, 88, 44 ),
+        new TrcPose2D(44, 110.6, 200)
+    };
+    public static final TrcPose2D[] RED_3_PATH = new TrcPose2D[]
+    {
+        new TrcPose2D(128.8, -79.8, 134),
+        new TrcPose2D(109, -43.2, -62)
+    };
+    public static final TrcPose2D[][] RED_PATHS = new TrcPose2D[][]
+    {
+        RED_1_PATH, RED_2_PATH, RED_3_PATH
+    };
+
+    public static final TrcPose2D[] BLUE_1_PATH = new TrcPose2D[]
+    {
         new TrcPose2D(-119, 73.7, 47),
         new TrcPose2D(-119, 73.7, 238)
     };
-    public static final TrcPose2D[] BLUE_2_PATH = new TrcPose2D[]{
+    public static final TrcPose2D[] BLUE_2_PATH = new TrcPose2D[]
+    {
         new TrcPose2D(-115.3, -80.8, 134),
         new TrcPose2D(-49.5, -127.7, 339)
     };
-    public static final TrcPose2D[] BLUE_3_PATH = new TrcPose2D[]{
+    public static final TrcPose2D[] BLUE_3_PATH = new TrcPose2D[]
+    {
         new TrcPose2D(-25.4, -136.4, 182),
         new TrcPose2D(-49.5, -128, 339)
-    };  
-    
-
+    };
+    public static final TrcPose2D[][] BLUE_PATHS = new TrcPose2D[][]
+    {
+        BLUE_1_PATH, BLUE_2_PATH, BLUE_3_PATH
+    };
     //
     // Joystick ports.
     //
@@ -335,6 +348,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 50.0;     // in RPM
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.2;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
@@ -347,7 +361,6 @@ public class RobotParams
     public static final double TILTER_KP                        = 0.3;
     public static final double TILTER_KI                        = 0.0;
     public static final double TILTER_KD                        = 0.0;
-    public static final double TILTER_KF                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 0.1;
     public static final int TILTER_ENCODER_PPR                  = 4096;
     public static final double TILTER_DEG_PER_COUNT             = 360.0 / TILTER_ENCODER_PPR;
@@ -370,11 +383,20 @@ public class RobotParams
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
 
     // Climber subsystem.
-    public static final double CLIMBER_EXTEND_POWER             = 0.3;
-    public static final double CLIMBER_RETRACT_POWER            = 0.3;
     public static final double CLIMBER_KP                       = 0.3;
     public static final double CLIMBER_KI                       = 0.0;
     public static final double CLIMBER_KD                       = 0.0;
-    public static final double CLIMBER_TOLERANCE                = 2.0;
+    public static final double CLIMBER_TOLERANCE                = 1.0;
+    public static final int CLIMBER_ENCODER_PPR                 = 4096;
+    public static final double CLIMBER_INCHES_PER_COUNT         = 1.0;
+    public static final int CLIMBER_ZERO                        = 1582; // TODO: Measure
+    public static final boolean CLIMBER_MOTOR_INVERTED          = false;
+    public static final boolean CLIMBER_HAS_LOWERLIMIT_SWITCH   = false;
+    public static final boolean CLIMBER_HAS_UPPERLIMIT_SWITCH   = false;
+    public static final double CLIMBER_MIN_POS                  = 0.0;
+    public static final double CLIMBER_MAX_POS                  = 1.0;
+    public static final double CLIMBER_CAL_POWER                = 0.2;
+    public static final double CLIMBER_EXTEND_POWER             = 0.3;
+    public static final double CLIMBER_RETRACT_POWER            = 0.3;
 
 }   //class RobotParams

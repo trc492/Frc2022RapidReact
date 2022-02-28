@@ -46,6 +46,7 @@ public class Intake implements TrcExclusiveSubsystem
     {
         this.conveyor = conveyor;
         intakeMotor = new FrcCANFalcon(moduleName + ".motor", RobotParams.CANID_INTAKE);
+        intakeMotor.motor.configFactoryDefault();
         intakePneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
@@ -73,7 +74,7 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void pickup(String owner, TrcEvent event)
     {
-        this.onFinishedEvent = event; 
+        // this.onFinishedEvent = event; //??? Why??? Should be done inside the if.
         if (validateOwnership(owner))
         {
             boolean ballAtEntrance = conveyor.isEntranceSensorActive();
@@ -130,7 +131,7 @@ public class Intake implements TrcExclusiveSubsystem
     {
         if (validateOwnership(owner))
         {
-            setPower(0.0, 0.0, 0.0);
+            setPower(0.0);
         }
     }   //stop
 
@@ -139,28 +140,18 @@ public class Intake implements TrcExclusiveSubsystem
         stop(null);
     }   //stop
 
-    public void deploy(String owner)
+    public void extend(String owner)
     {
         if (validateOwnership(owner))
         {
             intakePneumatic.extend();
         }
-    }   //deploy
+    }   //extend
 
-    public void deploy()
+    public void extend()
     {
-        deploy(null);
-    }   //deploy
-
-    public void extend(String owner) {
-        if(validateOwnership(owner)) {
-            intakePneumatic.extend();
-        }
-    }
-
-    public void extend() {
         extend(null);
-    }
+    }   //extend
 
     public void retract(String owner)
     {
@@ -180,15 +171,14 @@ public class Intake implements TrcExclusiveSubsystem
         return intakePneumatic.isExtended();
     }   //isExtended
 
-    private void conveyorEntranceTrigger(Object active)
-    {
-        // setPower(0.0, 0.0, 0.0);
-        // if (onFinishedEvent != null)
-        // {
-        //     onFinishedEvent.signal();
-        //     onFinishedEvent = null;
-        // }
-
-    }   //conveyorEntranceTrigger
+    // private void conveyorEntranceTrigger(Object active)
+    // {
+    //     setPower(0.0, 0.0, 0.0);
+    //     if (onFinishedEvent != null)
+    //     {
+    //         onFinishedEvent.signal();
+    //         onFinishedEvent = null;
+    //     }
+    // }   //conveyorEntranceTrigger
 
 }   //class Intake

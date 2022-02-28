@@ -332,16 +332,13 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void exitEvent(boolean active)
     {
-        if (active)
+        if (triggerAction == TriggerAction.StopOnForward)
         {
-            if (triggerAction == TriggerAction.StopOnForward)
+            conveyorMotor.set(0.0);
+            triggerAction = TriggerAction.DoNothing;
+            if (onFinishEvent != null)
             {
-                conveyorMotor.set(0.0);
-                triggerAction = TriggerAction.DoNothing;
-                if (onFinishEvent != null)
-                {
-                    onFinishEvent.signal();
-                }
+                onFinishEvent.signal();
             }
         }
 

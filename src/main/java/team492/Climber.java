@@ -22,7 +22,12 @@
 
 package team492;
 
+import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+
 import TrcCommonLib.trclib.TrcPidActuator;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
@@ -31,48 +36,98 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public class Climber
 {
-    public final FrcCANTalon climberMotor;
-    public final FrcPneumatic climberPneumatic;
-    public final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
-    public final FrcCANTalonLimitSwitch climberUpperLimitSwitch;
-    public final Parameters climberParamaters;
-    public final TrcPidActuator climber;
+    private static final String moduleName = "Climber";
+    private final Robot robot;
+    private final FrcCANTalon climberMotor;
+    private final FrcPneumatic climberPneumatic;
+    private final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
+    private final FrcCANTalonLimitSwitch climberUpperLimitSwitch;
+    private final TrcPidActuator climber;
 
     /**
      * Constructor: Create an instance of the object.
      */
-    public Climber()
+    public Climber(Robot robot)
     {
-        climberMotor = new FrcCANTalon("climberMotor", RobotParams.CANID_CLIMBER);
+        this.robot = robot;
+        climberMotor = createClimberMotor(moduleName + ".motor", RobotParams.CANID_CLIMBER);
         climberPneumatic = new FrcPneumatic(
-            "climberPneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
+            moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_CLIMBER_EXTEND);
         // Limit Switches may vary, not on robot yet
         climberLowerLimitSwitch = new FrcCANTalonLimitSwitch("climberLowerLimitSwitch", climberMotor, false);
         climberUpperLimitSwitch = new FrcCANTalonLimitSwitch("climberUpperLimitSwitch", climberMotor, true);
-        climberParamaters = new Parameters();
-        climberParamaters.setPidParams(RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD, RobotParams.CLIMBER_TOLERANCE);
+        Parameters climberParamaters = new Parameters()
+            .setMotorParams(
+                RobotParams.CLIMBER_MOTOR_INVERTED,
+                RobotParams.CLIMBER_HAS_LOWERLIMIT_SWITCH, false,
+                RobotParams.CLIMBER_HAS_UPPERLIMIT_SWITCH, false,
+                RobotParams.CLIMBER_CAL_POWER)
+            .setPidParams(RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD,
+                          RobotParams.CLIMBER_TOLERANCE)
+            .setPosRange(RobotParams.CLIMBER_MIN_POS, RobotParams.CLIMBER_MAX_POS)
+            .setScaleOffset(RobotParams.CLIMBER_INCHES_PER_COUNT, 0.0);
         climber = new TrcPidActuator("climber", climberMotor, climberLowerLimitSwitch, climberUpperLimitSwitch, climberParamaters);
     }   //Climber
 
-    public void extendPneumatic() {
+    /**
+     * This method creates and confiugres a climber motor.
+     *
+     * @param name specifies the name of the motor.
+     * @param canID specifies the CAN ID of the motor.
+     */
+    private FrcCANTalon createClimberMotor(String name, int canID)
+    {
+        FrcCANTalon motor = new FrcCANTalon(name, canID);
+
+        motor.motor.configFactoryDefault();
+        motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+        motor.motor.enableVoltageCompensation(true);
+        motor.setBrakeModeEnabled(true);
+
+        motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+        motor.motor.setSensorPhase(true);
+        SensorCollection sensorCollection = motor.motor.getSensorCollection();
+        sensorCollection.setPulseWidthPosition(0, 10); // reset index
+        TrcUtil.sleep(50); // guarantee reset
+        ErrorCode error = sensorCollection.syncQuadratureWithPulseWidth(0, 0, true, RobotParams.CLIMBER_ZERO, 10);
+        if (error != ErrorCode.OK)
+        {
+            robot.globalTracer.traceErr(moduleName, "Failed to configure encoder (error=%s).", error.name());
+        }
+        TrcUtil.sleep(50); // guarantee reset
+
+        robot.globalTracer.traceInfo(
+            moduleName, "Tilter: zero=%d, pwmPos=%d, quadPos=%d, selectedPos=%f",
+            RobotParams.TILTER_ZERO, sensorCollection.getPulseWidthPosition(),
+            sensorCollection.getQuadraturePosition(), motor.motor.getSelectedSensorPosition());
+
+        return motor;
+    }   //createClimberMotor
+
+    public void extendPneumatic()
+    {
         climberPneumatic.extend();
     }   //extendPneumatic
 
-    public void retractPneumatic() {
+    public void retractPneumatic()
+    {
         climberPneumatic.retract();
     }   //retractPneumatic
 
-    public void extendClimber(double target) {
+    public void extendClimber(double target)
+    {
         climber.setTarget(target);
     }   //extendClimber
 
-    public void retractClimber(double target) {
+    public void retractClimber(double target)
+    {
         climber.setTarget(target);
     }   //retractClimber
 
-    public void zeroClimber() {
-        climber.setTarget(0.0);
+    public void zeroClimber()
+    {
+        climber.zeroCalibrate();
     }   //zeroClimber
 
     /**

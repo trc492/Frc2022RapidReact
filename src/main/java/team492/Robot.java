@@ -174,7 +174,7 @@ public class Robot extends FrcRobotBase
             conveyor = new Conveyor();
             intake = new Intake(conveyor);
             shooter = new Shooter(this);
-            climber = new Climber();
+            climber = new Climber(this);
         }
         //
         // AutoAssist commands.

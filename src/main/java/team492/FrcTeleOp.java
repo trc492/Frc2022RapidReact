@@ -172,16 +172,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
                 double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
                 robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
-                if(flywheelOn)
+                if (flywheelOn)
                 {
-                    robot.shooter.setFlywheelVelocity(shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
+                    robot.shooter.setFlywheelValue(shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
                 }
-                if(tilterControl)
+                if (tilterControl)
                 {
                     double tilterPower = robot.operatorStick.getYWithDeadband(true);
-                    robot.shooter.tilterMotor.setMotorPower(tilterPower);
+                    robot.shooter.setTilterPower(tilterPower);
                 }
-                robot.dashboard.displayPrintf(6, "tilter:%.1f", robot.shooter.tilter.getPosition());
+                robot.dashboard.displayPrintf(6, "tilter:%.1f", robot.shooter.getTilterPosition());
                 robot.dashboard.displayPrintf(11, "Shooter rpm (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
                     shooterLowerVel, shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM,
                     shooterUpperVel, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
@@ -505,7 +505,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     if(reverseConveyor)
                     {
-                        robot.shooter.setFlywheelPower(-0.5);
+                        robot.shooter.setFlywheelValue(-0.5);
                         robot.conveyor.setPower(-0.5);
                         robot.intake.setPower(-0.5);
                     }
@@ -518,7 +518,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     if(reverseConveyor)
                     {
-                        robot.shooter.setFlywheelPower(0.0);
+                        robot.shooter.setFlywheelValue(0.0);
                         robot.conveyor.setPower(0.0);
                         robot.intake.setPower(0.0);
                     }
@@ -555,7 +555,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 else
                 {
-                    robot.shooter.tilterMotor.setMotorPower(0.0);
+                    robot.shooter.setTilterPower(0.0);
                     tilterControl = false;
                 }
                 break;
@@ -577,7 +577,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
                     robot.intake.retract();
-                    robot.shooter.setFlywheelPower(0.0);
+                    robot.shooter.setFlywheelValue(0.0);
                 }
                 break;
 

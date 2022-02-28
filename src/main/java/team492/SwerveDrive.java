@@ -239,7 +239,7 @@ public class SwerveDrive extends RobotDrive
             saveSteerZeroPositions();
         }
 
-        double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? 0.1 : 0.0;
+        double power = robot.dashboard.getBoolean(DBKEY_TEST_RUN_MOTORS, false) ? RobotParams.STEER_CAL_POWER : 0.0;
         lfDriveMotor.set(power);
         rfDriveMotor.set(power);
         lbDriveMotor.set(power);

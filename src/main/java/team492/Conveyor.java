@@ -52,6 +52,7 @@ public class Conveyor implements TrcExclusiveSubsystem
     public Conveyor()
     {
         conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
+        conveyorMotor.motor.configFactoryDefault();
         conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
 
         entranceSensor =
@@ -300,6 +301,7 @@ public class Conveyor implements TrcExclusiveSubsystem
             if (triggerAction == TriggerAction.StopOnBackward)
             {
                 conveyorMotor.set(0.0);
+                triggerAction = TriggerAction.DoNothing;
                 if (onFinishEvent != null)
                 {
                     onFinishEvent.signal();
@@ -335,6 +337,7 @@ public class Conveyor implements TrcExclusiveSubsystem
             if (triggerAction == TriggerAction.StopOnForward)
             {
                 conveyorMotor.set(0.0);
+                triggerAction = TriggerAction.DoNothing;
                 if (onFinishEvent != null)
                 {
                     onFinishEvent.signal();

@@ -77,18 +77,18 @@ public class RobotParams
     //
     // Autonomous constants.
     //points derived from desmos
-    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(25, 90.8, -2);
-    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(57.4, 68, 44);
-    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(84.6, -43, 134);
-    public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(-83.5, 41.5, 47);
-    public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(-56.5, -69.4, 134);
-    public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(-25.4, -90, 182);
+    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(25.0, 90.8, -2.0);
+    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(57.4, 68.0, 44.0);
+    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(84.6, -43.0, 134.0);
     public static final TrcPose2D[] RED_START_POSES = new TrcPose2D[]
     {
         STARTPOS_RED_POS1,
         STARTPOS_RED_POS2,
         STARTPOS_RED_POS3
     };
+    public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(-83.5, 41.5, 47.0);
+    public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(-56.5, -69.4, 134.0);
+    public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(-25.4, -90.0, 182.0);
     public static final TrcPose2D[] BLUE_START_POSES = new TrcPose2D[]
     {
         STARTPOS_BLUE_POS1,
@@ -315,8 +315,7 @@ public class RobotParams
     public static final double STEER_KI                         = 0.0;
     public static final double STEER_KD                         = 32.0;
     public static final double STEER_KF                         = 0.0;
-    public static final double STEER_CAL_POWER                  = 0.2;
-    public static final double STEER_TOLERANCE                  = 0.0;
+    public static final double STEER_CAL_POWER                  = 0.1;
     public static final TrcPidController.PidCoefficients steerCoeffs =
         new TrcPidController.PidCoefficients(STEER_KP, STEER_KI, STEER_KD, STEER_KF);
     //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
@@ -330,19 +329,34 @@ public class RobotParams
     //
 
     // Shooter subsystem.
+    public static final double FLYWHEEL_KP                      = 0.05;
+    public static final double FLYWHEEL_KI                      = 1e-4;
+    public static final double FLYWHEEL_KD                      = 5.0;
+    public static final double FLYWHEEL_KF                      = 0.0479;
+    public static final double FLYWHEEL_IZONE                   = 2000.0;
+    public static final double FLYWHEEL_TOLERANCE               = 50.0;     // in RPM
+    public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
+    public static final int FLYWHEEL_MAX_RPM                    = 6400;
+    public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
+    public static final double FLYWHEEL_GEAR_RATIO              = 1.0;
+    public static final double FLYWHEEL_MAX_VEL                 =
+        FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR; //Tested to be about 220000 SU/s
+    public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
+        new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
+
     public static final double TILTER_KP                        = 0.3;
     public static final double TILTER_KI                        = 0.0;
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_KF                        = 0.0;
-    public static final double TILTER_TOLERANCE                 = 2.0;
+    public static final double TILTER_TOLERANCE                 = 0.1;
     public static final int TILTER_ENCODER_PPR                  = 4096;
     public static final double TILTER_DEG_PER_COUNT             = 360.0 / TILTER_ENCODER_PPR;
-    public static final int FLYWHEEL_MAX_RPM                    = 6400;
-    public static final double FLYWHEEL_COUNTS_PER_REVOLUTION   = 2048; //Falcon 2048 CPR encoder
-    public static final double FLYWHEEL_GEAR_RATIO              = 1.0 / 1.0;
-    public static final double FLYWHEEL_MAX_VEL                 = FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_COUNTS_PER_REVOLUTION; //Tested to be about 220000 SU/s
-    public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
-        new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
+    public static final int TILTER_ZERO                         = 1582;
+    public static final boolean TILTER_MOTOR_INVERTED           = false;
+    public static final boolean TILTER_HAS_LOWERLIMIT_SWITCH    = false;
+    public static final boolean TILTER_HAS_UPPERLIMIT_SWITCH    = false;
+    public static final double TILTER_MIN_POS                   = 0.0;
+    public static final double TILTER_MAX_POS                   = 1.0;
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.75;

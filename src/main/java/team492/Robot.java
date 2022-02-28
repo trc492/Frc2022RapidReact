@@ -120,17 +120,11 @@ public class Robot extends FrcRobotBase
 
         //
         // Create and initialize inputs.
-        // TO-DO: decide what joystck and game controller to use.
         //
         if (RobotParams.Preferences.useXboxController)
         {
             driverController = new FrcXboxController("DriverController", RobotParams.XBOX_DRIVERCONTROLLER);
             driverController.setLeftYInverted(true);
-            if (RobotParams.Preferences.useButtonPanels)
-            {
-                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
-                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
-            }
         }
         else
         {
@@ -138,14 +132,14 @@ public class Robot extends FrcRobotBase
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
             leftDriveStick.setYInverted(true);
             rightDriveStick.setYInverted(true);
-            if (RobotParams.Preferences.useButtonPanels)
-            {
-                buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL + 1);
-                switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL + 1);
-            }
         }
         operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
         operatorStick.setYInverted(false);
+        if (RobotParams.Preferences.useButtonPanels)
+        {
+            buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
+            switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
+        }
         //
         // Create and initialize sensors.
         //

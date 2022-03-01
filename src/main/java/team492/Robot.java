@@ -171,8 +171,8 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useSubsystems)
         {
             // Intake needs Conveyor, so Conveyor must be created before Intake.
-            conveyor = new Conveyor();
-            intake = new Intake(conveyor);
+            conveyor = new Conveyor(this);
+            intake = new Intake(this);
             shooter = new Shooter(this);
             climber = new Climber(this);
         }
@@ -299,7 +299,7 @@ public class Robot extends FrcRobotBase
                 double lbDriveEnc = robotDrive.lbDriveMotor.getPosition();
                 double rbDriveEnc = robotDrive.rbDriveMotor.getPosition();
                 dashboard.displayPrintf(
-                    8, "DriveBase-Drive: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f, avg=%.0f",
+                    9, "DriveBase-Drive: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f, avg=%.0f",
                     lfDriveEnc, rfDriveEnc, lbDriveEnc, rbDriveEnc,
                     (lfDriveEnc + rfDriveEnc + lbDriveEnc + rbDriveEnc) / 4.0);
 
@@ -308,14 +308,14 @@ public class Robot extends FrcRobotBase
                 double lbSteerEnc = robotDrive.lbSteerMotor.getPosition();
                 double rbSteerEnc = robotDrive.rbSteerMotor.getPosition();
                 dashboard.displayPrintf(
-                    9, "DriveBase-Steer: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f",
+                    10, "DriveBase-Steer: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f",
                     lfSteerEnc, rfSteerEnc, lbSteerEnc, rbSteerEnc);
 
                 dashboard.displayPrintf(10, "DriveBase-Pose: %s", robotPose);
 
                 if (RobotParams.Preferences.debugPidDrive)
                 {
-                    int lineNum = 10;
+                    int lineNum = 11;
                     if (robotDrive.encoderXPidCtrl != null)
                     {
                         robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
@@ -327,20 +327,70 @@ public class Robot extends FrcRobotBase
                 }
             }
 
-            if (RobotParams.Preferences.debugSubsystems)
+            if (RobotParams.Preferences.debugVision)
             {
-                if (RobotParams.Preferences.debugVision && vision != null)
+                if (vision != null)
                 {
                     FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
-                    
+
                     if (pose != null)
                     {
                         dashboard.displayPrintf(
-                            13, "VisionTarget: x=%.1f,y=%.1f,objectYaw=%.1f", pose.x, pose.y,pose.objectYaw);
+                            9, "VisionTarget: x=%.1f,y=%.1f,objectYaw=%.1f", pose.x, pose.y, pose.objectYaw);
                     }
                     else
                     {
-                        dashboard.displayPrintf(13, "VisionTarget: No target found!");
+                        dashboard.displayPrintf(8, "VisionTarget: No target found!");
+                    }
+                }
+            }
+
+            if (RobotParams.Preferences.debugSubsystems)
+            {
+                if (RobotParams.Preferences.debugConveyor)
+               {
+                    if (conveyor != null)
+                    {
+                        dashboard.displayPrintf(
+                            9, "Conveyor: Power=%.1f, entrance=%s, exit=%s",
+                            conveyor.getMotorPower(), conveyor.isEntranceSensorActive(),
+                            conveyor.isExitSensorActive());
+                    }
+                }
+
+                if (RobotParams.Preferences.debugIntake)
+                {
+                    if (intake != null)
+                    {
+                        dashboard.displayPrintf(
+                            10, "Intake: Power=%.1f, extended=%s",
+                            intake.getMotorPower(), intake.isExtended());
+                    }
+                }
+
+                if (RobotParams.Preferences.debugShooter)
+                {
+                    if (shooter != null)
+                    {
+                        dashboard.displayPrintf(
+                            11, "Shooter.Flywheel: VelMode=%s, ToSpeed=%s, Pwr=%.1f/%.1f, Vel=%.1f/%.1f",
+                            shooter.isFlywheelInVelocityMode(), shooter.isFlywheelVelOnTarget(),
+                            shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
+                            shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity());
+                        dashboard.displayPrintf(
+                            12, "Shooter.Tilter: Pwr=%.1f, Vel=%.1f",
+                            shooter.getTilterPower(), shooter.getTilterPosition());
+                    }
+                }
+
+                if (RobotParams.Preferences.debugClimber)
+                {
+                    if (climber != null)
+                    {
+                        dashboard.displayPrintf(
+                            13, "Climber: Pwr=%.1f, Pos=%.1f, PneumaticExtended=%s",
+                            climber.climberMotor.getMotorPower(), climber.climber.getPosition(),
+                            climber.climberPneumatic.isExtended());
                     }
                 }
             }

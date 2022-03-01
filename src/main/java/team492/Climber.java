@@ -37,12 +37,14 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Climber
 {
     private static final String moduleName = "Climber";
+    private static final boolean debugEnabled = false;
+
     private final Robot robot;
-    private final FrcCANTalon climberMotor;
-    private final FrcPneumatic climberPneumatic;
-    private final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
-    private final FrcCANTalonLimitSwitch climberUpperLimitSwitch;
-    private final TrcPidActuator climber;
+    public final FrcCANTalon climberMotor;
+    public final FrcPneumatic climberPneumatic;
+    public final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
+    public final FrcCANTalonLimitSwitch climberUpperLimitSwitch;
+    public final TrcPidActuator climber;
 
     /**
      * Constructor: Create an instance of the object.
@@ -107,26 +109,64 @@ public class Climber
 
     public void extendPneumatic()
     {
+        final String funcName = "extendPneumatic";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "Extending pneumatic.");
+        }
+
         climberPneumatic.extend();
     }   //extendPneumatic
 
     public void retractPneumatic()
     {
+        final String funcName = "retractPneumatic";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "Retracting pneumatic.");
+        }
+
         climberPneumatic.retract();
     }   //retractPneumatic
 
     public void extendClimber(double target)
     {
+        final String funcName = "extendClimber";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "ExtendClimber: currPos=%.1f, targetPos=%.1f", climber.getPosition(), target);
+        }
+
         climber.setTarget(target);
     }   //extendClimber
 
     public void retractClimber(double target)
     {
+        final String funcName = "retractClimber";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "RetractClimber: currPos=%.1f, targetPos=%.1f", climber.getPosition(), target);
+        }
+
         climber.setTarget(target);
     }   //retractClimber
 
     public void zeroClimber()
     {
+        final String funcName = "zeroClimber";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "RetractClimber: currPos=%.1f", climber.getPosition());
+        }
+
         climber.zeroCalibrate();
     }   //zeroClimber
 
@@ -162,4 +202,5 @@ public class Climber
             extendClimber(1.0);
         }
     }   //ascend
+
 }   //class Climber

@@ -43,7 +43,7 @@ import TrcFrcLib.frclib.FrcCANTalon;
 public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
-    private static final String autoShootId = "autoShoot";
+    private static final boolean debugEnabled = false;
 
     private enum State
     {
@@ -62,7 +62,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcEvent conveyorEvent;
     private final TrcEvent driveEvent;
     private final TrcStateMachine<State> sm;
-    private final TrcTaskMgr.TaskObject shooterTask;
+    private final TrcTaskMgr.TaskObject shooterTaskObj;
 
     private boolean flyWheelInVelocityMode = false;
     private TrcEvent onFinishEvent = null;
@@ -126,7 +126,7 @@ public class Shooter implements TrcExclusiveSubsystem
         conveyorEvent = new TrcEvent(moduleName + ".conveyorEvent");
         driveEvent = new TrcEvent(moduleName + ".driveEvent");
         sm = new TrcStateMachine<>(moduleName);
-        shooterTask = TrcTaskMgr.createTask(moduleName + ".shooterTask", this::autoShootTask);
+        shooterTaskObj = TrcTaskMgr.createTask(moduleName + ".shooterTask", this::autoShootTask);
     }   //Shooter
 
     /**
@@ -201,6 +201,13 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void cancel()
     {
+        final String funcName = "cancel";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
+        }
+
         setFlywheelValue(currOwner, 0.0, 0.0, null);
         tilter.cancel(currOwner);
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
@@ -236,7 +243,7 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishEvent = null;
         }
         sm.stop();
-        shooterTask.unregisterTask();
+        shooterTaskObj.unregisterTask();
     }   //cancel
 
     //
@@ -252,6 +259,13 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
     {
+        final String funcName = "setFlywheelVelocityModeEnabled";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "enabled=%s, flywheelMaxVel=%d", enabled, RobotParams.FLYWHEEL_MAX_RPM);
+        }
+
         if (validateOwnership(owner))
         {
             flyWheelInVelocityMode = enabled;
@@ -279,6 +293,36 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setFlywheelVelocityModeEnabled
 
     /**
+     * This method checks if the flywheel is in velocity mode.
+     *
+     * @return true if flywheel is in velocity mode, false otherwise.
+     */
+    public boolean isFlywheelInVelocityMode()
+    {
+        return flyWheelInVelocityMode;
+    }   //isFlywheelInVelocityMode
+
+    /**
+     * This method returns the current power applied to the lower flywheel.
+     *
+     * @return lower flywheel motor power.
+     */
+    public double getLowerFlywheelPower()
+    {
+        return lowerFlywheelMotor.getMotorPower();
+    }   //getLowerFlywheelPower
+
+    /**
+     * This method returns the current power applied to the upper flywheel.
+     *
+     * @return upper flywheel motor power.
+     */
+    public double getUpperFlywheelPower()
+    {
+        return upperFlywheelMotor.getMotorPower();
+    }   //getUpperFlywheelPower
+
+    /**
      * This method sets the flywheel power or velocity depending on if flywheel velocity mode is enabled.
      *
      * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
@@ -290,6 +334,14 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void setFlywheelValue(String owner, double lowerValue, double upperValue, TrcEvent event)
     {
+        final String funcName = "setFlywheelValue";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "owner=%s, lower=%.2f, upper=%.2f, event=%s", owner, lowerValue, upperValue, event);
+        }
+
         if (validateOwnership(owner))
         {
             if (flyWheelInVelocityMode)
@@ -299,6 +351,7 @@ public class Shooter implements TrcExclusiveSubsystem
                 upperValue /= RobotParams.FLYWHEEL_MAX_RPM;
                 if (event != null)
                 {
+                    // We only care about the upper flywheel velocity. This is the exit velocity of the ball.
                     onFinishEvent = event;
                     flywheelVelocityTrigger.setTrigger(
                         upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
@@ -372,12 +425,29 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setFlywheelValue
 
     /**
+     * This method checks if the flywheel is spinning at target velocity.
+     *
+     * @return true if flywheel velocity is on target, false otherwise.
+     */
+    public boolean isFlywheelVelOnTarget()
+    {
+        return flywheelVelocityTrigger.getSensorState();
+    }   //isFlywheelVelOnTarget
+
+    /**
      * This method is called when the flywheel velocity trigger is activated (velocity reached) or deactivated.
      *
      * @param active  specifies true if the trigger is active, false if inactive.
      */
     private void flywheelTriggerEvent(boolean active)
     {
+        final String funcName = "flywheelTriggerEvent";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "active=%s", active);
+        }
+
         if (active && flywheelEvent != null)
         {
             flywheelVelocityTrigger.setEnabled(false);
@@ -412,6 +482,16 @@ public class Shooter implements TrcExclusiveSubsystem
     //
 
     /**
+     * This method returns the current power applied to the tilter motor.
+     *
+     * @return tilter motor power.
+     */
+    public double getTilterPower()
+    {
+        return tilterMotor.getMotorPower();
+    }   //getTilterPower
+
+    /**
      * This method sets the tilter motor power.
      *
      * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
@@ -420,6 +500,13 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void setTilterPower(String owner, double power)
     {
+        final String funcName = "setTilterPower";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s, power=%.1f", owner, power);
+        }
+
         if (validateOwnership(owner))
         {
             tilter.setPower(power);
@@ -456,6 +543,13 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void setTilterPosition(String owner, double angle, TrcEvent event)
     {
+        final String funcName = "setTilterPosition";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s, angle=%.1f, event=%s", owner, angle, event);
+        }
+
         if (validateOwnership(owner))
         {
             tilter.setTarget(angle, false, event);
@@ -486,24 +580,32 @@ public class Shooter implements TrcExclusiveSubsystem
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor.
      *
+     * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBalls(TrcEvent event)
+    public boolean shootAllBalls(String owner, TrcEvent event)
     {
+        final String funcName = "shootAllBalls";
         boolean success = false;
+
         //assume the target is in view of limelight before this is called, at least one ball in the robot 
         //this method shoots all the balls in the robot
         //boolean tells you if it succeeded in starting the auto shooter
         //bug where if ball isnt triggering exit sensor the thing doesnt work 
-        if (this.acquireExclusiveAccess(autoShootId) &&
-            robot.conveyor.acquireExclusiveAccess(autoShootId) &&
-            robot.robotDrive.driveBase.acquireExclusiveAccess(autoShootId))
+        if (this.acquireExclusiveAccess(owner) &&
+            robot.conveyor.acquireExclusiveAccess(owner) &&
+            robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
         {
-            currOwner = autoShootId;
+            currOwner = owner;
             sm.start(State.START);
-            shooterTask.registerTask(TaskType.POSTPERIODIC_TASK);
+            shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+        }
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s, event=%s, success=%s", owner, event, success);
         }
 
         return success;
@@ -534,8 +636,11 @@ public class Shooter implements TrcExclusiveSubsystem
 
                         if (robot.vision != null && robot.vision.vision.get("tv") == 1.0)
                         {
+                            // Vision detected target.
                             horizontalAngle = robot.vision.vision.get("tx");
-                            verticalAngle = robot.vision.vision.get("ty");
+                            verticalAngle = robot.vision.vision.get("ty");  // may need to add adjustment from lookup table
+                            // lowerFlywheelVelocity = ;
+                            // upperFlywheelVelocity = ;
                         }
 
                         if (horizontalAngle == null || verticalAngle == null)
@@ -545,6 +650,8 @@ public class Shooter implements TrcExclusiveSubsystem
                             // and use distance to field origin to find vertical angle.
                             // horizontalAngle = 
                             // verticalAngle = 
+                            // lowerFlywheelVelocity =
+                            // upperFlywheelVelocity = 
                         }
 
                         // robot.robotDrive.purePursuitDrive.start(
@@ -686,6 +793,13 @@ public class Shooter implements TrcExclusiveSubsystem
                     // break;
             }
         }
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceStateInfo(
+                state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive, robot.robotDrive.purePursuitDrive,
+                null);
+        }
     }   //autoShootTask
 
     public static double[] interpolateVector(double distance)
@@ -707,28 +821,5 @@ public class Shooter implements TrcExclusiveSubsystem
         double[] fail = {0.0, 0.0};
         return fail;
     }
-                
-                
-
-    // public void shoot(String owner, TrcEvent event){
-
-    // }
-    // //assumes there is already a ball at the exit sensor 
-    // public void shoot(String owner){
-    //     if(validateOwnership(owner)){
-    //     //Start spinning flywheels
-    //     //If flywheels are spinning fast enough(based on this.idealShooterVelocity)
-    //     //Tell conveyor to shoot ball from the exitSensor
-    //     }   
-    // }
-    // public void shoot()
-    // {
-    //     shoot(null);
-    // }
-    // //this method returns the ideal velocity of the shooter calculated for the first ball that can be used for the second ball 
-
-
-
-
 
 }   //class Shooter

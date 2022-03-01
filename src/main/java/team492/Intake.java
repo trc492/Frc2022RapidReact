@@ -31,7 +31,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Intake implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Intake";
-    private final Conveyor conveyor;
+    private static final boolean debugEnabled = false;
+
+    private final Robot robot;
     private final FrcCANFalcon intakeMotor;
     private final FrcPneumatic intakePneumatic;
     private TrcEvent onFinishedEvent;
@@ -42,20 +44,38 @@ public class Intake implements TrcExclusiveSubsystem
      * @param instanceName specifies the instance name.
      * @param conveyor specifies the conveyor object.
      */
-    public Intake(Conveyor conveyor)
+    public Intake(Robot robot)
     {
-        this.conveyor = conveyor;
+        this.robot = robot;
         intakeMotor = new FrcCANFalcon(moduleName + ".motor", RobotParams.CANID_INTAKE);
         intakeMotor.motor.configFactoryDefault();
         intakePneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
 
-        //conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
+        robot.conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
     }   //Intake
+
+    /**
+     * This method returns the motor power set on the intake.
+     *
+     * @return intake motor power.
+     */
+    public double getMotorPower()
+    {
+        return intakeMotor.getMotorPower();
+    }   //getMotorPower
 
     public void setPower(String owner, double delay, double power, double duration)
     {
+        final String funcName = "setPower";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "owner=%s, delay=%.1f, power=%.1f, duration=%.3f", owner, delay, power, duration);
+        }
+
         if (validateOwnership(owner))
         {
             intakeMotor.set(delay, power, duration);
@@ -74,12 +94,19 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void pickup(String owner, TrcEvent event)
     {
+        final String funcName = "pickup";
+        boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
+        boolean ballAtExit = robot.conveyor.isExitSensorActive();
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "owner=%s, event=%s, entrance=%s, exit=%s", owner, event, ballAtEntrance, ballAtExit);
+        }
+
         // this.onFinishedEvent = event; //??? Why??? Should be done inside the if.
         if (validateOwnership(owner))
         {
-            boolean ballAtEntrance = conveyor.isEntranceSensorActive();
-            boolean ballAtExit = conveyor.isExitSensorActive();
-
             // Only do this if there is room. There are 4 scenarios:
             // 1. Ball at the entrnace and ball at the exit (full): do nothing.
             // 2. Ball at the entrance: move ball to the exit and start intake.
@@ -90,7 +117,7 @@ public class Intake implements TrcExclusiveSubsystem
                 this.onFinishedEvent = event;
                 if (ballAtEntrance)
                 {
-                    conveyor.advance();
+                    robot.conveyor.advance();
                     setPower(RobotParams.INTAKE_PICKUP_DELAY, RobotParams.INTAKE_PICKUP_POWER, 0.0);
                 }
                 else
@@ -113,9 +140,18 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void spitOut(String owner)
     {
+        final String funcName = "spitOut";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "owner=%s, entrance=%s, exit=%s",
+                owner, robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
+        }
+
         if (validateOwnership(owner))
         {
-            if (conveyor.isEntranceSensorActive())
+            if (robot.conveyor.isEntranceSensorActive())
             {
                 setPower(0.0, RobotParams.INTAKE_SPITOUT_POWER, 0.0);
             }
@@ -129,6 +165,13 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void stop(String owner)
     {
+        final String funcName = "stop";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+        }
+
         if (validateOwnership(owner))
         {
             setPower(0.0);
@@ -142,6 +185,13 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void extend(String owner)
     {
+        final String funcName = "extend";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+        }
+
         if (validateOwnership(owner))
         {
             intakePneumatic.extend();
@@ -155,6 +205,13 @@ public class Intake implements TrcExclusiveSubsystem
 
     public void retract(String owner)
     {
+        final String funcName = "retract";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+        }
+
         if (validateOwnership(owner))
         {
             intakePneumatic.retract();
@@ -171,14 +228,21 @@ public class Intake implements TrcExclusiveSubsystem
         return intakePneumatic.isExtended();
     }   //isExtended
 
-    // private void conveyorEntranceTrigger(Object active)
-    // {
-    //     setPower(0.0, 0.0, 0.0);
-    //     if (onFinishedEvent != null)
-    //     {
-    //         onFinishedEvent.signal();
-    //         onFinishedEvent = null;
-    //     }
-    // }   //conveyorEntranceTrigger
+    private void conveyorEntranceTrigger(Object active)
+    {
+        final String funcName = "conveyorEntranceTrigger";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "activer=%s", active);
+        }
+
+        setPower(0.0, 0.0, 0.0);
+        if (onFinishedEvent != null)
+        {
+            onFinishedEvent.signal();
+            onFinishedEvent = null;
+        }
+    }   //conveyorEntranceTrigger
 
 }   //class Intake

@@ -48,10 +48,14 @@ public class RobotParams
         public static final boolean timDrive                    = true;
 
         public static final boolean debugPowerConsumption       = false;
-        public static final boolean debugDriveBase              = false;
         public static final boolean debugPidDrive               = false;
-        public static final boolean debugSubsystems             = false;
+        public static final boolean debugDriveBase              = false;
         public static final boolean debugVision                 = false;
+        public static final boolean debugSubsystems             = false;
+        public static final boolean debugConveyor               = false;
+        public static final boolean debugIntake                 = false;
+        public static final boolean debugShooter                = false;
+        public static final boolean debugClimber                = false;
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
 
@@ -280,11 +284,11 @@ public class RobotParams
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
-    public static final double GYRO_TURN_KP                     = 0.013;
+    public static final double GYRO_TURN_KP                     = 0.007;
     public static final double GYRO_TURN_KI                     = 0.0;
-    public static final double GYRO_TURN_KD                     = 0.0;
+    public static final double GYRO_TURN_KD                     = 0.0007;
     public static final double GYRO_TURN_KF                     = 0.0;
-    public static final double GYRO_TURN_TOLERANCE              = 1.0;
+    public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
     public static final double ROBOT_MAX_VELOCITY               = 300.0;
     public static final double ROBOT_MAX_ACCELERATION           = 200.0;
@@ -321,7 +325,7 @@ public class RobotParams
     public static final double STEER_MAX_VEL_TICKS_PER_100MS    = (STEER_MAX_VEL / STEER_DEGREES_PER_TICK) / 10.0;  // ticks/100ms
 
     // order is lf, rf, lr, rr
-    public static final int[] STEER_ZEROS                       = new int[]{ 3551, 479, 3656, 1270 }; // this is a backup if the zeros file isn't found
+    public static final int[] STEER_ZEROS                       = new int[]{ 3842, 3748, 1185, 3476 };  // this is a backup if the zeros file isn't found
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
     public static final double STEER_KP                         = 0.9;

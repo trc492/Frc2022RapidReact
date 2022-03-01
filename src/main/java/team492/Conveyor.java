@@ -31,6 +31,7 @@ import TrcFrcLib.frclib.FrcDigitalInput;
 public class Conveyor implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Conveyor";
+    private static final boolean debugEnabled = false;
 
     private enum TriggerAction
     {
@@ -39,9 +40,11 @@ public class Conveyor implements TrcExclusiveSubsystem
         StopOnBackward
     }   //enum TriggerState
 
-    private FrcCANTalon conveyorMotor;
-    private FrcDigitalInput entranceSensor, exitSensor;
+    private final Robot robot;
+    private final FrcCANTalon conveyorMotor;
+    private final FrcDigitalInput entranceSensor, exitSensor;
     private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
+
     private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
     private TrcEvent onFinishEvent;
     private TriggerAction triggerAction = TriggerAction.DoNothing;
@@ -49,8 +52,9 @@ public class Conveyor implements TrcExclusiveSubsystem
     /**
      * Constructor: Creates an instance of the object.
      */
-    public Conveyor()
+    public Conveyor(Robot robot)
     {
+        this.robot = robot;
         conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
         conveyorMotor.motor.configFactoryDefault();
         conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
@@ -108,6 +112,16 @@ public class Conveyor implements TrcExclusiveSubsystem
     {
         return exitSensor.isActive();
     }   //isExitSensorActive
+
+    /**
+     * This method returns the motor power set on the conveyor.
+     *
+     * @return conveyor motor power.
+     */
+    public double getMotorPower()
+    {
+        return conveyorMotor.getMotorPower();
+    }   //getMotorPower
 
     /**
      * This method determines the number of balls in the conveyor.
@@ -203,10 +217,21 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void move(double power, TrcEvent event)
     {
+        final String funcName = "move";
+        boolean entranceHasBall = entranceSensor.isActive();
+        boolean exitHasBall = exitSensor.isActive();
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "power=%.1f, event=%s, entrance=%s, exit=%s, triggerAction=%s",
+                power, event, entranceSensor.isActive(), exitSensor.isActive(), triggerAction);
+        }
+
         // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a
         // ball at the exit or to back up a ball to the entrance. The sensor trigger event will turn the conveyor off
         // if necessary.
-        if (entranceSensor.isActive() || exitSensor.isActive())
+        if (entranceHasBall || exitHasBall)
         {
             this.onFinishEvent = event;
             conveyorMotor.set(power);
@@ -296,10 +321,19 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void entranceEvent(boolean active)
     {
+        final String funcName = "entranceEvent";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "active=%s, triggerAction=%s", active, triggerAction);
+        }
+
         if (active)
         {
             if (triggerAction == TriggerAction.StopOnBackward)
             {
+                // backing up a ball to the entrance.
                 conveyorMotor.set(0.0);
                 triggerAction = TriggerAction.DoNothing;
                 if (onFinishEvent != null)
@@ -314,6 +348,7 @@ public class Conveyor implements TrcExclusiveSubsystem
                 // if nobody is currently owning exclusive access.
                 if (!exitSensor.isActive())
                 {
+                    // No ball at the exit.
                     advance();
                 }
             }
@@ -332,8 +367,17 @@ public class Conveyor implements TrcExclusiveSubsystem
      */
     private void exitEvent(boolean active)
     {
+        final String funcName = "exitEvent";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(
+                funcName, "active=%s, triggerAction=%s", active, triggerAction);
+        }
+
         if (triggerAction == TriggerAction.StopOnForward)
         {
+            // advancing a ball to the exit or moving the ball to the shooter.
             conveyorMotor.set(0.0);
             triggerAction = TriggerAction.DoNothing;
             if (onFinishEvent != null)

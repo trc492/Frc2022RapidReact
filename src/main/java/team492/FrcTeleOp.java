@@ -110,7 +110,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             robot.vision.vision.setEnabled(false);
         }
-
     }   //stopMode
 
     /**
@@ -167,30 +166,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             if (RobotParams.Preferences.useSubsystems)
             {
-                double shooterLowerPower = robot.leftDriveStick.getYWithDeadband(true);
-                double shooterUpperPower = robot.leftDriveStick.getYWithDeadband(true);
-                double shooterLowerVel = robot.shooter.getLowerFlywheelVelocity();
-                double shooterUpperVel = robot.shooter.getUpperFlywheelVelocity();
-                robot.dashboard.displayPrintf(10, "left:%.1f,oper:%.1f", robot.leftDriveStick.getZ(), robot.operatorStick.getZ());
                 if (flywheelOn)
                 {
-                    robot.shooter.setFlywheelValue(shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
+                    double shooterPower = robot.leftDriveStick.getYWithDeadband(true);
+                    robot.shooter.setFlywheelValue(
+                        shooterPower*RobotParams.FLYWHEEL_MAX_RPM, shooterPower*RobotParams.FLYWHEEL_MAX_RPM);
                 }
+
                 if (tilterControl)
                 {
                     double tilterPower = robot.operatorStick.getYWithDeadband(true);
                     robot.shooter.setTilterPower(tilterPower);
                 }
-                robot.dashboard.displayPrintf(6, "tilter:%.1f", robot.shooter.getTilterPosition());
-                robot.dashboard.displayPrintf(11, "Shooter rpm (actual/target): Lower:%.1f/%.1f, Upper:%.1f/%.1f",
-                    shooterLowerVel, shooterLowerPower*RobotParams.FLYWHEEL_MAX_RPM,
-                    shooterUpperVel, shooterUpperPower*RobotParams.FLYWHEEL_MAX_RPM);
-                robot.dashboard.displayPrintf(
-                    9, "breakers: 0:%s, 1:%s",
-                    robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
-                // double climberPower = robot.leftDriveStick.getYWithDeadband(true)/0.5;
-                // robot.climber.climberMotor.setMotorPower(climberPower);
-                // robot.dashboard.displayPrintf(4, "climber power:%.1f", climberPower);
             }
         }
         //
@@ -326,39 +313,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         return new double[] { x, y, rot };
     }   //getDriveInput
 
-    // private double[] simDriveInputs()
-    // {
-    //     double x, y, rot;
-    //     double mag;
-    //     double newMag;
-    //     x = 0.0;
-    //     y = 0.5;
-    //     rot = 0.0;
-    //     mag = TrcUtil.magnitude(x, y);
-    //     if (mag > 1.0)
-    //     {
-    //         x /= mag;
-    //         y /= mag;
-    //         mag = 1.0;
-    //     }
-    //     newMag = Math.pow(mag, 2);
-
-    //     newMag *= driveSpeedScale;
-    //     rot *= turnSpeedScale;
-
-    //     if (mag != 0.0)
-    //     {
-    //         x *= newMag / mag;
-    //         y *= newMag / mag;
-    //     }
-
-    //     return new double[] { x, y, rot };
-    // }   //getDriveInput
-
-    //
-    // Implements FrcButtonHandler.
-    //
-
     /**
      * This method is called when a driver stick button event is detected.
      *
@@ -436,21 +390,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
 
         switch (button)
         {
-            case FrcJoystick.SIDEWINDER_TRIGGER:
-                if (pressed)
-                {
-                    if (driveOrientation != DriveOrientation.FIELD)
-                    {
-                        driveOrientation = DriveOrientation.FIELD;
-                    }
-                    else
-                    {
-                        driveOrientation = DriveOrientation.ROBOT;
-                    }
-                }
+            case FrcJoystick.LOGITECH_TRIGGER:
                 break;
         }
-    }   //rightDriveStickButtonEvent
+    }   //leftDriveStickButtonEvent
 
     /**
      * This method is called when a right driver stick button event is detected.
@@ -497,36 +440,26 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                robot.shooter.shootAllBalls(null);
+                robot.shooter.shootAllBalls("autoAssistShoot", null);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                if(pressed)
+                if (reverseConveyor)
                 {
-                    if(reverseConveyor)
-                    {
-                        robot.shooter.setFlywheelValue(-0.5);
-                        robot.conveyor.setPower(-0.5);
-                        robot.intake.setPower(-0.5);
-                    }
-                    else
-                    {
-                        robot.conveyor.advance();
-                    }
+                    double power = pressed? -0.5: 0.0;
+
+                    robot.shooter.setFlywheelValue(power);
+                    robot.conveyor.setPower(power);
+                    robot.intake.setPower(power);
                 }
-                else
+                else if (pressed)
                 {
-                    if(reverseConveyor)
-                    {
-                        robot.shooter.setFlywheelValue(0.0);
-                        robot.conveyor.setPower(0.0);
-                        robot.intake.setPower(0.0);
-                    }
+                    robot.conveyor.advance();
                 }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
-                if(pressed)
+                if (pressed)
                 {
                     robot.intake.extend();
                     robot.intake.pickup();
@@ -539,7 +472,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON4:
-                if(pressed)
+                if (pressed)
                 {
                     robot.intake.extend();
                 }
@@ -549,7 +482,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
-                if(pressed)
+                if (pressed)
                 {
                     tilterControl = true;
                 }
@@ -564,16 +497,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:
-                if(pressed) {
-                    reverseConveyor = true;
-                } else {
-                    reverseConveyor = false;
-                }
+                reverseConveyor = pressed;
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON9:
                 //TODO: Owner overrides
-                if(pressed) {
+                if (pressed)
+                {
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
                     robot.intake.retract();
@@ -585,7 +515,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON11:
-                if(pressed) {
+                if (pressed)
+                {
                     flywheelOn = !flywheelOn;
                 }
                 break;

@@ -9,7 +9,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -19,7 +18,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/EventName",
-              "_title": "FMSInfo/EventName"
+              "_title": "Event Name"
             }
           },
           "0,2": {
@@ -30,7 +29,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/MatchType",
-              "_title": "FMSInfo/MatchType"
+              "_title": "Match Type"
             }
           },
           "5,2": {
@@ -41,7 +40,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/MatchNumber",
-              "_title": "FMSInfo/MatchNumber"
+              "_title": "Match Number"
             }
           },
           "0,4": {
@@ -50,11 +49,9 @@
               2
             ],
             "content": {
-              "_type": "Boolean Box",
+              "_type": "Toggle Button",
               "_source0": "network_table:///FMSInfo/IsRedAlliance",
-              "_title": "FMSInfo/IsRedAlliance",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_title": "Alliance"
             }
           },
           "5,4": {
@@ -63,9 +60,12 @@
               2
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Slider",
               "_source0": "network_table:///FMSInfo/StationNumber",
-              "_title": "FMSInfo/StationNumber"
+              "_title": "Station Number",
+              "Slider Settings/Min": 1.0,
+              "Slider Settings/Max": 3.0,
+              "Slider Settings/Block increment": 1.0
             }
           },
           "0,6": {
@@ -76,7 +76,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/GameSpecificMessage",
-              "_title": "FMSInfo/GameSpecificMessage"
+              "_title": "Game Specific Message"
             }
           }
         }
@@ -91,7 +91,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -200,7 +199,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -269,7 +267,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -319,35 +316,40 @@
           },
           "0,5": {
             "size": [
-              13,
+              12,
               3
             ],
             "content": {
               "_type": "Grid Layout",
               "_title": "Drive Config",
-              "Layout/Number of columns": 4,
-              "Layout/Number of rows": 1,
+              "Layout/Number of columns": 5,
+              "Layout/Number of rows": 2,
               "Layout/Label position": "BOTTOM",
               "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Test/XDriveDistance",
+                  "_title": "X Distance"
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Test/YDriveDistance",
+                  "_title": "Y Distance"
+                },
                 "3,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Test/DrivePower",
+                  "_title": "Power Limit"
+                },
+                "4,0": {
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/Test/DriveTime",
                   "_title": "Drive Time"
                 },
                 "2,0": {
                   "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/DrivePower",
-                  "_title": "Drive Power"
-                },
-                "1,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/DrivePowerLimit",
-                  "_title": "Drive Power Limit"
-                },
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/DriveDistance",
-                  "_title": "Drive Distance"
+                  "_source0": "network_table:///SmartDashboard/Test/TurnAngle",
+                  "_title": "Turn Angle"
                 }
               }
             }
@@ -399,7 +401,7 @@
               ]
             }
           },
-          "13,0": {
+          "12,0": {
             "size": [
               13,
               12
@@ -409,11 +411,9 @@
               "_source0": "network_table:///SmartDashboard/Test/FlywheelVel",
               "_title": "Flywheel Velocity",
               "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Lower bound": -1.0
             }
           }
         }
@@ -428,7 +428,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -485,12 +484,209 @@
           }
         }
       }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "network_table:///LiveWindow/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,1]/Value",
+              "_title": "Ungrouped/Solenoid[30,1]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,0]/Value",
+              "_title": "Ungrouped/Solenoid[30,0]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]",
+              "_title": "Ungrouped/AnalogInput[0]",
+              "Range/Min": 0.0,
+              "Range/Max": 5.0,
+              "Range/Center": 0.0,
+              "Visuals/Orientation": "HORIZONTAL",
+              "Visuals/Number of tick marks": 5
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,3]/Value",
+              "_title": "Ungrouped/Solenoid[30,3]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[4]",
+              "_title": "Ungrouped/navX-Sensor[4]",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,2]/Value",
+              "_title": "Ungrouped/Solenoid[30,2]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+              "_title": "Ungrouped/DigitalInput[0]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[1]/Value",
+              "_title": "Ungrouped/DigitalInput[1]/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[4]",
+                  "_title": "navX-Sensor[4]",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+                  "_title": "DigitalInput[0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,3]/Value",
+                  "_title": "Solenoid[30,3]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Voltage View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]",
+                  "_title": "AnalogInput[0]",
+                  "Range/Min": 0.0,
+                  "Range/Max": 5.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Orientation": "HORIZONTAL",
+                  "Visuals/Number of tick marks": 5
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[1]/Value",
+                  "_title": "DigitalInput[1]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,0]/Value",
+                  "_title": "Solenoid[30,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,1]/Value",
+                  "_title": "Solenoid[30,1]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,2]/Value",
+                  "_title": "Solenoid[30,2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -6.666666507720947,
-    "y": 0.0,
-    "width": 1290.6666259765625,
-    "height": 489.3333435058594
+    "x": -9.0,
+    "y": 2.0,
+    "width": 1244.0,
+    "height": 715.0
   }
 }

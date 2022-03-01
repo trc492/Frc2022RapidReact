@@ -162,7 +162,7 @@ class CmdAuto implements TrcRobot.RobotCommand
 
                 case SHOOT:
                     //use the auto assist shooter to handle aiming and shooting both balls in the robot 
-                    robot.shooter.shootAllBalls(event);
+                    robot.shooter.shootAllBalls("autoShoot", event);
                     sm.waitForSingleEvent(event, State.DONE); 
                     break;
                 

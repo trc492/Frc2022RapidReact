@@ -167,7 +167,7 @@ public class FrcTest extends FrcTeleOp
         public TrcPidController.PidCoefficients getTunePidCoefficients()
         {
             return new TrcPidController.PidCoefficients(
-                userChoices.getUserNumber(DBKEY_TEST_TUNE_KD),
+                userChoices.getUserNumber(DBKEY_TEST_TUNE_KP),
                 userChoices.getUserNumber(DBKEY_TEST_TUNE_KI),
                 userChoices.getUserNumber(DBKEY_TEST_TUNE_KD),
                 userChoices.getUserNumber(DBKEY_TEST_TUNE_KF));

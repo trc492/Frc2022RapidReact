@@ -49,7 +49,10 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         START,
         SHOOT,
-        DONE
+        DONE,
+
+        START_NO_VISION,
+        SHOOT_NO_VISION
     }   //enum State
 
     private final Robot robot;
@@ -599,7 +602,7 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
         {
             currOwner = owner;
-            sm.start(State.START);
+            sm.start(State.START_NO_VISION);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
 
@@ -620,14 +623,37 @@ public class Shooter implements TrcExclusiveSubsystem
     private void autoShootTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
     {
         State state = sm.checkReadyAndGetState();
-
+        boolean ballAtEntrance; 
+        boolean ballAtExit; 
         if (state != null)
         {
             switch (state)
             {
+                case START_NO_VISION:
+                    ballAtEntrance = robot.conveyor.isExitSensorActive();
+                    ballAtExit = robot.conveyor.isExitSensorActive();      
+                    if(ballAtEntrance || ballAtExit){
+                        flyWheelInVelocityMode = true; 
+                        robot.shooter.setFlywheelValue(currOwner, 1300, 3200, flywheelEvent);
+                        sm.addEvent(flywheelEvent);
+                        if(!ballAtExit){
+                            robot.conveyor.advance(currOwner, conveyorEvent); 
+                            sm.addEvent(conveyorEvent);
+                        }
+                        sm.waitForEvents(State.SHOOT_NO_VISION, 0.0, true);
+                    }
+                    else{
+                        sm.setState(State.DONE);
+                    }
+
+                break; 
+                case SHOOT_NO_VISION:
+                    robot.conveyor.advance(currOwner, conveyorEvent);
+                    sm.waitForSingleEvent(conveyorEvent, State.START_NO_VISION);
+                break; 
                 case START:
-                    boolean ballAtEntrance = robot.conveyor.isExitSensorActive();
-                    boolean ballAtExit = robot.conveyor.isExitSensorActive();
+                    ballAtEntrance = robot.conveyor.isExitSensorActive();
+                    ballAtExit = robot.conveyor.isExitSensorActive();
 
                     if (ballAtEntrance || ballAtExit)
                     {

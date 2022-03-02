@@ -378,7 +378,7 @@ public class Robot extends FrcRobotBase
                             shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
                             shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity());
                         dashboard.displayPrintf(
-                            12, "Shooter.Tilter: Pwr=%.1f, Vel=%.1f",
+                            12, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f",
                             shooter.getTilterPower(), shooter.getTilterPosition());
                     }
                 }

@@ -51,11 +51,11 @@ public class RobotParams
         public static final boolean debugPidDrive               = false;
         public static final boolean debugDriveBase              = false;
         public static final boolean debugVision                 = false;
-        public static final boolean debugSubsystems             = false;
-        public static final boolean debugConveyor               = false;
-        public static final boolean debugIntake                 = false;
-        public static final boolean debugShooter                = false;
-        public static final boolean debugClimber                = false;
+        public static final boolean debugSubsystems             = true;
+        public static final boolean debugConveyor               = true;
+        public static final boolean debugIntake                 = true;
+        public static final boolean debugShooter                = true;
+        public static final boolean debugClimber                = true;
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
 
@@ -181,7 +181,7 @@ public class RobotParams
     public static final int CANID_PDP                           = 31;
 
     //
-    // PDP Channels. (TODO: Need to remap thses.)
+    // PDP Channels. (TODO: Need to remap these.)
     //
     public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 10;
     public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 4;

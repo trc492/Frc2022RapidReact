@@ -9,6 +9,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -65,7 +66,8 @@
               "_title": "Station Number",
               "Slider Settings/Min": 1.0,
               "Slider Settings/Max": 3.0,
-              "Slider Settings/Block increment": 1.0
+              "Slider Settings/Block increment": 1.0,
+              "Visuals/Display value": true
             }
           },
           "0,6": {
@@ -91,10 +93,11 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
-              19,
+              25,
               12
             ],
             "content": {
@@ -199,6 +202,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -267,6 +271,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -277,41 +282,6 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Test/Tests",
               "_title": "TestMode"
-            }
-          },
-          "0,2": {
-            "size": [
-              8,
-              3
-            ],
-            "content": {
-              "_type": "Grid Layout",
-              "_title": "Tune PID Constants",
-              "Layout/Number of columns": 4,
-              "Layout/Number of rows": 1,
-              "Layout/Label position": "BOTTOM",
-              "_children": {
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/TuneKp",
-                  "_title": "Tune Kp"
-                },
-                "1,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/TuneKi",
-                  "_title": "Tune Ki"
-                },
-                "2,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/TuneKd",
-                  "_title": "Tune Kd"
-                },
-                "3,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Test/TuneKf",
-                  "_title": "Tune Kf"
-                }
-              }
             }
           },
           "0,5": {
@@ -397,6 +367,35 @@
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/Test/SwerveAngles",
                   "_title": "SmartDashboard/Test/SwerveAngles"
+                },
+                {
+                  "_type": "Grid Layout",
+                  "_title": "Tune PID Constants",
+                  "Layout/Number of columns": 4,
+                  "Layout/Number of rows": 1,
+                  "Layout/Label position": "BOTTOM",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKp",
+                      "_title": "Tune Kp"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKi",
+                      "_title": "Tune Ki"
+                    },
+                    "2,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKd",
+                      "_title": "Tune Kd"
+                    },
+                    "3,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKf",
+                      "_title": "Tune Kf"
+                    }
+                  }
                 }
               ]
             }
@@ -411,9 +410,11 @@
               "_source0": "network_table:///SmartDashboard/Test/FlywheelVel",
               "_title": "Flywheel Velocity",
               "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul"
             }
           }
         }
@@ -428,6 +429,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -494,6 +496,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -684,7 +687,7 @@
     }
   ],
   "windowGeometry": {
-    "x": -9.0,
+    "x": -7.0,
     "y": 2.0,
     "width": 1244.0,
     "height": 715.0

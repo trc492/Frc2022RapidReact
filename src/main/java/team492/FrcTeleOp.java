@@ -43,7 +43,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
     protected final Robot robot;
     private boolean controlsEnabled = false;
-    private boolean flywheelOn = false;
+    private boolean flywheelEnabled = false;
+    private boolean turnOffFlywheel = false;
     private boolean reverseConveyor = false;
     private boolean tilterControl = false;
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
@@ -166,10 +167,17 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             //
             if (RobotParams.Preferences.useSubsystems)
             {
-                if (flywheelOn)
+                if (flywheelEnabled)
                 {
                     robot.shooterLowerVelocity = (robot.leftDriveStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
                     robot.shooterUpperVelocity = (robot.operatorStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
+                    robot.shooter.setFlywheelValue(robot.shooterLowerVelocity, robot.shooterUpperVelocity);
+                }
+                else if (turnOffFlywheel)
+                {
+                    // Just make sure the flywheels are off but don't lock it in zero power so others may control them.
+                    robot.shooter.setFlywheelValue(0.0, 0.0);
+                    turnOffFlywheel = false;
                 }
 
                 if (tilterControl)
@@ -516,7 +524,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON11:
                 if (pressed)
                 {
-                    flywheelOn = !flywheelOn;
+                    flywheelEnabled = !flywheelEnabled;
+                    if (!flywheelEnabled)
+                    {
+                        turnOffFlywheel = true;
+                    }
                 }
                 break;
 

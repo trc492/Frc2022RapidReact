@@ -355,10 +355,11 @@ public class Robot extends FrcRobotBase
                 if (shooter != null)
                 {
                     dashboard.displayPrintf(
-                        2, "Shooter.SetVelocity: Lower=%.0f, Upper=%.0f", shooterLowerVelocity, shooterUpperVelocity);
+                        2, "Shooter.SetVel: Lower=%.0f, Upper=%.0f, VelMode=%s",
+                        shooterLowerVelocity, shooterUpperVelocity, shooter.isFlywheelInVelocityMode());
                     dashboard.displayPrintf(
-                        3, "Shooter.Flywheel: VelMode=%s, ToSpeed=%s, Pwr=%.1f/%.1f, Vel=%.1f/%.1f",
-                        shooter.isFlywheelInVelocityMode(), shooter.isFlywheelVelOnTarget(),
+                        3, "Shooter.Flywheel: OnTarget=%s, Pwr=%.1f/%.1f, Vel=%.1f/%.1f",
+                        shooter.isFlywheelVelOnTarget(),
                         shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
                         shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity());
                     dashboard.displayPrintf(

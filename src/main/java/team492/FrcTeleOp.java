@@ -168,9 +168,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             {
                 if (flywheelOn)
                 {
-                    double shooterPower = robot.leftDriveStick.getYWithDeadband(true);
-                    robot.shooter.setFlywheelValue(
-                        shooterPower*RobotParams.FLYWHEEL_MAX_RPM, shooterPower*RobotParams.FLYWHEEL_MAX_RPM);
+                    robot.shooterLowerVelocity = (robot.leftDriveStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
+                    robot.shooterUpperVelocity = (robot.operatorStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
                 }
 
                 if (tilterControl)

@@ -23,6 +23,7 @@
 package team492;
 
 import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 
@@ -93,8 +94,6 @@ public class Shooter implements TrcExclusiveSubsystem
         flywheelVelocityTrigger = new TrcValueSensorTrigger(
             moduleName + ".flywheelVelTrigger", this::getUpperFlywheelVelocity, this::flywheelTriggerEvent);
         setFlywheelVelocityModeEnabled(true);
-        lowerFlywheelMotor.setBrakeModeEnabled(false);
-        upperFlywheelMotor.setBrakeModeEnabled(false);
         //
         // Create and configure Tilter related objects.
         //
@@ -142,7 +141,7 @@ public class Shooter implements TrcExclusiveSubsystem
         // motor.motor.config_IntegralZone(0, RobotParams.FLYWHEEL_IZONE, 10);
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
-        motor.setBrakeModeEnabled(false);
+        motor.motor.setNeutralMode(NeutralMode.Coast);
         motor.setInverted(inverted);
 
         return motor;
@@ -335,8 +334,19 @@ public class Shooter implements TrcExclusiveSubsystem
                     flywheelVelocityTrigger.setEnabled(true);
                 }
             }
-            lowerFlywheelMotor.set(lowerValue);
-            upperFlywheelMotor.set(upperValue);
+
+            // if (lowerValue == 0.0 && upperValue == 0.0)
+            // {
+            //     // Stop the flywheels in a gentler way by using coast mode that is only applicable in
+            //     // PercentOutput mode.
+            //     lowerFlywheelMotor.motor.set(TalonFXControlMode.PercentOutput, 0.0);
+            //     upperFlywheelMotor.motor.set(TalonFXControlMode.PercentOutput, 0.0);
+            // }
+            // else
+            {
+                lowerFlywheelMotor.set(lowerValue);
+                upperFlywheelMotor.set(upperValue);
+            }
         }
     }   //setFlywheelValue
 
@@ -627,7 +637,8 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // Wait for 2 seconds for the flywheel to get up to speed.
                         expireTime= TrcUtil.getCurrentTime() + 2.0;
-                        robot.shooter.setFlywheelValue(currOwner, 2750, 2250, null);
+                        robot.shooter.setFlywheelValue(
+                            currOwner, robot.shooterLowerVelocity, robot.shooterUpperVelocity, null);
                     }
                     else if (TrcUtil.getCurrentTime() >= expireTime)
                     {

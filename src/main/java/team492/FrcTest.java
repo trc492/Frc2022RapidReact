@@ -365,10 +365,10 @@ public class FrcTest extends FrcTeleOp
                 double rfEnc = robot.robotDrive.rfDriveMotor.getPosition();
                 double lbEnc = robot.robotDrive.lbDriveMotor.getPosition();
                 double rbEnc = robot.robotDrive.rbDriveMotor.getPosition();
-                robot.dashboard.displayPrintf(2, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
-                robot.dashboard.displayPrintf(3, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
-                robot.dashboard.displayPrintf(4, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
-                robot.dashboard.displayPrintf(5, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                robot.dashboard.displayPrintf(9, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
+                robot.dashboard.displayPrintf(10, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
+                robot.dashboard.displayPrintf(11, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
+                robot.dashboard.displayPrintf(12, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
                 break;
     
             case PID_DRIVE:
@@ -376,7 +376,7 @@ public class FrcTest extends FrcTeleOp
             case TUNE_Y_PID:
             case TUNE_TURN_PID:
                 int lineNum = 3;
-                robot.dashboard.displayPrintf(2, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
                 if (robot.robotDrive.encoderXPidCtrl != null)
                 {
                     robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
@@ -439,8 +439,8 @@ public class FrcTest extends FrcTeleOp
                 prevTime = currTime;
                 prevVelocity = velocity;
 
-                robot.dashboard.displayPrintf(8, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
-                robot.dashboard.displayPrintf(9, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
+                robot.dashboard.displayPrintf(9, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
+                robot.dashboard.displayPrintf(10, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
                 break;
 
             default:
@@ -470,15 +470,15 @@ public class FrcTest extends FrcTeleOp
         if (robot.battery != null)
         {
             robot.dashboard.displayPrintf(
-                1, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(), robot.battery.getLowestVoltage());
+                9, "Sensors Test (Batt=%.1f/%.1f):", robot.battery.getVoltage(), robot.battery.getLowestVoltage());
         }
         robot.dashboard.displayPrintf(
-            2, "DriveBase: Pose=%s,Vel=%s", robot.robotDrive.driveBase.getFieldPosition(),
+            10, "DriveBase: Pose=%s,Vel=%s", robot.robotDrive.driveBase.getFieldPosition(),
             robot.robotDrive.driveBase.getFieldVelocity());
-        robot.dashboard.displayPrintf(3, "DriveEncoders: lf=%.1f,rf=%.1f,lb=%.1f,rb=%.1f",
+        robot.dashboard.displayPrintf(11, "DriveEncoders: lf=%.1f,rf=%.1f,lb=%.1f,rb=%.1f",
             robot.robotDrive.lfDriveMotor.getPosition(), robot.robotDrive.rfDriveMotor.getPosition(),
             robot.robotDrive.lbDriveMotor.getPosition(), robot.robotDrive.rbDriveMotor.getPosition());
-        robot.dashboard.displayPrintf(4, "DrivePower: lf=%.2f,rf=%.2f,lb=%.2f,rb=%.2f",
+        robot.dashboard.displayPrintf(12, "DrivePower: lf=%.2f,rf=%.2f,lb=%.2f,rb=%.2f",
             robot.robotDrive.lfDriveMotor.getMotorPower(), robot.robotDrive.rfDriveMotor.getMotorPower(),
             robot.robotDrive.lbDriveMotor.getMotorPower(), robot.robotDrive.rbDriveMotor.getMotorPower());
 

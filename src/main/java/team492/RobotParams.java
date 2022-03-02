@@ -46,16 +46,12 @@ public class RobotParams
         public static final boolean useStreamCamera             = false;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
+        public static final boolean showSubsystemStatus         = true;
 
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugPidDrive               = false;
         public static final boolean debugDriveBase              = false;
         public static final boolean debugVision                 = false;
-        public static final boolean debugSubsystems             = true;
-        public static final boolean debugConveyor               = true;
-        public static final boolean debugIntake                 = true;
-        public static final boolean debugShooter                = true;
-        public static final boolean debugClimber                = true;
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
 

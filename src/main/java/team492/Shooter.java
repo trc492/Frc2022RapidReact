@@ -26,6 +26,7 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
@@ -339,6 +340,7 @@ public class Shooter implements TrcExclusiveSubsystem
             // {
             //     // Stop the flywheels in a gentler way by using coast mode that is only applicable in
             //     // PercentOutput mode.
+            //    ((WPI_TalonFX) lowerFlywheelMotor.motor).stopMotor();
             //     lowerFlywheelMotor.motor.set(TalonFXControlMode.PercentOutput, 0.0);
             //     upperFlywheelMotor.motor.set(TalonFXControlMode.PercentOutput, 0.0);
             // }

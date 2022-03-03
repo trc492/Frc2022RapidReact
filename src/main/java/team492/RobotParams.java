@@ -38,7 +38,7 @@ public class RobotParams
         public static final boolean useSubsystems               = true;
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
-        public static final boolean useButtonPanels             = false;
+        public static final boolean useButtonPanels             = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
@@ -358,7 +358,7 @@ public class RobotParams
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
 
-    public static final double TILTER_KP                        = 0.3;
+    public static final double TILTER_KP                        = 1.0;
     public static final double TILTER_KI                        = 0.0;
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 0.1;
@@ -371,7 +371,7 @@ public class RobotParams
     public static final boolean TILTER_HAS_UPPERLIMIT_SWITCH    = false;
     public static final double TILTER_MIN_POS                   = 14.0; // Abs Enc: 1408
     public static final double TILTER_MAX_POS                   = 45.0; // Abs Enc: 1076
-    public static final double TILTER_CAL_POWER                 = 0.3;
+    public static final double TILTER_CAL_POWER                 = 1.0;
     public static final double TILTER_STALL_MIN_POWER           = 0.2;
     public static final double TILTER_STALL_TOLERANCE           = 0.2;
     public static final double TILTER_STALL_TIMEOUT             = 0.5;
@@ -384,9 +384,9 @@ public class RobotParams
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
-    public static final double CONVEYOR_MOVE_POWER              = 0.5;
     public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=false;
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
+    public static final double CONVEYOR_MOVE_POWER              = 0.5;
 
     // Climber subsystem.
     public static final double CLIMBER_KP                       = 0.3;
@@ -394,15 +394,15 @@ public class RobotParams
     public static final double CLIMBER_KD                       = 0.0;
     public static final double CLIMBER_TOLERANCE                = 1.0;
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
-    public static final double CLIMBER_INCHES_PER_COUNT         = 1.0;
-    public static final int CLIMBER_ZERO                        = 1582; // TODO: Measure
-    public static final boolean CLIMBER_MOTOR_INVERTED          = false;
-    public static final boolean CLIMBER_HAS_LOWERLIMIT_SWITCH   = false;
-    public static final boolean CLIMBER_HAS_UPPERLIMIT_SWITCH   = false;
-    public static final double CLIMBER_MIN_POS                  = 0.0;
-    public static final double CLIMBER_MAX_POS                  = 1.0;
+    public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
+    public static final double CLIMBER_OFFSET                   = 29.6785;
     public static final double CLIMBER_CAL_POWER                = 0.2;
-    public static final double CLIMBER_EXTEND_POWER             = 0.3;
-    public static final double CLIMBER_RETRACT_POWER            = 0.3;
+    public static final double CLIMBER_STALL_MIN_POWER          = CLIMBER_CAL_POWER - 0.1;
+    public static final double CLIMBER_STALL_TOLERANCE          = 0.1;
+    public static final double CLIMBER_STALL_TIMEOUT            = 0.1;
+    public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
+    public static final boolean CLIMBER_MOTOR_INVERTED          = true;
+    public static final double CLIMBER_MIN_POS                  = 29.0;
+    public static final double CLIMBER_MAX_POS                  = 63.0;
 
 }   //class RobotParams

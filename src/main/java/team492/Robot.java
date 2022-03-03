@@ -39,7 +39,6 @@ import TrcFrcLib.frclib.FrcRobotBase;
 import TrcFrcLib.frclib.FrcRobotBattery;
 import TrcFrcLib.frclib.FrcXboxController;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -148,11 +147,18 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize sensors.
         //
+        if (RobotParams.Preferences.useStreamCamera)
+        {
+            UsbCamera camera = CameraServer.startAutomaticCapture("DriverDisplay", 0);
+            camera.setResolution(160, 120);
+        }
+
         if (RobotParams.Preferences.debugPowerConsumption)
         {
             pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
             battery = new FrcRobotBattery(pdp);
         }
+
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
         //
         // Create and initialize miscellaneous hardware.
@@ -180,11 +186,6 @@ public class Robot extends FrcRobotBase
             intake = new Intake(this);
             shooter = new Shooter(this);
             climber = new Climber(this);
-        }
-        if (RobotParams.Preferences.useStreamCamera)
-        {
-            UsbCamera camera = CameraServer.startAutomaticCapture("DriverDisplay", 0);
-            camera.setResolution(160, 120);
         }
         //
         // AutoAssist commands.
@@ -229,6 +230,7 @@ public class Robot extends FrcRobotBase
         // Start subsystems.
         //
         robotDrive.startMode(runMode, prevMode);
+        climber.zeroCalibrateClimber();
         ledIndicator.reset();
     }   //robotStartMode
 

@@ -22,15 +22,9 @@
 
 package team492;
 
-import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-
 import TrcCommonLib.trclib.TrcPidActuator;
-import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
-import TrcFrcLib.frclib.FrcCANTalon;
-import TrcFrcLib.frclib.FrcCANTalonLimitSwitch;
+import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -40,14 +34,15 @@ public class Climber
     private static final boolean debugEnabled = false;
 
     private final Robot robot;
-    public final FrcCANTalon climberMotor;
+    public final FrcCANFalcon climberMotor;
     public final FrcPneumatic climberPneumatic;
-    public final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
-    public final FrcCANTalonLimitSwitch climberUpperLimitSwitch;
+    // public final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
     public final TrcPidActuator climber;
 
     /**
      * Constructor: Create an instance of the object.
+     *
+     * @param robot specifies the robot object for accessing other global objects.
      */
     public Climber(Robot robot)
     {
@@ -56,20 +51,18 @@ public class Climber
         climberPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_CLIMBER_EXTEND);
-        // Limit Switches may vary, not on robot yet
-        climberLowerLimitSwitch = new FrcCANTalonLimitSwitch("climberLowerLimitSwitch", climberMotor, false);
-        climberUpperLimitSwitch = new FrcCANTalonLimitSwitch("climberUpperLimitSwitch", climberMotor, true);
-        Parameters climberParamaters = new Parameters()
-            .setMotorParams(
-                RobotParams.CLIMBER_MOTOR_INVERTED,
-                RobotParams.CLIMBER_HAS_LOWERLIMIT_SWITCH, false,
-                RobotParams.CLIMBER_HAS_UPPERLIMIT_SWITCH, false,
-                RobotParams.CLIMBER_CAL_POWER)
-            .setPidParams(RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD,
-                          RobotParams.CLIMBER_TOLERANCE)
+        // Limit switch doesn't really work on the telescoping mechanism. Use stall detection for zero calibration.
+        // climberLowerLimitSwitch = new FrcCANTalonLimitSwitch("climberLowerLimitSwitch", climberMotor, false);
+        Parameters params = new Parameters()
+            .setPidParams(
+                RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD, RobotParams.CLIMBER_TOLERANCE)
             .setPosRange(RobotParams.CLIMBER_MIN_POS, RobotParams.CLIMBER_MAX_POS)
-            .setScaleOffset(RobotParams.CLIMBER_INCHES_PER_COUNT, 0.0);
-        climber = new TrcPidActuator("climber", climberMotor, climberLowerLimitSwitch, climberUpperLimitSwitch, climberParamaters);
+            .setScaleOffset(RobotParams.CLIMBER_INCHES_PER_COUNT, RobotParams.CLIMBER_OFFSET)
+            .setStallProtectionParams(
+                RobotParams.CLIMBER_STALL_MIN_POWER, RobotParams.CLIMBER_STALL_TOLERANCE,
+                RobotParams.CLIMBER_STALL_TIMEOUT, RobotParams.CLIMBER_RESET_TIMEOUT)
+            .setZeroCalibratePower(RobotParams.CLIMBER_CAL_POWER);
+        climber = new TrcPidActuator("climber", climberMotor, null, null, params);
     }   //Climber
 
     /**
@@ -78,86 +71,45 @@ public class Climber
      * @param name specifies the name of the motor.
      * @param canID specifies the CAN ID of the motor.
      */
-    private FrcCANTalon createClimberMotor(String name, int canID)
+    private FrcCANFalcon createClimberMotor(String name, int canID)
     {
-        FrcCANTalon motor = new FrcCANTalon(name, canID);
+        FrcCANFalcon motor = new FrcCANFalcon(name, canID);
 
         motor.motor.configFactoryDefault();
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
-        motor.setBrakeModeEnabled(true);
-
-        motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
         motor.motor.setSensorPhase(true);
-        SensorCollection sensorCollection = motor.motor.getSensorCollection();
-        sensorCollection.setPulseWidthPosition(0, 10); // reset index
-        TrcUtil.sleep(50); // guarantee reset
-        ErrorCode error = sensorCollection.syncQuadratureWithPulseWidth(0, 0, true, RobotParams.CLIMBER_ZERO, 10);
-        if (error != ErrorCode.OK)
-        {
-            robot.globalTracer.traceErr(moduleName, "Failed to configure encoder (error=%s).", error.name());
-        }
-        TrcUtil.sleep(50); // guarantee reset
-
-        robot.globalTracer.traceInfo(
-            moduleName, "Tilter: zero=%d, pwmPos=%d, quadPos=%d, selectedPos=%f",
-            RobotParams.TILTER_ZERO, sensorCollection.getPulseWidthPosition(),
-            sensorCollection.getQuadraturePosition(), motor.motor.getSelectedSensorPosition());
+        motor.setBrakeModeEnabled(true);
+        motor.setInverted(RobotParams.CLIMBER_MOTOR_INVERTED);
 
         return motor;
     }   //createClimberMotor
 
-    public void extendPneumatic()
+    //
+    // Climber PID Actuator methods.
+    //
+
+    public void setPower(double power)
     {
-        final String funcName = "extendPneumatic";
+        climber.setPower(power);
+    }   //setPower
 
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(funcName, "Extending pneumatic.");
-        }
-
-        climberPneumatic.extend();
-    }   //extendPneumatic
-
-    public void retractPneumatic()
+    public void setPosition(double position)
     {
-        final String funcName = "retractPneumatic";
+        climber.setTarget(position);
+    }   //setPosition
 
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(funcName, "Retracting pneumatic.");
-        }
-
-        climberPneumatic.retract();
-    }   //retractPneumatic
-
-    public void extendClimber(double target)
+    public void extendFull()
     {
-        final String funcName = "extendClimber";
+        climber.setTarget(RobotParams.CLIMBER_MAX_POS);
+    }   //extendFull
 
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(
-                funcName, "ExtendClimber: currPos=%.1f, targetPos=%.1f", climber.getPosition(), target);
-        }
-
-        climber.setTarget(target);
-    }   //extendClimber
-
-    public void retractClimber(double target)
+    public void retractFull()
     {
-        final String funcName = "retractClimber";
+        climber.setTarget(RobotParams.CLIMBER_MIN_POS);
+    }   //retractFull
 
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(
-                funcName, "RetractClimber: currPos=%.1f, targetPos=%.1f", climber.getPosition(), target);
-        }
-
-        climber.setTarget(target);
-    }   //retractClimber
-
-    public void zeroClimber()
+    public void zeroCalibrateClimber()
     {
         final String funcName = "zeroClimber";
 
@@ -168,15 +120,35 @@ public class Climber
         }
 
         climber.zeroCalibrate();
-    }   //zeroClimber
+    }   //zeroCalibrateClimber
+
+    //
+    // Climber Pneumatic methods.
+    //
+
+    public void pushOut()
+    {
+        climberPneumatic.extend();
+    }   //pushOut
+
+    public void pullIn()
+    {
+        climberPneumatic.retract();
+    }   //pullIn
+
+    //
+    // Climbing methods.
+    //
 
     /**
      * Before climbing, extends the climber all the way up so that the driver can drive forward into the bar
      */
     public void prepareClimb()
     {
+        // Stall protection is for zero calibration, turn it off for the climb.
+        climber.setStallProtection(0.0, 0.0, 0.0, 0.0);
         //Extend pneumatic to pull out the pin
-        extendPneumatic();
+        pushOut();
         //No need to extend arm since it will be spring-loaded with slack in the string
     }   //prepareClimb
 
@@ -187,19 +159,20 @@ public class Climber
     public void ascend(boolean goToNext)
     {
         //Retract pneumatic to line up for climb
-        retractPneumatic();
+        pullIn();
         //Retract climber, pull robot up
-        zeroClimber();
+        // zeroCalibrateClimber(); //CodeReview: zero calibration does not have enough power to pull the robot up????
+        retractFull();
         if(goToNext)
         {
             //Deploy hook so that it locks on the current bar
-            extendPneumatic();
+            pushOut();
             //Extend climber halfway to swing robot because of CG
-            extendClimber(0.2);
+            setPosition(45.0);
             //Wait for the robot to swing back
             //wait();
             //Extend climber so that it hits the next bar
-            extendClimber(1.0);
+            extendFull();
         }
     }   //ascend
 

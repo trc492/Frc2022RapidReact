@@ -23,7 +23,6 @@
 package team492;
 
 import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 
@@ -48,11 +47,6 @@ public class Shooter implements TrcExclusiveSubsystem
 
     private enum State
     {
-        SHIFT_BALL_IN_CONVEYOR,
-        PREP_SHOOTER_BALL,
-        SHOOT_BALL,
-        WAIT_FOR_SHOOT_COMPLETION,
-
         START,
         SHOOT,
         DONE
@@ -100,18 +94,14 @@ public class Shooter implements TrcExclusiveSubsystem
         tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
         tilterMotor.setPositionSensorInverted(true);
         Parameters tilterParams = new Parameters()
-            .setMotorParams(
-                RobotParams.TILTER_MOTOR_INVERTED,
-                RobotParams.TILTER_HAS_LOWERLIMIT_SWITCH, false,
-                RobotParams.TILTER_HAS_UPPERLIMIT_SWITCH, false,
-                0.0)
             .setPidParams(
-                new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD,
-                                  RobotParams.TILTER_TOLERANCE))
+                new PidParameters(
+                    RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_TOLERANCE))
             .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
             .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
-            .setStallProtectionParams(RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
-                                      RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
+            .setStallProtectionParams(
+                RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
+                RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
         tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, null, null, tilterParams);
         //
         // Create and initialize other objects.
@@ -144,7 +134,7 @@ public class Shooter implements TrcExclusiveSubsystem
         // motor.motor.config_IntegralZone(0, RobotParams.FLYWHEEL_IZONE, 10);
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
-        motor.motor.setNeutralMode(NeutralMode.Coast);
+        motor.setBrakeModeEnabled(false);
         motor.setInverted(inverted);
 
         return motor;
@@ -169,7 +159,8 @@ public class Shooter implements TrcExclusiveSubsystem
         // motor.motor.configAllowableClosedloopError(0, RobotParams.TILTER_TOLERANCE/RobotParams.TILTER_DEG_PER_COUNT, 10);
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
-        motor.motor.setNeutralMode(NeutralMode.Coast);
+        motor.setBrakeModeEnabled(true);
+        motor.setInverted(RobotParams.TILTER_MOTOR_INVERTED);
 
         motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
         motor.motor.setSensorPhase(false);
@@ -603,7 +594,7 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
         {
             currOwner = owner;
-            sm.start(State.SHIFT_BALL_IN_CONVEYOR);
+            sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
 
@@ -624,116 +615,95 @@ public class Shooter implements TrcExclusiveSubsystem
     private void autoShootTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
     {
         State state = sm.checkReadyAndGetState();
-        boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive(); 
-        boolean ballAtExit = robot.conveyor.isExitSensorActive(); 
 
         if (state != null)
         {
             switch (state)
             {
-                case SHIFT_BALL_IN_CONVEYOR:
+                case START:
+                    boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
+                    boolean ballAtExit = robot.conveyor.isExitSensorActive();
+                    State nextState;
+
                     if (ballAtExit)
                     {
                         // Ball at the exit, shoot it.
-                        sm.setState(State.PREP_SHOOTER_BALL);
+                        nextState = State.SHOOT;
                     }
                     else if (ballAtEntrance)
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
+                        nextState = State.SHOOT;
                         robot.conveyor.advance(currOwner, conveyorEvent);
-                        sm.waitForSingleEvent(conveyorEvent, State.PREP_SHOOTER_BALL);
+                        sm.addEvent(conveyorEvent);
                     }
                     else
                     {
                         // No more ball, we are done.
-                        sm.setState(State.DONE);
+                        nextState = State.DONE;
                     }
-                    break;
 
-                case PREP_SHOOTER_BALL:
-                    if (expireTime == null)
+                    if (nextState == State.SHOOT)
                     {
-                        // Wait for 2 seconds for the flywheel to get up to speed.
-                        expireTime= TrcUtil.getCurrentTime() + 2.0;
-                        robot.shooter.setFlywheelValue(
-                            currOwner, robot.shooterLowerVelocity, robot.shooterUpperVelocity, null);
-                    }
-                    else if (TrcUtil.getCurrentTime() >= expireTime)
-                    {
-                        expireTime = null; 
-                        sm.setState(State.SHOOT_BALL);
-                    }
-                    break; 
-
-                case SHOOT_BALL:
-                    // Shoot the ball.
-                    robot.conveyor.advance(currOwner);
-                    sm.setState(State.WAIT_FOR_SHOOT_COMPLETION);
-                    //
-                    // Intentionally falling through.
-                    //
-                case WAIT_FOR_SHOOT_COMPLETION:
-                    if (expireTime == null)
-                    {
-                        expireTime = TrcUtil.getCurrentTime() + 5.0; 
-                    }
-                    else if (TrcUtil.getCurrentTime() >= expireTime)
-                    {
-                        expireTime = null;
-                        sm.setState(State.SHIFT_BALL_IN_CONVEYOR);
-                    }
-                    break; 
-
-                case START:
-                    // ballAtEntrance = robot.conveyor.isExitSensorActive();
-                    // ballAtExit = robot.conveyor.isExitSensorActive();
-                    if (ballAtEntrance || ballAtExit)
-                    {
-                        Double horizontalAngle = null, verticalAngle = null;
-                        double lowerFlywheelVelocity = 0.0, upperFlywheelVelocity = 0.0;
-
-                        if (robot.vision != null && robot.vision.vision.get("tv") == 1.0)
+                        // Before we can shoot, we need to:
+                        // - Spin the flywheel to the proper speed.
+                        // - Aim the shooter at the target.
+                        // - Align the robot to the target.
+                        if (robot.vision != null)
                         {
-                            // Vision detected target.
-                            horizontalAngle = robot.vision.vision.get("tx");
-                            verticalAngle = robot.vision.vision.get("ty");  // may need to add adjustment from lookup table
-                            // lowerFlywheelVelocity = ;
-                            // upperFlywheelVelocity = ;
-                        }
+                            Double horizontalAngle = null, verticalAngle = null;
+                            double lowerFlywheelVelocity = 0.0, upperFlywheelVelocity = 0.0;
 
-                        if (horizontalAngle == null || verticalAngle == null)
+                            if (robot.vision.vision.get("tv") == 1.0)
+                            {
+                                // Vision detected target.
+                                horizontalAngle = robot.vision.vision.get("tx");
+                                verticalAngle = robot.vision.vision.get("ty");  // may need to add adjustment from lookup table
+                                // lowerFlywheelVelocity = ;
+                                // upperFlywheelVelocity = ;
+                            }
+
+                            if (horizontalAngle == null || verticalAngle == null)
+                            {
+                                // Vision did not find target, use robot odometry instead.
+                                // Create a vector from the robot back to field origin to find horizontal angle
+                                // and use distance to field origin to find vertical angle.
+                                // horizontalAngle =
+                                // verticalAngle =
+                                // lowerFlywheelVelocity =
+                                // upperFlywheelVelocity =
+                            }
+
+                            setFlywheelValue(currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
+                            sm.addEvent(flywheelEvent);
+
+                            setTilterPosition(currOwner, verticalAngle, tilterEvent);
+                            sm.addEvent(tilterEvent);
+
+                            // robot.robotDrive.purePursuitDrive.start(
+                            //     currOwner, driveEvent, robot.robotDrive.driveBase.getFieldPosition(), true,
+                            //     new TrcPose2D(0.0, 0.0, horizontalAngle));
+                            // sm.addEvent(driveEvent);
+                        }
+                        else
                         {
-                            // Vision did not find target, use robot odometry instead.
-                            // Create a vector from the robot back to field origin to find horizontal angle
-                            // and use distance to field origin to find vertical angle.
-                            // horizontalAngle = 
-                            // verticalAngle = 
-                            // lowerFlywheelVelocity =
-                            // upperFlywheelVelocity = 
+                            // Not using vision:
+                            // - Spin the flywheel to the set speed.
+                            // - Aim the shooter at the pre-determined angle.
+                            // - Driver is responsible for aligning the robot possibly using streaming camera
+                            //   or spotlight.
+                            robot.shooter.setFlywheelValue(
+                                currOwner, robot.shooterLowerVelocity, robot.shooterUpperVelocity, flywheelEvent);
+                            sm.addEvent(flywheelEvent);
+
+                            setTilterPosition(30.0, tilterEvent);
+                            sm.addEvent(tilterEvent);
                         }
-
-                        // robot.robotDrive.purePursuitDrive.start(
-                        //     currOwner, driveEvent, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        //     new TrcPose2D(0.0, 0.0, horizontalAngle));
-                        sm.addEvent(driveEvent);
-
-                        setTilterPosition(currOwner, verticalAngle, tilterEvent);
-                        sm.addEvent(tilterEvent);
-
-                        setFlywheelValue(currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
-                        sm.addEvent(flywheelEvent);
-
-                        if (!ballAtExit)
-                        {
-                            robot.conveyor.advance(currOwner, conveyorEvent);
-                            sm.addEvent(conveyorEvent);
-                        }
-
                         sm.waitForEvents(State.SHOOT, 0.0, true);
                     }
                     else
                     {
-                        sm.setState(State.DONE);
+                        sm.setState(nextState);
                     }
                     break;
 

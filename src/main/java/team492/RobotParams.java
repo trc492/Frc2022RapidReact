@@ -43,7 +43,7 @@ public class RobotParams
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = false;
-        public static final boolean useStreamCamera             = false;
+        public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
         public static final boolean showSubsystemStatus         = true;

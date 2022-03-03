@@ -38,6 +38,9 @@ import TrcFrcLib.frclib.FrcRemoteVisionProcessor;
 import TrcFrcLib.frclib.FrcRobotBase;
 import TrcFrcLib.frclib.FrcRobotBattery;
 import TrcFrcLib.frclib.FrcXboxController;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
@@ -177,6 +180,11 @@ public class Robot extends FrcRobotBase
             intake = new Intake(this);
             shooter = new Shooter(this);
             climber = new Climber(this);
+        }
+        if (RobotParams.Preferences.useStreamCamera)
+        {
+            UsbCamera camera = CameraServer.startAutomaticCapture("DriverDisplay", 0);
+            camera.setResolution(160, 120);
         }
         //
         // AutoAssist commands.

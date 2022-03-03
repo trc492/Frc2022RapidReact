@@ -27,6 +27,7 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
+import TrcCommonLib.trclib.TrcUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 
 class CmdAuto implements TrcRobot.RobotCommand
@@ -36,6 +37,9 @@ class CmdAuto implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
+        SHOOT_TEMP,
+        TIMED_DRIVE_TEMP,
+
         PICKUP_BALL,
         DRIVE_TO_SHOOT_POSITION,
         SHOOT,  
@@ -49,6 +53,7 @@ class CmdAuto implements TrcRobot.RobotCommand
     private final TrcEvent event2; 
     private final TrcStateMachine<State> sm;
     private TrcPose2D[] path; 
+    Double expireTime; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -139,15 +144,29 @@ class CmdAuto implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.PICKUP_BALL);
+                        sm.setState(State.SHOOT_TEMP);//PICKUP_BALL);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.PICKUP_BALL);
+                        sm.waitForSingleEvent(event, State.SHOOT_TEMP);//PICKUP_BALL);
                         break;
                     }
-
+                
+                case SHOOT_TEMP:
+                    robot.shooter.shootAllBalls(moduleName, event); 
+                    sm.waitForSingleEvent(event, State.TIMED_DRIVE_TEMP);
+                break; 
+                case TIMED_DRIVE_TEMP:
+                    if(expireTime==null){
+                        expireTime = TrcUtil.getCurrentTime() + 2.0; 
+                    }
+                    else if(TrcUtil.getCurrentTime()>=expireTime){
+                        expireTime = null; 
+                        sm.setState(State.DONE);
+                    }
+                    robot.robotDrive.driveBase.holonomicDrive(moduleName, 0.0, -0.5, 0.0);
+                break; 
                 // CodeReview: should shoot the preloaded ball first.
                 case PICKUP_BALL:
                     //drive to the ball while running the intake 

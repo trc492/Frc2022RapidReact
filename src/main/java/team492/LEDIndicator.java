@@ -36,10 +36,12 @@ public class LEDIndicator
         new TrcAddressableLED.Pattern(FrcColor.FULL_BLUE, RobotParams.NUM_LEDS);
     private static final TrcAddressableLED.Pattern inverseOrientedPattern =
         new TrcAddressableLED.Pattern(FrcColor.FULL_RED, RobotParams.NUM_LEDS);
-
+    private static final TrcAddressableLED.Pattern flywheelVelOnTargetPattern = 
+        new TrcAddressableLED.Pattern(FrcColor.FULL_MAGENTA, RobotParams.NUM_LEDS); 
     private static final TrcAddressableLED.Pattern[] priorities =
         new TrcAddressableLED.Pattern[]
         {
+            flywheelVelOnTargetPattern,
             nominalPattern,
             robotOrientedPattern,
             inverseOrientedPattern,
@@ -68,6 +70,10 @@ public class LEDIndicator
         led.resetAllPatternStates();
         led.setPatternState(nominalPattern, true);
     }   //reset
+    public void setFlywheelTarget(boolean enabled)
+    {
+        led.setPatternState(flywheelVelOnTargetPattern, enabled);
+    }
 
     /**
      * This method sets the LED to indicate the drive orientation mode of the robot.

@@ -347,8 +347,8 @@ public class RobotParams
     public static final double FLYWHEEL_KD                      = 5.0;
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
-    public static final double FLYWHEEL_TOLERANCE               = 50.0;     // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.2;      // in seconds
+    public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.1;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
@@ -363,13 +363,19 @@ public class RobotParams
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 0.1;
     public static final int TILTER_ENCODER_PPR                  = 4096;
-    public static final double TILTER_DEG_PER_COUNT             = 360.0 / TILTER_ENCODER_PPR;
+    public static final double TILTER_DEG_PER_COUNT             = 31.0 / (1408.0 - 1076.0);    //360.0 / TILTER_ENCODER_PPR;
+    public static final double TILTER_OFFSET                    = 14.0;
     public static final int TILTER_ZERO                         = 1582;
     public static final boolean TILTER_MOTOR_INVERTED           = false;
     public static final boolean TILTER_HAS_LOWERLIMIT_SWITCH    = false;
     public static final boolean TILTER_HAS_UPPERLIMIT_SWITCH    = false;
-    public static final double TILTER_MIN_POS                   = 0.0;
-    public static final double TILTER_MAX_POS                   = 1.0;
+    public static final double TILTER_MIN_POS                   = 14.0; // Abs Enc: 1408
+    public static final double TILTER_MAX_POS                   = 45.0; // Abs Enc: 1076
+    public static final double TILTER_CAL_POWER                 = 0.3;
+    public static final double TILTER_STALL_MIN_POWER           = 0.2;
+    public static final double TILTER_STALL_TOLERANCE           = 0.2;
+    public static final double TILTER_STALL_TIMEOUT             = 0.5;
+    public static final double TILTER_RESET_TIMEOUT             = 0.5;
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.75;

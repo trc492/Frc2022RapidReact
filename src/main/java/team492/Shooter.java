@@ -98,6 +98,7 @@ public class Shooter implements TrcExclusiveSubsystem
         // Create and configure Tilter related objects.
         //
         tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
+        tilterMotor.setPositionSensorInverted(true);
         Parameters tilterParams = new Parameters()
             .setMotorParams(
                 RobotParams.TILTER_MOTOR_INVERTED,
@@ -108,7 +109,9 @@ public class Shooter implements TrcExclusiveSubsystem
                 new PidParameters(RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD,
                                   RobotParams.TILTER_TOLERANCE))
             .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
-            .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, 0.0);
+            .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
+            .setStallProtectionParams(RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
+                                      RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
         tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, null, null, tilterParams);
         //
         // Create and initialize other objects.
@@ -166,10 +169,10 @@ public class Shooter implements TrcExclusiveSubsystem
         // motor.motor.configAllowableClosedloopError(0, RobotParams.TILTER_TOLERANCE/RobotParams.TILTER_DEG_PER_COUNT, 10);
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
-        motor.setBrakeModeEnabled(true);
+        motor.motor.setNeutralMode(NeutralMode.Coast);
 
         motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-        motor.motor.setSensorPhase(true);
+        motor.motor.setSensorPhase(false);
         SensorCollection sensorCollection = motor.motor.getSensorCollection();
         sensorCollection.setPulseWidthPosition(0, 10); // reset index
         TrcUtil.sleep(50); // guarantee reset
@@ -321,18 +324,16 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             if (flywheelInVelocityMode)
             {
+                // We only care about the upper flywheel velocity. This is the exit velocity of the ball.
+                flywheelVelocityTrigger.setTrigger(
+                    upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
+                    RobotParams.FLYWHEEL_SETTLING_TIME);
                 // adjust values to percent max RPM.
-                lowerValue /= RobotParams.FLYWHEEL_MAX_RPM;
-                upperValue /= RobotParams.FLYWHEEL_MAX_RPM;
-                if (event != null)
-                {
-                    // We only care about the upper flywheel velocity. This is the exit velocity of the ball.
-                    onFinishEvent = event;
-                    flywheelVelocityTrigger.setTrigger(
-                        upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
-                        RobotParams.FLYWHEEL_SETTLING_TIME);
-                    flywheelVelocityTrigger.setEnabled(true);
-                }
+                // lowerValue /= RobotParams.FLYWHEEL_MAX_RPM;
+                // upperValue /= RobotParams.FLYWHEEL_MAX_RPM;
+                lowerValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
+                upperValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
+                onFinishEvent = event;
             }
 
             // Stop the flywheels in a gentler way by using coast mode that is only applicable in
@@ -349,10 +350,15 @@ public class Shooter implements TrcExclusiveSubsystem
             if (upperValue == 0.0)
             {
                 upperFlywheelMotor.stopMotor();
+                if (flywheelInVelocityMode)
+                {
+                    flywheelVelocityTrigger.setEnabled(false);
+                }
             }
             else
             {
                 upperFlywheelMotor.set(upperValue);
+                flywheelVelocityTrigger.setEnabled(true);
             }
         }
     }   //setFlywheelValue
@@ -473,6 +479,11 @@ public class Shooter implements TrcExclusiveSubsystem
     //
     // Tilter methods.
     //
+
+    public void zeroCalibrateTilter()
+    {
+        tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
+    }   //zeroCalibrateTilter
 
     /**
      * This method returns the current power applied to the tilter motor.

@@ -438,9 +438,10 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "active=%s", active);
         }
 
+        robot.ledIndicator.setFlywheelOnTarget(active);
+
         if (active && flywheelEvent != null)
         {
-            // flywheelVelocityTrigger.setEnabled(false);
             flywheelEvent.signal();
         }
     }   //flywheelTriggerEvent

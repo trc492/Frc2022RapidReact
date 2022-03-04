@@ -42,10 +42,10 @@ public class LEDIndicator
         new TrcAddressableLED.Pattern[]
         {
             flywheelVelOnTargetPattern,
-            nominalPattern,
+            fieldOrientedPattern,
             robotOrientedPattern,
             inverseOrientedPattern,
-            fieldOrientedPattern
+            nominalPattern
         };
 
     private FrcAddressableLED led;
@@ -70,10 +70,11 @@ public class LEDIndicator
         led.resetAllPatternStates();
         led.setPatternState(nominalPattern, true);
     }   //reset
-    public void setFlywheelTarget(boolean enabled)
+
+    public void setFlywheelOnTarget(boolean enabled)
     {
         led.setPatternState(flywheelVelOnTargetPattern, enabled);
-    }
+    }   //setFlywheelOnTarget
 
     /**
      * This method sets the LED to indicate the drive orientation mode of the robot.

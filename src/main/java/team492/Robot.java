@@ -401,9 +401,9 @@ public class Robot extends FrcRobotBase
                 if (climber != null)
                 {
                     dashboard.displayPrintf(
-                        7, "Climber: Pwr=%.1f, Pos=%.1f, PneumaticExtended=%s",
+                        7, "Climber: Pwr=%.1f, Pos=%.1f, LimitSW=%s, PneumaticExtended=%s",
                         climber.climberMotor.getMotorPower(), climber.climber.getPosition(),
-                        climber.climberPneumatic.isExtended());
+                        climber.isLowerLimitSwitchActive(), climber.climberPneumatic.isExtended());
                 }
             }
         }

@@ -28,6 +28,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcFrcLib.frclib.FrcCANFalcon;
+import TrcFrcLib.frclib.FrcDigitalInput;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -39,7 +40,7 @@ public class Climber
     private final Robot robot;
     public final FrcCANFalcon climberMotor;
     public final FrcPneumatic climberPneumatic;
-    // public final FrcCANTalonLimitSwitch climberLowerLimitSwitch;
+    public final FrcDigitalInput climberLowerLimitSwitch;
     public final TrcPidActuator climber;
 
     /**
@@ -54,18 +55,18 @@ public class Climber
         climberPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_CLIMBER_EXTEND);
-        // Limit switch doesn't really work on the telescoping mechanism. Use stall detection for zero calibration.
-        // climberLowerLimitSwitch = new FrcCANTalonLimitSwitch("climberLowerLimitSwitch", climberMotor, false);
+        climberLowerLimitSwitch = new FrcDigitalInput(
+            moduleName + ".lowerLimitSwitch", RobotParams.DIO_CLIMBER_LOWER_LIMIT_SWITCH);
         Parameters params = new Parameters()
             .setPidParams(
                 RobotParams.CLIMBER_KP, RobotParams.CLIMBER_KI, RobotParams.CLIMBER_KD, RobotParams.CLIMBER_TOLERANCE)
             .setPosRange(RobotParams.CLIMBER_MIN_POS, RobotParams.CLIMBER_MAX_POS)
             .setScaleOffset(RobotParams.CLIMBER_INCHES_PER_COUNT, RobotParams.CLIMBER_OFFSET)
-            .setStallProtectionParams(
-                RobotParams.CLIMBER_STALL_MIN_POWER, RobotParams.CLIMBER_STALL_TOLERANCE,
-                RobotParams.CLIMBER_STALL_TIMEOUT, RobotParams.CLIMBER_RESET_TIMEOUT)
+            // .setStallProtectionParams(
+            //     RobotParams.CLIMBER_STALL_MIN_POWER, RobotParams.CLIMBER_STALL_TOLERANCE,
+            //     RobotParams.CLIMBER_STALL_TIMEOUT, RobotParams.CLIMBER_RESET_TIMEOUT)
             .setZeroCalibratePower(RobotParams.CLIMBER_CAL_POWER);
-        climber = new TrcPidActuator("climber", climberMotor, null, null, params);
+        climber = new TrcPidActuator("climber", climberMotor, climberLowerLimitSwitch, null, params);
     }   //Climber
 
     /**
@@ -89,6 +90,11 @@ public class Climber
 
         return motor;
     }   //createClimberMotor
+
+    public boolean isLowerLimitSwitchActive()
+    {
+        return climberLowerLimitSwitch.isActive();
+    }   //isLowerLimitSwitchActive
 
     //
     // Climber PID Actuator methods.

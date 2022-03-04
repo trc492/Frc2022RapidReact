@@ -209,6 +209,7 @@ public class RobotParams
     //
     public static final int DIO_CONVEYOR_ENTRANCE_SENSOR        = 0;
     public static final int DIO_CONVEYOR_EXIT_SENSOR            = 1;
+    public static final int DIO_CLIMBER_LOWER_LIMIT_SWITCH      = 8;
     public static final int DIO_TILTER_LOWER_LIMIT_SWITCH       = 9;
 
     //
@@ -363,13 +364,14 @@ public class RobotParams
     public static final double TILTER_KD                        = 0.0;
     public static final double TILTER_TOLERANCE                 = 0.1;
     public static final int TILTER_ENCODER_PPR                  = 4096;
-    public static final double TILTER_DEG_PER_COUNT             = 31.0 / (1408.0 - 1076.0);    //360.0 / TILTER_ENCODER_PPR;
-    public static final double TILTER_OFFSET                    = 17.0;
-    public static final int TILTER_ZERO                         = 1582;
+    public static final double TILTER_OFFSET                    = 16.0; // Abs Enc: 1384
+    public static final int TILTER_ZERO                         = 1384;
+    // Tilter Upper Limit: Enc=1070, Deg=45
     public static final boolean TILTER_MOTOR_INVERTED           = false;
-    public static final double TILTER_MIN_POS                   = 17.0; // Abs Enc: 1408
-    public static final double TILTER_MAX_POS                   = 48.0; // Abs Enc: 1076
-    public static final double TILTER_CAL_POWER                 = 1.0;
+    public static final double TILTER_MIN_POS                   = TILTER_OFFSET;
+    public static final double TILTER_MAX_POS                   = 40.0;
+    public static final double TILTER_DEG_PER_COUNT             = Math.abs((45.0 - TILTER_OFFSET)/(1070 - TILTER_ZERO));
+    public static final double TILTER_CAL_POWER                 = 0.3;
     // public static final double TILTER_STALL_MIN_POWER           = 0.2;
     // public static final double TILTER_STALL_TOLERANCE           = 0.2;
     // public static final double TILTER_STALL_TIMEOUT             = 0.5;
@@ -395,10 +397,10 @@ public class RobotParams
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
     public static final double CLIMBER_OFFSET                   = 29.6785;
     public static final double CLIMBER_CAL_POWER                = 0.2;
-    public static final double CLIMBER_STALL_MIN_POWER          = CLIMBER_CAL_POWER - 0.1;
-    public static final double CLIMBER_STALL_TOLERANCE          = 0.1;
-    public static final double CLIMBER_STALL_TIMEOUT            = 0.1;
-    public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
+    // public static final double CLIMBER_STALL_MIN_POWER          = CLIMBER_CAL_POWER - 0.1;
+    // public static final double CLIMBER_STALL_TOLERANCE          = 0.1;
+    // public static final double CLIMBER_STALL_TIMEOUT            = 0.1;
+    // public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
     public static final boolean CLIMBER_MOTOR_INVERTED          = true;
     public static final double CLIMBER_MIN_POS                  = 29.0;
     public static final double CLIMBER_MAX_POS                  = 63.0;

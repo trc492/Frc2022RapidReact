@@ -152,7 +152,7 @@ class CmdAuto implements TrcRobot.RobotCommand
                         sm.waitForSingleEvent(event, State.SHOOT_TEMP);//PICKUP_BALL);
                         break;
                     }
-                
+                break; 
                 case SHOOT_TEMP:
                     robot.shooter.shootAllBalls(moduleName, event); 
                     sm.waitForSingleEvent(event, State.TIMED_DRIVE_TEMP);

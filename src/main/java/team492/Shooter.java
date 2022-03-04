@@ -29,6 +29,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidActuator;
+import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
@@ -664,14 +665,31 @@ public class Shooter implements TrcExclusiveSubsystem
                             }
 
                             if (horizontalAngle == null || verticalAngle == null)
-                            {
+                            {   
                                 // Vision did not find target, use robot odometry instead.
                                 // Create a vector from the robot back to field origin to find horizontal angle
                                 // and use distance to field origin to find vertical angle.
-                                // horizontalAngle =
-                                // verticalAngle =
-                                // lowerFlywheelVelocity =
-                                // upperFlywheelVelocity =
+                                double robotX = robot.robotDrive.driveBase.getXPosition(); 
+                                double robotY = robot.robotDrive.driveBase.getYPosition(); 
+                                double distance = TrcUtil.magnitude(robotX, robotY);
+                                double theta = 90 - Math.abs(Math.atan(robotY / robotX));
+                                // //horizontal angle is in absolute degrees 
+                                if(robotX > 0 && robotY > 0){
+                                    horizontalAngle = 180 + theta;
+                                }
+                                else if(robotX < 0 && robotY > 0 ){
+                                    horizontalAngle = 180 - theta; 
+                                }
+                                else if (robotX > 0 && robotY < 0 ){
+                                    horizontalAngle = -theta; 
+                                }
+                                else{
+                                    horizontalAngle = theta; 
+                                }
+                                verticalAngle = interpolateVector(distance)[1]; 
+                                lowerFlywheelVelocity = interpolateVector(distance)[0]; 
+                                upperFlywheelVelocity = interpolateVector(distance)[1];
+                                
                             }
 
                             setFlywheelValue(currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
@@ -680,14 +698,14 @@ public class Shooter implements TrcExclusiveSubsystem
                             setTilterPosition(currOwner, verticalAngle, tilterEvent);
                             sm.addEvent(tilterEvent);
 
-                            // robot.robotDrive.purePursuitDrive.start(
-                            //     currOwner, driveEvent, robot.robotDrive.driveBase.getFieldPosition(), true,
-                            //     new TrcPose2D(0.0, 0.0, horizontalAngle));
-                            // sm.addEvent(driveEvent);
+                            robot.robotDrive.purePursuitDrive.start(
+                                driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
+                                new TrcPose2D(robot.robotDrive.driveBase.getXPosition(), robot.robotDrive.driveBase.getYPosition(), horizontalAngle));
+                            sm.addEvent(driveEvent);
                         }
                         else
                         {
-                            // Not using vision:
+                            // Not using vision or any other algorithms:
                             // - Spin the flywheel to the set speed.
                             // - Aim the shooter at the pre-determined angle.
                             // - Driver is responsible for aligning the robot possibly using streaming camera

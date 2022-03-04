@@ -453,7 +453,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                robot.shooter.shootAllBalls("autoAssistShoot", null);
+                robot.shooter.shootAllBallsNoVision(
+                    "autoAssistShoot", null, robot.shooterLowerVelocity, robot.shooterUpperVelocity, 30.0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:

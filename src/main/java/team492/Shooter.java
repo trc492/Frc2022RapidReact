@@ -66,8 +66,14 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcTaskMgr.TaskObject shooterTaskObj;
 
     private boolean flywheelInVelocityMode = false;
-    private TrcEvent onFinishEvent = null;
+    private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
+
+    private boolean usingVision = false;
+    private double lowerFlywheelVelocity = 0.0;
+    private double upperFlywheelVelocity = 0.0;
+    private double tilterAngle = 0.0;
+    private TrcEvent onFinishShootingEvent = null;
 
     Double expireTime = null; 
 
@@ -207,10 +213,10 @@ public class Shooter implements TrcExclusiveSubsystem
             currOwner = null;
         }
 
-        if (onFinishEvent != null)
+        if (onFinishShootingEvent != null)
         {
-            onFinishEvent.signal();
-            onFinishEvent = null;
+            onFinishShootingEvent.signal();
+            onFinishShootingEvent = null;
         }
         sm.stop();
         shooterTaskObj.unregisterTask();
@@ -320,18 +326,15 @@ public class Shooter implements TrcExclusiveSubsystem
                 flywheelVelocityTrigger.setTrigger(
                     upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
                     RobotParams.FLYWHEEL_SETTLING_TIME);
-                // adjust values to percent max RPM.
-                // lowerValue /= RobotParams.FLYWHEEL_MAX_RPM;
-                // upperValue /= RobotParams.FLYWHEEL_MAX_RPM;
                 lowerValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
                 upperValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
-                onFinishEvent = event;
+                flywheelToSpeedEvent = event;
             }
 
-            // Stop the flywheels in a gentler way by using coast mode that is only applicable in
-            // PercentOutput mode.
             if (lowerValue == 0.0)
             {
+                // Stop the flywheels in a gentler way by using coast mode that is only applicable in PercentOutput
+                // mode.
                 lowerFlywheelMotor.stopMotor();
             }
             else
@@ -441,9 +444,10 @@ public class Shooter implements TrcExclusiveSubsystem
 
         robot.ledIndicator.setFlywheelOnTarget(active);
 
-        if (active && flywheelEvent != null)
+        if (active && flywheelToSpeedEvent != null)
         {
-            flywheelEvent.signal();
+            flywheelToSpeedEvent.signal();
+            flywheelToSpeedEvent = null;
         }
     }   //flywheelTriggerEvent
 
@@ -575,27 +579,26 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setTilterPosition
 
     /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor.
+     * This method is the worker preparing to shoot all balls. It is called by both shootAllBallsWithVision or
+     * shootAllBallsNoVision.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBalls(String owner, TrcEvent event)
+    private boolean prepareToShoot(String owner, TrcEvent event)
     {
-        final String funcName = "shootAllBalls";
+        final String funcName = "prepareToShoot";
         boolean success = false;
 
-        //assume the target is in view of limelight before this is called, at least one ball in the robot 
-        //this method shoots all the balls in the robot
-        //boolean tells you if it succeeded in starting the auto shooter
-        //bug where if ball isnt triggering exit sensor the thing doesnt work 
+        // Acquire ownership of all subsystems involved. Don't need drivebase ownership if not using vision.
         if (this.acquireExclusiveAccess(owner) &&
             robot.conveyor.acquireExclusiveAccess(owner) &&
-            robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
+            (!usingVision || robot.robotDrive.driveBase.acquireExclusiveAccess(owner)))
         {
             currOwner = owner;
+            onFinishShootingEvent = event;
             sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
@@ -606,7 +609,46 @@ public class Shooter implements TrcExclusiveSubsystem
         }
 
         return success;
-    }   //shootAllBalls
+    }   //prepareToShoot
+
+    /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor using vision. It will use
+     * vision info to align, aim and determine flywheel velocities before shooting.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean shootAllBallsWithVision(String owner, TrcEvent event)
+    {
+        usingVision = true;
+
+        return prepareToShoot(owner, event);
+    }   //shootAllBallsWithVision
+
+    /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
+     * robot is already aligned with the target. It will adjust the aim with the provided tilter angle and will spin
+     * the flywheels with the given velocities.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @param lowerFlywheelVel specifies the lower flywheel velocity.
+     * @param upperFlywheelVel
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean shootAllBallsNoVision(
+        String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
+    {
+        usingVision = false;
+        this.lowerFlywheelVelocity = lowerFlywheelVel;
+        this.upperFlywheelVelocity = upperFlywheelVel;
+        this.tilterAngle = tilterAngle;
+
+        return prepareToShoot(owner, event);
+    }   //shootAllBallsWithVision
 
     /**
      * This method is called periodically to execute the auto shoot task.
@@ -651,57 +693,62 @@ public class Shooter implements TrcExclusiveSubsystem
                         // - Spin the flywheel to the proper speed.
                         // - Aim the shooter at the target.
                         // - Align the robot to the target.
-                        if (robot.vision != null)
+                        if (usingVision)
                         {
-                            Double horizontalAngle = null, verticalAngle = null;
-                            double lowerFlywheelVelocity = 0.0, upperFlywheelVelocity = 0.0;
+                            Double alignAngle = null, aimAngle = null;
+                            double robotX = robot.robotDrive.driveBase.getXPosition();
+                            double robotY = robot.robotDrive.driveBase.getYPosition();
+                            double distance = TrcUtil.magnitude(robotX, robotY);
+                            double theta = 90.0 - Math.abs(Math.atan(robotY / robotX));
 
-                            if (robot.vision.vision.get("tv") == 1.0)
+                            if (robot.vision != null && robot.vision.vision.get("tv") == 1.0)
                             {
                                 // Vision detected target.
-                                horizontalAngle = robot.vision.vision.get("tx");
-                                verticalAngle = robot.vision.vision.get("ty");  // may need to add adjustment from lookup table
-                                // lowerFlywheelVelocity = ;
-                                // upperFlywheelVelocity = ;
+                                alignAngle = robot.vision.vision.get("tx");
+                                aimAngle = robot.vision.vision.get("ty");
                             }
 
-                            if (horizontalAngle == null || verticalAngle == null)
-                            {   
+                            if (alignAngle == null || aimAngle == null)
+                            {
                                 // Vision did not find target, use robot odometry instead.
-                                // Create a vector from the robot back to field origin to find horizontal angle
-                                // and use distance to field origin to find vertical angle.
-                                double robotX = robot.robotDrive.driveBase.getXPosition(); 
-                                double robotY = robot.robotDrive.driveBase.getYPosition(); 
-                                double distance = TrcUtil.magnitude(robotX, robotY);
-                                double theta = 90 - Math.abs(Math.atan(robotY / robotX));
                                 // //horizontal angle is in absolute degrees 
-                                if(robotX > 0 && robotY > 0){
-                                    horizontalAngle = 180 + theta;
+                                if (robotX > 0.0 && robotY > 0.0)
+                                {
+                                    // Quadrant 1
+                                    alignAngle = 180 + theta;
                                 }
-                                else if(robotX < 0 && robotY > 0 ){
-                                    horizontalAngle = 180 - theta; 
+                                else if (robotX < 0 && robotY > 0)
+                                {
+                                    // Quadrant 2
+                                    alignAngle = 180 - theta;
                                 }
-                                else if (robotX > 0 && robotY < 0 ){
-                                    horizontalAngle = -theta; 
+                                else if (robotX < 0 && robotY < 0)
+                                {
+                                    // Quadrant 3
+                                    alignAngle = theta;
                                 }
-                                else{
-                                    horizontalAngle = theta; 
+                                else
+                                {
+                                    // Quadrant 4
+                                    alignAngle = -theta;
                                 }
-                                verticalAngle = interpolateVector(distance)[1]; 
-                                lowerFlywheelVelocity = interpolateVector(distance)[0]; 
-                                upperFlywheelVelocity = interpolateVector(distance)[1];
-                                
+                                aimAngle = interpolateVector(distance)[1];
                             }
+                            lowerFlywheelVelocity = interpolateVector(distance)[0];
+                            upperFlywheelVelocity = interpolateVector(distance)[1];
 
                             setFlywheelValue(currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
-                            setTilterPosition(currOwner, verticalAngle, tilterEvent);
+                            setTilterPosition(currOwner, aimAngle, tilterEvent);
                             sm.addEvent(tilterEvent);
 
                             robot.robotDrive.purePursuitDrive.start(
                                 driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
-                                new TrcPose2D(robot.robotDrive.driveBase.getXPosition(), robot.robotDrive.driveBase.getYPosition(), horizontalAngle));
+                                new TrcPose2D(
+                                    robot.robotDrive.driveBase.getXPosition(),
+                                    robot.robotDrive.driveBase.getYPosition(),
+                                    alignAngle));
                             sm.addEvent(driveEvent);
                         }
                         else
@@ -712,10 +759,10 @@ public class Shooter implements TrcExclusiveSubsystem
                             // - Driver is responsible for aligning the robot possibly using streaming camera
                             //   or spotlight.
                             robot.shooter.setFlywheelValue(
-                                currOwner, robot.shooterLowerVelocity, robot.shooterUpperVelocity, flywheelEvent);
+                                currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
-                            setTilterPosition(30.0, tilterEvent);
+                            setTilterPosition(tilterAngle, tilterEvent);
                             sm.addEvent(tilterEvent);
                         }
                         sm.waitForEvents(State.SHOOT, 0.0, true);

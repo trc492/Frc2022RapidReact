@@ -47,7 +47,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean turnOffFlywheel = false;
     private boolean reverseConveyor = false;
     private boolean tilterControl = false;
-    private boolean climberControl = false;
+    private boolean climberControl = true;
     private DriveOrientation driveOrientation = DriveOrientation.FIELD;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -492,6 +492,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON5:
+                robot.climber.climber.setManualOverride(pressed);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
@@ -507,7 +508,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON7:
-                climberControl = pressed;
+                if (pressed)
+                {
+                    robot.climber.zeroCalibrateClimber();
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:

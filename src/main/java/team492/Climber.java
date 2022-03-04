@@ -22,6 +22,9 @@
 
 package team492;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+
 import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcFrcLib.frclib.FrcCANFalcon;
@@ -78,6 +81,8 @@ public class Climber
         motor.motor.configFactoryDefault();
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
+        motor.motor.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyClosed, 10);
+        motor.motor.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen, 10);
         motor.motor.setSensorPhase(true);
         motor.setBrakeModeEnabled(true);
         motor.setInverted(RobotParams.CLIMBER_MOTOR_INVERTED);

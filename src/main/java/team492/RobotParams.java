@@ -209,7 +209,7 @@ public class RobotParams
     //
     public static final int DIO_CONVEYOR_ENTRANCE_SENSOR        = 0;
     public static final int DIO_CONVEYOR_EXIT_SENSOR            = 1;
-
+    public static final int DIO_TILTER_LOWER_LIMIT_SWITCH       = 9;
 
     //
     // PWM channels.
@@ -364,18 +364,16 @@ public class RobotParams
     public static final double TILTER_TOLERANCE                 = 0.1;
     public static final int TILTER_ENCODER_PPR                  = 4096;
     public static final double TILTER_DEG_PER_COUNT             = 31.0 / (1408.0 - 1076.0);    //360.0 / TILTER_ENCODER_PPR;
-    public static final double TILTER_OFFSET                    = 14.0;
+    public static final double TILTER_OFFSET                    = 17.0;
     public static final int TILTER_ZERO                         = 1582;
     public static final boolean TILTER_MOTOR_INVERTED           = false;
-    public static final boolean TILTER_HAS_LOWERLIMIT_SWITCH    = false;
-    public static final boolean TILTER_HAS_UPPERLIMIT_SWITCH    = false;
-    public static final double TILTER_MIN_POS                   = 14.0; // Abs Enc: 1408
-    public static final double TILTER_MAX_POS                   = 45.0; // Abs Enc: 1076
+    public static final double TILTER_MIN_POS                   = 17.0; // Abs Enc: 1408
+    public static final double TILTER_MAX_POS                   = 48.0; // Abs Enc: 1076
     public static final double TILTER_CAL_POWER                 = 1.0;
-    public static final double TILTER_STALL_MIN_POWER           = 0.2;
-    public static final double TILTER_STALL_TOLERANCE           = 0.2;
-    public static final double TILTER_STALL_TIMEOUT             = 0.5;
-    public static final double TILTER_RESET_TIMEOUT             = 0.5;
+    // public static final double TILTER_STALL_MIN_POWER           = 0.2;
+    // public static final double TILTER_STALL_TOLERANCE           = 0.2;
+    // public static final double TILTER_STALL_TIMEOUT             = 0.5;
+    // public static final double TILTER_RESET_TIMEOUT             = 0.5;
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.75;

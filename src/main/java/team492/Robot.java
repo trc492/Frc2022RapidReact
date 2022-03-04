@@ -22,6 +22,7 @@
 
 package team492;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
@@ -67,8 +68,6 @@ public class Robot extends FrcRobotBase
     public FrcJoystick operatorStick;
     public FrcJoystick buttonPanel;
     public FrcJoystick switchPanel;
-    public double shooterLowerVelocity;
-    public double shooterUpperVelocity;
     //
     // Sensors.
     //
@@ -94,6 +93,12 @@ public class Robot extends FrcRobotBase
     public Intake intake;
     public Shooter shooter;
     public Climber climber;
+    //
+    // Miscellaneous.
+    //
+    public final HashMap<String, Shooter.ShooterPreset> presets = new HashMap<>();
+    public double lowerFlywheelUserVel;
+    public double upperFlywheelUserVel;
 
     /**
      * Constructor: Create an instance of the object.
@@ -366,15 +371,16 @@ public class Robot extends FrcRobotBase
                 {
                     dashboard.displayPrintf(
                         2, "Shooter.SetVel: Lower=%.0f, Upper=%.0f, VelMode=%s",
-                        shooterLowerVelocity, shooterUpperVelocity, shooter.isFlywheelInVelocityMode());
+                        lowerFlywheelUserVel, upperFlywheelUserVel, shooter.isFlywheelInVelocityMode());
                     dashboard.displayPrintf(
                         3, "Shooter.Flywheel: OnTarget=%s, Pwr=%.1f/%.1f, Vel=%.1f/%.1f",
                         shooter.isFlywheelVelOnTarget(),
                         shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
                         shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity());
                     dashboard.displayPrintf(
-                        4, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f",
-                        shooter.getTilterPower(), shooter.getTilterPosition());
+                        4, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f, limitSW=%s",
+                        shooter.getTilterPower(), shooter.getTilterPosition(),
+                        shooter.isTilterLowerLimitSwitchActive());
                 }
 
                 if (conveyor != null)

@@ -22,6 +22,8 @@
 
 package team492;
 
+import java.util.Locale;
+
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
@@ -40,11 +42,38 @@ import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcCANTalon;
+import TrcFrcLib.frclib.FrcDigitalInput;
 
 public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
     private static final boolean debugEnabled = false;
+
+    public class ShooterPreset
+    {
+        public final String name;
+        public final double lowerFlywheelVelocity;
+        public final double upperFlywheelVelocity;
+        public final double tilterAngle;
+
+        public ShooterPreset(
+            String name, double lowerFlywheelVelocity, double upperFlywheelVelocity, double tilterAngle)
+        {
+            this.name = name;
+            this.lowerFlywheelVelocity = lowerFlywheelVelocity;
+            this.upperFlywheelVelocity = upperFlywheelVelocity;
+            this.tilterAngle = tilterAngle;
+        }   //ShooterPreset
+
+        @Override
+        public String toString()
+        {
+            return String.format(
+                Locale.US, "name=%s, lowerFwVel=%.0f, upperFwVel=%.0f, tilterAngle=%.2f",
+                name, lowerFlywheelVelocity, upperFlywheelVelocity, tilterAngle);
+        }   //toString
+
+    }   //class ShooterPreset
 
     private enum State
     {
@@ -57,6 +86,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     private final TrcValueSensorTrigger flywheelVelocityTrigger;
     private final FrcCANTalon tilterMotor;
+    private final FrcDigitalInput tilterLowerLimitSwitch;
     private final TrcPidActuator tilter;
     private final TrcEvent flywheelEvent;
     private final TrcEvent tilterEvent;
@@ -70,9 +100,9 @@ public class Shooter implements TrcExclusiveSubsystem
     private String currOwner = null;
 
     private boolean usingVision = false;
-    private double lowerFlywheelVelocity = 0.0;
-    private double upperFlywheelVelocity = 0.0;
-    private double tilterAngle = 0.0;
+    private double lowerFlywheelSetVel = 0.0;
+    private double upperFlywheelSetVel = 0.0;
+    private double tilterSetAngle = 0.0;
     private TrcEvent onFinishShootingEvent = null;
 
     Double expireTime = null; 
@@ -100,16 +130,19 @@ public class Shooter implements TrcExclusiveSubsystem
         //
         tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
         tilterMotor.setPositionSensorInverted(true);
+        tilterLowerLimitSwitch = new FrcDigitalInput(
+            moduleName + ".lowerLimitSwitch", RobotParams.DIO_TILTER_LOWER_LIMIT_SWITCH);
         Parameters tilterParams = new Parameters()
             .setPidParams(
                 new PidParameters(
                     RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_TOLERANCE))
             .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
             .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
-            .setStallProtectionParams(
-                RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
-                RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
-        tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, null, null, tilterParams);
+            .setZeroCalibratePower(RobotParams.TILTER_CAL_POWER);
+            // .setStallProtectionParams(
+            //     RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
+            //     RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
+        tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, tilterLowerLimitSwitch, null, tilterParams);
         //
         // Create and initialize other objects.
         //
@@ -477,6 +510,26 @@ public class Shooter implements TrcExclusiveSubsystem
     // Tilter methods.
     //
 
+    /**
+     * This method returns the tilter lower limit switch state.
+     *
+     * @return true if lower limit switch is active, false otherwise.
+     */
+    public boolean isTilterLowerLimitSwitchActive()
+    {
+        return tilterLowerLimitSwitch.isActive();
+    }   //isTilterLowerLimitSwitchActive
+
+    /**
+     * This method enables/disables titler manual override mode.
+     *
+     * @param enable specifies true to enable manual override, false to disable.
+     */
+    public void setTilterManualOverride(boolean enable)
+    {
+        tilter.setManualOverride(enable);
+    }   //setTilterManualOverride
+
     public void zeroCalibrateTilter()
     {
         tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
@@ -643,9 +696,9 @@ public class Shooter implements TrcExclusiveSubsystem
         String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
     {
         usingVision = false;
-        this.lowerFlywheelVelocity = lowerFlywheelVel;
-        this.upperFlywheelVelocity = upperFlywheelVel;
-        this.tilterAngle = tilterAngle;
+        this.lowerFlywheelSetVel = lowerFlywheelVel;
+        this.upperFlywheelSetVel = upperFlywheelVel;
+        this.tilterSetAngle = tilterAngle;
 
         return prepareToShoot(owner, event);
     }   //shootAllBallsWithVision
@@ -696,6 +749,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (usingVision)
                         {
                             Double alignAngle = null, aimAngle = null;
+                            double lowerFlywheelVel, upperFlywheelVel;
                             double robotX = robot.robotDrive.driveBase.getXPosition();
                             double robotY = robot.robotDrive.driveBase.getYPosition();
                             double distance = TrcUtil.magnitude(robotX, robotY);
@@ -734,10 +788,10 @@ public class Shooter implements TrcExclusiveSubsystem
                                 }
                                 aimAngle = interpolateVector(distance)[1];
                             }
-                            lowerFlywheelVelocity = interpolateVector(distance)[0];
-                            upperFlywheelVelocity = interpolateVector(distance)[1];
+                            lowerFlywheelVel = interpolateVector(distance)[0];
+                            upperFlywheelVel = interpolateVector(distance)[1];
 
-                            setFlywheelValue(currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
+                            setFlywheelValue(currOwner, lowerFlywheelVel, upperFlywheelVel, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
                             setTilterPosition(currOwner, aimAngle, tilterEvent);
@@ -759,10 +813,10 @@ public class Shooter implements TrcExclusiveSubsystem
                             // - Driver is responsible for aligning the robot possibly using streaming camera
                             //   or spotlight.
                             robot.shooter.setFlywheelValue(
-                                currOwner, lowerFlywheelVelocity, upperFlywheelVelocity, flywheelEvent);
+                                currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
-                            setTilterPosition(tilterAngle, tilterEvent);
+                            setTilterPosition(tilterSetAngle, tilterEvent);
                             sm.addEvent(tilterEvent);
                         }
                         sm.waitForEvents(State.SHOOT, 0.0, true);

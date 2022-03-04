@@ -47,8 +47,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean turnOffFlywheel = false;
     private boolean reverseConveyor = false;
     private boolean tilterControl = false;
-    private boolean climberControl = true;
-    private DriveOrientation driveOrientation = DriveOrientation.FIELD;
+    private boolean climberControl = false;
+    private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
 
@@ -170,9 +170,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             {
                 if (flywheelEnabled)
                 {
-                    robot.shooterLowerVelocity = (robot.leftDriveStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
-                    robot.shooterUpperVelocity = (robot.operatorStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
-                    robot.shooter.setFlywheelValue(robot.shooterLowerVelocity, robot.shooterUpperVelocity);
+                    // robot.shooterLowerVelocity = (robot.leftDriveStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
+                    // robot.shooterUpperVelocity = (robot.operatorStick.getZ() + 1.0)/2.0 * RobotParams.FLYWHEEL_MAX_RPM;
+                    robot.shooter.setFlywheelValue(robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel);
                 }
                 else if (turnOffFlywheel)
                 {
@@ -405,6 +405,50 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             case FrcJoystick.LOGITECH_TRIGGER:
                 break;
+
+            case FrcJoystick.LOGITECH_BUTTON6:
+                if (pressed)
+                {
+                    robot.lowerFlywheelUserVel += 250;
+                    if (robot.lowerFlywheelUserVel > RobotParams.FLYWHEEL_MAX_RPM)
+                    {
+                        robot.lowerFlywheelUserVel = RobotParams.FLYWHEEL_MAX_RPM;
+                    }
+                }
+                break;
+
+            case FrcJoystick.LOGITECH_BUTTON7:
+                if (pressed)
+                {
+                    robot.lowerFlywheelUserVel -= 250;
+                    if (robot.lowerFlywheelUserVel < 0)
+                    {
+                        robot.lowerFlywheelUserVel = 0;
+                    }
+                }
+                break;
+
+            case FrcJoystick.LOGITECH_BUTTON10:
+                if (pressed)
+                {
+                    robot.upperFlywheelUserVel += 250;
+                    if (robot.upperFlywheelUserVel > RobotParams.FLYWHEEL_MAX_RPM)
+                    {
+                        robot.upperFlywheelUserVel = RobotParams.FLYWHEEL_MAX_RPM;
+                    }
+                }
+                break;
+
+            case FrcJoystick.LOGITECH_BUTTON11:
+                if (pressed)
+                {
+                    robot.upperFlywheelUserVel -= 250;
+                    if (robot.upperFlywheelUserVel < 0)
+                    {
+                        robot.upperFlywheelUserVel = 0;
+                    }
+                }
+                break;
         }
     }   //leftDriveStickButtonEvent
 
@@ -454,7 +498,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             case FrcJoystick.LOGITECH_TRIGGER:
                 robot.shooter.shootAllBallsNoVision(
-                    "autoAssistShoot", null, robot.shooterLowerVelocity, robot.shooterUpperVelocity, 30.0);
+                    "autoAssistShoot", null, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel, 30.0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
@@ -475,13 +519,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON3:
                 if (pressed)
                 {
-                    robot.intake.extend();
+                    // robot.intake.extend();
                     robot.intake.pickup();
                 }
                 else
                 {
                     robot.intake.stop();
-                    robot.intake.retract();
+                    // robot.intake.retract();
                 }
                 break;
 
@@ -497,13 +541,15 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
-                if (pressed)
+                if (pressed && !robot.shooter.isTilterLowerLimitSwitchActive())
                 {
                     tilterControl = true;
+                    robot.shooter.setTilterManualOverride(true);
                 }
                 else
                 {
                     robot.shooter.setTilterPower(0.0);
+                    robot.shooter.setTilterManualOverride(false);
                     tilterControl = false;
                 }
                 break;
@@ -511,7 +557,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON7:
                 if (pressed)
                 {
-                    robot.climber.zeroCalibrateClimber();
+                    robot.shooter.zeroCalibrateTilter();
                 }
                 break;
 
@@ -531,10 +577,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:
-                if (pressed)
-                {
-                    robot.shooter.setTilterPosition(30.0);
-                }
+                climberControl = pressed;
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON11:

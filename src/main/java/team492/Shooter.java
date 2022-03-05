@@ -228,14 +228,13 @@ public class Shooter implements TrcExclusiveSubsystem
     public void cancel()
     {
         final String funcName = "cancel";
-
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
         setFlywheelValue(currOwner, 0.0, 0.0, null);
-        tilter.cancel(currOwner);
+        // tilter.cancel(currOwner);
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
         robot.robotDrive.driveBase.stop();
         if (currOwner != null)
@@ -449,7 +448,12 @@ public class Shooter implements TrcExclusiveSubsystem
     public void setFlywheelValue(double value)
     {
         setFlywheelValue(null, value, null);
-    }   //setFlywheelValue
+    }   //
+    
+    public void setFlywheelPower(double power)
+    {
+        lowerFlywheelMotor.setMotorPower(power);
+    }
 
     /**
      * This method checks if the flywheel is spinning at target velocity.
@@ -532,7 +536,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
     public void zeroCalibrateTilter()
     {
-        tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
+        // tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
     }   //zeroCalibrateTilter
 
     /**
@@ -790,7 +794,6 @@ public class Shooter implements TrcExclusiveSubsystem
                             }
                             lowerFlywheelVel = interpolateVector(distance)[0];
                             upperFlywheelVel = interpolateVector(distance)[1];
-
                             setFlywheelValue(currOwner, lowerFlywheelVel, upperFlywheelVel, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
@@ -812,12 +815,16 @@ public class Shooter implements TrcExclusiveSubsystem
                             // - Aim the shooter at the pre-determined angle.
                             // - Driver is responsible for aligning the robot possibly using streaming camera
                             //   or spotlight.
+                            // robot.shooter.setFlywheelValue(
+                            //     currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
+
+                            
                             robot.shooter.setFlywheelValue(
-                                currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
+                                currOwner, this.lowerFlywheelSetVel, this.upperFlywheelSetVel, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
-                            setTilterPosition(tilterSetAngle, tilterEvent);
-                            sm.addEvent(tilterEvent);
+                            // setTilterPosition(tilterSetAngle, tilterEvent);
+                            // sm.addEvent(tilterEvent);
                         }
                         sm.waitForEvents(State.SHOOT, 0.0, true);
                     }
@@ -834,6 +841,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
                 default: 
                 case DONE:
+                    robot.dashboard.displayPrintf(13, "STOP SHOOTING");
                     cancel();
                     break; 
             }

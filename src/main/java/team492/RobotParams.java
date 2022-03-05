@@ -39,6 +39,7 @@ public class RobotParams
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
         public static final boolean useButtonPanels             = true;
+        public static final boolean usePdp                      = false;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
@@ -48,7 +49,7 @@ public class RobotParams
         public static final boolean timDrive                    = true;
         public static final boolean showSubsystemStatus         = true;
 
-        public static final boolean debugPowerConsumption       = false;
+        public static final boolean debugPowerConsumption       = true;
         public static final boolean debugPidDrive               = false;
         public static final boolean debugDriveBase              = false;
         public static final boolean debugVision                 = false;
@@ -349,7 +350,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.1;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.2;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
@@ -371,7 +372,7 @@ public class RobotParams
     public static final double TILTER_MIN_POS                   = TILTER_OFFSET;
     public static final double TILTER_MAX_POS                   = 40.0;
     public static final double TILTER_DEG_PER_COUNT             = Math.abs((45.0 - TILTER_OFFSET)/(1070 - TILTER_ZERO));
-    public static final double TILTER_CAL_POWER                 = 0.3;
+    public static final double TILTER_CAL_POWER                 = 0.6;
     // public static final double TILTER_STALL_MIN_POWER           = 0.2;
     // public static final double TILTER_STALL_TOLERANCE           = 0.2;
     // public static final double TILTER_STALL_TIMEOUT             = 0.5;
@@ -389,9 +390,9 @@ public class RobotParams
     public static final double CONVEYOR_MOVE_POWER              = 0.5;
 
     // Climber subsystem.
-    public static final double CLIMBER_KP                       = 0.3;
+    public static final double CLIMBER_KP                       = 0.06;
     public static final double CLIMBER_KI                       = 0.0;
-    public static final double CLIMBER_KD                       = 0.0;
+    public static final double CLIMBER_KD                       = 0.005;
     public static final double CLIMBER_TOLERANCE                = 1.0;
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
@@ -403,6 +404,6 @@ public class RobotParams
     // public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
     public static final boolean CLIMBER_MOTOR_INVERTED          = true;
     public static final double CLIMBER_MIN_POS                  = 29.0;
-    public static final double CLIMBER_MAX_POS                  = 63.0;
+    public static final double CLIMBER_MAX_POS                  = 65.0;
 
 }   //class RobotParams

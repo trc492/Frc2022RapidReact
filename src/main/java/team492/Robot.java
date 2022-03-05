@@ -158,7 +158,7 @@ public class Robot extends FrcRobotBase
             camera.setResolution(160, 120);
         }
 
-        if (RobotParams.Preferences.debugPowerConsumption)
+        if (RobotParams.Preferences.usePdp)
         {
             pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
             battery = new FrcRobotBattery(pdp);
@@ -195,6 +195,8 @@ public class Robot extends FrcRobotBase
         //
         // AutoAssist commands.
         //
+        presets.put("tarmac_mid", shooter.new ShooterPreset("tarmac_mid", 2000, 1900, 45.0));
+        presets.put("tarmac_auto", shooter.new ShooterPreset("tarmac_auto", 1900, 1700, 45.0));
 
         if (pdp != null)
         {
@@ -236,6 +238,7 @@ public class Robot extends FrcRobotBase
         //
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
+        // shooter.zeroCalibrateTilter();
         ledIndicator.reset();
     }   //robotStartMode
 
@@ -288,15 +291,18 @@ public class Robot extends FrcRobotBase
 
             if (RobotParams.Preferences.debugPowerConsumption)
             {
-                dashboard.putNumber("Power/pdpTotalCurrent", pdp.getTotalCurrent());
-                dashboard.putNumber("Power/totalEnergy", battery.getTotalEnergy());
-                dashboard.putData("Power/pdpInfo", pdp.getPdpSendable());
-                if (runMode == RunMode.TELEOP_MODE)
+                if (pdp != null)
                 {
-                    globalTracer.traceInfo(
-                        funcName, "[%.3f] Battery: currVoltage=%.2f, lowestVoltage=%.2f",
-                        currTime, battery.getVoltage(), battery.getLowestVoltage());
-                    globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", currTime, pdp.getTotalCurrent());
+                    dashboard.putNumber("Power/pdpTotalCurrent", pdp.getTotalCurrent());
+                    dashboard.putNumber("Power/totalEnergy", battery.getTotalEnergy());
+                    dashboard.putData("Power/pdpInfo", pdp.getPdpSendable());
+                    if (runMode == RunMode.TELEOP_MODE)
+                    {
+                        globalTracer.traceInfo(
+                            funcName, "[%.3f] Battery: currVoltage=%.2f, lowestVoltage=%.2f",
+                            currTime, battery.getVoltage(), battery.getLowestVoltage());
+                        globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", currTime, pdp.getTotalCurrent());
+                    }
                 }
             }
 

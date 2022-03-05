@@ -108,7 +108,7 @@ public class Intake implements TrcExclusiveSubsystem
         if (validateOwnership(owner))
         {
             // Only do this if there is room. There are 4 scenarios:
-            // 1. Ball at the entrnace and ball at the exit (full): do nothing.
+            // 1. Ball at the entrance and ball at the exit (full): do nothing.
             // 2. Ball at the entrance: move ball to the exit and start intake.
             // 3. Ball at the exit: start intake.
             // 4. No ball at all (empty): start intake.

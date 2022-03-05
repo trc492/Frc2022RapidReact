@@ -148,8 +148,9 @@ class CmdAuto implements TrcRobot.RobotCommand
                     }
 
                 case SHOOT_PRELOADED_BALL:
+                    robot.dashboard.displayPrintf(12, "entered shoot auto");
                     //BUGBUG: fix parameters by look up table on the StartPosition.
-                    robot.shooter.shootAllBallsNoVision(moduleName, event, 0.0, 0.0, 0.0);
+                    robot.shooter.shootAllBallsNoVision(moduleName, event, 1900.0, 1700.0, 45.0);
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
                     break;
 
@@ -163,7 +164,7 @@ class CmdAuto implements TrcRobot.RobotCommand
                         expireTime = null; 
                         sm.setState(State.DONE);
                     }
-                    robot.robotDrive.driveBase.holonomicDrive(0.0, -0.5, 0.0);
+                    robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
                     break;
 
                 // CodeReview: should shoot the preloaded ball first.

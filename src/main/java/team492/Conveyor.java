@@ -343,7 +343,7 @@ public class Conveyor implements TrcExclusiveSubsystem
             }
             else if (triggerAction == TriggerAction.DoNothing)
             {
-                // Entracne sensor is triggered not because of advance or backup calls. It must be caused by intake.
+                // Entrance sensor is triggered not because of advance or backup calls. It must be caused by intake.
                 // In this case, we want to see if there is space to advance the ball to the exit. Can only do this
                 // if nobody is currently owning exclusive access.
                 if (!exitSensor.isActive())

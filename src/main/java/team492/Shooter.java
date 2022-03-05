@@ -742,6 +742,11 @@ public class Shooter implements TrcExclusiveSubsystem
         return shootAllBallsNoVision(owner, event, lowerFlywheelVel, upperFlywheelVel, tilterAngle, false);
     }   //shootAllBallsNoVision
 
+    public boolean shootAllBallsNoVision(String owner, TrcEvent event)
+    {
+        return shootAllBallsNoVision(owner, event, lowerFlywheelSetVel, upperFlywheelSetVel, tilterSetAngle, false);
+    }
+
     /**
      * This method is called periodically to execute the auto shoot task.
      *

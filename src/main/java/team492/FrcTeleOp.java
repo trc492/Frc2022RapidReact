@@ -499,8 +499,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
-                preset = robot.presets.get("tarmac_auto");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle);
+                if (pressed)
+                {
+                    robot.shooter.shootAllBallsNoVision("teleOp", null);
+                }
+
                 // robot.shooter.shootAllBallsNoVision(
                 //     "autoAssistShoot", null, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel, 30.0);
                 break;
@@ -516,11 +519,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 if (pressed)
                 {
                     robot.intake.extend();
-                    robot.intake.pickup();
+                    robot.intake.setPower(0.5);
                 }
                 else
                 {
-                    robot.intake.stop();
+                    robot.intake.setPower(-0.5);
                     robot.intake.retract();
                 }
                 break;
@@ -576,8 +579,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.PANEL_BUTTON_RED1:
-                preset = robot.presets.get("tarmac_auto");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_GREEN1:
@@ -589,19 +590,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
-                // tilterControl = pressed;
-                // if (pressed)
-                // {
-                //     tilterControl = true;
-                //     robot.shooter.setTilterManualOverride(true);
-                // }
-                // else
-                // {
-                //     robot.shooter.setTilterPower(0.0);
-                //     robot.shooter.setTilterManualOverride(false);
-                //     tilterControl = false;
-                // }
-                
+                preset = robot.presets.get("tarmac_auto");
+                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE1:
@@ -640,7 +630,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_YELLOW2:
                 if (pressed)
                 {
-                    robot.shooter.zeroCalibrateTilter();
+                    // robot.shooter.zeroCalibrateTilter();
                 }
                 break;
 

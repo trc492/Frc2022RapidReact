@@ -541,7 +541,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
-                if (pressed && !robot.shooter.isTilterLowerLimitSwitchActive())
+                // tilterControl = pressed;
+                if (pressed)
                 {
                     tilterControl = true;
                     robot.shooter.setTilterManualOverride(true);

@@ -103,6 +103,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private double lowerFlywheelSetVel = 0.0;
     private double upperFlywheelSetVel = 0.0;
     private double tilterSetAngle = 0.0;
+    private boolean aimOnly = false;
     private TrcEvent onFinishShootingEvent = null;
 
     Double expireTime = null; 
@@ -636,6 +637,19 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setTilterPosition
 
     /**
+     * This method shoots a ball at the conveyor exit if there is one. This is a "fire and forget" operation.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     */
+    public void shootBallAtExit(String owner)
+    {
+        if (robot.conveyor.isExitSensorActive())
+        {
+            robot.conveyor.advance(currOwner, conveyorEvent);
+        }
+    }   //shootBallAtExit
+
+    /**
      * This method is the worker preparing to shoot all balls. It is called by both shootAllBallsWithVision or
      * shootAllBallsNoVision.
      *
@@ -693,19 +707,40 @@ public class Shooter implements TrcExclusiveSubsystem
      * @param event specifies the events to signal when completed, can be null if not provided.
      * @param lowerFlywheelVel specifies the lower flywheel velocity.
      * @param upperFlywheelVel
+     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean shootAllBallsNoVision(
+        String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle,
+        boolean aimOnly)
+    {
+        usingVision = false;
+        this.lowerFlywheelSetVel = lowerFlywheelVel;
+        this.upperFlywheelSetVel = upperFlywheelVel;
+        this.tilterSetAngle = tilterAngle;
+        this.aimOnly = aimOnly;
+
+        return prepareToShoot(owner, event);
+    }   //shootAllBallsWithVision
+
+    /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
+     * robot is already aligned with the target. It will adjust the aim with the provided tilter angle and will spin
+     * the flywheels with the given velocities.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @param lowerFlywheelVel specifies the lower flywheel velocity.
+     * @param upperFlywheelVel
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
     public boolean shootAllBallsNoVision(
         String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
     {
-        usingVision = false;
-        this.lowerFlywheelSetVel = lowerFlywheelVel;
-        this.upperFlywheelSetVel = upperFlywheelVel;
-        this.tilterSetAngle = tilterAngle;
-
-        return prepareToShoot(owner, event);
-    }   //shootAllBallsWithVision
+        return shootAllBallsNoVision(owner, event, lowerFlywheelVel, upperFlywheelVel, tilterAngle, false);
+    }   //shootAllBallsNoVision
 
     /**
      * This method is called periodically to execute the auto shoot task.
@@ -835,8 +870,15 @@ public class Shooter implements TrcExclusiveSubsystem
                     break;
 
                 case SHOOT:
-                    robot.conveyor.advance(currOwner, conveyorEvent);
-                    sm.waitForSingleEvent(conveyorEvent, State.START);
+                    if (aimOnly)
+                    {
+                        sm.setState(State.DONE);
+                    }
+                    else
+                    {
+                        robot.conveyor.advance(currOwner, conveyorEvent);
+                        sm.waitForSingleEvent(conveyorEvent, State.START);
+                    }
                     break;
 
                 default: 

@@ -29,6 +29,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -179,19 +180,39 @@ public class SwerveDrive extends RobotDrive
 
     private FrcCANFalcon createSteerMotor(String name, int motorCanID, int encoderCanID, boolean inverted)
     {
+        final String funcName = "createSteerMotor";
+        ErrorCode errCode;
         CANCoder encoder = new CANCoder(encoderCanID);
         FrcCANFalcon steerMotor = new FrcCANFalcon(name, motorCanID);
 
         encoder.configFactoryDefault();
         encoder.configFeedbackCoefficient(1.0, "pulse", SensorTimeBase.PerSecond);
         encoder.configSensorDirection(true);
-        encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+        errCode = encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: CANcoder.configSensorInitializationStrategy failed (code=%s).",
+                name, errCode);
+        }
 
         steerMotor.motor.configFactoryDefault();
         steerMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         steerMotor.motor.enableVoltageCompensation(true);
-        steerMotor.motor.configRemoteFeedbackFilter(encoder, 0);
-        steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        errCode = steerMotor.motor.configRemoteFeedbackFilter(encoder, 0);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configRemoteFeedbackFilter failed (code=%s).",
+                name, errCode);
+        }
+        errCode = steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configSelectedFeedbackSensor failed (code=%s).",
+                name, errCode);
+        }
         steerMotor.setInverted(inverted);
         steerMotor.setBrakeModeEnabled(true);
 
@@ -295,5 +316,23 @@ public class SwerveDrive extends RobotDrive
             e.printStackTrace();
         }
     }   //saveSteerZeroPositions
+
+    /**
+     * This method enables/disables the anti-defense mode where it puts all swerve wheels into an X-formation.
+     * By doing so, it is very difficult for others to push us around.
+     *
+     * @param owner     specifies the ID string of the caller for checking ownership, can be null if caller is not
+     *                  ownership aware.
+     * @param enabled   specifies true to enable anti-defense mode, false to disable.
+     */
+    public void setAntiDefenseEnabled(String owner, boolean enabled)
+    {
+        if (owner == null ||
+            enabled && driveBase.acquireExclusiveAccess(owner) ||
+            !enabled && driveBase.releaseExclusiveAccess(owner))
+        {
+            ((TrcSwerveDriveBase) driveBase).setAntiDefenseEnabled(owner, enabled);
+        }
+    }   //setAntiDefenseEnabled
 
 }   //class SwerveDrive

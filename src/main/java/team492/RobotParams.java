@@ -324,6 +324,11 @@ public class RobotParams
 
     // order is lf, rf, lr, rr
     public static final int[] STEER_ZEROS                       = new int[]{ 3842, 3748, 1185, 3476 };  // this is a backup if the zeros file isn't found
+    //1707, 1793, 117, 703
+    //3835
+    // 3748
+    // 1194
+    // 3487
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
     public static final double STEER_KP                         = 0.9;
@@ -379,8 +384,8 @@ public class RobotParams
     // public static final double TILTER_RESET_TIMEOUT             = 0.5;
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 0.75;
-    public static final double INTAKE_SPITOUT_POWER             = -0.75;
+    public static final double INTAKE_PICKUP_POWER              = 0.6;
+    public static final double INTAKE_SPITOUT_POWER             = -0.6;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.

@@ -352,6 +352,11 @@ public class Conveyor implements TrcExclusiveSubsystem
                     advance();
                 }
             }
+
+            if (exitSensor.isActive())
+            {
+                conveyorMotor.set(-0.25, 0.2);
+            }
         }
 
         if (entranceEventHandler != null)

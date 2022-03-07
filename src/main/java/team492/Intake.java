@@ -237,7 +237,11 @@ public class Intake implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "activer=%s", active);
         }
 
-        setPower(0.0, 0.0, 0.0);
+        if (((boolean) active) && robot.conveyor.isExitSensorActive())
+        {
+            setPower(0.0, 0.0, 0.0);
+        }
+
         if (onFinishedEvent != null)
         {
             onFinishedEvent.signal();

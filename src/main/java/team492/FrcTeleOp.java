@@ -87,7 +87,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         //
         // Initialize subsystems for TeleOp mode if necessary.
         //
-        driveOrientation = DriveOrientation.FIELD;
+        driveOrientation = DriveOrientation.ROBOT;
         driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
         turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
     }   //startMode
@@ -470,15 +470,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.SIDEWINDER_TRIGGER:
                 if (pressed)
                 {
-                    if (driveOrientation != DriveOrientation.FIELD)
-                    {
-                        driveOrientation = DriveOrientation.FIELD;
-                    }
-                    else
-                    {
-                        driveOrientation = DriveOrientation.ROBOT;
-                    }
+                    driveOrientation = DriveOrientation.INVERTED;
                 }
+                else
+                {
+                    driveOrientation = DriveOrientation.ROBOT;
+                }
+                break;
+
+            case FrcJoystick.LOGITECH_BUTTON2:
+                robot.robotDrive.setAntiDefenseEnabled("AntiDefense", pressed);
                 break;
         }
     }   //rightDriveStickButtonEvent
@@ -519,11 +520,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 if (pressed)
                 {
                     robot.intake.extend();
-                    robot.intake.setPower(0.5);
+                    robot.intake.pickup();
                 }
                 else
                 {
-                    robot.intake.setPower(-0.5);
+                    robot.intake.stop();
                     robot.intake.retract();
                 }
                 break;
@@ -579,19 +580,27 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.PANEL_BUTTON_RED1:
+                if (pressed)
+                {
+                    robot.intake.pickup();
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_GREEN1:
+                if (pressed)
+                {
+                    robot.intake.retract();
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_BLUE1:
                 preset = robot.presets.get("tarmac_mid");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle);
+                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle, true);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
                 preset = robot.presets.get("tarmac_auto");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle);
+                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle, true);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE1:

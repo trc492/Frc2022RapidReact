@@ -36,7 +36,7 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcUtil;
-import TrcCommonLib.trclib.TrcValueSensorTrigger;
+import TrcCommonLib.trclib.TrcThresholdTrigger;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
@@ -84,7 +84,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
-    private final TrcValueSensorTrigger flywheelVelocityTrigger;
+    private final TrcThresholdTrigger flywheelVelocityTrigger;
     private final FrcCANTalon tilterMotor;
     private final FrcDigitalInput tilterLowerLimitSwitch;
     private final TrcPidActuator tilter;
@@ -121,7 +121,7 @@ public class Shooter implements TrcExclusiveSubsystem
             moduleName + ".lowerFlywheelMotor", RobotParams.CANID_SHOOTER_LOWER_FLYWHEEL, true);
         upperFlywheelMotor = createFlywheelMotor(
             moduleName + ".upperFlywheelMotor", RobotParams.CANID_SHOOTER_UPPER_FLYWHEEL, true);
-        flywheelVelocityTrigger = new TrcValueSensorTrigger(
+        flywheelVelocityTrigger = new TrcThresholdTrigger(
             moduleName + ".flywheelVelTrigger", this::getUpperFlywheelVelocity, this::flywheelTriggerEvent);
         setFlywheelVelocityModeEnabled(true);
         //
@@ -461,7 +461,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public boolean isFlywheelVelOnTarget()
     {
-        return flywheelVelocityTrigger.getSensorState();
+        return flywheelVelocityTrigger.getState();
     }   //isFlywheelVelOnTarget
 
     /**

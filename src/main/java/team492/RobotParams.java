@@ -78,66 +78,23 @@ public class RobotParams
     //
     // Autonomous constants.
     //
-    public static final TrcPose2D STARTPOS_RED_POS1 = new TrcPose2D(25.0, 90.8, -2.0);
-    public static final TrcPose2D STARTPOS_RED_POS2 = new TrcPose2D(57.4, 68.0, 44.0);
-    public static final TrcPose2D STARTPOS_RED_POS3 = new TrcPose2D(84.6, -43.0, 134.0);
-    public static final TrcPose2D[] RED_START_POSES = new TrcPose2D[]
-    {
-        STARTPOS_RED_POS1,
-        STARTPOS_RED_POS2,
-        STARTPOS_RED_POS3
-    };
-    public static final TrcPose2D STARTPOS_BLUE_POS1= new TrcPose2D(-83.5, 41.5, 47.0);
-    public static final TrcPose2D STARTPOS_BLUE_POS2= new TrcPose2D(-56.5, -69.4, 134.0);
-    public static final TrcPose2D STARTPOS_BLUE_POS3= new TrcPose2D(-25.4, -90.0, 182.0);
-    public static final TrcPose2D[] BLUE_START_POSES = new TrcPose2D[]
-    {
-        STARTPOS_BLUE_POS1,
-        STARTPOS_BLUE_POS2,
-        STARTPOS_BLUE_POS3
-    };
+    public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, 134.0);
+    public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, 250.0);
+
 
     //path points for each different auto path(right now only 2 ball autos)
     //first point: robot picking up the ball around the tarmacs
     //second point: robot moving into shooter position 
-    public static final TrcPose2D[] RED_1_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(27.4, 138.2, -2),
-        new TrcPose2D(44, 110.6, 200)
-    };
-    public static final TrcPose2D[] RED_2_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(123, 88, 44 ),
-        new TrcPose2D(44, 110.6, 200)
-    };
-    public static final TrcPose2D[] RED_3_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(128.8, -79.8, 134),
-        new TrcPose2D(109, -43.2, -62)
-    };
-    public static final TrcPose2D[][] RED_PATHS = new TrcPose2D[][]
-    {
-        RED_1_PATH, RED_2_PATH, RED_3_PATH
-    };
-
-    public static final TrcPose2D[] BLUE_1_PATH = new TrcPose2D[]
+    //2 BALL AUTO PATH 
+    public static final TrcPose2D[] BLUE_2_BALL_PATH = new TrcPose2D[]
     {
         new TrcPose2D(-119, 73.7, 47),
         new TrcPose2D(-119, 73.7, 238)
     };
-    public static final TrcPose2D[] BLUE_2_PATH = new TrcPose2D[]
+    public static final TrcPose2D[] RED_2_BALL_PATH = new TrcPose2D[]
     {
-        new TrcPose2D(-115.3, -80.8, 134),
-        new TrcPose2D(-49.5, -127.7, 339)
-    };
-    public static final TrcPose2D[] BLUE_3_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(-25.4, -136.4, 182),
-        new TrcPose2D(-49.5, -128, 339)
-    };
-    public static final TrcPose2D[][] BLUE_PATHS = new TrcPose2D[][]
-    {
-        BLUE_1_PATH, BLUE_2_PATH, BLUE_3_PATH
+        new TrcPose2D(128.8, -79.8, 225),
+        new TrcPose2D(109, -43.2, 68)
     };
     //
     // Joystick ports.

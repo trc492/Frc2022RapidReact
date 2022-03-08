@@ -39,7 +39,7 @@ public class RobotParams
         public static final boolean useExternalOdometry         = false;
         public static final boolean useXboxController           = false;
         public static final boolean useButtonPanels             = true;
-        public static final boolean usePdp                      = false;
+        public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
@@ -280,12 +280,9 @@ public class RobotParams
     public static final double STEER_MAX_VEL_TICKS_PER_100MS    = (STEER_MAX_VEL / STEER_DEGREES_PER_TICK) / 10.0;  // ticks/100ms
 
     // order is lf, rf, lr, rr
+    // steerzeros.txt: 3974, 3748, 1192, 3487
     public static final int[] STEER_ZEROS                       = new int[]{ 3842, 3748, 1185, 3476 };  // this is a backup if the zeros file isn't found
-    //1707, 1793, 117, 703
-    //3835
-    // 3748
-    // 1194
-    // 3487
+
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
     public static final double STEER_KP                         = 0.9;

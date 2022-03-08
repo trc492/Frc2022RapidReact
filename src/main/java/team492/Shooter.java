@@ -165,12 +165,11 @@ public class Shooter implements TrcExclusiveSubsystem
         FrcCANFalcon motor = new FrcCANFalcon(name, canID);
 
         motor.motor.configFactoryDefault();
-        // TODO: Make sure we have updated the PID coeff from Phoenix Tuner before enabling this or we would have overwritten them.
-        // motor.motor.config_kP(0, RobotParams.FLYWHEEL_KP, 10);
-        // motor.motor.config_kI(0, RobotParams.FLYWHEEL_KI, 10);
-        // motor.motor.config_kD(0, RobotParams.FLYWHEEL_KD, 10);
-        // motor.motor.config_kF(0, RobotParams.FLYWHEEL_KF, 10);
-        // motor.motor.config_IntegralZone(0, RobotParams.FLYWHEEL_IZONE, 10);
+        motor.motor.config_kP(0, RobotParams.FLYWHEEL_KP, 10);
+        motor.motor.config_kI(0, RobotParams.FLYWHEEL_KI, 10);
+        motor.motor.config_kD(0, RobotParams.FLYWHEEL_KD, 10);
+        motor.motor.config_kF(0, RobotParams.FLYWHEEL_KF, 10);
+        motor.motor.config_IntegralZone(0, RobotParams.FLYWHEEL_IZONE, 10);
         motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
         motor.motor.enableVoltageCompensation(true);
         motor.setBrakeModeEnabled(false);
@@ -190,7 +189,7 @@ public class Shooter implements TrcExclusiveSubsystem
         FrcCANTalon motor = new FrcCANTalon(name, canID);
 
         motor.motor.configFactoryDefault();
-        // TODO: Decide whether to go with motor PID control or software PID control, disabled for now to use software PID control.
+        // We are going with software PID control, so disable motor PID for now.
         // motor.motor.config_kP(0, RobotParams.TILTER_KP, 10);
         // motor.motor.config_kI(0, RobotParams.TILTER_KI, 10);
         // motor.motor.config_kD(0, RobotParams.TILTER_KD, 10);

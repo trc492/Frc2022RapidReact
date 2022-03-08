@@ -161,6 +161,10 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.usePdp)
         {
             pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
+            if (buttonPanel != null)
+            {
+                pdp.setSwitchableChannel(buttonPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
+            }
             battery = new FrcRobotBattery(pdp);
         }
 

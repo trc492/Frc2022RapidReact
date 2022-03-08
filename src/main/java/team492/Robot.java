@@ -161,10 +161,7 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.usePdp)
         {
             pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
-            if (buttonPanel != null)
-            {
-                pdp.setSwitchableChannel(buttonPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
-            }
+            pdp.setSwitchableChannel(false);
             battery = new FrcRobotBattery(pdp);
         }
 
@@ -241,6 +238,10 @@ public class Robot extends FrcRobotBase
         //
         // Start subsystems.
         //
+        if (runMode == RunMode.TELEOP_MODE && pdp != null)
+        {
+            pdp.setSwitchableChannel(buttonPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
+        }
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
         // shooter.zeroCalibrateTilter();

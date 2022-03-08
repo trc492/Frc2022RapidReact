@@ -51,8 +51,8 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
     public static enum AutoStrategy
     {
-        AUTO,
-        AUTO_2_BALL,
+        AUTO_1_BALL,
+        AUTO_2_BALLS,
         PP_DRIVE,
         PID_DRIVE,
         TIMED_DRIVE,
@@ -116,8 +116,8 @@ public class FrcAuto implements TrcRobot.RobotMode
             allianceMenu.addChoice("Red", DriverStation.Alliance.Red, true, false);
             allianceMenu.addChoice("Blue", DriverStation.Alliance.Blue, false, true);
             
-            autoStrategyMenu.addChoice("Autonomous", AutoStrategy.AUTO,false,  false);
-            autoStrategyMenu.addChoice("Autonomous 2 Ball", AutoStrategy.AUTO, true, false);
+            autoStrategyMenu.addChoice("Autonomous 1 Ball", AutoStrategy.AUTO_1_BALL, false,  false);
+            autoStrategyMenu.addChoice("Autonomous 2 Balls", AutoStrategy.AUTO_2_BALLS, true, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
@@ -291,12 +291,12 @@ public class FrcAuto implements TrcRobot.RobotMode
         //
         switch (autoChoices.getStrategy())
         {
-            case AUTO:
-                autoCommand = new CmdAuto(robot, autoChoices);
+            case AUTO_1_BALL:
+                autoCommand = new CmdAuto1Ball(robot, autoChoices);
                 break;
 
-            case AUTO_2_BALL:
-                autoCommand = new CmdAuto2Ball(robot, autoChoices);
+            case AUTO_2_BALLS:
+                autoCommand = new CmdAuto2Balls(robot, autoChoices);
                 break;
 
             case PP_DRIVE:

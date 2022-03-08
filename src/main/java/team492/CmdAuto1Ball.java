@@ -23,16 +23,14 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
-import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcUtil;
-import edu.wpi.first.wpilibj.DriverStation;
 
-class CmdAuto implements TrcRobot.RobotCommand
+class CmdAuto1Ball implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto";
+    private static final String moduleName = "CmdAuto1Ball";
 
     private enum State
     {
@@ -56,7 +54,7 @@ class CmdAuto implements TrcRobot.RobotCommand
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto1Ball(Robot robot, FrcAuto.AutoChoices autoChoices)
     {
         robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
 
@@ -72,7 +70,7 @@ class CmdAuto implements TrcRobot.RobotCommand
         //             RobotParams.RED_PATHS[startPos]: RobotParams.BLUE_PATHS[startPos];
 
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
-    }   //CmdAuto
+    }   //CmdAuto1Ball
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -125,7 +123,7 @@ class CmdAuto implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    int pos = autoChoices.getStartPos();
+                    // int pos = autoChoices.getStartPos();
                     // TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
                     //     RobotParams.RED_START_POSES[pos]: RobotParams.BLUE_START_POSES[pos];
                     // robot.robotDrive.driveBase.setFieldPosition(startPose);
@@ -150,7 +148,7 @@ class CmdAuto implements TrcRobot.RobotCommand
                 case SHOOT_PRELOADED_BALL:
                     robot.dashboard.displayPrintf(12, "entered shoot auto");
                     //BUGBUG: fix parameters by look up table on the StartPosition.
-                    robot.shooter.shootAllBallsNoVision(moduleName, event, 1900.0, 1700.0, 45.0);
+                    robot.shooter.shootAllBallsNoVision(moduleName, event, robot.presets.get("preload"), false);
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
                     break;
 
@@ -199,4 +197,4 @@ class CmdAuto implements TrcRobot.RobotCommand
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto
+}   //class CmdAuto1Ball

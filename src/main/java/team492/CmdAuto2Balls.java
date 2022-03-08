@@ -27,12 +27,12 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
-import TrcCommonLib.trclib.TrcUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 
-class CmdAuto2Ball implements TrcRobot.RobotCommand
+class CmdAuto2Balls implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto2Ball";
+    private static final String moduleName = "CmdAuto2Balls";
+
     private enum State
     {
         START_DELAY,
@@ -47,11 +47,12 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
-    Double expireTime; 
+
     private boolean shootWithVision = false; 
     private int pointNumber; 
     private final TrcPose2D[] path; 
 
+    Double expireTime; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -59,7 +60,7 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto2Ball(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto2Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
     {
         robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
 
@@ -72,10 +73,10 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
 
         // int startPos = autoChoices.getStartPos();
         path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                     RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
+                RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
         pointNumber = 0; 
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
-    }   //CmdAuto
+    }   //CmdAuto2Balls
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -158,12 +159,14 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
 
                 case SHOOT:
                     //BUGBUG: fix parameters by look up table on the StartPosition.
-                    if(!shootWithVision){
+                    if (!shootWithVision)
+                    {
                         //this is shooting first ball no vision 
-                        robot.shooter.shootAllBallsNoVision(moduleName, event, 1900.0, 1700.0, 45.0);
+                        robot.shooter.shootAllBallsNoVision(moduleName, event, robot.presets.get("preload"), false);
                         sm.waitForSingleEvent(event, State.PICKUP_BALL);
                     }
-                    else{
+                    else
+                    {
                         //this is second ball, after this we are done
                         robot.shooter.shootAllBallsWithVision(moduleName, event);
                         sm.waitForSingleEvent(event, State.DONE);
@@ -174,8 +177,8 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
                     //drive to point while running intake
                     //move on to shoot state when intake has a ball 
                     //after first ball use vision to shoot 
-                    robot.robotDrive.purePursuitDrive.start(null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), 
-                        false, path[pointNumber]);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
                     robot.intake.pickup(event);
                     shootWithVision = true; 
                     pointNumber++; 
@@ -183,12 +186,13 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
                     break;
 
                 case DRIVE_TO_SHOOT_POSITION:
-                    robot.robotDrive.purePursuitDrive.start(null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), 
-                        false, path[pointNumber]);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
                     sm.waitForSingleEvent(event, State.SHOOT);
                     break; 
-                case DONE:
+
                 default:
+                case DONE:
                     //
                     // We are done.
                     //
@@ -207,4 +211,4 @@ class CmdAuto2Ball implements TrcRobot.RobotCommand
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto
+}   //class CmdAuto2Balls

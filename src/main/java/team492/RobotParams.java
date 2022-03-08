@@ -81,7 +81,6 @@ public class RobotParams
     public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, 134.0);
     public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, 250.0);
 
-
     //path points for each different auto path(right now only 2 ball autos)
     //first point: robot picking up the ball around the tarmacs
     //second point: robot moving into shooter position 
@@ -91,6 +90,7 @@ public class RobotParams
         new TrcPose2D(-119, 73.7, 47),
         new TrcPose2D(-119, 73.7, 238)
     };
+
     public static final TrcPose2D[] RED_2_BALL_PATH = new TrcPose2D[]
     {
         new TrcPose2D(128.8, -79.8, 225),

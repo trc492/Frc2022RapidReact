@@ -49,21 +49,21 @@ public class Shooter implements TrcExclusiveSubsystem
     private static final String moduleName  = "Shooter";
     private static final boolean debugEnabled = false;
 
-    public class ShooterPreset
+    public class ShootParams
     {
         public final String name;
         public final double lowerFlywheelVelocity;
         public final double upperFlywheelVelocity;
         public final double tilterAngle;
 
-        public ShooterPreset(
+        public ShootParams(
             String name, double lowerFlywheelVelocity, double upperFlywheelVelocity, double tilterAngle)
         {
             this.name = name;
             this.lowerFlywheelVelocity = lowerFlywheelVelocity;
             this.upperFlywheelVelocity = upperFlywheelVelocity;
             this.tilterAngle = tilterAngle;
-        }   //ShooterPreset
+        }   //ShootParams
 
         @Override
         public String toString()
@@ -73,7 +73,7 @@ public class Shooter implements TrcExclusiveSubsystem
                 name, lowerFlywheelVelocity, upperFlywheelVelocity, tilterAngle);
         }   //toString
 
-    }   //class ShooterPreset
+    }   //class ShootParams
 
     private enum State
     {
@@ -100,9 +100,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private String currOwner = null;
 
     private boolean usingVision = false;
-    private double lowerFlywheelSetVel = 0.0;
-    private double upperFlywheelSetVel = 0.0;
-    private double tilterSetAngle = 0.0;
+    private ShootParams shootParams = null;
     private boolean aimOnly = false;
     private TrcEvent onFinishShootingEvent = null;
 
@@ -645,7 +643,7 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         if (robot.conveyor.isExitSensorActive())
         {
-            robot.conveyor.advance(currOwner, conveyorEvent);
+            robot.conveyor.advance(currOwner);
         }
     }   //shootBallAtExit
 
@@ -705,47 +703,19 @@ public class Shooter implements TrcExclusiveSubsystem
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param lowerFlywheelVel specifies the lower flywheel velocity.
-     * @param upperFlywheelVel
+     * @param shootParams specifies the shooter parameters for shooting.
      * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBallsNoVision(
-        String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle,
-        boolean aimOnly)
+    public boolean shootAllBallsNoVision(String owner, TrcEvent event, ShootParams shootParams, boolean aimOnly)
     {
         usingVision = false;
-        this.lowerFlywheelSetVel = lowerFlywheelVel;
-        this.upperFlywheelSetVel = upperFlywheelVel;
-        this.tilterSetAngle = tilterAngle;
+        this.shootParams = shootParams;
         this.aimOnly = aimOnly;
 
         return prepareToShoot(owner, event);
-    }   //shootAllBallsWithVision
-
-    /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
-     * robot is already aligned with the target. It will adjust the aim with the provided tilter angle and will spin
-     * the flywheels with the given velocities.
-     *
-     * @param owner specifies the owner ID who is shooting.
-     * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param lowerFlywheelVel specifies the lower flywheel velocity.
-     * @param upperFlywheelVel
-     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
-     *         of the involved subsystems).
-     */
-    public boolean shootAllBallsNoVision(
-        String owner, TrcEvent event, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
-    {
-        return shootAllBallsNoVision(owner, event, lowerFlywheelVel, upperFlywheelVel, tilterAngle, false);
     }   //shootAllBallsNoVision
-
-    public boolean shootAllBallsNoVision(String owner, TrcEvent event)
-    {
-        return shootAllBallsNoVision(owner, event, lowerFlywheelSetVel, upperFlywheelSetVel, tilterSetAngle, false);
-    }
 
     /**
      * This method is called periodically to execute the auto shoot task.
@@ -860,10 +830,10 @@ public class Shooter implements TrcExclusiveSubsystem
 
                             
                             robot.shooter.setFlywheelValue(
-                                currOwner, this.lowerFlywheelSetVel, this.upperFlywheelSetVel, flywheelEvent);
+                                currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
-                            // setTilterPosition(tilterSetAngle, tilterEvent);
+                            // setTilterPosition(shootParams.tilterAngle, tilterEvent);
                             // sm.addEvent(tilterEvent);
                         }
                         sm.waitForEvents(State.SHOOT, 0.0, true);

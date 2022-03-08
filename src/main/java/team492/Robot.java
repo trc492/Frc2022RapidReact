@@ -96,7 +96,7 @@ public class Robot extends FrcRobotBase
     //
     // Miscellaneous.
     //
-    public final HashMap<String, Shooter.ShooterPreset> presets = new HashMap<>();
+    public final HashMap<String, Shooter.ShootParams> presets = new HashMap<>();
     public double lowerFlywheelUserVel;
     public double upperFlywheelUserVel;
 
@@ -195,8 +195,9 @@ public class Robot extends FrcRobotBase
         //
         // AutoAssist commands.
         //
-        presets.put("tarmac_mid", shooter.new ShooterPreset("tarmac_mid", 2000, 1900, 45.0));
-        presets.put("tarmac_auto", shooter.new ShooterPreset("tarmac_auto", 1900, 1700, 45.0));
+        presets.put("preload", shooter.new ShootParams("preload", 1900.0, 1700.0, 45.0));
+        presets.put("tarmac_mid", shooter.new ShootParams("tarmac_mid", 2000, 1900, 45.0));
+        presets.put("tarmac_auto", shooter.new ShootParams("tarmac_auto", 1900, 1700, 45.0));
 
         if (pdp != null)
         {

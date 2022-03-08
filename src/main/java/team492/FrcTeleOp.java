@@ -45,13 +45,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean controlsEnabled = false;
     private boolean flywheelEnabled = false;
     private boolean turnOffFlywheel = false;
-    private boolean reverseConveyor = false;
     private boolean tilterControl = false;
     private boolean climberControl = false;
     private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-    private Shooter.ShooterPreset preset;
 
     /**
      * Constructor: Create an instance of the object.
@@ -502,17 +500,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null);
+                    robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
                 }
-
-                // robot.shooter.shootAllBallsNoVision(
-                //     "autoAssistShoot", null, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel, 30.0);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
+                // CodeReview: Not sure if I cleaned this up correctly because I don't know the intention of the buttons.
+                // I am assuming you press the TRIGGER to aim and BUTTON2 to shoot. But this doesn't make sense to me.
+                // I was expecting you press BUTTON2 to aim and TRIGGER to shoot. Please review this review and correct
+                // appropriately.
                 if (pressed)
                 {
-                    robot.conveyor.advance();
+                    robot.shooter.shootBallAtExit("teleOp");
                 }
                 break;
 
@@ -580,27 +579,15 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.PANEL_BUTTON_RED1:
-                if (pressed)
-                {
-                    robot.intake.pickup();
-                }
-                break;
-
-            case FrcJoystick.PANEL_BUTTON_GREEN1:
-                if (pressed)
-                {
                     robot.intake.retract();
-                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_BLUE1:
-                preset = robot.presets.get("tarmac_mid");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle, true);
+                robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_mid"), true);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
-                preset = robot.presets.get("tarmac_auto");
-                robot.shooter.shootAllBallsNoVision("teleOp", null, preset.lowerFlywheelVelocity, preset.upperFlywheelVelocity, preset.tilterAngle, true);
+                robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE1:

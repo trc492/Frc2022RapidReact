@@ -357,7 +357,7 @@ public class Shooter implements TrcExclusiveSubsystem
                 flywheelVelocityTrigger.setTrigger(
                     upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
                     RobotParams.FLYWHEEL_SETTLING_TIME);
-                // Convert values back to the native unit of encoder count per second.
+                // Convert values from RPM back to the native unit of encoder count per second.
                 lowerValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
                 upperValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
                 flywheelToSpeedEvent = event;

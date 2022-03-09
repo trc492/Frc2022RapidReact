@@ -500,18 +500,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
+                    robot.shooter.shootBallAtExit("teleOp");
                 }
-                break;
+            break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                // CodeReview: Not sure if I cleaned this up correctly because I don't know the intention of the buttons.
-                // I am assuming you press the TRIGGER to aim and BUTTON2 to shoot. But this doesn't make sense to me.
-                // I was expecting you press BUTTON2 to aim and TRIGGER to shoot. Please review this review and correct
-                // appropriately.
                 if (pressed)
                 {
-                    robot.shooter.shootBallAtExit("teleOp");
+                    robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
                 }
                 break;
 

@@ -231,7 +231,10 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
-        setFlywheelValue(currOwner, 0.0, 0.0, null);
+        if (!aimOnly)
+        {
+            setFlywheelValue(currOwner, 0.0, 0.0, null);
+        }
         // tilter.cancel(currOwner);
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
         robot.robotDrive.driveBase.stop();
@@ -858,8 +861,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
                             if (debugEnabled)
                             {
-                                robot.globalTracer.traceInfo(
-                                    funcName, "NoVisionShootParams: %s", shootParams);
+                                robot.globalTracer.traceInfo(funcName, "NoVisionShootParams: %s", shootParams);
                             }
 
                             robot.shooter.setFlywheelValue(

@@ -891,8 +891,8 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
                     break;
 
-                default: 
                 case DONE:
+                default:
                     cancel();
                     break; 
             }

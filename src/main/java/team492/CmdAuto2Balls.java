@@ -191,8 +191,8 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.SHOOT);
                     break; 
 
-                default:
                 case DONE:
+                default:
                     //
                     // We are done.
                     //

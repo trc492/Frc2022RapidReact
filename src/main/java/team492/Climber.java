@@ -25,8 +25,14 @@ package team492;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
+import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcPidActuator;
+import TrcCommonLib.trclib.TrcRobot;
+import TrcCommonLib.trclib.TrcStateMachine;
+import TrcCommonLib.trclib.TrcTaskMgr;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
+import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 import TrcFrcLib.frclib.FrcPneumatic;
@@ -42,6 +48,11 @@ public class Climber
     public final FrcPneumatic climberPneumatic;
     public final FrcDigitalInput climberLowerLimitSwitch;
     public final TrcPidActuator climber;
+
+    private final TrcEvent event;
+    private final TrcTimer timer;
+    private final TrcStateMachine<State> sm;
+    private final TrcTaskMgr.TaskObject climberTaskObj;
 
     /**
      * Constructor: Create an instance of the object.
@@ -66,7 +77,12 @@ public class Climber
             //     RobotParams.CLIMBER_STALL_MIN_POWER, RobotParams.CLIMBER_STALL_TOLERANCE,
             //     RobotParams.CLIMBER_STALL_TIMEOUT, RobotParams.CLIMBER_RESET_TIMEOUT)
             .setZeroCalibratePower(RobotParams.CLIMBER_CAL_POWER);
-        climber = new TrcPidActuator("climber", climberMotor, climberLowerLimitSwitch, null, params);
+        climber = new TrcPidActuator(moduleName, climberMotor, climberLowerLimitSwitch, null, params);
+
+        event = new TrcEvent(moduleName + ".event");
+        timer = new TrcTimer(moduleName + ".timer");
+        sm = new TrcStateMachine<>(moduleName);
+        climberTaskObj = TrcTaskMgr.createTask(moduleName + ".climberTask", this::autoClimbTask);
     }   //Climber
 
     /**
@@ -105,20 +121,15 @@ public class Climber
         climber.setPower(power);
     }   //setPower
 
+    public void setPosition(double position, boolean hold, TrcEvent event)
+    {
+        climber.setTarget(position, hold, event);
+    }   //setPosition
+
     public void setPosition(double position)
     {
         climber.setTarget(position);
     }   //setPosition
-
-    public void extendFull()
-    {
-        climber.setTarget(RobotParams.CLIMBER_MAX_POS);
-    }   //extendFull
-
-    public void retractFull()
-    {
-        climber.setTarget(RobotParams.CLIMBER_MIN_POS);
-    }   //retractFull
 
     public void zeroCalibrateClimber()
     {
@@ -137,54 +148,157 @@ public class Climber
     // Climber Pneumatic methods.
     //
 
-    public void pushOut()
+    public void extendHookArm()
     {
         climberPneumatic.extend();
-    }   //pushOut
+    }   //extendHookArm
 
-    public void pullIn()
+    public void retractHookArm()
     {
         climberPneumatic.retract();
-    }   //pullIn
+    }   //retractHookArm
 
     //
-    // Climbing methods.
+    // Climbing state machine.
     //
 
-    /**
-     * Before climbing, extends the climber all the way up so that the driver can drive forward into the bar
-     */
-    public void prepareClimb()
+    private enum State
     {
-        // Stall protection is for zero calibration, turn it off for the climb.
-        climber.setStallProtection(0.0, 0.0, 0.0, 0.0);
-        //Extend pneumatic to pull out the pin
-        pushOut();
-        //No need to extend arm since it will be spring-loaded with slack in the string
-    }   //prepareClimb
+        START,
+        PULL_UP,
+        DEPLOY_HOOK_ARM,
+        UNHOOK_CLIMBER,
+        REACH_FOR_NEXT_RUNG,
+        RETRACT_HOOK_ARM,
+        DONE
+    }   //enum State
+
+    State nextStage = State.START;
+    int nextRung = 2;
+
+    public void prepareToClimb()
+    {
+        sm.start(State.START);
+        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+    }   //prepareToClimb
+
+    public void climbARung()
+    {
+        sm.start(State.PULL_UP);
+        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+    }   //climbARung
+
+    public void reachForNextRung()
+    {
+        sm.start(State.REACH_FOR_NEXT_RUNG);
+        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+    }   //reachForNextRung
 
     /**
-     * Climbing, goes from one bar to another
-     * @param goToNext Whether the robot should go to the next bar or just hang on the current bar (false for traversal)
+     * This method is called by TeleOp possibly tied to a button to execute the next stage of the climb.
      */
-    public void ascend(boolean goToNext)
+    public void executeNextState()
     {
-        //Retract pneumatic to line up for climb
-        pullIn();
-        //Retract climber, pull robot up
-        // zeroCalibrateClimber(); //CodeReview: zero calibration does not have enough power to pull the robot up????
-        retractFull();
-        if(goToNext)
+        switch (nextStage)
         {
-            //Deploy hook so that it locks on the current bar
-            pushOut();
-            //Extend climber halfway to swing robot because of CG
-            setPosition(45.0);
-            //Wait for the robot to swing back
-            //wait();
-            //Extend climber so that it hits the next bar
-            extendFull();
+            case START:
+                prepareToClimb();
+                nextStage = State.PULL_UP;
+                break;
+
+            case PULL_UP:
+                climbARung();
+                nextStage = State.REACH_FOR_NEXT_RUNG;
+                break;
+
+            case REACH_FOR_NEXT_RUNG:
+                reachForNextRung();
+                nextRung++;
+                nextStage = nextRung <= 4? State.PULL_UP: State.DONE;
+                break;
+
+            case DONE:
+            default:
+                // We are done, don't do anything.
+                break;
         }
-    }   //ascend
+    }   //executeNextState
+
+    /**
+     * This method is called to cancel the autoClimb operation.
+     */
+    public void cancel()
+    {
+        sm.stop();
+        climberTaskObj.unregisterTask();
+    }   //cancel
+
+    /**
+     * This method is called periodically to execute the auto climb task.
+     *
+     * @param taskType specifies the task type.
+     * @param runMode specifies the robot run mode.
+     */
+    private void autoClimbTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
+    {
+        State state = sm.checkReadyAndGetState();
+
+        if (state != null)
+        {
+            switch (state)
+            {
+                case START:
+                    // Extend climber to reach slightly beyond the 2nd rung.
+                    // Then let the driver drive up to the rung.
+                    retractHookArm();
+                    setPosition(63.5, false, event);
+                    sm.waitForSingleEvent(event, State.DONE);
+                    break;
+
+                case PULL_UP:
+                    // Pull robot up.
+                    setPosition(31.0, true, event);
+                    sm.waitForSingleEvent(event, State.DEPLOY_HOOK_ARM);
+                    break;
+
+                case DEPLOY_HOOK_ARM:
+                    // Deploy the hook arm to hook on the rung.
+                    extendHookArm();
+                    timer.set(0.1, event);
+                    sm.waitForSingleEvent(event, State.UNHOOK_CLIMBER);
+                    break;
+
+                case UNHOOK_CLIMBER:
+                    // Extend climber to release it from the rung.
+                    // Then let the operator decide when to extend the climber to the next rung.
+                    setPosition(45.0, true, event);
+                    sm.waitForSingleEvent(event, State.DONE);
+                    break;
+
+                case REACH_FOR_NEXT_RUNG:
+                    // Extend it fully to reach the next rung.
+                    setPosition(63.5, false, event);
+                    sm.waitForSingleEvent(event, State.RETRACT_HOOK_ARM);
+                    break;
+
+                case RETRACT_HOOK_ARM:
+                    // Retract hook arm allowing it to be unhooked from the previous rung.
+                    retractHookArm();
+                    timer.set(0.1, event);
+                    sm.waitForSingleEvent(event, State.UNHOOK_CLIMBER);
+                    break;
+
+                case DONE:
+                default: 
+                    cancel();
+                    break; 
+            }
+        }
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceStateInfo(state);
+        }
+    }   //autoClimbTask
 
 }   //class Climber

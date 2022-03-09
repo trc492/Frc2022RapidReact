@@ -700,6 +700,21 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //shootAllBallsWithVision
 
     /**
+     * This method is for TeleOp, so that the operator can just press the trigger and the shooter will fire at the
+     * preset power. The issue is that TeleOp doesn't know what the flywheels have been preset to, so this overload
+     * will achieve this.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean shootAllBallsNoVision(String owner, TrcEvent event)
+    {
+        return shootAllBallsNoVision(owner, event, shootParams, false);
+    }   //shootAllBallsNoVision
+
+    /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
      * robot is already aligned with the target. It will adjust the aim with the provided tilter angle and will spin
      * the flywheels with the given velocities.

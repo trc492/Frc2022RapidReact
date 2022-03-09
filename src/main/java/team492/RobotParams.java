@@ -309,7 +309,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.2;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 1.0;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR

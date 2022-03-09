@@ -240,7 +240,7 @@ public class Robot extends FrcRobotBase
         //
         if (runMode == RunMode.TELEOP_MODE && pdp != null)
         {
-            pdp.setSwitchableChannel(buttonPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
+            pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
         }
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
@@ -263,6 +263,10 @@ public class Robot extends FrcRobotBase
         //
         robotDrive.stopMode(runMode, nextMode);
         ledIndicator.reset();
+        if (runMode == RunMode.TELEOP_MODE && pdp != null)
+        {
+            pdp.setSwitchableChannel(false);
+        }
         //
         // Performance status report.
         //

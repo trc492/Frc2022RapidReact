@@ -49,7 +49,7 @@ public class RobotParams
         public static final boolean timDrive                    = true;
         public static final boolean showSubsystemStatus         = true;
 
-        public static final boolean debugPowerConsumption       = true;
+        public static final boolean debugPowerConsumption       = false;
         public static final boolean debugPidDrive               = false;
         public static final boolean debugDriveBase              = false;
         public static final boolean debugVision                 = false;

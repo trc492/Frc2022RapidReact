@@ -228,7 +228,6 @@ public class SwerveDrive extends RobotDrive
         TrcSwerveModule module = new TrcSwerveModule(
             name, driveMotor, new TrcEnhancedServo(name + ".enhancedServo", servo));
         module.disableSteeringLimits();
-        module.setSteerAngle(0.0, false);
 
         return module;
     }   //createSwerveModule

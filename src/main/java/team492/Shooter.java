@@ -725,6 +725,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     private void autoShootTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
     {
+        final String funcName = "autoShootTask";
         State state = sm.checkReadyAndGetState();
 
         if (state != null)
@@ -735,6 +736,11 @@ public class Shooter implements TrcExclusiveSubsystem
                     boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
                     boolean ballAtExit = robot.conveyor.isExitSensorActive();
                     State nextState;
+
+                    if (debugEnabled)
+                    {
+                        robot.globalTracer.traceInfo(funcName, "Entrance=%s, Exit=%s", ballAtEntrance, ballAtExit);
+                    }
 
                     if (ballAtExit)
                     {
@@ -769,11 +775,23 @@ public class Shooter implements TrcExclusiveSubsystem
                             double distance = TrcUtil.magnitude(robotX, robotY);
                             double theta = 90.0 - Math.abs(Math.atan(robotY / robotX));
 
+                            if (debugEnabled)
+                            {
+                                robot.globalTracer.traceInfo(
+                                    funcName, "Vision: robotX=%.1f, robotY=%.1f, distance=%.1f",
+                                    robotX, robotY, distance);
+                            }
+
                             if (robot.vision != null && robot.vision.vision.get("tv") == 1.0)
                             {
                                 // Vision detected target.
                                 alignAngle = robot.vision.vision.get("tx");
                                 aimAngle = robot.vision.vision.get("ty");
+                                if (debugEnabled)
+                                {
+                                    robot.globalTracer.traceInfo(
+                                        funcName, "Vision: alignAngle=%.1f, aimAngle=%.1f", alignAngle, aimAngle);
+                                }
                             }
 
                             if (alignAngle == null || aimAngle == null)
@@ -801,9 +819,19 @@ public class Shooter implements TrcExclusiveSubsystem
                                     alignAngle = -theta;
                                 }
                                 aimAngle = interpolateVector(distance)[1];
+                                if (debugEnabled)
+                                {
+                                    robot.globalTracer.traceInfo(
+                                        funcName, "Odometry: alignAngle=%.1f, aimAngle=%.1f", alignAngle, aimAngle);
+                                }
                             }
                             lowerFlywheelVel = interpolateVector(distance)[0];
                             upperFlywheelVel = interpolateVector(distance)[1];
+                            if (debugEnabled)
+                            {
+                                robot.globalTracer.traceInfo(
+                                    funcName, "Flywheel: lower=%.0f, upper=%.0f", lowerFlywheelVel, upperFlywheelVel);
+                            }
                             setFlywheelValue(currOwner, lowerFlywheelVel, upperFlywheelVel, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 
@@ -828,7 +856,12 @@ public class Shooter implements TrcExclusiveSubsystem
                             // robot.shooter.setFlywheelValue(
                             //     currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
 
-                            
+                            if (debugEnabled)
+                            {
+                                robot.globalTracer.traceInfo(
+                                    funcName, "NoVisionShootParams: %s", shootParams);
+                            }
+
                             robot.shooter.setFlywheelValue(
                                 currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, flywheelEvent);
                             sm.addEvent(flywheelEvent);
@@ -858,7 +891,6 @@ public class Shooter implements TrcExclusiveSubsystem
 
                 default: 
                 case DONE:
-                    robot.dashboard.displayPrintf(13, "STOP SHOOTING");
                     cancel();
                     break; 
             }

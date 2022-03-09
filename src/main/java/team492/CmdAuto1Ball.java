@@ -60,7 +60,7 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
 
         this.robot = robot;
         this.autoChoices = autoChoices;
-        timer = new TrcTimer(moduleName);
+        timer = new TrcTimer(moduleName + ".timer");
         event = new TrcEvent(moduleName + ".event");
         sm = new TrcStateMachine<>(moduleName);
         sm.start(State.START_DELAY);
@@ -153,16 +153,9 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
                     break;
 
                 case GET_OFF_TARMAC:
-                    if (expireTime == null)
-                    {
-                        expireTime = TrcUtil.getCurrentTime() + 2.0; 
-                    }
-                    else if (TrcUtil.getCurrentTime() >= expireTime)
-                    {
-                        expireTime = null; 
-                        sm.setState(State.DONE);
-                    }
                     robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
+                    timer.set(2.0, event);
+                    sm.waitForSingleEvent(event, State.DONE);
                     break;
 
                 // CodeReview: should shoot the preloaded ball first.

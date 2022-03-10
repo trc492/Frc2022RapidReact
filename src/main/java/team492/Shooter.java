@@ -871,7 +871,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             // - Aim the shooter at the pre-determined angle.
                             // - Driver is responsible for aligning the robot possibly using streaming camera
                             //   or spotlight.
-                            // robot.shooter.setFlywheelValue(
+                            // setFlywheelValue(
                             //     currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
 
                             if (debugEnabled)
@@ -879,7 +879,7 @@ public class Shooter implements TrcExclusiveSubsystem
                                 robot.globalTracer.traceInfo(funcName, "NoVisionShootParams: %s", shootParams);
                             }
 
-                            robot.shooter.setFlywheelValue(
+                            setFlywheelValue(
                                 currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, flywheelEvent);
                             sm.addEvent(flywheelEvent);
 

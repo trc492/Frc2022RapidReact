@@ -221,7 +221,8 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //createTilterMotor
 
     /**
-     * This method is called to cancel the autoShoot operation.
+     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
+     * exiting a competition mode.
      */
     public void cancel()
     {

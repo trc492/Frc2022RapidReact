@@ -220,6 +220,8 @@ public class Robot extends FrcRobotBase
     public void robotStartMode(RunMode runMode, RunMode prevMode)
     {
         final String funcName = "robotStartMode";
+
+        nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
         //
         // Read FMS Match info.
         //
@@ -261,7 +263,12 @@ public class Robot extends FrcRobotBase
         //
         // Stop subsystems.
         //
+        // Shutdown all subsystems.
         robotDrive.stopMode(runMode, nextMode);
+        intake.cancel();
+        conveyor.cancel();
+        climber.cancel();
+        shooter.cancel();
         ledIndicator.reset();
         if (runMode == RunMode.TELEOP_MODE && pdp != null)
         {

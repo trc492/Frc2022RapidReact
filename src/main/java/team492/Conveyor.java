@@ -74,6 +74,15 @@ public class Conveyor implements TrcExclusiveSubsystem
     }   //Conveyor
 
     /**
+     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
+     * exiting a competition mode.
+     */
+    public void cancel()
+    {
+        conveyorMotor.set(0.0);
+    }   //cancel
+
+    /**
      * This method registers an event handler to be notified when the entrance sensor is triggered.
      *
      * @param handler event handler to be notified.

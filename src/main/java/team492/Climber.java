@@ -225,10 +225,12 @@ public class Climber
     }   //executeNextState
 
     /**
-     * This method is called to cancel the autoClimb operation.
+     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
+     * exiting a competition mode.
      */
     public void cancel()
     {
+        climber.setPower(0.0);
         sm.stop();
         climberTaskObj.unregisterTask();
     }   //cancel

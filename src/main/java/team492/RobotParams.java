@@ -167,8 +167,8 @@ public class RobotParams
     //
     // Digital Input/Output ports.
     //
-    public static final int DIO_CONVEYOR_ENTRANCE_SENSOR        = 0;
-    public static final int DIO_CONVEYOR_EXIT_SENSOR            = 1;
+    public static final int DIO_CONVEYOR_ENTRANCE_SENSOR        = 6;
+    public static final int DIO_CONVEYOR_EXIT_SENSOR            = 7;
     public static final int DIO_CLIMBER_LOWER_LIMIT_SWITCH      = 8;
     public static final int DIO_TILTER_LOWER_LIMIT_SWITCH       = 9;
 
@@ -361,7 +361,7 @@ public class RobotParams
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
     public static final double CLIMBER_OFFSET                   = 29.6785;
-    public static final double CLIMBER_CAL_POWER                = 0.2;
+    public static final double CLIMBER_CAL_POWER                = 0.3;
     // public static final double CLIMBER_STALL_MIN_POWER          = CLIMBER_CAL_POWER - 0.1;
     // public static final double CLIMBER_STALL_TOLERANCE          = 0.1;
     // public static final double CLIMBER_STALL_TIMEOUT            = 0.1;

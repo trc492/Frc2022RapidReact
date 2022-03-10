@@ -57,6 +57,15 @@ public class Intake implements TrcExclusiveSubsystem
     }   //Intake
 
     /**
+     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
+     * exiting a competition mode.
+     */
+    public void cancel()
+    {
+        intakeMotor.set(0.0);
+    }   //cancel
+
+    /**
      * This method returns the motor power set on the intake.
      *
      * @return intake motor power.

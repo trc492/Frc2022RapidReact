@@ -100,9 +100,10 @@ public class RobotDrive
                 rfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 lbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 rbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+
                 if (RobotParams.Preferences.useGyroAssist)
                 {
-                    // driveBase.enableGyroAssist(RobotParams.GYRO_MAX_ROT_RATE, RobotParams.GYRO_ASSIST_GAIN);
+                    driveBase.enableGyroAssist(RobotParams.ROBOT_MAX_TURN_RATE, RobotParams.GYRO_ASSIST_TURN_GAIN);
                 }
             }
         }

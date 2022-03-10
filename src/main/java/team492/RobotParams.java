@@ -69,8 +69,8 @@ public class RobotParams
     //
     // Robot dimensions in inches.
     //
-    public static final double ROBOT_WIDTH                      = 28.5;     // Frame dimensions, not including bumpers.
-    public static final double ROBOT_LENGTH                     = 30.75;    // Frame dimensions, not including bumpers.
+    public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
+    public static final double ROBOT_LENGTH                     = 36.5;     // Frame dimensions, including bumpers.
 
     public static final double ROBOT_DRIVE_WIDTH                = 23.25;    // Required by swerve drive base.
     public static final double ROBOT_DRIVE_LENGTH               = 25.625;   // Required by swerve drive base.
@@ -247,9 +247,11 @@ public class RobotParams
     public static final double GYRO_TURN_KD                     = 0.0007;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
+    public static final double GYRO_ASSIST_TURN_GAIN            = 0.01;
 
-    public static final double ROBOT_MAX_VELOCITY               = 300.0;    // TODO: Needs updating
-    public static final double ROBOT_MAX_ACCELERATION           = 200.0;
+    public static final double ROBOT_MAX_VELOCITY               = 180.0;
+    public static final double ROBOT_MAX_ACCELERATION           = 2100.0;
+    public static final double ROBOT_MAX_TURN_RATE              = 1000.0;
     public static final double ROBOT_VEL_KP                     = 0.0;
     public static final double ROBOT_VEL_KI                     = 0.0;
     public static final double ROBOT_VEL_KD                     = 0.0;

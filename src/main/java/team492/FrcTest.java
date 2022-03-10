@@ -198,6 +198,7 @@ public class FrcTest extends FrcTeleOp
     private TrcRobot.RobotCommand testCommand;
     private double maxDriveVelocity = 0.0;
     private double maxDriveAcceleration = 0.0;
+    private double maxTurnRate = 0.0;
     private double prevTime = 0.0;
     private double prevVelocity = 0.0;
 
@@ -337,20 +338,21 @@ public class FrcTest extends FrcTeleOp
     @Override
     public void runPeriodic(double elapsedTime)
     {
+        if (allowTeleOp())
+        {
+            //
+            // Allow TeleOp to run so we can control the robot in subsystem test or drive speed test modes.
+            //
+            super.runPeriodic(elapsedTime);
+        }
+
         //
         // Call super.runPeriodic only if you need TeleOp control of the robot.
         //
         switch (testChoices.getTest())
         {
             case SENSORS_TEST:
-                displaySensorStates();
-                break;
-
             case SUBSYSTEMS_TEST:
-                //
-                // Allow TeleOp to run so we can control the robot in subsystems test mode.
-                //
-                super.runPeriodic(elapsedTime);
                 displaySensorStates();
                 break;
 
@@ -420,6 +422,7 @@ public class FrcTest extends FrcTeleOp
                 TrcPose2D velPose = robot.robotDrive.driveBase.getFieldVelocity();
                 double velocity = TrcUtil.magnitude(velPose.x, velPose.y);
                 double acceleration = 0.0;
+                double turnRate = robot.robotDrive.driveBase.getTurnRate();
 
                 if (prevTime != 0.0)
                 {
@@ -436,17 +439,35 @@ public class FrcTest extends FrcTeleOp
                     maxDriveAcceleration = acceleration;
                 }
 
+                if (turnRate > maxTurnRate)
+                {
+                    maxTurnRate = turnRate;
+                }
+
                 prevTime = currTime;
                 prevVelocity = velocity;
 
                 robot.dashboard.displayPrintf(9, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
                 robot.dashboard.displayPrintf(10, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
+                robot.dashboard.displayPrintf(11, "Turn Rate: (%.1f/%.1f)", turnRate, maxTurnRate);
                 break;
 
             default:
                 break;
         }
     }   //runContinuous
+
+    /**
+     * This method is called to determine if Test mode is allowed to do teleop control of the robot.
+     *
+     * @return true to allow and false otherwise.
+     */
+    private boolean allowTeleOp()
+    {
+        Test test = testChoices.getTest();
+
+        return test == Test.SUBSYSTEMS_TEST || test == Test.DRIVE_SPEED_TEST;
+    }   //allowTeleOp
 
     //
     // Overriding ButtonEvent here if necessary.

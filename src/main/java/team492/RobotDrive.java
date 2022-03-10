@@ -85,7 +85,7 @@ public class RobotDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
-            driveBase.setOdometryEnabled(true);
+            driveBase.setOdometryEnabled(true, true);
 
             if (runMode == RunMode.AUTO_MODE)
             {
@@ -100,6 +100,10 @@ public class RobotDrive
                 rfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 lbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 rbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+                if (RobotParams.Preferences.useGyroAssist)
+                {
+                    // driveBase.enableGyroAssist(RobotParams.GYRO_MAX_ROT_RATE, RobotParams.GYRO_ASSIST_GAIN);
+                }
             }
         }
     }   //startMode

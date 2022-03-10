@@ -69,11 +69,11 @@ public class RobotParams
     //
     // Robot dimensions in inches.
     //
-    public static final double ROBOT_WIDTH                      = 34.0;
-    public static final double ROBOT_LENGTH                     = 36.0;
+    public static final double ROBOT_WIDTH                      = 28.5;     // Frame dimensions, not including bumpers.
+    public static final double ROBOT_LENGTH                     = 30.75;    // Frame dimensions, not including bumpers.
 
-    public static final double ROBOT_DRIVE_WIDTH                = 21.0;
-    public static final double ROBOT_DRIVE_LENGTH               = 21.0;
+    public static final double ROBOT_DRIVE_WIDTH                = 23.25;    // Required by swerve drive base.
+    public static final double ROBOT_DRIVE_LENGTH               = 25.625;   // Required by swerve drive base.
 
     //
     // Autonomous constants.
@@ -137,22 +137,24 @@ public class RobotParams
     //
     // PDP Channels. (TODO: Need to remap these.)
     //
-    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 10;
-    public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 4;
-    public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 11;
-    public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 3;
-    public static final int PDP_CHANNEL_LEFT_FRONT_STEER        = 15;
-    public static final int PDP_CHANNEL_RIGHT_FRONT_STEER       = 6;
-    public static final int PDP_CHANNEL_LEFT_BACK_STEER         = 16;
-    public static final int PDP_CHANNEL_RIGHT_BACK_STEER        = 5;
-    public static final int PDP_CHANNEL_SHOOTER_LOWER_FLYWHEEL  = 12;
-    public static final int PDP_CHANNEL_SHOOTER_UPPER_FLYWHEEL  = 1;
-    public static final int PDP_CHANNEL_SHOOTER_TILTER          = 14;
-    public static final int PDP_CHANNEL_CLIMBER                 = 0;
-    public static final int PDP_CHANNEL_INTAKE                  = 2;
-    public static final int PDP_CHANNEL_CONVEYOR                = 13;
+    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 11;   // Orange: 40A`
+    public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 5;    // Yellow: 40A
+    public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 13;   // Green: 40A
+    public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 3;    // Blue: 40A
+    public static final int PDP_CHANNEL_LEFT_FRONT_STEER        = 10;   // Orange: 40A
+    public static final int PDP_CHANNEL_RIGHT_FRONT_STEER       = 6;    // Yellow: 40A
+    public static final int PDP_CHANNEL_LEFT_BACK_STEER         = 12;   // Green: 40A
+    public static final int PDP_CHANNEL_RIGHT_BACK_STEER        = 4;    // Blue: 40A
+    public static final int PDP_CHANNEL_SHOOTER_LOWER_FLYWHEEL  = 14;   // Gray: 40A
+    public static final int PDP_CHANNEL_SHOOTER_UPPER_FLYWHEEL  = 1;    // White: 40A
+    public static final int PDP_CHANNEL_SHOOTER_TILTER          = 16;   // Yellow: 40A
+    public static final int PDP_CHANNEL_CLIMBER                 = 0;    // Green: 40A
+    public static final int PDP_CHANNEL_INTAKE                  = 2;    // Purple: 40A
+    public static final int PDP_CHANNEL_CONVEYOR                = 15;   // Orange: 40A
+    public static final int PDP_CHANNEL_PCM                     = 9;    // 20A
 
-    public static final int PDP_CHANNEL_VRM                     = 19;
+    public static final int PDP_CHANNEL_MISC_LOW_CURRENT        = 18;   // 10A
+    public static final int PDP_CHANNEL_VRM                     = 19;   // 10A
 
     public static final double BATTERY_NOMINAL_VOLTAGE          = 12.0;
     public static final double BATTERY_CAPACITY_WATT_HOUR       = 18.0*12.0;
@@ -174,7 +176,7 @@ public class RobotParams
     // PWM channels.
     //
     public static final int PWM_CHANNEL_LED                     = 0;
-    public static final int NUM_LEDS                            = 60;
+    public static final int NUM_LEDS                            = 60;   // TODO: needs updating
 
     //
     // Relay channels.
@@ -190,6 +192,7 @@ public class RobotParams
 
     //
     // Vision subsystem.
+    // TODO: Needs updating
     //
     public static final double CAMERA_Y_OFFSET                  = 12;   // in from pivot of arm + is forward
     public static final double CAMERA_Y_OFFSET_TO_PIVOT         = 26;
@@ -232,7 +235,7 @@ public class RobotParams
     public static final double MECANUM_Y_KF                     = 0.0;
     public static final double MECANUM_Y_TOLERANCE              = 2.0;
 
-    public static final double SWERVE_INCHES_PER_COUNT          = 2.2421;
+    public static final double SWERVE_INCHES_PER_COUNT          = 2.2421;   // TODO: Needs updating
     public static final double SWERVE_KP                        = 0.011;
     public static final double SWERVE_KI                        = 0.0;
     public static final double SWERVE_KD                        = 0.0013;
@@ -245,7 +248,7 @@ public class RobotParams
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
-    public static final double ROBOT_MAX_VELOCITY               = 300.0;
+    public static final double ROBOT_MAX_VELOCITY               = 300.0;    // TODO: Needs updating
     public static final double ROBOT_MAX_ACCELERATION           = 200.0;
     public static final double ROBOT_VEL_KP                     = 0.0;
     public static final double ROBOT_VEL_KI                     = 0.0;

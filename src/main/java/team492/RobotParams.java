@@ -235,10 +235,10 @@ public class RobotParams
     public static final double MECANUM_Y_KF                     = 0.0;
     public static final double MECANUM_Y_TOLERANCE              = 2.0;
 
-    public static final double SWERVE_INCHES_PER_COUNT          = 2.2421;   // TODO: Needs updating
-    public static final double SWERVE_KP                        = 0.011;
+    public static final double SWERVE_INCHES_PER_COUNT          = 9.309492597328788e-4;
+    public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
-    public static final double SWERVE_KD                        = 0.0013;
+    public static final double SWERVE_KD                        = 0.002;
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 

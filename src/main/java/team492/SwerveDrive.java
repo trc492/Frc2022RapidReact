@@ -42,6 +42,7 @@ import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSwerveDriveBase;
 import TrcCommonLib.trclib.TrcSwerveModule;
 import TrcCommonLib.trclib.TrcUtil;
+import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcFalconServo;
 import TrcFrcLib.frclib.FrcPdp;
@@ -231,6 +232,25 @@ public class SwerveDrive extends RobotDrive
 
         return module;
     }   //createSwerveModule
+
+    /**
+     * This method is called to prepare the robot base before a robot mode is about to start.
+     *
+     * @param runMode specifies the current run mode.
+     * @param prevMode specifies the previous run mode.
+     */
+    @Override
+    public void startMode(RunMode runMode, RunMode prevMode)
+    {
+        super.startMode(runMode, prevMode);
+        if (runMode != RunMode.DISABLED_MODE)
+        {
+            lfWheel.setSteerAngle(0.0, false);
+            rfWheel.setSteerAngle(0.0, false);
+            lbWheel.setSteerAngle(0.0, false);
+            rbWheel.setSteerAngle(0.0, false);
+        }
+    }   //startMode
 
     @Override
     public void startSteerCalibrate()

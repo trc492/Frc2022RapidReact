@@ -326,11 +326,13 @@ public class SwerveDrive extends RobotDrive
      */
     public void setAntiDefenseEnabled(String owner, boolean enabled)
     {
-        if (owner == null ||
-            enabled && driveBase.acquireExclusiveAccess(owner) ||
-            !enabled && driveBase.releaseExclusiveAccess(owner))
+        if (owner == null || !enabled || driveBase.acquireExclusiveAccess(owner))
         {
             ((TrcSwerveDriveBase) driveBase).setAntiDefenseEnabled(owner, enabled);
+            if (!enabled)
+            {
+                driveBase.releaseExclusiveAccess(owner);
+            }
         }
     }   //setAntiDefenseEnabled
 

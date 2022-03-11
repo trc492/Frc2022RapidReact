@@ -47,6 +47,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean turnOffFlywheel = false;
     private boolean tilterControl = false;
     private boolean climberControl = false;
+    private boolean hookArmExtended = false;
     private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -626,7 +627,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_BLUE2:
                 if (pressed)
                 {
-                    robot.climber.climber.setTarget(31.0, true);
+                    robot.climber.climber.setTarget(26.0, true);
                 }
                 break;
 
@@ -679,6 +680,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_SWITCH_WHITE2:
+                if (pressed)
+                {
+                    hookArmExtended = !hookArmExtended;
+                    if (hookArmExtended)
+                    {
+                        robot.climber.extendHookArm();
+                    }
+                    else
+                    {
+                        robot.climber.retractHookArm();
+                    }
+                }
                 break;
 
             case FrcJoystick.PANEL_SWITCH_RED2:

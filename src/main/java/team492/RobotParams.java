@@ -42,7 +42,7 @@ public class RobotParams
         public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
-        public static final boolean useGyroAssist               = true;
+        public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = false;
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
@@ -368,7 +368,7 @@ public class RobotParams
     // public static final double CLIMBER_STALL_TIMEOUT            = 0.1;
     // public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
     public static final boolean CLIMBER_MOTOR_INVERTED          = true;
-    public static final double CLIMBER_MIN_POS                  = 29.0;
+    public static final double CLIMBER_MIN_POS                  = 20.0;
     public static final double CLIMBER_MAX_POS                  = 65.0;
 
 }   //class RobotParams

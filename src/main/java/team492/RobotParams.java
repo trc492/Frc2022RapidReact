@@ -42,7 +42,7 @@ public class RobotParams
         public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
-        public static final boolean useGyroAssist               = false;
+        public static final boolean useGyroAssist               = true;
         public static final boolean useVision                   = false;
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
@@ -235,10 +235,11 @@ public class RobotParams
     public static final double MECANUM_Y_KF                     = 0.0;
     public static final double MECANUM_Y_TOLERANCE              = 2.0;
 
-    public static final double SWERVE_INCHES_PER_COUNT          = 9.309492597328788e-4;
+    // 2022-03-10: Scale=9.250709670962152e-4, PID=0.02, 0.0, 0.005
+    public static final double SWERVE_INCHES_PER_COUNT          = 9.250709670962152e-4;
     public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
-    public static final double SWERVE_KD                        = 0.002;
+    public static final double SWERVE_KD                        = 0.005;
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
@@ -247,7 +248,7 @@ public class RobotParams
     public static final double GYRO_TURN_KD                     = 0.0007;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
-    public static final double GYRO_ASSIST_TURN_GAIN            = 0.01;
+    public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 
     public static final double ROBOT_MAX_VELOCITY               = 180.0;
     public static final double ROBOT_MAX_ACCELERATION           = 2100.0;

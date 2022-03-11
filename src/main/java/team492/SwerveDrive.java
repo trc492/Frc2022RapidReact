@@ -243,14 +243,27 @@ public class SwerveDrive extends RobotDrive
     public void startMode(RunMode runMode, RunMode prevMode)
     {
         super.startMode(runMode, prevMode);
-        if (runMode != RunMode.DISABLED_MODE)
-        {
-            lfWheel.setSteerAngle(0.0, false);
-            rfWheel.setSteerAngle(0.0, false);
-            lbWheel.setSteerAngle(0.0, false);
-            rbWheel.setSteerAngle(0.0, false);
-        }
+        lfWheel.setSteerAngle(0.0, false);
+        rfWheel.setSteerAngle(0.0, false);
+        lbWheel.setSteerAngle(0.0, false);
+        rbWheel.setSteerAngle(0.0, false);
     }   //startMode
+
+    /**
+     * This method is called to prepare the robot base right after a robot mode has been stopped.
+     *
+     * @param runMode specifies the current run mode.
+     * @param nextMode specifies the next run mode.
+     */
+    @Override
+    public void stopMode(RunMode runMode, RunMode nextMode)
+    {
+        super.stopMode(runMode, nextMode);
+        lfWheel.setSteerAngle(0.0, false);
+        rfWheel.setSteerAngle(0.0, false);
+        lbWheel.setSteerAngle(0.0, false);
+        rbWheel.setSteerAngle(0.0, false);
+    }   //stopMode
 
     @Override
     public void startSteerCalibrate()

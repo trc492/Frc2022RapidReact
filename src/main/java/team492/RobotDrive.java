@@ -119,6 +119,18 @@ public class RobotDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
+            driveBase.stop();
+
+            if (pidDrive != null && pidDrive.isActive())
+            {
+                pidDrive.cancel();
+            }
+
+            if (purePursuitDrive != null && purePursuitDrive.isActive())
+            {
+                purePursuitDrive.cancel();
+            }
+
             driveBase.setOdometryEnabled(false);
         }
     }   //stopMode

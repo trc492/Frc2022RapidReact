@@ -207,7 +207,7 @@
           "0,0": {
             "size": [
               26,
-              3
+              2
             ],
             "content": {
               "_type": "Split Button Chooser",
@@ -215,10 +215,10 @@
               "_title": "AutoStrategies"
             }
           },
-          "0,3": {
+          "0,2": {
             "size": [
               10,
-              3
+              2
             ],
             "content": {
               "_type": "Split Button Chooser",
@@ -226,7 +226,7 @@
               "_title": "StartPositions"
             }
           },
-          "0,6": {
+          "0,4": {
             "size": [
               10,
               3
@@ -237,7 +237,7 @@
               "_title": "ShooterAutoAfterAction"
             }
           },
-          "10,3": {
+          "10,2": {
             "size": [
               4,
               2
@@ -248,7 +248,7 @@
               "_title": "CustomXPos"
             }
           },
-          "14,3": {
+          "14,2": {
             "size": [
               2,
               2
@@ -678,6 +678,157 @@
                   "_title": "Solenoid[30,2]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan10",
+                  "_title": "PowerDistribution[31]/Chan10"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan11",
+                  "_title": "PowerDistribution[31]/Chan11"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan13",
+                  "_title": "PowerDistribution[31]/Chan13"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan12",
+                  "_title": "PowerDistribution[31]/Chan12"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan15",
+                  "_title": "PowerDistribution[31]/Chan15"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan14",
+                  "_title": "PowerDistribution[31]/Chan14"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan17",
+                  "_title": "PowerDistribution[31]/Chan17"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan19",
+                  "_title": "PowerDistribution[31]/Chan19"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan16",
+                  "_title": "PowerDistribution[31]/Chan16"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan18",
+                  "_title": "PowerDistribution[31]/Chan18"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan20",
+                  "_title": "PowerDistribution[31]/Chan20"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan21",
+                  "_title": "PowerDistribution[31]/Chan21"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan23",
+                  "_title": "PowerDistribution[31]/Chan23"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/TotalCurrent",
+                  "_title": "PowerDistribution[31]/TotalCurrent"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan22",
+                  "_title": "PowerDistribution[31]/Chan22"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Voltage",
+                  "_title": "PowerDistribution[31]/Voltage"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[8]/Value",
+                  "_title": "DigitalInput[8]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/SwitchableChannel",
+                  "_title": "PowerDistribution[31]/SwitchableChannel",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan2",
+                  "_title": "PowerDistribution[31]/Chan2"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan3",
+                  "_title": "PowerDistribution[31]/Chan3"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan0",
+                  "_title": "PowerDistribution[31]/Chan0"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan1",
+                  "_title": "PowerDistribution[31]/Chan1"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan6",
+                  "_title": "PowerDistribution[31]/Chan6"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan4",
+                  "_title": "PowerDistribution[31]/Chan4"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan5",
+                  "_title": "PowerDistribution[31]/Chan5"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan7",
+                  "_title": "PowerDistribution[31]/Chan7"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan9",
+                  "_title": "PowerDistribution[31]/Chan9"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[31]/Chan8",
+                  "_title": "PowerDistribution[31]/Chan8"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[9]/Value",
+                  "_title": "DigitalInput[9]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -687,9 +838,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 2.0,
-    "width": 1244.0,
-    "height": 715.0
+    "x": -5.599999904632568,
+    "y": 0.800000011920929,
+    "width": 1547.199951171875,
+    "height": 828.7999877929688
   }
 }

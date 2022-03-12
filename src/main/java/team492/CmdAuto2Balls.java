@@ -162,13 +162,13 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     if (!shootWithVision)
                     {
                         //this is shooting first ball no vision 
-                        robot.shooter.shootAllBallsNoVision(moduleName, event, robot.presets.get("preload"), false);
+                        robot.shooter.shootAllBallsNoVision(moduleName, event, "preload", false);
                         sm.waitForSingleEvent(event, State.PICKUP_BALL);
                     }
                     else
                     {
                         //this is second ball, after this we are done
-                        robot.shooter.shootAllBallsWithVision(moduleName, event);
+                        robot.shooter.shootAllBallsFullVision(moduleName, event, false);
                         sm.waitForSingleEvent(event, State.DONE);
                     }
                     break;

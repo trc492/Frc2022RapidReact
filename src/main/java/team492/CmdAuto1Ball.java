@@ -147,7 +147,7 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
                 case SHOOT_PRELOADED_BALL:
                     robot.dashboard.displayPrintf(12, "entered shoot auto");
                     //BUGBUG: fix parameters by look up table on the StartPosition.
-                    robot.shooter.shootAllBallsNoVision(moduleName, event, robot.presets.get("preload"), false);
+                    robot.shooter.shootAllBallsNoVision(moduleName, event, "preload", false);
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
                     break;
 

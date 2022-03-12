@@ -501,14 +501,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null);
+                    robot.shooter.shootAllBallsWhenReady("teleOp");
                 }
             break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
+                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_auto", true);
+                }
+                else
+                {
+                    robot.shooter.cancel();
                 }
                 break;
 
@@ -544,8 +548,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     robot.shooter.shootAllBallsNoVision(
                         "teleOp", null,
-                        robot.shooter.new ShootParams(
-                            "calibration", robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
+                        new ShootParamTable.Params(
+                            "calibration", 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
                             robot.shooter.getTilterPosition()),
                         false);
                 }
@@ -587,15 +591,32 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.PANEL_BUTTON_RED1:
+                if (pressed)
+                {
                     robot.intake.retract();
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_BLUE1:
-                robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_mid"), true);
+                if (pressed)
+                {
+                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_mid", true);
+                }
+                else
+                {
+                    robot.shooter.cancel();
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
-                robot.shooter.shootAllBallsNoVision("teleOp", null, robot.presets.get("tarmac_auto"), true);
+                if (pressed)
+                {
+                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_auto", true);
+                }
+                else
+                {
+                    robot.shooter.cancel();
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE1:

@@ -29,9 +29,9 @@ import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
 import edu.wpi.first.wpilibj.DriverStation;
 
-class CmdAuto2Balls implements TrcRobot.RobotCommand
+class CmdAuto5Balls implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto2Balls";
+    private static final String moduleName = "CmdAuto5Balls";
 
     private enum State
     {
@@ -52,9 +52,9 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
 
-    private boolean shootWithVision = false; 
-    private int pointNumber; 
-    private final TrcPose2D[] path; 
+    // private boolean shootWithVision = false;
+    // private int pointNumber;
+    // private final TrcPose2D[] path;
 
     Double expireTime; 
 
@@ -64,7 +64,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto2Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto5Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
     {
         robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
 
@@ -76,11 +76,11 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         sm.start(State.START_DELAY);
 
         // int startPos = autoChoices.getStartPos();
-        path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
-        pointNumber = 0; 
+        // path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+        //         RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
+        // pointNumber = 0; 
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
-    }   //CmdAuto2Balls
+    }   //CmdAuto5Balls
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -194,4 +194,4 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto2Balls
+}   //class CmdAuto5Balls

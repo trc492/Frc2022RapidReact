@@ -22,7 +22,6 @@
 
 package team492;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
@@ -57,7 +56,7 @@ public class Robot extends FrcRobotBase
     //
     public final FrcDashboard dashboard = FrcDashboard.getInstance();
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
-    private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
+    private double nextDashboardUpdateTime = TrcUtil.getCurrentTime();
     private boolean traceLogOpened = false;
     //
     // Inputs.
@@ -96,7 +95,6 @@ public class Robot extends FrcRobotBase
     //
     // Miscellaneous.
     //
-    public final HashMap<String, Shooter.ShootParams> presets = new HashMap<>();
     public double lowerFlywheelUserVel;
     public double upperFlywheelUserVel;
 
@@ -193,12 +191,6 @@ public class Robot extends FrcRobotBase
             shooter = new Shooter(this);
             climber = new Climber(this);
         }
-        //
-        // AutoAssist commands.
-        //
-        presets.put("preload", shooter.new ShootParams("preload", 1900.0, 1700.0, 45.0));
-        presets.put("tarmac_mid", shooter.new ShootParams("tarmac_mid", 2000, 1900, 45.0));
-        presets.put("tarmac_auto", shooter.new ShootParams("tarmac_auto", 1900, 1700, 45.0));
 
         if (pdp != null)
         {
@@ -220,8 +212,6 @@ public class Robot extends FrcRobotBase
     public void robotStartMode(RunMode runMode, RunMode prevMode)
     {
         final String funcName = "robotStartMode";
-
-        nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
         //
         // Read FMS Match info.
         //
@@ -299,7 +289,7 @@ public class Robot extends FrcRobotBase
     public void updateStatus()
     {
         final String funcName = "updateStatus";
-        double currTime = TrcUtil.getModeElapsedTime();
+        double currTime = TrcUtil.getCurrentTime();
         RunMode runMode = getCurrentRunMode();
 
         if (currTime >= nextDashboardUpdateTime)
@@ -315,10 +305,11 @@ public class Robot extends FrcRobotBase
                     dashboard.putData("Power/pdpInfo", pdp.getPdpSendable());
                     if (runMode == RunMode.TELEOP_MODE)
                     {
+                        double modeElapsedTime = TrcUtil.getModeElapsedTime();
                         globalTracer.traceInfo(
                             funcName, "[%.3f] Battery: currVoltage=%.2f, lowestVoltage=%.2f",
-                            currTime, battery.getVoltage(), battery.getLowestVoltage());
-                        globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", currTime, pdp.getTotalCurrent());
+                            modeElapsedTime, battery.getVoltage(), battery.getLowestVoltage());
+                        globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", modeElapsedTime, pdp.getTotalCurrent());
                     }
                 }
             }
@@ -396,10 +387,10 @@ public class Robot extends FrcRobotBase
                         2, "Shooter.SetVel: Lower=%.0f, Upper=%.0f, VelMode=%s",
                         lowerFlywheelUserVel, upperFlywheelUserVel, shooter.isFlywheelInVelocityMode());
                     dashboard.displayPrintf(
-                        3, "Shooter.Flywheel: OnTarget=%s, Pwr=%.1f/%.1f, Vel=%.1f/%.1f",
-                        shooter.isFlywheelVelOnTarget(),
+                        3, "Shooter.Flywheel: Pwr=%.1f/%.1f, Vel=%.1f/%.1f, OnTarget=%s",
                         shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
-                        shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity());
+                        shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity(),
+                        shooter.isFlywheelVelOnTarget());
                     dashboard.displayPrintf(
                         4, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f, limitSW=%s",
                         shooter.getTilterPower(), shooter.getTilterPosition(),

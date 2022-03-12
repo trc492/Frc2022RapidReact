@@ -81,7 +81,11 @@ public class RobotParams
     public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, 134.0);
     public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, 250.0);
 
-    //path points for each different auto path(right now only 2 ball autos)
+    //5 ball auto start point
+    public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
+    public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
+
+    //path points for each different auto path
     //first point: robot picking up the ball around the tarmacs
     //second point: robot moving into shooter position 
     //2 BALL AUTO PATH 
@@ -95,6 +99,24 @@ public class RobotParams
     {
         new TrcPose2D(128.8, -79.8, 225),
         new TrcPose2D(109, -43.2, 68)
+    };
+
+    //5 BALL AUTO PATH
+    //point 1: ball near tarmac and center of field y axis
+    //point 2: other ball near tarmac and first ball
+    //point 3: ball near human player, also where it will wait for human player ball input
+    public static final TrcPose2D[] BLUE_5_BALL_PATH = new TrcPose2D[]
+    {
+        new TrcPose2D(-25.9, -151.4, 177.0),
+        new TrcPose2D(-124.88, -88.3, 302),
+        new TrcPose2D(-282.0, -117.7, 259.5),
+    };
+
+    public static final TrcPose2D[] RED_5_BALL_PATH = new TrcPose2D[]
+    {
+        new TrcPose2D(26.5, 108.5, 358.0),
+        new TrcPose2D(125.75, 88.3, 302.0),
+        new TrcPose2D(283.5, 117, 259.5),
     };
     //
     // Joystick ports.

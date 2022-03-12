@@ -86,6 +86,11 @@ public class ShootParamTable
         Params newEntry = new Params(name, distance, lowerFlywheelVel, upperFlywheelVel, tilterAngle);
         int insertPoint = paramTable.size();
 
+        if (tilterAngle != RobotParams.TILTER_FAR_ANGLE && tilterAngle != RobotParams.TILTER_CLOSE_ANGLE)
+        {
+            throw new IllegalArgumentException("Tilter angle must either be FAR or CLOSE.");
+        }
+
         for (int i = 0; i < paramTable.size(); i++)
         {
             Params entry = paramTable.get(i);

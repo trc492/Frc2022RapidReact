@@ -392,9 +392,12 @@ public class Robot extends FrcRobotBase
                         shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity(),
                         shooter.isFlywheelVelOnTarget());
                     dashboard.displayPrintf(
-                        4, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f, limitSW=%s",
-                        shooter.getTilterPower(), shooter.getTilterPosition(),
-                        shooter.isTilterLowerLimitSwitchActive());
+                        4, "Shooter.Tilter: Far=%s, Pos=%.1f",
+                        shooter.isTilterAtFarPosition(), shooter.getTilterPosition());
+                    // dashboard.displayPrintf(
+                    //     4, "Shooter.Tilter: Pwr=%.1f, Pos=%.1f, limitSW=%s",
+                    //     shooter.getTilterPower(), shooter.getTilterPosition(),
+                    //     shooter.isTilterLowerLimitSwitchActive());
                 }
 
                 if (conveyor != null)

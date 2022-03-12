@@ -147,7 +147,7 @@ public class RobotParams
     public static final int CANID_RIGHTBACK_STEER               = 16;   // Blue: 40A
 
     public static final int CANID_CONVEYOR                      = 23;   // Orange: 40A
-    public static final int CANID_SHOOTER_TILTER                = 24;   // Yellow: ??
+    // public static final int CANID_SHOOTER_TILTER                = 24;   // Yellow: 40A
     public static final int CANID_CLIMBER                       = 25;   // Green: 40A
     public static final int CANID_INTAKE                        = 27;   // Purple: 40A
     public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 28;   // Gray: 40A
@@ -211,6 +211,8 @@ public class RobotParams
     public static final int PNEUMATIC_INTAKE_EXTEND             = 1;
     public static final int PNEUMATIC_CLIMBER_RETRACT           = 2;
     public static final int PNEUMATIC_CLIMBER_EXTEND            = 3;
+    public static final int PNEUMATIC_TILTER_RETRACT            = 4;
+    public static final int PNEUMATIC_TILTER_EXTEND             = 5;
 
     //
     // Vision subsystem.
@@ -257,7 +259,7 @@ public class RobotParams
     public static final double MECANUM_Y_KF                     = 0.0;
     public static final double MECANUM_Y_TOLERANCE              = 2.0;
 
-    // 2022-03-10: Scale=9.250709670962152e-4, PID=0.02, 0.0, 0.005
+    // 2022-03-10: Scale=9.250709670962152e-4, PID=0.02, 0.0, 0.005, Tol=2.0
     public static final double SWERVE_INCHES_PER_COUNT          = 9.250709670962152e-4;
     public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
@@ -265,6 +267,7 @@ public class RobotParams
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
+    // 2022-03-01: PID=0.007, 0.0, 0.0007, Tol=2.0
     public static final double GYRO_TURN_KP                     = 0.007;
     public static final double GYRO_TURN_KI                     = 0.0;
     public static final double GYRO_TURN_KD                     = 0.0007;
@@ -309,7 +312,7 @@ public class RobotParams
 
     // order is lf, rf, lr, rr
     // steerzeros.txt: 3974, 3748, 1192, 3487
-    public static final int[] STEER_ZEROS                       = new int[]{ 3842, 3748, 1185, 3476 };  // this is a backup if the zeros file isn't found
+    public static final int[] STEER_ZEROS                       = new int[]{ 3971, 3743, 1189, 3490 };  // this is a backup if the zeros file isn't found
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
@@ -347,23 +350,26 @@ public class RobotParams
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
 
-    public static final double TILTER_KP                        = 1.0;
-    public static final double TILTER_KI                        = 0.0;
-    public static final double TILTER_KD                        = 0.0;
-    public static final double TILTER_TOLERANCE                 = 0.1;
-    public static final int TILTER_ENCODER_PPR                  = 4096;
-    public static final double TILTER_OFFSET                    = 16.0; // Abs Enc: 1384
-    public static final int TILTER_ZERO                         = 1384;
-    // Tilter Upper Limit: Enc=1070, Deg=45
-    public static final boolean TILTER_MOTOR_INVERTED           = false;
-    public static final double TILTER_MIN_POS                   = TILTER_OFFSET;
-    public static final double TILTER_MAX_POS                   = 40.0;
-    public static final double TILTER_DEG_PER_COUNT             = Math.abs((45.0 - TILTER_OFFSET)/(1070 - TILTER_ZERO));
-    public static final double TILTER_CAL_POWER                 = 0.6;
+    // public static final double TILTER_KP                        = 1.0;
+    // public static final double TILTER_KI                        = 0.0;
+    // public static final double TILTER_KD                        = 0.0;
+    // public static final double TILTER_TOLERANCE                 = 0.1;
+    // public static final int TILTER_ENCODER_PPR                  = 4096;
+    // public static final double TILTER_OFFSET                    = 16.0; // Abs Enc: 1384
+    // public static final int TILTER_ZERO                         = 1384;
+    // // Tilter Upper Limit: Enc=1070, Deg=45
+    // public static final boolean TILTER_MOTOR_INVERTED           = false;
+    // public static final double TILTER_MIN_POS                   = TILTER_OFFSET;
+    // public static final double TILTER_MAX_POS                   = 40.0;
+    // public static final double TILTER_DEG_PER_COUNT             = Math.abs((45.0 - TILTER_OFFSET)/(1070 - TILTER_ZERO));
+    // public static final double TILTER_CAL_POWER                 = 0.6;
     // public static final double TILTER_STALL_MIN_POWER           = 0.2;
     // public static final double TILTER_STALL_TOLERANCE           = 0.2;
     // public static final double TILTER_STALL_TIMEOUT             = 0.5;
     // public static final double TILTER_RESET_TIMEOUT             = 0.5;
+    public static final double TILTER_CLOSE_ANGLE               = 45.0; // TODO: Need to measure
+    public static final double TILTER_FAR_ANGLE                 = 30.0; // TODO: Need to measure
+    public static final double TILTER_ANGLE_THRESHOLD           = 40.0; // TODO: Need to calibrate
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.6;

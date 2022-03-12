@@ -22,25 +22,18 @@
 
 package team492;
 
-import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
-import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcThresholdTrigger;
-import TrcCommonLib.trclib.TrcPidActuator.Parameters;
-import TrcCommonLib.trclib.TrcPidController.PidParameters;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
-import TrcFrcLib.frclib.FrcCANTalon;
-import TrcFrcLib.frclib.FrcDigitalInput;
+import TrcFrcLib.frclib.FrcPneumatic;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public class Shooter implements TrcExclusiveSubsystem
 {
@@ -50,9 +43,10 @@ public class Shooter implements TrcExclusiveSubsystem
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     private final TrcThresholdTrigger flywheelVelocityTrigger;
-    private final FrcCANTalon tilterMotor;
-    private final FrcDigitalInput tilterLowerLimitSwitch;
-    private final TrcPidActuator tilter;
+    private final FrcPneumatic tilterPneumatic;
+    // private final FrcCANTalon tilterMotor;
+    // private final FrcDigitalInput tilterLowerLimitSwitch;
+    // private final TrcPidActuator tilter;
     // private final TrcEvent tilterEvent;
     private final TrcEvent conveyorEvent;
     private final TrcEvent driveEvent;
@@ -60,9 +54,9 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcTaskMgr.TaskObject shooterTaskObj;
 
     private final ShootParamTable shootParamTable = new ShootParamTable()
-        .add("preload", 1.0, 1900.0, 1700.0, 45.0)
-        .add("tarmac_mid", 2.0, 2000, 1900, 45.0)
-        .add("tarmac_auto", 3.0, 1900, 1700, 45.0);
+        .add("preload", 1.0, 1900.0, 1700.0, RobotParams.TILTER_FAR_ANGLE)
+        .add("tarmac_mid", 2.0, 2000, 1900, RobotParams.TILTER_FAR_ANGLE)
+        .add("tarmac_auto", 3.0, 1900, 1700, RobotParams.TILTER_FAR_ANGLE);
 
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
@@ -94,21 +88,25 @@ public class Shooter implements TrcExclusiveSubsystem
         //
         // Create and configure Tilter related objects.
         //
-        tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
-        tilterMotor.setPositionSensorInverted(true);
-        tilterLowerLimitSwitch = new FrcDigitalInput(
-            moduleName + ".lowerLimitSwitch", RobotParams.DIO_TILTER_LOWER_LIMIT_SWITCH);
-        Parameters tilterParams = new Parameters()
-            .setPidParams(
-                new PidParameters(
-                    RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_TOLERANCE))
-            .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
-            .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
-            .setZeroCalibratePower(RobotParams.TILTER_CAL_POWER);
-            // .setStallProtectionParams(
-            //     RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
-            //     RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
-        tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, tilterLowerLimitSwitch, null, tilterParams);
+        tilterPneumatic = new FrcPneumatic(
+            moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
+            RobotParams.PNEUMATIC_TILTER_RETRACT, RobotParams.PNEUMATIC_TILTER_EXTEND);
+        // tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
+        // tilterMotor.setPositionSensorInverted(true);
+        // tilterLowerLimitSwitch = new FrcDigitalInput(
+        //     moduleName + ".lowerLimitSwitch", RobotParams.DIO_TILTER_LOWER_LIMIT_SWITCH);
+        // Parameters tilterParams = new Parameters()
+        //     .setPidParams(
+        //         new PidParameters(
+        //             RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_TOLERANCE))
+        //     .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
+        //     .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
+        //     .setZeroCalibratePower(RobotParams.TILTER_CAL_POWER);
+        //     // .setStallProtectionParams(
+        //     //     RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
+        //     //     RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
+        // tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, tilterLowerLimitSwitch, null, tilterParams);
+
         //
         // Create and initialize other objects.
         //
@@ -144,47 +142,47 @@ public class Shooter implements TrcExclusiveSubsystem
         return motor;
     }   //createFlywheelMotor
 
-    /**
-     * This method creates and confiugres a tilter motor.
-     *
-     * @param name specifies the name of the motor.
-     * @param canID specifies the CAN ID of the motor.
-     */
-    private FrcCANTalon createTilterMotor(String name, int canID)
-    {
-        FrcCANTalon motor = new FrcCANTalon(name, canID);
+    // /**
+    //  * This method creates and confiugres a tilter motor.
+    //  *
+    //  * @param name specifies the name of the motor.
+    //  * @param canID specifies the CAN ID of the motor.
+    //  */
+    // private FrcCANTalon createTilterMotor(String name, int canID)
+    // {
+    //     FrcCANTalon motor = new FrcCANTalon(name, canID);
 
-        motor.motor.configFactoryDefault();
-        // We are going with software PID control, so disable motor PID for now.
-        // motor.motor.config_kP(0, RobotParams.TILTER_KP, 10);
-        // motor.motor.config_kI(0, RobotParams.TILTER_KI, 10);
-        // motor.motor.config_kD(0, RobotParams.TILTER_KD, 10);
-        // motor.motor.config_kF(0, RobotParams.TILTER_KF, 10);
-        // motor.motor.configAllowableClosedloopError(0, RobotParams.TILTER_TOLERANCE/RobotParams.TILTER_DEG_PER_COUNT, 10);
-        motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
-        motor.motor.enableVoltageCompensation(true);
-        motor.setBrakeModeEnabled(true);
-        motor.setInverted(RobotParams.TILTER_MOTOR_INVERTED);
+    //     motor.motor.configFactoryDefault();
+    //     // We are going with software PID control, so disable motor PID for now.
+    //     // motor.motor.config_kP(0, RobotParams.TILTER_KP, 10);
+    //     // motor.motor.config_kI(0, RobotParams.TILTER_KI, 10);
+    //     // motor.motor.config_kD(0, RobotParams.TILTER_KD, 10);
+    //     // motor.motor.config_kF(0, RobotParams.TILTER_KF, 10);
+    //     // motor.motor.configAllowableClosedloopError(0, RobotParams.TILTER_TOLERANCE/RobotParams.TILTER_DEG_PER_COUNT, 10);
+    //     motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+    //     motor.motor.enableVoltageCompensation(true);
+    //     motor.setBrakeModeEnabled(true);
+    //     motor.setInverted(RobotParams.TILTER_MOTOR_INVERTED);
 
-        motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-        motor.motor.setSensorPhase(false);
-        SensorCollection sensorCollection = motor.motor.getSensorCollection();
-        sensorCollection.setPulseWidthPosition(0, 10); // reset index
-        TrcUtil.sleep(50); // guarantee reset
-        ErrorCode error = sensorCollection.syncQuadratureWithPulseWidth(0, 0, true, RobotParams.TILTER_ZERO, 10);
-        if (error != ErrorCode.OK)
-        {
-            robot.globalTracer.traceErr(moduleName, "Failed to configure encoder (error=%s).", error.name());
-        }
-        TrcUtil.sleep(50); // guarantee reset
+    //     motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+    //     motor.motor.setSensorPhase(false);
+    //     SensorCollection sensorCollection = motor.motor.getSensorCollection();
+    //     sensorCollection.setPulseWidthPosition(0, 10); // reset index
+    //     TrcUtil.sleep(50); // guarantee reset
+    //     ErrorCode error = sensorCollection.syncQuadratureWithPulseWidth(0, 0, true, RobotParams.TILTER_ZERO, 10);
+    //     if (error != ErrorCode.OK)
+    //     {
+    //         robot.globalTracer.traceErr(moduleName, "Failed to configure encoder (error=%s).", error.name());
+    //     }
+    //     TrcUtil.sleep(50); // guarantee reset
 
-        robot.globalTracer.traceInfo(
-            moduleName, "Tilter: zero=%d, pwmPos=%d, quadPos=%d, selectedPos=%f",
-            RobotParams.TILTER_ZERO, sensorCollection.getPulseWidthPosition(),
-            sensorCollection.getQuadraturePosition(), motor.motor.getSelectedSensorPosition());
+    //     robot.globalTracer.traceInfo(
+    //         moduleName, "Tilter: zero=%d, pwmPos=%d, quadPos=%d, selectedPos=%f",
+    //         RobotParams.TILTER_ZERO, sensorCollection.getPulseWidthPosition(),
+    //         sensorCollection.getQuadraturePosition(), motor.motor.getSelectedSensorPosition());
 
-        return motor;
-    }   //createTilterMotor
+    //     return motor;
+    // }   //createTilterMotor
 
     //
     // Flywheel methods.
@@ -451,125 +449,175 @@ public class Shooter implements TrcExclusiveSubsystem
     //
 
     /**
-     * This method returns the tilter lower limit switch state.
+     * This method returns the state of the tilter pneumatic.
      *
-     * @return true if lower limit switch is active, false otherwise.
+     * @return true if the tilter is at FAR position, false if at CLOSE.
      */
-    public boolean isTilterLowerLimitSwitchActive()
+    public boolean isTilterAtFarPosition()
     {
-        return tilterLowerLimitSwitch.isActive();
-    }   //isTilterLowerLimitSwitchActive
+        return tilterPneumatic.isExtended();
+    }   //isTilterAtFarPosition
 
-    /**
-     * This method enables/disables titler manual override mode.
-     *
-     * @param enable specifies true to enable manual override, false to disable.
-     */
-    public void setTilterManualOverride(boolean enable)
-    {
-        tilter.setManualOverride(enable);
-    }   //setTilterManualOverride
-
-    public void zeroCalibrateTilter()
-    {
-        tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
-    }   //zeroCalibrateTilter
-
-    /**
-     * This method returns the current power applied to the tilter motor.
-     *
-     * @return tilter motor power.
-     */
-    public double getTilterPower()
-    {
-        return tilterMotor.getMotorPower();
-    }   //getTilterPower
-
-    /**
-     * This method sets the tilter motor power.
-     *
-     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
-     *              require exclusive access.
-     * @param power specifies the tilter motor power.
-     */
-    public void setTilterPower(String owner, double power)
-    {
-        final String funcName = "setTilterPower";
-
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(funcName, "owner=%s, power=%.1f", owner, power);
-        }
-
-        if (validateOwnership(owner))
-        {
-            tilter.setPower(power);
-        }
-    }   //setTilterPower
-
-    /**
-     * This method sets the tilter motor power.
-     *
-     * @param power specifies the tilter motor power.
-     */
-    public void setTilterPower(double power)
-    {
-        setTilterPower(null, power);
-    }   //setTilterPower
-
-    /**
-     * This method returns the tilter position in degrees from horizontal.
-     *
-     * @return tilter position in degrees.
-     */
     public double getTilterPosition()
     {
-        return tilter.getPosition();
+        return isTilterAtFarPosition()? RobotParams.TILTER_FAR_ANGLE: RobotParams.TILTER_CLOSE_ANGLE;
     }   //getTilterPosition
 
     /**
-     * This method sets the tilter position.
-     *
-     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
-     *              require exclusive access.
-     * @param angle specifies the tilter angle in degrees from horizontal.
-     * @param event specifies the event to notify when the tilter has reached target, null if not provided.
+     * This method sets the tilter position to shoot close.
      */
-    public void setTilterPosition(String owner, double angle, TrcEvent event)
+    public void setTilterPositionClose()
     {
-        final String funcName = "setTilterPosition";
-
-        if (debugEnabled)
-        {
-            robot.globalTracer.traceInfo(funcName, "owner=%s, angle=%.1f, event=%s", owner, angle, event);
-        }
-
-        if (validateOwnership(owner))
-        {
-            tilter.setTarget(angle, false, event);
-        }
-    }   //setTilterPosition
+        tilterPneumatic.retract();
+    }   //setTilterPositionClose
 
     /**
-     * This method sets the tilter position.
-     *
-     * @param angle specifies the tilter angle in degrees from horizontal.
-     * @param event specifies the event to notify when the tilter has reached target, null if not provided.
+     * This method sets the tilter position to shoot far.
      */
-    public void setTilterPosition(double angle, TrcEvent event)
+    public void setTilterPositionFar()
     {
-        setTilterPosition(null, angle, event);
-    }   //setTilterPosition
+        tilterPneumatic.extend();
+    }   //setTilterPositionFar
 
     /**
-     * This method sets the tilter position.
+     * This method sets the tilter position to either CLOSE or FAR. Therefore, the position value must be one of the
+     * two preset angles. If the caller is giving us a position other than these two, we will assume FAR.
      *
-     * @param angle specifies the tilter angle in degrees from horizontal.
+     * @param position specifies the tilter position angle in degrees.
      */
-    public void setTilterPosition(double angle)
+    public void setTilterPosition(double position)
     {
-        setTilterPosition(null, angle, null);
+        if (position == RobotParams.TILTER_CLOSE_ANGLE)
+        {
+            setTilterPositionClose();
+        }
+        else
+        {
+            // If position is any random number, assume FAR.
+            setTilterPositionFar();
+        }
     }   //setTilterPosition
+
+    // /**
+    //  * This method returns the tilter lower limit switch state.
+    //  *
+    //  * @return true if lower limit switch is active, false otherwise.
+    //  */
+    // public boolean isTilterLowerLimitSwitchActive()
+    // {
+    //     return tilterLowerLimitSwitch.isActive();
+    // }   //isTilterLowerLimitSwitchActive
+
+    // /**
+    //  * This method enables/disables titler manual override mode.
+    //  *
+    //  * @param enable specifies true to enable manual override, false to disable.
+    //  */
+    // public void setTilterManualOverride(boolean enable)
+    // {
+    //     tilter.setManualOverride(enable);
+    // }   //setTilterManualOverride
+
+    // public void zeroCalibrateTilter()
+    // {
+    //     tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
+    // }   //zeroCalibrateTilter
+
+    // /**
+    //  * This method returns the current power applied to the tilter motor.
+    //  *
+    //  * @return tilter motor power.
+    //  */
+    // public double getTilterPower()
+    // {
+    //     return tilterMotor.getMotorPower();
+    // }   //getTilterPower
+
+    // /**
+    //  * This method sets the tilter motor power.
+    //  *
+    //  * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+    //  *              require exclusive access.
+    //  * @param power specifies the tilter motor power.
+    //  */
+    // public void setTilterPower(String owner, double power)
+    // {
+    //     final String funcName = "setTilterPower";
+
+    //     if (debugEnabled)
+    //     {
+    //         robot.globalTracer.traceInfo(funcName, "owner=%s, power=%.1f", owner, power);
+    //     }
+
+    //     if (validateOwnership(owner))
+    //     {
+    //         tilter.setPower(power);
+    //     }
+    // }   //setTilterPower
+
+    // /**
+    //  * This method sets the tilter motor power.
+    //  *
+    //  * @param power specifies the tilter motor power.
+    //  */
+    // public void setTilterPower(double power)
+    // {
+    //     setTilterPower(null, power);
+    // }   //setTilterPower
+
+    // /**
+    //  * This method returns the tilter position in degrees from horizontal.
+    //  *
+    //  * @return tilter position in degrees.
+    //  */
+    // public double getTilterPosition()
+    // {
+    //     return tilter.getPosition();
+    // }   //getTilterPosition
+
+    // /**
+    //  * This method sets the tilter position.
+    //  *
+    //  * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+    //  *              require exclusive access.
+    //  * @param angle specifies the tilter angle in degrees from horizontal.
+    //  * @param event specifies the event to notify when the tilter has reached target, null if not provided.
+    //  */
+    // public void setTilterPosition(String owner, double angle, TrcEvent event)
+    // {
+    //     final String funcName = "setTilterPosition";
+
+    //     if (debugEnabled)
+    //     {
+    //         robot.globalTracer.traceInfo(funcName, "owner=%s, angle=%.1f, event=%s", owner, angle, event);
+    //     }
+
+    //     if (validateOwnership(owner))
+    //     {
+    //         tilter.setTarget(angle, false, event);
+    //     }
+    // }   //setTilterPosition
+
+    // /**
+    //  * This method sets the tilter position.
+    //  *
+    //  * @param angle specifies the tilter angle in degrees from horizontal.
+    //  * @param event specifies the event to notify when the tilter has reached target, null if not provided.
+    //  */
+    // public void setTilterPosition(double angle, TrcEvent event)
+    // {
+    //     setTilterPosition(null, angle, event);
+    // }   //setTilterPosition
+
+    // /**
+    //  * This method sets the tilter position.
+    //  *
+    //  * @param angle specifies the tilter angle in degrees from horizontal.
+    //  */
+    // public void setTilterPosition(double angle)
+    // {
+    //     setTilterPosition(null, angle, null);
+    // }   //setTilterPosition
 
     //
     // Auto-Assist Shooting.
@@ -614,6 +662,7 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishShootingEvent.signal();
             onFinishShootingEvent = null;
         }
+
         sm.stop();
         shooterTaskObj.unregisterTask();
     }   //cancel
@@ -858,8 +907,13 @@ public class Shooter implements TrcExclusiveSubsystem
                                 shootParams = shootParamTable.get(distance);
                                 if (aimAngle == null)
                                 {
-                                    // Vision did not detect target, use the distance to interpolate the aim angle.
+                                    // Vision did not detect target, use the angle from the interpolated shoot params.
                                     aimAngle = shootParams.tilterAngle;
+                                }
+                                else
+                                {
+                                    aimAngle = aimAngle > RobotParams.TILTER_ANGLE_THRESHOLD?
+                                        RobotParams.TILTER_CLOSE_ANGLE: RobotParams.TILTER_FAR_ANGLE;
                                 }
 
                                 if (debugEnabled)
@@ -906,6 +960,8 @@ public class Shooter implements TrcExclusiveSubsystem
                                 currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity,
                                 null);
 
+                            // Pneumatic takes hardly any time, so fire and forget.
+                            setTilterPosition(aimAngle);
                             // setTilterPosition(currOwner, aimAngle, tilterEvent);
                             // sm.addEvent(tilterEvent);
 
@@ -915,9 +971,8 @@ public class Shooter implements TrcExclusiveSubsystem
                                     robot.robotDrive.driveBase.getXPosition(),
                                     robot.robotDrive.driveBase.getYPosition(),
                                     alignAngle));
-                            sm.addEvent(driveEvent);
 
-                            sm.waitForEvents(nextState, 0.0, true);
+                            sm.waitForSingleEvent(driveEvent, nextState);
                         }
                         else
                         {
@@ -926,9 +981,6 @@ public class Shooter implements TrcExclusiveSubsystem
                             // - Aim the shooter at the pre-determined angle.
                             // - Driver is responsible for aligning the robot possibly using streaming camera
                             //   or spotlight.
-                            // setFlywheelValue(
-                            //     currOwner, lowerFlywheelSetVel, upperFlywheelSetVel, flywheelEvent);
-
                             if (debugEnabled)
                             {
                                 robot.globalTracer.traceInfo(funcName, "NoVisionShootParams: %s", shootParams);
@@ -938,10 +990,13 @@ public class Shooter implements TrcExclusiveSubsystem
                                 currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity,
                                 null);
 
-                            sm.setState(nextState);
+                            // Pneumatic takes hardly any time, so fire and forget.
+                            setTilterPosition(shootParams.tilterAngle);
                             // setTilterPosition(shootParams.tilterAngle, tilterEvent);
                             // sm.addEvent(tilterEvent);
                             // sm.waitForSingleEvent(tilterEvent, nextState);
+
+                            sm.setState(nextState);
                         }
                     }
                     else

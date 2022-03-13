@@ -55,9 +55,11 @@ public class Shooter implements TrcExclusiveSubsystem
 
     // TODO: Need to measure the distances and determine the tilter angles.
     private final ShootParamTable shootParamTable = new ShootParamTable()
-        .add("preload", 1.0, 1900.0, 1700.0, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("tarmac_mid", 2.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("tarmac_auto", 3.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE);
+        .add("tarmac_mid", 1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("tarmac_auto", 2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("ring_mid", 3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("launchpad", 4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+        .add("tower", 5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE);
 
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;

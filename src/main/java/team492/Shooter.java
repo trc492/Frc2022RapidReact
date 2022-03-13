@@ -53,6 +53,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcStateMachine<State> sm;
     private final TrcTaskMgr.TaskObject shooterTaskObj;
 
+    // TODO: Need to measure the distances and determine the tilter angles.
     private final ShootParamTable shootParamTable = new ShootParamTable()
         .add("preload", 1.0, 1900.0, 1700.0, RobotParams.TILTER_FAR_ANGLE)
         .add("tarmac_mid", 2.0, 2000, 1900, RobotParams.TILTER_FAR_ANGLE)
@@ -61,6 +62,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
+    private boolean readyToShoot = false;
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
@@ -458,6 +460,11 @@ public class Shooter implements TrcExclusiveSubsystem
         return tilterPneumatic.isExtended();
     }   //isTilterAtFarPosition
 
+    /**
+     * This method returns the current tilter position in degrees.
+     *
+     * @return tilter poosition in degrees.
+     */
     public double getTilterPosition()
     {
         return isTilterAtFarPosition()? RobotParams.TILTER_FAR_ANGLE: RobotParams.TILTER_CLOSE_ANGLE;
@@ -644,11 +651,12 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
+        robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
         setFlywheelValue(currOwner, 0.0, 0.0, null);
         // tilter.cancel(currOwner);
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
-        robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
         robot.robotDrive.driveBase.stop();
+
         if (currOwner != null)
         {
             this.releaseExclusiveAccess(currOwner);
@@ -663,6 +671,7 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishShootingEvent = null;
         }
 
+        readyToShoot = false;
         sm.stop();
         shooterTaskObj.unregisterTask();
     }   //cancel
@@ -686,6 +695,7 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.conveyor.acquireExclusiveAccess(owner) &&
             (!usingVision || robot.robotDrive.driveBase.acquireExclusiveAccess(owner)))
         {
+            readyToShoot = false;
             currOwner = owner;
             onFinishShootingEvent = event;
             sm.start(State.START);
@@ -813,7 +823,9 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBallsWhenReady(String owner)
     {
-        if (validateOwnership(owner))
+        // readyToShoot is set to true only if we have aligned, aimed and spun up the flywheels.
+        // If we haven't done that, don't allow the shoot operation.
+        if (readyToShoot && validateOwnership(owner))
         {
             sm.start(State.SHOOT_WHEN_READY);
         }
@@ -1007,6 +1019,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
                 case PREP_TO_SHOOT:
                     robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                    readyToShoot = true;
                     if (aimOnly)
                     {
                         // This must be from TeleOp. Done for now and wait for the operator to press the shoot

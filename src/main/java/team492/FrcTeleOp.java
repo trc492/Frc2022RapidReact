@@ -666,10 +666,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW2:
-                if (pressed)
-                {
-                    // robot.shooter.zeroCalibrateTilter();
-                }
+                // if (pressed)
+                // {
+                //     robot.shooter.zeroCalibrateTilter();
+                // }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE2:

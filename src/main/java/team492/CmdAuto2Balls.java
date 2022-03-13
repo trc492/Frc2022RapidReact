@@ -39,6 +39,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         SHOOT,
         PICKUP_BALL,
         DRIVE_TO_SHOOT_POSITION,
+
         DONE
     }   //enum State
 
@@ -50,9 +51,13 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
 
     private boolean shootWithVision = false; 
     private int pointNumber; 
-    private final TrcPose2D[] path; 
 
+    private  TrcPose2D[] path; 
     Double expireTime; 
+    private boolean pidOnly = true;
+    //may convert this into an autochoice  
+    private boolean pickupFirst = true; 
+    State nextState = null; 
 
     /**
      * Constructor: Create an instance of the object.
@@ -72,8 +77,11 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         sm.start(State.START_DELAY);
 
         // int startPos = autoChoices.getStartPos();
-        path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
+        if(!pidOnly){
+            path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+            RobotParams.RED_2_BALL_PATH: RobotParams.BLUE_2_BALL_PATH;
+        }
+
         pointNumber = 0; 
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
     }   //CmdAuto2Balls
@@ -136,9 +144,19 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+                    if(pickupFirst){
+                        TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
+                            RobotParams.RED_START_POS_2_BALL_PICKUP_FIRST: RobotParams.BLUE_START_POS_2_BALL_PICKUP_FIRST;
+                            robot.robotDrive.driveBase.setFieldPosition(startPose);
+                        nextState = State.PICKUP_BALL; 
+                    }
+                    else{
+                        TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
                         RobotParams.RED_START_POS_2_BALL: RobotParams.BLUE_START_POS_2_BALL;
-                    robot.robotDrive.driveBase.setFieldPosition(startPose);
+                        robot.robotDrive.driveBase.setFieldPosition(startPose); 
+                        //shootWithVision is false
+                        nextState = State.SHOOT; 
+                    }
                     //
                     // Do start delay if any.
                     //
@@ -148,17 +166,16 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.SHOOT);
+                        sm.setState(nextState);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.SHOOT);
+                        sm.waitForSingleEvent(event, nextState);
                         break;
                     }
 
                 case SHOOT:
-                    //BUGBUG: fix parameters by look up table on the StartPosition.
                     if (!shootWithVision)
                     {
                         //this is shooting first ball no vision 
@@ -168,27 +185,43 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     else
                     {
                         //this is second ball, after this we are done
-                        robot.shooter.shootAllBallsFullVision(moduleName, event, false);
+                        //TODO change this preset 
+                        robot.shooter.shootAllBallsVisionAlignment(moduleName, event, "tarmac_mid", false);
                         sm.waitForSingleEvent(event, State.DONE);
                     }
                     break;
 
                 case PICKUP_BALL:
                     //drive to point while running intake
-                    //move on to shoot state when intake has a ball 
-                    //after first ball use vision to shoot 
-                    robot.robotDrive.purePursuitDrive.start(
-                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                    //move on to drive to shoot position when intake has a ball 
+                    //shootWithVision  true because next ball(s) shot with vision
+                    if(pidOnly){
+                        robot.robotDrive.pidDrive.setRelativeYTarget(40, null);
+                    }
+                    else{
+                        pointNumber++; 
+                        robot.robotDrive.purePursuitDrive.start(
+                            null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                    }
+       
                     robot.intake.pickup(event);
                     shootWithVision = true; 
-                    pointNumber++; 
                     sm.waitForSingleEvent(event, State.DRIVE_TO_SHOOT_POSITION);
                     break;
 
                 case DRIVE_TO_SHOOT_POSITION:
-                    robot.robotDrive.purePursuitDrive.start(
-                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                    //if pid only this is just turning to face the goal 
+                    if(pidOnly){
+                        //adding 180 to turn makes the robot face target pretty well for red and blue 
+                        double turnDelta = 180; 
+                        robot.robotDrive.pidDrive.setRelativeTurnTarget(turnDelta, event);
+                    }
+                    else{
+                        robot.robotDrive.purePursuitDrive.start(
+                            event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                    }
                     sm.waitForSingleEvent(event, State.SHOOT);
+
                     break; 
 
                 case DONE:

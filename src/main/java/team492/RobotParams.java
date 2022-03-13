@@ -78,8 +78,11 @@ public class RobotParams
     //
     // Autonomous constants.
     //
-    public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, 134.0);
-    public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, 250.0);
+    //2 ball auto
+    public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, -134.0);
+    public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, -250.0);
+    public static final TrcPose2D RED_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(83.4, -42.0, 132.0);
+    public static final TrcPose2D BLUE_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(-85.3, 41.1, 316);
 
     //5 ball auto start point
     public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
@@ -91,14 +94,14 @@ public class RobotParams
     //2 BALL AUTO PATH 
     public static final TrcPose2D[] BLUE_2_BALL_PATH = new TrcPose2D[]
     {
-        new TrcPose2D(-119, 73.7, 47),
-        new TrcPose2D(-119, 73.7, 238)
+        new TrcPose2D(-119, 73.7, -47),
+        new TrcPose2D(-119, 73.7, -238)
     };
 
     public static final TrcPose2D[] RED_2_BALL_PATH = new TrcPose2D[]
     {
-        new TrcPose2D(128.8, -79.8, 225),
-        new TrcPose2D(109, -43.2, 68)
+        new TrcPose2D(128.8, -79.8, -225),
+        new TrcPose2D(109, -43.2, -68)
     };
 
     //5 BALL AUTO PATH

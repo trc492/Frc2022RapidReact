@@ -263,6 +263,29 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //getUpperFlywheelPower
 
     /**
+     * This method stops both flywheels.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     */
+    public void stopFlywheel(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            lowerFlywheelMotor.stopMotor();
+            upperFlywheelMotor.stopMotor();
+        }
+    }   //stopFlywheel
+
+    /**
+     * This method stops both flywheels.
+     */
+    public void stopFlywheel()
+    {
+        stopFlywheel(null);
+    }   //stopFlywheel
+
+    /**
      * This method sets the flywheel power or velocity depending on if flywheel velocity mode is enabled.
      *
      * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not

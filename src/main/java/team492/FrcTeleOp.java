@@ -493,7 +493,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
      */
     private void operatorStickButtonEvent(int button, boolean pressed)
     {
-        System.out.println("entered operator event");
         robot.dashboard.displayPrintf(
             8, "   OperatorStick: button=0x%04x %s", button, pressed ? "pressed" : "released");
 

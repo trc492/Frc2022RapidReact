@@ -149,8 +149,8 @@ public class RobotParams
     public static final int CANID_LEFTBACK_STEER                = 15;   // Green: 40A
     public static final int CANID_RIGHTBACK_STEER               = 16;   // Blue: 40A
 
-    public static final int CANID_CONVEYOR                      = 23;   // Orange: 40A
-    // public static final int CANID_SHOOTER_TILTER                = 24;   // Yellow: 40A
+    public static final int CANID_SPARE                         = 23;   // Orange: 40A
+    public static final int CANID_CONVEYOR                      = 24;   // Yellow: 40A
     public static final int CANID_CLIMBER                       = 25;   // Green: 40A
     public static final int CANID_INTAKE                        = 27;   // Purple: 40A
     public static final int CANID_SHOOTER_LOWER_FLYWHEEL        = 28;   // Gray: 40A
@@ -172,10 +172,10 @@ public class RobotParams
     public static final int PDP_CHANNEL_RIGHT_BACK_STEER        = 4;    // Blue: 40A
     public static final int PDP_CHANNEL_SHOOTER_LOWER_FLYWHEEL  = 14;   // Gray: 40A
     public static final int PDP_CHANNEL_SHOOTER_UPPER_FLYWHEEL  = 1;    // White: 40A
-    public static final int PDP_CHANNEL_SHOOTER_TILTER          = 16;   // Yellow: 40A
+    public static final int PDP_CHANNEL_CONVEYOR                = 16;   // Yellow: 40A
     public static final int PDP_CHANNEL_CLIMBER                 = 0;    // Green: 40A
     public static final int PDP_CHANNEL_INTAKE                  = 2;    // Purple: 40A
-    public static final int PDP_CHANNEL_CONVEYOR                = 15;   // Orange: 40A
+    public static final int PDP_CHANNEL_SPARE                   = 15;   // Orange: 40A
     public static final int PDP_CHANNEL_PCM                     = 9;    // 20A
 
     public static final int PDP_CHANNEL_MISC_LOW_CURRENT        = 18;   // 10A

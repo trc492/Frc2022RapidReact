@@ -370,9 +370,9 @@ public class RobotParams
     // public static final double TILTER_STALL_TOLERANCE           = 0.2;
     // public static final double TILTER_STALL_TIMEOUT             = 0.5;
     // public static final double TILTER_RESET_TIMEOUT             = 0.5;
-    public static final double TILTER_CLOSE_ANGLE               = 45.0; // TODO: Need to measure
-    public static final double TILTER_FAR_ANGLE                 = 30.0; // TODO: Need to measure
-    public static final double TILTER_ANGLE_THRESHOLD           = 40.0; // TODO: Need to calibrate
+    public static final double TILTER_CLOSE_ANGLE               = 43.0;
+    public static final double TILTER_FAR_ANGLE                 = 31.0;
+    public static final double TILTER_ANGLE_THRESHOLD           = 35.0; // TODO: Need to calibrate with LimeLight for this.
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.6;
@@ -381,8 +381,8 @@ public class RobotParams
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
-    public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=false;
-    public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = false;
+    public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=true;
+    public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = true;
     public static final double CONVEYOR_MOVE_POWER              = 0.5;
 
     // Climber subsystem.

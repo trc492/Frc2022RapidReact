@@ -48,6 +48,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean tilterControl = false;
     private boolean climberControl = false;
     private boolean hookArmExtended = false;
+    private boolean tilterClose = false;
     private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
     private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
@@ -561,6 +562,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:
+                if (pressed)
+                {
+                    tilterClose = !tilterClose;
+                    if (tilterClose)
+                    {
+                        robot.shooter.setTilterPositionClose();
+                    }
+                    else
+                    {
+                        robot.shooter.setTilterPositionFar();
+                    }
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON9:

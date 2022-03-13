@@ -675,7 +675,8 @@ public class Shooter implements TrcExclusiveSubsystem
         }
 
         robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
-        setFlywheelValue(currOwner, 0.0, 0.0, null);
+        //when we cancel auto task we still want flywheels to be up 
+        //setFlywheelValue(currOwner, 0.0, 0.0, null);
         // tilter.cancel(currOwner);
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
         robot.robotDrive.driveBase.stop();

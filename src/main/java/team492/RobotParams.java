@@ -70,11 +70,22 @@ public class RobotParams
     //
     // Robot dimensions in inches.
     //
-    public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
-    public static final double ROBOT_LENGTH                     = 36.5;     // Frame dimensions, including bumpers.
-
     public static final double ROBOT_DRIVE_WIDTH                = 23.25;    // Required by swerve drive base.
     public static final double ROBOT_DRIVE_LENGTH               = 25.625;   // Required by swerve drive base.
+
+    public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
+    public static final double ROBOT_LENGTH                     = 37.0;     // Frame dimensions, including bumpers.
+
+    //
+    // Vision subsystem.
+    //
+    public static final double CAMERA_Y_OFFSET                  = 2.5;  // Inches from the center of the robot
+    public static final double CAMERA_X_OFFSET                  = 0.0;  // Inches from the center of the robot
+    public static final double CAMERA_HEIGHT                    = 22.0; // Inches from the floor
+    public static final double CAMERA_ANGLE                     = 37.0; // Degrees from horizontal
+    public static final double CAMERA_DATA_TIMEOUT              = 0.5;  // 500ms
+    public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
+    public static final double VISION_TARGET_RADIUS             = 53.375;// Inches
 
     //
     // Autonomous constants.
@@ -202,7 +213,7 @@ public class RobotParams
     // PWM channels.
     //
     public static final int PWM_CHANNEL_LED                     = 0;
-    public static final int NUM_LEDS                            = 60;   // TODO: needs updating
+    public static final int NUM_LEDS                            = 30;   // TODO: needs updating
 
     //
     // Relay channels.
@@ -217,17 +228,6 @@ public class RobotParams
     public static final int PNEUMATIC_CLIMBER_EXTEND            = 3;
     public static final int PNEUMATIC_TILTER_RETRACT            = 4;
     public static final int PNEUMATIC_TILTER_EXTEND             = 5;
-
-    //
-    // Vision subsystem.
-    // TODO: Needs updating
-    //
-    public static final double CAMERA_Y_OFFSET                  = 12;   // in from pivot of arm + is forward
-    public static final double CAMERA_X_OFFSET                  = 0;    //Inches from pivot of arm to center of camera, + = right
-    public static final double CAMERA_HEIGHT                    = 15.0;
-    public static final double CAMERA_ANGLE                     = 30.6;
-    public static final double CAMERA_DATA_TIMEOUT              = 0.5;  //500ms
-    public static final double VISION_HIGH_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
 
     //
     // Ultrasonic sensors.

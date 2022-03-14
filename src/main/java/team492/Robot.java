@@ -374,12 +374,13 @@ public class Robot extends FrcRobotBase
                     if (RobotParams.Preferences.debugVision)
                     {
                         dashboard.displayPrintf(
-                            9, "VisionTarget: x=%.1f,y=%.1f,objectYaw=%.1f", pose.x, pose.y, pose.objectYaw);
+                            9, "VisionTarget: x=%.1f,y=%.1f,distance=%.1f,objectYaw=%.1f",
+                            pose.x, pose.y, distanceToTarget, pose.objectYaw);
                     }
                 }
                 else if (RobotParams.Preferences.debugVision)
                 {
-                    dashboard.displayPrintf(10, "VisionTarget: No target found!");
+                    dashboard.displayPrintf(9, "VisionTarget: No target found!");
                 }
             }
 

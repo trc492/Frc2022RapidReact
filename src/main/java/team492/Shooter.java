@@ -690,6 +690,8 @@ public class Shooter implements TrcExclusiveSubsystem
 
         if (state != null)
         {
+            double matchTime = TrcUtil.getModeElapsedTime();
+
             switch (state)
             {
                 case START:
@@ -725,7 +727,6 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // alignAngle is absolute field heading.
                         Double alignAngle = null;
-                        double matchTime = TrcUtil.getModeElapsedTime();
                         // Before we can shoot, we need to:
                         // - Spin the flywheel to the proper speed.
                         // - Aim the shooter at the target.
@@ -838,8 +839,23 @@ public class Shooter implements TrcExclusiveSubsystem
                         double xPower = inputs[0];
                         double yPower = inputs[1];
                         double rotPower = alignPidCtrl.getOutput();
-    
-                        if (readyToShoot && alignPidCtrl.isOnTarget())
+                        boolean onTarget = alignPidCtrl.isOnTarget();
+
+                        if (RobotParams.Preferences.debugShooter)
+                        {
+                            robot.dashboard.displayPrintf(
+                                10, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, onTarget);
+                        }
+
+                        if (debugEnabled)
+                        {
+                            robot.globalTracer.traceInfo(
+                                funcName,
+                                "[%.3f] Drivebase: x=%.1f, y=%1.f, rot=%.1f, onTarget=%s",
+                                matchTime, xPower, yPower, rotPower, onTarget);
+                        }
+
+                        if (readyToShoot && onTarget)
                         {
                             robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
@@ -862,6 +878,12 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (isFlywheelVelOnTarget())
                         {
                             robot.conveyor.advance(currOwner, conveyorEvent);
+                            if (debugEnabled)
+                            {
+                                robot.globalTracer.traceInfo(
+                                    funcName, "Shoot a ball (lowerFlywheel=%.0f, upperFlywheel=%.0f).",
+                                    getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
+                            }
                             sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                         }
                     }
@@ -869,6 +891,10 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
                         robot.conveyor.advance(currOwner, conveyorEvent);
+                        if (debugEnabled)
+                        {
+                            robot.globalTracer.traceInfo(funcName, "Advance ball to exit.");
+                        }
                         sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                     }
                     else

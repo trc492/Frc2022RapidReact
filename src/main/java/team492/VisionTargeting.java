@@ -39,6 +39,12 @@ public class VisionTargeting
         vision.setOffsets(RobotParams.CAMERA_X_OFFSET, RobotParams.CAMERA_Y_OFFSET);
 //        vision.setOffsets(-2.5, 32);
         vision.setFreshnessTimeout(RobotParams.CAMERA_DATA_TIMEOUT);
+        vision.setRingLightEnabled(false);
+    }
+
+    public void setLightEnabled(boolean enabled)
+    {
+        vision.setRingLightEnabled(enabled);
     }
 
     public double getTargetDepth()

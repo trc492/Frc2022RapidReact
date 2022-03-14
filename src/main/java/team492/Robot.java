@@ -179,6 +179,7 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useVision)
         {
             vision = new VisionTargeting();
+            vision.vision.selectPipeline(0);
         }
         //
         // Create and initialize other subsystems.
@@ -234,6 +235,10 @@ public class Robot extends FrcRobotBase
         {
             pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
         }
+        if (vision != null)
+        {
+            vision.setLightEnabled(true);
+        }
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
         // shooter.zeroCalibrateTilter();
@@ -254,6 +259,10 @@ public class Robot extends FrcRobotBase
         // Stop subsystems.
         //
         // Shutdown all subsystems.
+        if (vision != null)
+        {
+            vision.setLightEnabled(false);
+        }
         robotDrive.stopMode(runMode, nextMode);
         intake.cancel();
         conveyor.cancel();
@@ -356,21 +365,23 @@ public class Robot extends FrcRobotBase
                 }
             }
 
-            if (RobotParams.Preferences.debugVision)
+            if (vision != null)
             {
-                if (vision != null)
-                {
-                    FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
+                FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
 
-                    if (pose != null)
+                if (pose != null)
+                {
+                    double distanceToTarget = TrcUtil.magnitude(pose.x, pose.y);
+                    dashboard.putNumber("Camera/distanceToTarget", distanceToTarget);
+                    if (RobotParams.Preferences.debugVision)
                     {
                         dashboard.displayPrintf(
                             9, "VisionTarget: x=%.1f,y=%.1f,objectYaw=%.1f", pose.x, pose.y, pose.objectYaw);
                     }
-                    else
-                    {
-                        dashboard.displayPrintf(10, "VisionTarget: No target found!");
-                    }
+                }
+                else if (RobotParams.Preferences.debugVision)
+                {
+                    dashboard.displayPrintf(10, "VisionTarget: No target found!");
                 }
             }
 

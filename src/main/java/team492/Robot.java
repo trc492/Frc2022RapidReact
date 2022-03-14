@@ -369,13 +369,18 @@ public class Robot extends FrcRobotBase
 
                 if (pose != null)
                 {
-                    double distanceToTarget = TrcUtil.magnitude(pose.x, pose.y);
-                    dashboard.putNumber("Camera/distanceToTarget", distanceToTarget);
+                    double horiAngle = vision.getTargetHorizontalAngle();
+                    double vertAngle = vision.getTargetVerticalAngle();
+                    double distanceToTarget = vision.getTargetDistance();
+                    dashboard.putNumber("Camera/distance", distanceToTarget + RobotParams.VISION_TARGET_RADIUS);
+                    dashboard.putNumber("Camera/horiAngle", horiAngle);
+                    dashboard.putNumber("Camera/vertAngle", vertAngle);
                     if (RobotParams.Preferences.debugVision)
                     {
                         dashboard.displayPrintf(
-                            9, "VisionTarget: x=%.1f,y=%.1f,distance=%.1f,objectYaw=%.1f",
-                            pose.x, pose.y, distanceToTarget, pose.objectYaw);
+                            9, "VisionTarget: x=%.1f,y=%.1f,depth=%.1f/%.1f,horiAngle=%.1f,vertAngle=%.1f",
+                            pose.x, pose.y, pose.r, distanceToTarget + RobotParams.VISION_TARGET_RADIUS, horiAngle,
+                            vertAngle);
                     }
                 }
                 else if (RobotParams.Preferences.debugVision)

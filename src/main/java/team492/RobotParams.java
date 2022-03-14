@@ -52,7 +52,7 @@ public class RobotParams
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugPidDrive               = false;
         public static final boolean debugDriveBase              = false;
-        public static final boolean debugVision                 = false;
+        public static final boolean debugVision                 = true;
         public static final boolean debugShooter                = true;
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
@@ -85,7 +85,8 @@ public class RobotParams
     public static final double CAMERA_ANGLE                     = 37.0; // Degrees from horizontal
     public static final double CAMERA_DATA_TIMEOUT              = 0.5;  // 500ms
     public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
-    public static final double VISION_TARGET_RADIUS             = 53.375;// Inches
+    public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
+    public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
 
     //
     // Autonomous constants.

@@ -98,6 +98,7 @@ public class Shooter implements TrcExclusiveSubsystem
         tilterPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_TILTER_RETRACT, RobotParams.PNEUMATIC_TILTER_EXTEND);
+        tilterPneumatic.retract();
         //
         // Create and initialize other objects.
         //
@@ -739,16 +740,16 @@ public class Shooter implements TrcExclusiveSubsystem
 
                         if (usingVision && robot.vision != null)
                         {
-                            RelativePose targetPose = robot.vision.getLastPose();
-
-                            if (targetPose != null)
+                            if (robot.vision.targetAcquired())
                             {
-                                alignAngle = targetPose.theta + robot.robotDrive.driveBase.getHeading();
+                                alignAngle = robot.vision.getTargetHorizontalAngle() +
+                                             robot.robotDrive.driveBase.getHeading();
                                 if (shootParams == null)
                                 {
                                     // Caller did not provide shootParams (i.e. full vision), using vision
                                     // detected distance to interpolate shootParams.
-                                    shootParams = shootParamTable.get(targetPose.r + RobotParams.VISION_TARGET_RADIUS);
+                                    shootParams = shootParamTable.get(
+                                        robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
                                 }
 
                                 if (debugEnabled)

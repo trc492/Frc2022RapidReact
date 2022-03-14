@@ -48,15 +48,25 @@ public class VisionTargeting
         vision.setRingLightEnabled(enabled? RingLightMode.ON: RingLightMode.OFF);
     }
 
-    public double getTargetDepth()
+    public boolean targetAcquired()
     {
-        return vision.getTargetDepth();
-    }
+        return vision.targetDetected();
+    }   //targetAcquired
 
-    public double getTargetElevation()
+    public double getTargetHorizontalAngle()
+    {
+        return vision.getHeading();
+    }   //getTargetHorizontalAngle
+
+    public double getTargetVerticalAngle()
     {
         return vision.getElevation() + RobotParams.CAMERA_ANGLE;
-    }
+    }   //getTargetVerticalAngle
+
+    public double getTargetDistance()
+    {
+        return vision.getTargetDepth() * RobotParams.VISION_DISTANCE_FUDGE_FACTOR;
+    }   //getTargetDistance
 
     public FrcRemoteVisionProcessor.RelativePose getLastPose()
     {

@@ -52,6 +52,7 @@ public class Intake implements TrcExclusiveSubsystem
         intakePneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_INTAKE_RETRACT, RobotParams.PNEUMATIC_INTAKE_EXTEND);
+        intakePneumatic.retract();
 
         robot.conveyor.registerEntranceEventHandler(this::conveyorEntranceTrigger);
     }   //Intake

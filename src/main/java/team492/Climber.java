@@ -66,6 +66,8 @@ public class Climber
         climberPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_CLIMBER_RETRACT, RobotParams.PNEUMATIC_CLIMBER_EXTEND);
+        climberPneumatic.retract();
+
         climberLowerLimitSwitch = new FrcDigitalInput(
             moduleName + ".lowerLimitSwitch", RobotParams.DIO_CLIMBER_LOWER_LIMIT_SWITCH);
         Parameters params = new Parameters()

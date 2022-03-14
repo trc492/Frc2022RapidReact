@@ -24,6 +24,7 @@ package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
+import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
@@ -38,7 +39,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
-    private static final boolean debugEnabled = false;
+    private static final boolean debugEnabled = true;
 
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
@@ -59,7 +60,13 @@ public class Shooter implements TrcExclusiveSubsystem
         .add("tarmac_auto", 2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
         .add("ring_mid", 3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
         .add("launchpad", 4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        .add("tower", 5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE);
+        .add("tower", 5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("13ft", 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
+        //15 - Tilter 31, 2000, 2400, later 2100, 2300
+        //12 - Tilter 31, 2100, 2000 (ballpark)
+        //Tarmac front edge (10ft) - Tilter 43, 1900, 1900 (Tilter 43, 2000, 1900)
+        .add("15ft", 15.0*12.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add("18ft", 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
 
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
@@ -676,7 +683,7 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
-        robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
+        // robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
         //when we cancel auto task we still want flywheels to be up 
         //setFlywheelValue(currOwner, 0.0, 0.0, null);
         // tilter.cancel(currOwner);
@@ -1003,12 +1010,17 @@ public class Shooter implements TrcExclusiveSubsystem
                             // setTilterPosition(currOwner, aimAngle, tilterEvent);
                             // sm.addEvent(tilterEvent);
 
-                            robot.robotDrive.purePursuitDrive.start(
-                                driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
-                                new TrcPose2D(
-                                    robot.robotDrive.driveBase.getXPosition(),
-                                    robot.robotDrive.driveBase.getYPosition(),
-                                    alignAngle));
+                            robot.dashboard.displayPrintf(14, "Align Angle:%.1f", alignAngle);
+                            robot.robotDrive.setGyroPidConstants(true);
+                            robot.robotDrive.pidDrive.setRelativeTurnTarget(alignAngle, driveEvent);
+                            robot.robotDrive.setGyroPidConstants(false);
+
+                            // robot.robotDrive.purePursuitDrive.start(
+                            //     driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
+                            //     new TrcPose2D(
+                            //         robot.robotDrive.driveBase.getXPosition(),
+                            //         robot.robotDrive.driveBase.getYPosition(),
+                            //         alignAngle));
 
                             sm.waitForSingleEvent(driveEvent, nextState);
                         }
@@ -1044,7 +1056,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     break;
 
                 case PREP_TO_SHOOT:
-                    robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                    // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                     readyToShoot = true;
                     if (aimOnly)
                     {

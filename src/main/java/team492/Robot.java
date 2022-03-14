@@ -179,7 +179,6 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useVision)
         {
             vision = new VisionTargeting();
-            vision.vision.selectPipeline(0);
         }
         //
         // Create and initialize other subsystems.
@@ -237,7 +236,7 @@ public class Robot extends FrcRobotBase
         }
         if (vision != null)
         {
-            vision.setLightEnabled(true);
+            vision.setEnabled(true);
         }
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
@@ -258,10 +257,9 @@ public class Robot extends FrcRobotBase
         //
         // Stop subsystems.
         //
-        // Shutdown all subsystems.
         if (vision != null)
         {
-            vision.setLightEnabled(false);
+            vision.setEnabled(false);
         }
         robotDrive.stopMode(runMode, nextMode);
         intake.cancel();

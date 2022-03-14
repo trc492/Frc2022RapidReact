@@ -36,6 +36,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
+        PREPARE_TO_SHOOT,
         SHOOT,
         PICKUP_BALL,
         DRIVE_TO_SHOOT_POSITION,
@@ -155,7 +156,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                         RobotParams.RED_START_POS_2_BALL: RobotParams.BLUE_START_POS_2_BALL;
                         robot.robotDrive.driveBase.setFieldPosition(startPose); 
                         //shootWithVision is false
-                        nextState = State.SHOOT; 
+                        nextState = State.PREPARE_TO_SHOOT;
                     }
                     //
                     // Do start delay if any.
@@ -175,20 +176,24 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                         break;
                     }
 
-                case SHOOT:
+                case PREPARE_TO_SHOOT:
                     if (!shootWithVision)
                     {
-                        //this is shooting first ball no vision 
-                        robot.shooter.shootAllBallsNoVision(moduleName, event, "preload", false);
-                        sm.waitForSingleEvent(event, State.PICKUP_BALL);
+                        //this is shooting first ball no vision
+                        robot.shooter.prepareToShootWithVision(moduleName, event, "preload");
                     }
                     else
                     {
                         //this is second ball, after this we are done
-                        //TODO change this preset 
-                        robot.shooter.shootAllBallsVisionAlignment(moduleName, event, "tarmac_mid", false);
-                        sm.waitForSingleEvent(event, State.DONE);
+                        //TODO change this preset
+                        robot.shooter.prepareToShootWithVision(moduleName, event, "tarmac_mid");
                     }
+                    sm.waitForSingleEvent(event, State.SHOOT);
+                    break;
+
+                case SHOOT:
+                    robot.shooter.shootAllBalls(moduleName, event);
+                    sm.waitForSingleEvent(event, shootWithVision? State.DONE: State.PICKUP_BALL);
                     break;
 
                 case PICKUP_BALL:

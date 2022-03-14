@@ -25,7 +25,6 @@ package team492;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidController;
-import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
@@ -34,6 +33,7 @@ import TrcCommonLib.trclib.TrcThresholdTrigger;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
+import TrcFrcLib.frclib.FrcRemoteVisionProcessor.RelativePose;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public class Shooter implements TrcExclusiveSubsystem
@@ -45,28 +45,24 @@ public class Shooter implements TrcExclusiveSubsystem
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     private final TrcThresholdTrigger flywheelVelocityTrigger;
     private final FrcPneumatic tilterPneumatic;
-    // private final FrcCANTalon tilterMotor;
-    // private final FrcDigitalInput tilterLowerLimitSwitch;
-    // private final TrcPidActuator tilter;
-    // private final TrcEvent tilterEvent;
     private final TrcEvent conveyorEvent;
-    private final TrcEvent driveEvent;
     private final TrcStateMachine<State> sm;
+    private final TrcPidController alignPidCtrl;
     private final TrcTaskMgr.TaskObject shooterTaskObj;
 
     // TODO: Need to measure the distances and determine the tilter angles.
     private final ShootParamTable shootParamTable = new ShootParamTable()
-        .add("tarmac_mid", 1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("tarmac_mid",  1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
         .add("tarmac_auto", 2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("ring_mid", 3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("launchpad", 4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        .add("tower", 5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("13ft", 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
+        .add("ring_mid",    3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("launchpad",   4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+        .add("tower",       5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        .add("13ft",        156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
         //15 - Tilter 31, 2000, 2400, later 2100, 2300
         //12 - Tilter 31, 2100, 2000 (ballpark)
         //Tarmac front edge (10ft) - Tilter 43, 1900, 1900 (Tilter 43, 2000, 1900)
-        .add("15ft", 15.0*12.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
-        .add("18ft", 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
+        .add("15ft",        180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add("18ft",        216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
 
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
@@ -75,8 +71,8 @@ public class Shooter implements TrcExclusiveSubsystem
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
-    private boolean aimOnly = false;
-    private TrcEvent onFinishShootingEvent = null;
+    private boolean isAuto = false;
+    private TrcEvent onFinishEvent = null;
 
     /**
      * Constructor: Create an instance of the object.
@@ -102,29 +98,18 @@ public class Shooter implements TrcExclusiveSubsystem
         tilterPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
             RobotParams.PNEUMATIC_TILTER_RETRACT, RobotParams.PNEUMATIC_TILTER_EXTEND);
-        // tilterMotor = createTilterMotor(moduleName + ".tilterMotor", RobotParams.CANID_SHOOTER_TILTER);
-        // tilterMotor.setPositionSensorInverted(true);
-        // tilterLowerLimitSwitch = new FrcDigitalInput(
-        //     moduleName + ".lowerLimitSwitch", RobotParams.DIO_TILTER_LOWER_LIMIT_SWITCH);
-        // Parameters tilterParams = new Parameters()
-        //     .setPidParams(
-        //         new PidParameters(
-        //             RobotParams.TILTER_KP, RobotParams.TILTER_KI, RobotParams.TILTER_KD, RobotParams.TILTER_TOLERANCE))
-        //     .setPosRange(RobotParams.TILTER_MIN_POS, RobotParams.TILTER_MAX_POS)
-        //     .setScaleOffset(RobotParams.TILTER_DEG_PER_COUNT, RobotParams.TILTER_OFFSET)
-        //     .setZeroCalibratePower(RobotParams.TILTER_CAL_POWER);
-        //     // .setStallProtectionParams(
-        //     //     RobotParams.TILTER_STALL_MIN_POWER, RobotParams.TILTER_STALL_TOLERANCE,
-        //     //     RobotParams.TILTER_STALL_TIMEOUT, RobotParams.TILTER_RESET_TIMEOUT);
-        // tilter = new TrcPidActuator(moduleName + ".tilter", tilterMotor, tilterLowerLimitSwitch, null, tilterParams);
-
         //
         // Create and initialize other objects.
         //
-        // tilterEvent = new TrcEvent(moduleName + ".tilterEvent");
         conveyorEvent = new TrcEvent(moduleName + ".conveyorEvent");
-        driveEvent = new TrcEvent(moduleName + ".driveEvent");
         sm = new TrcStateMachine<>(moduleName);
+        TrcPidController.PidCoefficients alignPidCoeff = new TrcPidController.PidCoefficients(
+            RobotParams.GYRO_ALIGN_KP, RobotParams.GYRO_ALIGN_KI, RobotParams.GYRO_ALIGN_KD);
+        alignPidCtrl = new TrcPidController(
+            "aligPidCtrl", alignPidCoeff, RobotParams.GYRO_ALIGN_TOLERANCE, this::getTargetAngle);
+        alignPidCtrl.setAbsoluteSetPoint(true);
+        alignPidCtrl.setInverted(true);
+        alignPidCtrl.setTarget(0.0);
         shooterTaskObj = TrcTaskMgr.createTask(moduleName + ".shooterTask", this::autoShootTask);
     }   //Shooter
 
@@ -152,48 +137,6 @@ public class Shooter implements TrcExclusiveSubsystem
 
         return motor;
     }   //createFlywheelMotor
-
-    // /**
-    //  * This method creates and confiugres a tilter motor.
-    //  *
-    //  * @param name specifies the name of the motor.
-    //  * @param canID specifies the CAN ID of the motor.
-    //  */
-    // private FrcCANTalon createTilterMotor(String name, int canID)
-    // {
-    //     FrcCANTalon motor = new FrcCANTalon(name, canID);
-
-    //     motor.motor.configFactoryDefault();
-    //     // We are going with software PID control, so disable motor PID for now.
-    //     // motor.motor.config_kP(0, RobotParams.TILTER_KP, 10);
-    //     // motor.motor.config_kI(0, RobotParams.TILTER_KI, 10);
-    //     // motor.motor.config_kD(0, RobotParams.TILTER_KD, 10);
-    //     // motor.motor.config_kF(0, RobotParams.TILTER_KF, 10);
-    //     // motor.motor.configAllowableClosedloopError(0, RobotParams.TILTER_TOLERANCE/RobotParams.TILTER_DEG_PER_COUNT, 10);
-    //     motor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
-    //     motor.motor.enableVoltageCompensation(true);
-    //     motor.setBrakeModeEnabled(true);
-    //     motor.setInverted(RobotParams.TILTER_MOTOR_INVERTED);
-
-    //     motor.motor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-    //     motor.motor.setSensorPhase(false);
-    //     SensorCollection sensorCollection = motor.motor.getSensorCollection();
-    //     sensorCollection.setPulseWidthPosition(0, 10); // reset index
-    //     TrcUtil.sleep(50); // guarantee reset
-    //     ErrorCode error = sensorCollection.syncQuadratureWithPulseWidth(0, 0, true, RobotParams.TILTER_ZERO, 10);
-    //     if (error != ErrorCode.OK)
-    //     {
-    //         robot.globalTracer.traceErr(moduleName, "Failed to configure encoder (error=%s).", error.name());
-    //     }
-    //     TrcUtil.sleep(50); // guarantee reset
-
-    //     robot.globalTracer.traceInfo(
-    //         moduleName, "Tilter: zero=%d, pwmPos=%d, quadPos=%d, selectedPos=%f",
-    //         RobotParams.TILTER_ZERO, sensorCollection.getPulseWidthPosition(),
-    //         sensorCollection.getQuadraturePosition(), motor.motor.getSelectedSensorPosition());
-
-    //     return motor;
-    // }   //createTilterMotor
 
     //
     // Flywheel methods.
@@ -537,127 +480,6 @@ public class Shooter implements TrcExclusiveSubsystem
         }
     }   //setTilterPosition
 
-    // /**
-    //  * This method returns the tilter lower limit switch state.
-    //  *
-    //  * @return true if lower limit switch is active, false otherwise.
-    //  */
-    // public boolean isTilterLowerLimitSwitchActive()
-    // {
-    //     return tilterLowerLimitSwitch.isActive();
-    // }   //isTilterLowerLimitSwitchActive
-
-    // /**
-    //  * This method enables/disables titler manual override mode.
-    //  *
-    //  * @param enable specifies true to enable manual override, false to disable.
-    //  */
-    // public void setTilterManualOverride(boolean enable)
-    // {
-    //     tilter.setManualOverride(enable);
-    // }   //setTilterManualOverride
-
-    // public void zeroCalibrateTilter()
-    // {
-    //     tilter.zeroCalibrate(RobotParams.TILTER_CAL_POWER);
-    // }   //zeroCalibrateTilter
-
-    // /**
-    //  * This method returns the current power applied to the tilter motor.
-    //  *
-    //  * @return tilter motor power.
-    //  */
-    // public double getTilterPower()
-    // {
-    //     return tilterMotor.getMotorPower();
-    // }   //getTilterPower
-
-    // /**
-    //  * This method sets the tilter motor power.
-    //  *
-    //  * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
-    //  *              require exclusive access.
-    //  * @param power specifies the tilter motor power.
-    //  */
-    // public void setTilterPower(String owner, double power)
-    // {
-    //     final String funcName = "setTilterPower";
-
-    //     if (debugEnabled)
-    //     {
-    //         robot.globalTracer.traceInfo(funcName, "owner=%s, power=%.1f", owner, power);
-    //     }
-
-    //     if (validateOwnership(owner))
-    //     {
-    //         tilter.setPower(power);
-    //     }
-    // }   //setTilterPower
-
-    // /**
-    //  * This method sets the tilter motor power.
-    //  *
-    //  * @param power specifies the tilter motor power.
-    //  */
-    // public void setTilterPower(double power)
-    // {
-    //     setTilterPower(null, power);
-    // }   //setTilterPower
-
-    // /**
-    //  * This method returns the tilter position in degrees from horizontal.
-    //  *
-    //  * @return tilter position in degrees.
-    //  */
-    // public double getTilterPosition()
-    // {
-    //     return tilter.getPosition();
-    // }   //getTilterPosition
-
-    // /**
-    //  * This method sets the tilter position.
-    //  *
-    //  * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
-    //  *              require exclusive access.
-    //  * @param angle specifies the tilter angle in degrees from horizontal.
-    //  * @param event specifies the event to notify when the tilter has reached target, null if not provided.
-    //  */
-    // public void setTilterPosition(String owner, double angle, TrcEvent event)
-    // {
-    //     final String funcName = "setTilterPosition";
-
-    //     if (debugEnabled)
-    //     {
-    //         robot.globalTracer.traceInfo(funcName, "owner=%s, angle=%.1f, event=%s", owner, angle, event);
-    //     }
-
-    //     if (validateOwnership(owner))
-    //     {
-    //         tilter.setTarget(angle, false, event);
-    //     }
-    // }   //setTilterPosition
-
-    // /**
-    //  * This method sets the tilter position.
-    //  *
-    //  * @param angle specifies the tilter angle in degrees from horizontal.
-    //  * @param event specifies the event to notify when the tilter has reached target, null if not provided.
-    //  */
-    // public void setTilterPosition(double angle, TrcEvent event)
-    // {
-    //     setTilterPosition(null, angle, event);
-    // }   //setTilterPosition
-
-    // /**
-    //  * This method sets the tilter position.
-    //  *
-    //  * @param angle specifies the tilter angle in degrees from horizontal.
-    //  */
-    // public void setTilterPosition(double angle)
-    // {
-    //     setTilterPosition(null, angle, null);
-    // }   //setTilterPosition
-
     //
     // Auto-Assist Shooting.
     //
@@ -671,8 +493,8 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //enum State
 
     /**
-     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
-     * exiting a competition mode.
+     * This method is called to cancel any pending operations and stop the subsystems. It is typically called before
+     * exiting the competition mode.
      */
     public void cancel()
     {
@@ -683,12 +505,10 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
-        // robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
-        //when we cancel auto task we still want flywheels to be up 
-        //setFlywheelValue(currOwner, 0.0, 0.0, null);
-        // tilter.cancel(currOwner);
+        // Don't stop the flywheels, we still want flywheels to be spinning to save time to spin down and up again for
+        // subsequent shooting. 
         robot.conveyor.setPower(currOwner, 0.0, 0.0, 0.0, null);
-        robot.robotDrive.driveBase.stop();
+        robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
 
         if (currOwner != null)
         {
@@ -698,20 +518,23 @@ public class Shooter implements TrcExclusiveSubsystem
             currOwner = null;
         }
 
-        if (onFinishShootingEvent != null)
+        if (onFinishEvent != null)
         {
-            onFinishShootingEvent.signal();
-            onFinishShootingEvent = null;
+            onFinishEvent.signal();
+            onFinishEvent = null;
         }
 
+        alignPidCtrl.reset();
         readyToShoot = false;
+        usingVision = false;
+        isAuto = false;
         sm.stop();
         shooterTaskObj.unregisterTask();
     }   //cancel
 
     /**
-     * This method is the worker preparing to shoot all balls. It is called by both shootAllBallsWithVision or
-     * shootAllBallsNoVision.
+     * This method is the worker preparing to shoot all balls. It is called by both prepareToShootWithVision or
+     * prepareToShootNoVision.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
@@ -730,7 +553,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             readyToShoot = false;
             currOwner = owner;
-            onFinishShootingEvent = event;
+            onFinishEvent = event;
             sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
@@ -744,125 +567,115 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //prepareToShoot
 
     /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor using full vision. It will use
-     * vision info to align the robot and use odometry info for looking up shoot parameters in the preset table to
-     * aim and determine flywheel velocities for the shooting.
+     * This method starts the auto shoot operation to shoot all balls in the conveyor using vision. The caller can
+     * optionally provide shootParams to augment vision such as in TeleOp for shooting from preset spots. shootParams
+     * can be null when called from autonomous where it will use vision info to determine shootParams.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
+     * @param shootParams specifies the shoot parameters for flywheel velocities and tilter angle, can be null if not
+     *        provided (i.e. in autonomous).
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBallsFullVision(String owner, TrcEvent event, boolean aimOnly)
+    public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
     {
         usingVision = true;
-        shootParams = null;
-        this.aimOnly = aimOnly;
+        this.shootParams = shootParams;
         return prepareToShoot(owner, event);
-    }   //shootAllBallsFullVision
+    }   //prepareToShootWithVision
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor using vision only for alignment.
      * The caller will provide the preset table entry for the rest of the shooting parameters.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @param presetName specifies name of the preset table entry for shoot parameters.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean prepareToShootWithVision(String owner, TrcEvent event, String presetName)
+    {
+        return prepareToShootWithVision(owner, event, shootParamTable.get(presetName));
+    }   //prepareToShootWithVision
+
+    /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor using only vision.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @param isAuto specifies true if called by autonomous, false otherwise.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean prepareToShootWithVision(String owner, TrcEvent event, boolean isAuto)
+    {
+        this.isAuto = isAuto;
+        return prepareToShootWithVision(owner, event, (ShootParamTable.Params) null);
+    }   //prepareToShootWithVision
+
+    /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor without vision. The caller must
+     * provide shootParams.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
      * @param shootParams specifies the shoot parameters for flywheel velocities and tilter angle.
-     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBallsVisionAlignment(
-        String owner, TrcEvent event, ShootParamTable.Params shootParams, boolean aimOnly)
-    {
-        if (shootParams != null)
-        {
-            usingVision = true;
-            this.shootParams = shootParams;
-            this.aimOnly = aimOnly;
-            return prepareToShoot(owner, event);
-        }
-
-        return false;
-    }   //shootAllBallsVisionAlignment
-
-    /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor using vision only for alignment.
-     * The caller will provide the preset table entry for the rest of the shooting parameters.
-     *
-     * @param owner specifies the owner ID who is shooting.
-     * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param presetName specifies name of the preset table entry for shoot parameters.
-     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
-     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
-     *         of the involved subsystems).
-     */
-    public boolean shootAllBallsVisionAlignment(String owner, TrcEvent event, String presetName, boolean aimOnly)
-    {
-        return shootAllBallsVisionAlignment(owner, event, shootParamTable.get(presetName), aimOnly);
-    }   //shootAllBallsVisionAlignment
-
-    /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
-     * robot is already aligned with the target. It will adjust the aim and spin the flywheels with the provided shoot
-     * parameters.
-     *
-     * @param owner specifies the owner ID who is shooting.
-     * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param shootParams specifies the shooter parameters for shooting.
-     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
-     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
-     *         of the involved subsystems).
-     */
-    public boolean shootAllBallsNoVision(
-        String owner, TrcEvent event, ShootParamTable.Params shootParams, boolean aimOnly)
+    public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
     {
         if (shootParams == null)
         {
-            throw new IllegalArgumentException("shootAllBallsNoVision must provide shootParams.");
+            throw new IllegalArgumentException("prepareToShootNoVision must provide shootParams.");
         }
 
         usingVision = false;
         this.shootParams = shootParams;
-        this.aimOnly = aimOnly;
         return prepareToShoot(owner, event);
-    }   //shootAllBallsNoVision
+    }   //prepareToShootNoVision
 
     /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor with no vision. It assumes the
-     * robot is already aligned with the target. It will adjust the aim and spin the flywheels with the provided shoot
-     * parameters.
+     * This method starts the auto shoot operation to shoot all balls in the conveyor without vision. The caller must
+     * provide shootParams.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
      * @param presetName specifies name of the preset table entry for shoot parameters.
-     * @param aimOnly specifies true if aiming target only and no shooting, false to also shoot.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean shootAllBallsNoVision(String owner, TrcEvent event, String presetName, boolean aimOnly)
+    public boolean prepareToShootNoVision(String owner, TrcEvent event, String presetName)
     {
-        return shootAllBallsNoVision(owner, event, shootParamTable.get(presetName), aimOnly);
-    }   //shootAllBallsNoVision
+        return prepareToShootNoVision(owner, event, shootParamTable.get(presetName));
+    }   //prepareToShootWithVision
 
     /**
-     * This method assumes the robot is aligned with the target, the shooter has aimed at the target and the flywheels
-     * have been started. Once the flywheel is up to speed, it will shoot all balls in the conveyor. This is intended
-     * to be called by TeleOp responding to the shoot trigger. It assumes a separate button has been pressed that did
-     * a shootAllBallsVisionAlignment which resulted in the robot aligning and aiming at the target already.
+     * This method shoots all balls in the conveyor.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     */
+    public void shootAllBalls(String owner, TrcEvent event)
+    {
+        if (validateOwnership(owner))
+        {
+            readyToShoot = true;
+            onFinishEvent = event;
+        }
+    }   //shootAllBalls
+
+    /**
+     * This method shoots all balls in the conveyor.
      *
      * @param owner specifies the owner ID who is shooting.
      */
-    public void shootAllBallsWhenReady(String owner)
+    public void shootAllBalls(String owner)
     {
-        // readyToShoot is set to true only if we have aligned, aimed and spun up the flywheels.
-        // If we haven't done that, don't allow the shoot operation.
-        if (readyToShoot && validateOwnership(owner))
-        {
-            sm.start(State.SHOOT_WHEN_READY);
-        }
-    }   //shootAllBallsWhenReady
+        shootAllBalls(owner, null);
+    }   //shootAllBalls
 
     /**
      * This method is called periodically to execute the auto shoot task.
@@ -882,7 +695,7 @@ public class Shooter implements TrcExclusiveSubsystem
                 case START:
                     boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
                     boolean ballAtExit = robot.conveyor.isExitSensorActive();
-                    State nextState;
+                    State nextState = null;
 
                     if (debugEnabled)
                     {
@@ -897,9 +710,8 @@ public class Shooter implements TrcExclusiveSubsystem
                     else if (ballAtEntrance)
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
-                        nextState = State.PREP_TO_SHOOT;
                         robot.conveyor.advance(currOwner, conveyorEvent);
-                        sm.addEvent(conveyorEvent);
+                        sm.waitForSingleEvent(conveyorEvent, State.PREP_TO_SHOOT);
                     }
                     else
                     {
@@ -907,167 +719,136 @@ public class Shooter implements TrcExclusiveSubsystem
                         nextState = State.DONE;
                     }
 
-                    if (nextState == State.PREP_TO_SHOOT)
+                    // If nextState is null, we are advancing the ball in the conveyor which means the next state will
+                    // be PREP_TO_SHOOT also.
+                    if (nextState == null || nextState == State.PREP_TO_SHOOT)
                     {
+                        // alignAngle is absolute field heading.
+                        Double alignAngle = null;
+                        double matchTime = TrcUtil.getModeElapsedTime();
                         // Before we can shoot, we need to:
                         // - Spin the flywheel to the proper speed.
                         // - Aim the shooter at the target.
                         // - Align the robot to the target.
-                        if (usingVision)
+                        if (debugEnabled && shootParams != null)
                         {
-                            Double alignAngle = null, aimAngle = null;
-                            double distance;
-                            double robotX = robot.robotDrive.driveBase.getXPosition();
-                            double robotY = robot.robotDrive.driveBase.getYPosition();
+                            robot.globalTracer.traceInfo(
+                                funcName, "[%.3f] Provided: shootParams=%s", matchTime, shootParams);
+                        }
 
-                            if (robot.vision != null && robot.vision.vision.get("tv") == 1.0)
+                        if (usingVision && robot.vision != null)
+                        {
+                            RelativePose targetPose = robot.vision.getLastPose();
+
+                            if (targetPose != null)
                             {
-                                // Vision detected target.
-                                alignAngle = robot.vision.vision.get("tx");
-                                aimAngle = robot.vision.vision.get("ty");
+                                alignAngle = targetPose.theta + robot.robotDrive.driveBase.getHeading();
+                                if (shootParams == null)
+                                {
+                                    // Caller did not provide shootParams (i.e. full vision), using vision
+                                    // detected distance to interpolate shootParams.
+                                    shootParams = shootParamTable.get(robot.vision.getTargetElevation());
+                                }
+
                                 if (debugEnabled)
                                 {
                                     robot.globalTracer.traceInfo(
-                                        funcName, "Vision: alignAngle=%.1f, aimAngle=%.1f", alignAngle, aimAngle);
+                                        funcName, "[%.3f] Vision: alignAngle=%.1f, shootParams=%s",
+                                        matchTime, alignAngle, shootParams);
                                 }
                             }
+                        }
 
-                            if (shootParams != null)
+                        if (shootParams == null || alignAngle == null)
+                        {
+                            // Caller did not provide shootParams and vision did not detect target or we are shooting
+                            // with no vision, use robot odometry to get distance to target and interpolate shootParams
+                            // from it.
+                            double robotX = robot.robotDrive.driveBase.getXPosition();
+                            double robotY = robot.robotDrive.driveBase.getYPosition();
+                            double distance = TrcUtil.magnitude(robotX, robotY);
+                            double theta = 90.0 - Math.abs(Math.atan(robotY / robotX));
+
+                            if (robotX > 0.0 && robotY > 0.0)
                             {
-                                // If shootParams are provided, use the provided distance and aimAngle instead because
-                                // vision doesn't provide distance and the vision aimAngle doesn't account real world
-                                // factors so the calibrated aimAngle in the preset table is more accurate.
-                                // We still use the alignAngle from vision because that should be reliable.
-                                distance = shootParams.distance;
-                                aimAngle = shootParams.tilterAngle;
-
-                                if (debugEnabled)
-                                {
-                                    robot.globalTracer.traceInfo(funcName, "ProvidedParams: %s", shootParams);
-                                }
+                                // Quadrant 1
+                                alignAngle = 180 + theta;
+                            }
+                            else if (robotX < 0 && robotY > 0)
+                            {
+                                // Quadrant 2
+                                alignAngle = 180 - theta;
+                            }
+                            else if (robotX < 0 && robotY < 0)
+                            {
+                                // Quadrant 3
+                                alignAngle = theta;
                             }
                             else
                             {
-                                distance = TrcUtil.magnitude(robotX, robotY);
-                                shootParams = shootParamTable.get(distance);
-                                if (aimAngle == null)
-                                {
-                                    // Vision did not detect target, use the angle from the interpolated shoot params.
-                                    aimAngle = shootParams.tilterAngle;
-                                }
-                                else
-                                {
-                                    aimAngle = aimAngle > RobotParams.TILTER_ANGLE_THRESHOLD?
-                                        RobotParams.TILTER_CLOSE_ANGLE: RobotParams.TILTER_FAR_ANGLE;
-                                }
-
-                                if (debugEnabled)
-                                {
-                                    robot.globalTracer.traceInfo(funcName, "InterpolatedParams: %s", shootParams);
-                                }
+                                // Quadrant 4
+                                alignAngle = -theta;
                             }
 
-                            if (alignAngle == null)
+                            if (shootParams == null)
                             {
-                                double theta = 90.0 - Math.abs(Math.atan(robotY / robotX));
-                                // Vision did not find target, use robot odometry instead.
-                                // //horizontal angle is in absolute degrees 
-                                if (robotX > 0.0 && robotY > 0.0)
-                                {
-                                    // Quadrant 1
-                                    alignAngle = 180 + theta;
-                                }
-                                else if (robotX < 0 && robotY > 0)
-                                {
-                                    // Quadrant 2
-                                    alignAngle = 180 - theta;
-                                }
-                                else if (robotX < 0 && robotY < 0)
-                                {
-                                    // Quadrant 3
-                                    alignAngle = theta;
-                                }
-                                else
-                                {
-                                    // Quadrant 4
-                                    alignAngle = -theta;
-                                }
+                                shootParams = shootParamTable.get(distance);
                             }
 
                             if (debugEnabled)
                             {
                                 robot.globalTracer.traceInfo(
-                                    funcName, "OdometryAlignment: robotX=%.1f, robotY=%.1f, align=%.1f",
-                                    robotX, robotY, alignAngle);
+                                    funcName,
+                                    "[%.3f] Odometry: robotX=%.1f, robotY=%.1f, distance=%.1f, " +
+                                    "alignAngle=%.1f, shootParams=%s",
+                                    matchTime, robotX, robotY, distance, alignAngle, shootParams);
                             }
-                            // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
-                            setFlywheelValue(
-                                currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity,
-                                null);
-
-                            // Pneumatic takes hardly any time, so fire and forget.
-                            setTilterPosition(aimAngle);
-                            // setTilterPosition(currOwner, aimAngle, tilterEvent);
-                            // sm.addEvent(tilterEvent);
-
-                            robot.dashboard.displayPrintf(14, "Align Angle:%.1f", alignAngle);
-                            robot.robotDrive.setGyroPidConstants(true);
-                            robot.robotDrive.pidDrive.setRelativeTurnTarget(alignAngle, driveEvent);
-                            robot.robotDrive.setGyroPidConstants(false);
-
-                            // robot.robotDrive.purePursuitDrive.start(
-                            //     driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            //     new TrcPose2D(
-                            //         robot.robotDrive.driveBase.getXPosition(),
-                            //         robot.robotDrive.driveBase.getYPosition(),
-                            //         alignAngle));
-
-                            sm.waitForSingleEvent(driveEvent, nextState);
                         }
-                        else
-                        {
-                            // Not using vision or any other algorithms:
-                            // - Spin the flywheel to the set speed.
-                            // - Aim the shooter at the pre-determined angle.
-                            // - Driver is responsible for aligning the robot possibly using streaming camera
-                            //   or spotlight.
-                            if (debugEnabled)
-                            {
-                                robot.globalTracer.traceInfo(funcName, "NoVisionShootParams: %s", shootParams);
-                            }
-                            // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
-                            setFlywheelValue(
-                                currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity,
-                                null);
-
-                            // Pneumatic takes hardly any time, so fire and forget.
-                            setTilterPosition(shootParams.tilterAngle);
-                            // setTilterPosition(shootParams.tilterAngle, tilterEvent);
-                            // sm.addEvent(tilterEvent);
-                            // sm.waitForSingleEvent(tilterEvent, nextState);
-
-                            sm.setState(nextState);
-                        }
+                        // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
+                        setFlywheelValue(
+                            currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, null);
+                        // Pneumatic takes hardly any time, so fire and forget.
+                        setTilterPosition(shootParams.tilterAngle);
                     }
-                    else
+
+                    if (nextState != null)
                     {
                         sm.setState(nextState);
                     }
                     break;
 
                 case PREP_TO_SHOOT:
-                    // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
-                    readyToShoot = true;
-                    if (aimOnly)
+                    if (isAuto)
                     {
-                        // This must be from TeleOp. Done for now and wait for the operator to press the shoot
-                        // trigger which will continue on to the SHOOT_WHEN_READY state. Just stop the state
-                        // machine but holding onto the exclusive locks and keeping the flywheels running.
-                        sm.stop();
+                        if (onFinishEvent != null)
+                        {
+                            onFinishEvent.signal();
+                            onFinishEvent = null;
+                        }
+
+                        if (readyToShoot)
+                        {
+                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            sm.setState(State.SHOOT_WHEN_READY);
+                        }
                     }
                     else
                     {
-                        sm.setState(State.SHOOT_WHEN_READY);
+                        double[] inputs = robot.robotDrive.getDriveInputs();
+                        double xPower = inputs[0];
+                        double yPower = inputs[1];
+                        double rotPower = alignPidCtrl.getOutput();
+    
+                        if (readyToShoot && alignPidCtrl.isOnTarget())
+                        {
+                            robot.robotDrive.driveBase.stop(currOwner);
+                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            sm.setState(State.SHOOT_WHEN_READY);
+                        }
+                        else
+                        {
+                            robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
+                        }
                     }
                     break;
 
@@ -1110,5 +891,15 @@ public class Shooter implements TrcExclusiveSubsystem
                 null);
         }
     }   //autoShootTask
+
+    /**
+     * This method is called by alignPidCtrl to get the vision target heading for aligning the robot to the target.
+     *
+     * @return target angle relative to the robot's heading.
+     */
+    private double getTargetAngle()
+    {
+        return robot.vision != null ? robot.vision.vision.getHeading() : 0.0;
+    }   //getTargetAngle
 
 }   //class Shooter

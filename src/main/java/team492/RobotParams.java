@@ -43,7 +43,7 @@ public class RobotParams
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
         public static final boolean useGyroAssist               = false;
-        public static final boolean useVision                   = false;
+        public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
@@ -222,15 +222,11 @@ public class RobotParams
     // TODO: Needs updating
     //
     public static final double CAMERA_Y_OFFSET                  = 12;   // in from pivot of arm + is forward
-    public static final double CAMERA_Y_OFFSET_TO_PIVOT         = 26;
     public static final double CAMERA_X_OFFSET                  = 0;    //Inches from pivot of arm to center of camera, + = right
+    public static final double CAMERA_HEIGHT                    = 15.0;
+    public static final double CAMERA_ANGLE                     = 30.6;
     public static final double CAMERA_DATA_TIMEOUT              = 0.5;  //500ms
-    public static final double CAMERA_CENTERED_THRESHOLD        = 2;    // +- 2 inches in x axis
     public static final double VISION_HIGH_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
-    public static final double HIGH_TARGET_HEIGHT               = 98.25;
-    public static final double HIGH_VISION_TARGET_HEIGHT        = 89.75;//TrcUtil.average(81.25, HIGH_TARGET_HEIGHT);
-    public static final double PIVOT_HEIGHT                     = 23.5; // in from ground
-    public static final double SHOOTER_BARREL_LENGTH            = 30; // inches
 
     //
     // Ultrasonic sensors.
@@ -275,7 +271,13 @@ public class RobotParams
     public static final double GYRO_TURN_KI                     = 0.0;
     public static final double GYRO_TURN_KD                     = 0.0007;
     public static final double GYRO_TURN_KF                     = 0.0;
-    public static final double GYRO_TURN_TOLERANCE              = 2.0;
+    public static final double GYRO_TURN_TOLERANCE              = 1.0;
+
+    public static final double GYRO_ALIGN_KP                    = 0.013;
+    public static final double GYRO_ALIGN_KI                    = 0.0;
+    public static final double GYRO_ALIGN_KD                    = 0.0;
+    public static final double GYRO_ALIGN_TOLERANCE             = 0.5;
+
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 
     public static final double ROBOT_MAX_VELOCITY               = 180.0;
@@ -353,23 +355,6 @@ public class RobotParams
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
 
-    // public static final double TILTER_KP                        = 1.0;
-    // public static final double TILTER_KI                        = 0.0;
-    // public static final double TILTER_KD                        = 0.0;
-    // public static final double TILTER_TOLERANCE                 = 0.1;
-    // public static final int TILTER_ENCODER_PPR                  = 4096;
-    // public static final double TILTER_OFFSET                    = 16.0; // Abs Enc: 1384
-    // public static final int TILTER_ZERO                         = 1384;
-    // // Tilter Upper Limit: Enc=1070, Deg=45
-    // public static final boolean TILTER_MOTOR_INVERTED           = false;
-    // public static final double TILTER_MIN_POS                   = TILTER_OFFSET;
-    // public static final double TILTER_MAX_POS                   = 40.0;
-    // public static final double TILTER_DEG_PER_COUNT             = Math.abs((45.0 - TILTER_OFFSET)/(1070 - TILTER_ZERO));
-    // public static final double TILTER_CAL_POWER                 = 0.6;
-    // public static final double TILTER_STALL_MIN_POWER           = 0.2;
-    // public static final double TILTER_STALL_TOLERANCE           = 0.2;
-    // public static final double TILTER_STALL_TIMEOUT             = 0.5;
-    // public static final double TILTER_RESET_TIMEOUT             = 0.5;
     public static final double TILTER_CLOSE_ANGLE               = 43.0;
     public static final double TILTER_FAR_ANGLE                 = 31.0;
     public static final double TILTER_ANGLE_THRESHOLD           = 35.0; // TODO: Need to calibrate with LimeLight for this.
@@ -394,10 +379,6 @@ public class RobotParams
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
     public static final double CLIMBER_OFFSET                   = 29.6785;
     public static final double CLIMBER_CAL_POWER                = 0.3;
-    // public static final double CLIMBER_STALL_MIN_POWER          = CLIMBER_CAL_POWER - 0.1;
-    // public static final double CLIMBER_STALL_TOLERANCE          = 0.1;
-    // public static final double CLIMBER_STALL_TIMEOUT            = 0.1;
-    // public static final double CLIMBER_RESET_TIMEOUT            = 0.5;
     public static final boolean CLIMBER_MOTOR_INVERTED          = true;
     public static final double CLIMBER_MIN_POS                  = 20.0;
     public static final double CLIMBER_MAX_POS                  = 65.0;

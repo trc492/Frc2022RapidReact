@@ -27,6 +27,7 @@ import TrcCommonLib.trclib.TrcGyro;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcCANFalcon;
@@ -63,6 +64,8 @@ public class RobotDrive
     //
     public TrcPidDrive pidDrive;
     public TrcPurePursuitDrive purePursuitDrive;
+    public double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+    public double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
 
     /**
      * Constructor: Create an instance of the object.
@@ -85,6 +88,8 @@ public class RobotDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
+            driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+            turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
             driveBase.setOdometryEnabled(true, true);
 
             if (runMode == RunMode.AUTO_MODE)
@@ -165,6 +170,66 @@ public class RobotDrive
 
         return driveMotor;
     }   //createDriveMotor
+
+    /**
+     * This method reads various joystick/gamepad control values and returns the drive powers for all three degrees
+     * of robot movement.
+     *
+     * @return an array of 3 values for x, y and rotation power.
+     */
+    public double[] getDriveInputs()
+    {
+        double x, y, rot;
+        double mag;
+        double newMag;
+
+        if (RobotParams.Preferences.useXboxController)
+        {
+            x = robot.driverController.getLeftXWithDeadband(false);
+            y = robot.driverController.getLeftYWithDeadband(false);
+            rot = robot.driverController.getRightXWithDeadband(true);
+            mag = TrcUtil.magnitude(x, y);
+            if (mag > 1.0)
+            {
+                x /= mag;
+                y /= mag;
+                mag = 1.0;
+            }
+            newMag = Math.pow(mag, 3);
+        }
+        else
+        {
+            x = robot.rightDriveStick.getXWithDeadband(false);
+            y = robot.rightDriveStick.getYWithDeadband(false);
+            if(RobotParams.Preferences.timDrive)
+            {
+                rot = robot.rightDriveStick.getTwistWithDeadband(true);
+            }
+            else
+            {
+                rot = robot.leftDriveStick.getXWithDeadband(true);
+            }
+            mag = TrcUtil.magnitude(x, y);
+            if (mag > 1.0)
+            {
+                x /= mag;
+                y /= mag;
+                mag = 1.0;
+            }
+            newMag = Math.pow(mag, 2);
+        }
+
+        newMag *= driveSpeedScale;
+        rot *= turnSpeedScale;
+
+        if (mag != 0.0)
+        {
+            x *= newMag / mag;
+            y *= newMag / mag;
+        }
+
+        return new double[] { x, y, rot };
+    }   //getDriveInput
 
     /**
      * This method is called to start steering calibration for Swerve Drive.

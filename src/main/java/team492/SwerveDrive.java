@@ -179,6 +179,15 @@ public class SwerveDrive extends RobotDrive
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
     }   //SwerveDrive
 
+    /**
+     * This method creates a steering motor for a swerve module.
+     *
+     * @param name specifies the instance name of the steering motor.
+     * @param motorCanID specifies the CAN ID of the steering motor.
+     * @param encoderCanID specifies the CAN ID of the CANcoder used for steering position.
+     * @param inverted specifies true if the steering motor should be inverted, false otherwise.
+     * @return the created steering motor.
+     */
     private FrcCANFalcon createSteerMotor(String name, int motorCanID, int encoderCanID, boolean inverted)
     {
         final String funcName = "createSteerMotor";
@@ -220,6 +229,15 @@ public class SwerveDrive extends RobotDrive
         return steerMotor;
     }   //createSteerMotor
 
+    /**
+     * This method creates the swerve module that consists of a driving motor and a steering motor.
+     *
+     * @param name specifies the swerve module instance name.
+     * @param driveMotor specifies the drive motor object.
+     * @param steerMotor specifies the steering motor object.
+     * @param steerZero specifies the absolute encoder value for steering zero position.
+     * @return the created swerve module.
+     */
     private TrcSwerveModule createSwerveModule(
         String name, FrcCANFalcon driveMotor, FrcCANFalcon steerMotor, int steerZero)
     {

@@ -34,6 +34,7 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
+        PREPARE_TO_SHOOT,
         SHOOT_PRELOADED_BALL,
         GET_OFF_TARMAC,
 
@@ -135,19 +136,24 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.SHOOT_PRELOADED_BALL);
+                        sm.setState(State.PREPARE_TO_SHOOT);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.SHOOT_PRELOADED_BALL);
+                        sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
                         break;
                     }
 
-                case SHOOT_PRELOADED_BALL:
+                case PREPARE_TO_SHOOT:
                     robot.dashboard.displayPrintf(12, "entered shoot auto");
                     //BUGBUG: fix parameters by look up table on the StartPosition.
-                    robot.shooter.shootAllBallsNoVision(moduleName, event, "preload", false);
+                    robot.shooter.prepareToShootWithVision(moduleName, event, "preload");
+                    sm.waitForSingleEvent(event, State.SHOOT_PRELOADED_BALL);
+                    break;
+
+                case SHOOT_PRELOADED_BALL:
+                    robot.shooter.shootAllBalls(moduleName, event);
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
                     break;
 

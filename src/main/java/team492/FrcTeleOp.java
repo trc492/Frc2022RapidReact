@@ -23,7 +23,6 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcRobot;
-import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
@@ -50,8 +49,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean hookArmExtended = false;
     private boolean tilterClose = false;
     private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
-    private double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-    private double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
 
     /**
      * Constructor: Create an instance of the object.
@@ -88,8 +85,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Initialize subsystems for TeleOp mode if necessary.
         //
         driveOrientation = DriveOrientation.ROBOT;
-        driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-        turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
     }   //startMode
 
     /**
@@ -136,25 +131,25 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 switch (robot.driverController.getPOV())
                 {
                     case 0:
-                        driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
-                        turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
+                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
                         break;
 
                     case 270:
-                        driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-                        turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
                         break;
 
                     case 180:
-                        driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
-                        turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
+                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
+                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
                         break;
                 }
             }
 
             if (robot.robotDrive != null)
             {
-                double[] inputs = getDriveInputs();
+                double[] inputs = robot.robotDrive.getDriveInputs();
                 if (robot.robotDrive.driveBase.supportsHolonomicDrive())
                 {
                     robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
@@ -267,66 +262,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 return robot.robotDrive.driveBase.getHeading();
         }
     }   //getDriveGyroAngle
-
-    /**
-     * This method reads various joystick/gamepad control values and returns the drive powers for all three degrees
-     * of robot movement.
-     *
-     * @return an array of 3 values for x, y and rotation power.
-     */
-    private double[] getDriveInputs()
-    {
-        double x, y, rot;
-        double mag;
-        double newMag;
-
-        if (RobotParams.Preferences.useXboxController)
-        {
-            x = robot.driverController.getLeftXWithDeadband(false);
-            y = robot.driverController.getLeftYWithDeadband(false);
-            rot = robot.driverController.getRightXWithDeadband(true);
-            mag = TrcUtil.magnitude(x, y);
-            if (mag > 1.0)
-            {
-                x /= mag;
-                y /= mag;
-                mag = 1.0;
-            }
-            newMag = Math.pow(mag, 3);
-        }
-        else
-        {
-            x = robot.rightDriveStick.getXWithDeadband(false);
-            y = robot.rightDriveStick.getYWithDeadband(false);
-            if(RobotParams.Preferences.timDrive)
-            {
-                rot = robot.rightDriveStick.getTwistWithDeadband(true);
-            }
-            else
-            {
-                rot = robot.leftDriveStick.getXWithDeadband(true);
-            }
-            mag = TrcUtil.magnitude(x, y);
-            if (mag > 1.0)
-            {
-                x /= mag;
-                y /= mag;
-                mag = 1.0;
-            }
-            newMag = Math.pow(mag, 2);
-        }
-
-        newMag *= driveSpeedScale;
-        rot *= turnSpeedScale;
-
-        if (mag != 0.0)
-        {
-            x *= newMag / mag;
-            y *= newMag / mag;
-        }
-
-        return new double[] { x, y, rot };
-    }   //getDriveInput
 
     /**
      * This method is called when a driver stick button event is detected.
@@ -484,7 +419,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
     }   //rightDriveStickButtonEvent
 
-    //TODO: operator stick button event
     /**
      * This method is called when an operator stick button event is detected.
      *
@@ -501,14 +435,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsWhenReady("teleOp");
+                    robot.shooter.shootAllBalls("teleOp");
                 }
             break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_auto", true);
+                    robot.shooter.prepareToShootWithVision("teleOp", null, "tarmac_auto");
                 }
                 else
                 {
@@ -546,12 +480,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON6:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision(
+                    robot.shooter.prepareToShootWithVision(
                         "teleOp", null,
                         new ShootParamTable.Params(
                             "calibration", 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
-                            robot.shooter.getTilterPosition()),
-                        false);
+                            robot.shooter.getTilterPosition()));
                 }
                 break;
 
@@ -612,7 +545,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_BLUE1:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_mid", true);
+                    robot.shooter.prepareToShootWithVision("teleOp", null, "tarmac_mid");
                 }
                 else
                 {
@@ -623,7 +556,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
                 if (pressed)
                 {
-                    robot.shooter.shootAllBallsNoVision("teleOp", null, "tarmac_auto", true);
+                    robot.shooter.prepareToShootWithVision("teleOp", null, "tarmac_auto");
                 }
                 else
                 {

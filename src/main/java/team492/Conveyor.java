@@ -76,10 +76,25 @@ public class Conveyor implements TrcExclusiveSubsystem
     /**
      * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
      * exiting a competition mode.
+     *
+     * @param owner specifies the ID string of the caller for checking ownership, can be null if caller does not
+     *              require exclusive access.
+     */
+    public void cancel(String owner)
+    {
+        if (validateOwnership(owner))
+        {
+            conveyorMotor.set(0.0);
+        }
+    }   //cancel
+
+    /**
+     * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
+     * exiting a competition mode.
      */
     public void cancel()
     {
-        conveyorMotor.set(0.0);
+        cancel(null);
     }   //cancel
 
     /**

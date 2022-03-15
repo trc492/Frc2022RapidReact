@@ -129,9 +129,14 @@ public class Climber
         climber.setPower(power);
     }   //setPower
 
+    public void setPosition(double position, boolean hold, TrcEvent event, double timeout)
+    {
+        climber.setTarget(position, hold, event, null, timeout);
+    }   //setPosition
+
     public void setPosition(double position, boolean hold, TrcEvent event)
     {
-        climber.setTarget(position, hold, event);
+        climber.setTarget(position, hold, event, null, 0.0);
     }   //setPosition
 
     public void setPosition(double position)
@@ -181,11 +186,11 @@ public class Climber
         DONE
     }   //enum State
 
-    public void climbOneRung()
+    public void traverseOneRung()
     {
         sm.start(State.PULL_DOWN_PRIMARY_HOOK);
         climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
-    }   //prepareToClimb
+    }   //traverseOneRung
 
     /**
      * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
@@ -222,7 +227,7 @@ public class Climber
                     // Deploy the hook arm to hook on the rung.
                     limitSwitchTrigger.setEnabled(false);
                     extendHookArm();
-                    timer.set(0.1, event);
+                    timer.set(0.3, event);
                     sm.waitForSingleEvent(event, State.UNHOOK_PRIMARY_HOOK);
                     break;
 
@@ -235,19 +240,19 @@ public class Climber
                 case ENGAGE_NEXT_RUNG:
                     // Retract hook arm allowing it to be unhooked from the previous rung.
                     retractHookArm();
-                    timer.set(0.1, event);
+                    timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:
-                    setPosition(45.0, true, event);
+                    setPosition(45.0, true, event, 1.8);
                     sm.waitForSingleEvent(event, State.DAMPENED_SWING);
                     break;
 
                 case DAMPENED_SWING:
                     setPosition(60.0, true, event);
                     sm.waitForSingleEvent(event, State.DONE);
-                break;
+                    break;
 
                 case DONE:
                 default: 

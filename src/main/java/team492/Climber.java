@@ -25,6 +25,7 @@ package team492;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
+import TrcCommonLib.trclib.TrcDigitalInputTrigger;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcPidActuator;
 import TrcCommonLib.trclib.TrcRobot;
@@ -49,6 +50,8 @@ public class Climber
     public final FrcDigitalInput climberLowerLimitSwitch;
     public final TrcPidActuator climber;
 
+    private final TrcDigitalInputTrigger limitSwitchTrigger;
+    private final TrcEvent limitSwitchEvent;
     private final TrcEvent event;
     private final TrcTimer timer;
     private final TrcStateMachine<State> sm;
@@ -81,6 +84,9 @@ public class Climber
             .setZeroCalibratePower(RobotParams.CLIMBER_CAL_POWER);
         climber = new TrcPidActuator(moduleName, climberMotor, climberLowerLimitSwitch, null, params);
 
+        limitSwitchTrigger = new TrcDigitalInputTrigger(
+            moduleName + ".limitSWTrigger", climberLowerLimitSwitch, this::limitSwitchEvent);
+        limitSwitchEvent = new TrcEvent(moduleName + "limitSWEvent");
         event = new TrcEvent(moduleName + ".event");
         timer = new TrcTimer(moduleName + ".timer");
         sm = new TrcStateMachine<>(moduleName);
@@ -166,65 +172,20 @@ public class Climber
 
     private enum State
     {
-        START,
-        PULL_UP,
-        DEPLOY_HOOK_ARM,
-        UNHOOK_CLIMBER,
-        REACH_FOR_NEXT_RUNG,
-        RETRACT_HOOK_ARM,
+        PULL_DOWN_PRIMARY_HOOK,
+        DEPLOY_SECONDARY_HOOK,
+        UNHOOK_PRIMARY_HOOK,
+        ENGAGE_NEXT_RUNG,
+        UNHOOK_PREVIOUS_RUNG,
+        DAMPENED_SWING,
         DONE
     }   //enum State
 
-    State nextStage = State.START;
-    int nextRung = 2;
-
-    public void prepareToClimb()
+    public void climbOneRung()
     {
-        sm.start(State.START);
+        sm.start(State.PULL_DOWN_PRIMARY_HOOK);
         climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
     }   //prepareToClimb
-
-    public void climbARung()
-    {
-        sm.start(State.PULL_UP);
-        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
-    }   //climbARung
-
-    public void reachForNextRung()
-    {
-        sm.start(State.REACH_FOR_NEXT_RUNG);
-        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
-    }   //reachForNextRung
-
-    /**
-     * This method is called by TeleOp possibly tied to a button to execute the next stage of the climb.
-     */
-    public void executeNextState()
-    {
-        switch (nextStage)
-        {
-            case START:
-                prepareToClimb();
-                nextStage = State.PULL_UP;
-                break;
-
-            case PULL_UP:
-                climbARung();
-                nextStage = State.REACH_FOR_NEXT_RUNG;
-                break;
-
-            case REACH_FOR_NEXT_RUNG:
-                reachForNextRung();
-                nextRung++;
-                nextStage = nextRung <= 4? State.PULL_UP: State.DONE;
-                break;
-
-            case DONE:
-            default:
-                // We are done, don't do anything.
-                break;
-        }
-    }   //executeNextState
 
     /**
      * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
@@ -232,7 +193,6 @@ public class Climber
      */
     public void cancel()
     {
-        climber.setPower(0.0);
         sm.stop();
         climberTaskObj.unregisterTask();
     }   //cancel
@@ -251,46 +211,43 @@ public class Climber
         {
             switch (state)
             {
-                case START:
-                    // Extend climber to reach slightly beyond the 2nd rung.
-                    // Then let the driver drive up to the rung.
-                    retractHookArm();
-                    setPosition(63.5, false, event);
-                    sm.waitForSingleEvent(event, State.DONE);
-                    break;
-
-                case PULL_UP:
+                case PULL_DOWN_PRIMARY_HOOK:
                     // Pull robot up.
-                    setPosition(31.0, true, event);
-                    sm.waitForSingleEvent(event, State.DEPLOY_HOOK_ARM);
+                    limitSwitchTrigger.setEnabled(true);
+                    setPosition(26.0, true, null);
+                    sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
                     break;
 
-                case DEPLOY_HOOK_ARM:
+                case DEPLOY_SECONDARY_HOOK:
                     // Deploy the hook arm to hook on the rung.
+                    limitSwitchTrigger.setEnabled(false);
                     extendHookArm();
                     timer.set(0.1, event);
-                    sm.waitForSingleEvent(event, State.UNHOOK_CLIMBER);
+                    sm.waitForSingleEvent(event, State.UNHOOK_PRIMARY_HOOK);
                     break;
 
-                case UNHOOK_CLIMBER:
-                    // Extend climber to release it from the rung.
-                    // Then let the operator decide when to extend the climber to the next rung.
-                    setPosition(45.0, true, event);
-                    sm.waitForSingleEvent(event, State.DONE);
+                case UNHOOK_PRIMARY_HOOK:
+                    // Extend primary hook to release it from the rung.
+                    setPosition(60.0, true, event);
+                    sm.waitForSingleEvent(event, State.ENGAGE_NEXT_RUNG);
                     break;
 
-                case REACH_FOR_NEXT_RUNG:
-                    // Extend it fully to reach the next rung.
-                    setPosition(63.5, false, event);
-                    sm.waitForSingleEvent(event, State.RETRACT_HOOK_ARM);
-                    break;
-
-                case RETRACT_HOOK_ARM:
+                case ENGAGE_NEXT_RUNG:
                     // Retract hook arm allowing it to be unhooked from the previous rung.
                     retractHookArm();
                     timer.set(0.1, event);
-                    sm.waitForSingleEvent(event, State.UNHOOK_CLIMBER);
+                    sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
                     break;
+
+                case UNHOOK_PREVIOUS_RUNG:
+                    setPosition(45.0, true, event);
+                    sm.waitForSingleEvent(event, State.DAMPENED_SWING);
+                    break;
+
+                case DAMPENED_SWING:
+                    setPosition(60.0, true, event);
+                    sm.waitForSingleEvent(event, State.DONE);
+                break;
 
                 case DONE:
                 default: 
@@ -304,5 +261,25 @@ public class Climber
             robot.globalTracer.traceStateInfo(state);
         }
     }   //autoClimbTask
+
+    /**
+     * This method is called when the lower limit switch is triggered.
+     *
+     * @param active specifies true if the climber primary hook has retracted all the way, false otherwise.
+     */
+    private void limitSwitchEvent(boolean active)
+    {
+        final String funcName = "limitSwitchEvent";
+
+        if (debugEnabled)
+        {
+            robot.globalTracer.traceInfo(funcName, "active=%s", active);
+        }
+
+        if (active)
+        {
+            limitSwitchEvent.signal();
+        }
+    }   //limitSwitchEvent
 
 }   //class Climber

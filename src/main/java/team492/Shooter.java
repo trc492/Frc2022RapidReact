@@ -860,21 +860,24 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.
                         // The joystick can control X and Y driving but vision is controlling the heading.
-                        // Therefore, the robot is always aiming at the vision target.
+                        // Therefore, the robot is always aiming at the vision target. However, in case
+                        // vision was wrong, we also allow the driver to override vision by controlling turn
+                        // using joystick.
                         double[] inputs = robot.robotDrive.getDriveInputs();
                         xPower = inputs[0];
                         yPower = inputs[1];
                         rotPower = inputs[2];
                     }
 
-                    if (visionAlignEnabled)
+                    if (visionAlignEnabled && rotPower == 0.0)
                     {
+                        // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
                         visionPidOnTarget = alignPidCtrl.isOnTarget();
                     }
                     else
                     {
-                        // Vision alignment is disabled. We'll say it's always ontarget.
+                        // Vision alignment is disabled or driver is overriding. We'll say it's always ontarget.
                         visionPidOnTarget = true;
                     }
                     robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
@@ -889,7 +892,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         if (onFinishEvent != null)
                         {
-                            // Notify we are prep'd to shoot.
+                            // This is mainly for notifying autonomous we are prep'd to shoot.
                             onFinishEvent.signal();
                             onFinishEvent = null;
                         }

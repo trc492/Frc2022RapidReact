@@ -26,6 +26,7 @@ import java.util.Locale;
 
 import TrcCommonLib.command.CmdDriveMotorsTest;
 import TrcCommonLib.command.CmdPidDrive;
+import TrcCommonLib.command.CmdPurePursuitDrive;
 import TrcCommonLib.command.CmdTimedDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import TrcFrcLib.frclib.FrcChoiceMenu;
@@ -59,6 +60,7 @@ public class FrcTest extends FrcTeleOp
         DRIVE_MOTORS_TEST,
         X_TIMED_DRIVE,
         Y_TIMED_DRIVE,
+        PP_DRIVE,
         PID_DRIVE,
         TUNE_X_PID,
         TUNE_Y_PID,
@@ -110,6 +112,7 @@ public class FrcTest extends FrcTeleOp
             testMenu.addChoice("Drive Motors Test", Test.DRIVE_MOTORS_TEST);
             testMenu.addChoice("X Timed Drive", Test.X_TIMED_DRIVE);
             testMenu.addChoice("Y Timed Drive", Test.Y_TIMED_DRIVE);
+            testMenu.addChoice("PurePursuit Drive", Test.PP_DRIVE);
             testMenu.addChoice("PID Drive", Test.PID_DRIVE);
             testMenu.addChoice("Tune X PID", Test.TUNE_X_PID);
             testMenu.addChoice("Tune Y PID", Test.TUNE_Y_PID);
@@ -280,6 +283,14 @@ public class FrcTest extends FrcTeleOp
                     0.0);
                 break;
 
+            case PP_DRIVE:
+                robot.robotDrive.purePursuitDrive.start(
+                    null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                    new TrcPose2D(
+                        testChoices.getXDriveDistance()*12.0, testChoices.getYDriveDistance()*12.0,
+                        testChoices.getTurnAngle()));
+                break;
+
             case PID_DRIVE:
                 testCommand = new CmdPidDrive(
                     robot.robotDrive.driveBase, robot.robotDrive.pidDrive, 0.0, testChoices.getDrivePower(), null,
@@ -373,6 +384,7 @@ public class FrcTest extends FrcTeleOp
                 robot.dashboard.displayPrintf(12, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
                 break;
     
+            case PP_DRIVE:
             case PID_DRIVE:
             case TUNE_X_PID:
             case TUNE_Y_PID:

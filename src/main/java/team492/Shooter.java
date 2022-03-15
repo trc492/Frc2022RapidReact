@@ -70,6 +70,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean readyToShoot = false;
 
     private boolean usingVision = false;
+    public boolean flywheelOnTarget = false; 
     private ShootParamTable.Params shootParams = null;
     private boolean isAuto = false;
     private TrcEvent onFinishEvent = null;
@@ -463,6 +464,23 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setTilterPositionFar
 
     /**
+     * This method sets the tilter position to the position it is not currently at ie at close set to far
+     * TODO: probably a more efficient way to write this 
+     */
+    public void invertTilterPosition()
+    {
+        //if tilter position is more than 2 degrees from close angle, it must be at far angle so retract
+        if(Math.abs(getTilterPosition() - RobotParams.TILTER_CLOSE_ANGLE) > 2){
+            tilterPneumatic.retract();
+        } 
+        //otherwise it is at the close angle 
+        else{
+            tilterPneumatic.extend(); 
+        }
+        //invertTilterPosition
+    }
+
+    /**
      * This method sets the tilter position to either CLOSE or FAR. Therefore, the position value must be one of the
      * two preset angles. If the caller is giving us a position other than these two, we will assume FAR.
      *
@@ -661,7 +679,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
-        if (validateOwnership(owner))
+        if (isFlywheelVelOnTarget() && validateOwnership(owner))
         {
             readyToShoot = true;
             onFinishEvent = event;
@@ -750,6 +768,8 @@ public class Shooter implements TrcExclusiveSubsystem
                                     // detected distance to interpolate shootParams.
                                     shootParams = shootParamTable.get(
                                         robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
+
+                                    
                                 }
 
                                 if (debugEnabled)
@@ -815,6 +835,9 @@ public class Shooter implements TrcExclusiveSubsystem
 
                     if (nextState != null)
                     {
+                        //set shootParams to null so that in PREP_TO_SHOOT when we press trigger,
+                        // if shootParams is null we recalibrate distance which resets flywheelVelTarget 
+                        shootParams = null; 
                         sm.setState(nextState);
                     }
                     break;
@@ -855,8 +878,18 @@ public class Shooter implements TrcExclusiveSubsystem
                                 "[%.3f] Drivebase: x=%.1f, y=%1.f, rot=%.1f, onTarget=%s",
                                 matchTime, xPower, yPower, rotPower, onTarget);
                         }
-
-                        if (readyToShoot && onTarget)
+                        //when operator presses trigger, first time shootParams is null, find new distance to target to set target flywheel velocities
+                        //if our distance is now associated with a different tilter position, invertTilterPosition()
+                        if(readyToShoot && shootParams==null){
+                            shootParams = shootParamTable.get(robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
+                            if(Math.abs(shootParams.tilterAngle - robot.shooter.getTilterPosition()) > 2 ){
+                                robot.shooter.invertTilterPosition();
+                            }
+                            setFlywheelValue(
+                                currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, null);
+                        }
+                        //add the onTarget part if we can figure it out in the future 
+                        else if (readyToShoot && isFlywheelVelOnTarget())
                         {
                             robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);

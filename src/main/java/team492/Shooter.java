@@ -22,6 +22,7 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcPidController;
@@ -38,7 +39,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
-    private static final boolean debugEnabled = true;
 
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
@@ -63,6 +63,7 @@ public class Shooter implements TrcExclusiveSubsystem
         .add("15ft",        180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
         .add("18ft",        216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
 
+    private TrcDbgTrace msgTracer = null;
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
@@ -141,6 +142,16 @@ public class Shooter implements TrcExclusiveSubsystem
         return motor;
     }   //createFlywheelMotor
 
+    /**
+     * This method enables/disables tracing for the shooter subsystem.
+     *
+     * @param tracer specifies the tracer to use for logging events.
+     */
+    public void setMsgTracer(TrcDbgTrace tracer)
+    {
+        msgTracer = tracer;
+    }   //setMsgTracer
+
     //
     // Flywheel methods.
     //
@@ -156,9 +167,9 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         final String funcName = "setFlywheelVelocityModeEnabled";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "enabled=%s, flywheelMaxVel=%d", enabled, RobotParams.FLYWHEEL_MAX_RPM);
+            msgTracer.traceInfo(funcName, "enabled=%s, flywheelMaxVel=%d", enabled, RobotParams.FLYWHEEL_MAX_RPM);
         }
 
         if (validateOwnership(owner))
@@ -254,9 +265,9 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         final String funcName = "setFlywheelValue";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "owner=%s, lower=%.2f, upper=%.2f, event=%s", owner, lowerValue, upperValue, event);
         }
 
@@ -388,9 +399,9 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         final String funcName = "flywheelTriggerEvent";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "active=%s", active);
+            msgTracer.traceInfo(funcName, "active=%s", active);
         }
 
         robot.ledIndicator.setFlywheelOnTarget(active);
@@ -503,9 +514,9 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         final String funcName = "cancel";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
+            msgTracer.traceInfo(funcName, "Canceling: currOwner=%s", currOwner);
         }
 
         // Don't stop the flywheels, we still want flywheels to be spinning to save time from spinning down and up
@@ -550,13 +561,6 @@ public class Shooter implements TrcExclusiveSubsystem
         final String funcName = "prepareToShoot";
         boolean success = false;
 
-        if (debugEnabled && shootParams != null)
-        {
-            robot.globalTracer.traceInfo(
-                funcName, "[%.3f] Owner=%s, ProvidedShootParams=%s, event=%s",
-                TrcUtil.getModeElapsedTime(), owner, shootParams, event);
-        }
-
         // Acquire ownership of all subsystems involved. Don't need drivebase ownership if not using vision.
         if (this.acquireExclusiveAccess(owner) &&
             robot.conveyor.acquireExclusiveAccess(owner) &&
@@ -569,9 +573,10 @@ public class Shooter implements TrcExclusiveSubsystem
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "owner=%s, event=%s, success=%s", owner, event, success);
+            msgTracer.traceInfo(
+                funcName, "owner=%s, event=%s, success=%s (shootParams=%s)", owner, event, success, shootParams);
         }
 
         return success;
@@ -726,9 +731,9 @@ public class Shooter implements TrcExclusiveSubsystem
                     boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
                     boolean ballAtExit = robot.conveyor.isExitSensorActive();
 
-                    if (debugEnabled)
+                    if (msgTracer != null)
                     {
-                        robot.globalTracer.traceInfo(funcName, "Entrance=%s, Exit=%s", ballAtEntrance, ballAtExit);
+                        msgTracer.traceInfo(funcName, "Entrance=%s, Exit=%s", ballAtEntrance, ballAtExit);
                     }
 
                     if (ballAtExit)
@@ -775,9 +780,9 @@ public class Shooter implements TrcExclusiveSubsystem
                                     robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
                             }
 
-                            if (debugEnabled)
+                            if (msgTracer != null)
                             {
-                                robot.globalTracer.traceInfo(
+                                msgTracer.traceInfo(
                                     funcName, "[%.3f] Vision: alignAngle=%.1f, shootParams=%s",
                                     matchTime, alignAngle, shootParams);
                             }
@@ -821,9 +826,9 @@ public class Shooter implements TrcExclusiveSubsystem
                             shootParams = shootParamTable.get(distance);
                         }
 
-                        if (debugEnabled)
+                        if (msgTracer != null)
                         {
-                            robot.globalTracer.traceInfo(
+                            msgTracer.traceInfo(
                                 funcName,
                                 "[%.3f] Odometry: robotX=%.1f, robotY=%.1f, distance=%.1f, " +
                                 "alignAngle=%.1f, shootParams=%s",
@@ -892,9 +897,9 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (isFlywheelVelOnTarget())
                         {
                             robot.conveyor.advance(currOwner, conveyorEvent);
-                            if (debugEnabled)
+                            if (msgTracer != null)
                             {
-                                robot.globalTracer.traceInfo(
+                                msgTracer.traceInfo(
                                     funcName, "Shoot a ball (lowerFlywheel=%.0f, upperFlywheel=%.0f).",
                                     getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
                             }
@@ -905,9 +910,9 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
                         robot.conveyor.advance(currOwner, conveyorEvent);
-                        if (debugEnabled)
+                        if (msgTracer != null)
                         {
-                            robot.globalTracer.traceInfo(funcName, "Advance ball to exit.");
+                            msgTracer.traceInfo(funcName, "Advance ball to exit.");
                         }
                         sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                     }
@@ -924,9 +929,9 @@ public class Shooter implements TrcExclusiveSubsystem
             }
         }
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceStateInfo(
+            msgTracer.traceStateInfo(
                 state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive, robot.robotDrive.purePursuitDrive,
                 null);
         }

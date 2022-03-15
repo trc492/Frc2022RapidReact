@@ -240,7 +240,10 @@ public class Robot extends FrcRobotBase
         }
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
-        // shooter.zeroCalibrateTilter();
+        // if (runMode == RunMode.AUTO_MODE)
+        {
+            shooter.setMsgTracer(globalTracer);
+        }
         ledIndicator.reset();
     }   //robotStartMode
 

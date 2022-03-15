@@ -637,6 +637,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_SWITCH_GREEN1:
+                if (robot.shooter != null)
+                {
+                    robot.shooter.setVisionAlignEnabled(pressed);
+                }
                 break;
 
             case FrcJoystick.PANEL_SWITCH_BLUE1:

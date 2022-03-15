@@ -275,10 +275,10 @@ public class RobotParams
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 1.0;
 
-    public static final double GYRO_ALIGN_KP                    = 0.013;
+    public static final double GYRO_ALIGN_KP                    = 0.007;
     public static final double GYRO_ALIGN_KI                    = 0.0;
-    public static final double GYRO_ALIGN_KD                    = 0.0;
-    public static final double GYRO_ALIGN_TOLERANCE             = 0.5;
+    public static final double GYRO_ALIGN_KD                    = 0.0007;
+    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 

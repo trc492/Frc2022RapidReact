@@ -67,6 +67,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
+    private boolean visionAlignEnabled = false;
     private boolean readyToShoot = false;
     private boolean allowShooting = false;
 
@@ -151,6 +152,16 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         msgTracer = tracer;
     }   //setMsgTracer
+
+    /**
+     * This method enables/disables auto vision alignment.
+     *
+     * @param enabled specifies true to enable, false to disable.
+     */
+    public void setVisionAlignEnabled(boolean enabled)
+    {
+        visionAlignEnabled = enabled;
+    }   //setVisionAlignEnabled
 
     //
     // Flywheel methods.
@@ -762,7 +773,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // - Align the robot to the target.
                     //
                     Double alignAngle = null;   // absolute field heading.
-                    double xPower, yPower, rotPower;
+                    double xPower = 0.0, yPower = 0.0, rotPower = 0.0;
                     boolean visionPidOnTarget;
 
                     // Use vision to determine shoot parameters.
@@ -845,12 +856,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // or we won't allow shooting.
                     allowShooting = true;
 
-                    if (isAuto)
-                    {
-                        // In Auto, we allow the robot to turn towards the target but no x and y movements.
-                        xPower = yPower = 0.0;
-                    }
-                    else
+                    if (!isAuto)
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.
                         // The joystick can control X and Y driving but vision is controlling the heading.
@@ -858,9 +864,19 @@ public class Shooter implements TrcExclusiveSubsystem
                         double[] inputs = robot.robotDrive.getDriveInputs();
                         xPower = inputs[0];
                         yPower = inputs[1];
+                        rotPower = inputs[2];
                     }
-                    rotPower = alignPidCtrl.getOutput();
-                    visionPidOnTarget = alignPidCtrl.isOnTarget();
+
+                    if (visionAlignEnabled)
+                    {
+                        rotPower = alignPidCtrl.getOutput();
+                        visionPidOnTarget = alignPidCtrl.isOnTarget();
+                    }
+                    else
+                    {
+                        // Vision alignment is disabled. We'll say it's always ontarget.
+                        visionPidOnTarget = true;
+                    }
                     robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
 
                     if (RobotParams.Preferences.debugShooter)

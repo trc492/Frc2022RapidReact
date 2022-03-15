@@ -238,13 +238,14 @@ public class Climber
                     break;
 
                 case ENGAGE_NEXT_RUNG:
-                    // Retract hook arm allowing it to be unhooked from the previous rung.
+                    // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
                     timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:
+                    // Pull up to the next rung to unhook the previous rung.
                     setPosition(45.0, true, event, 1.8);
                     sm.waitForSingleEvent(event, State.DAMPENED_SWING);
                     break;

@@ -435,6 +435,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
+                    robot.shooter.prepareToShootWithVision("teleOp", null, "tarmac_auto");
+                }
+                else
+                {
                     robot.shooter.shootAllBalls("teleOp");
                 }
             break;

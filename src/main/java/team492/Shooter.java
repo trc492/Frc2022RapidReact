@@ -163,6 +163,11 @@ public class Shooter implements TrcExclusiveSubsystem
         visionAlignEnabled = enabled;
     }   //setVisionAlignEnabled
 
+    public boolean isVisionAlignEnabled()
+    {
+        return visionAlignEnabled;
+    }
+
     //
     // Flywheel methods.
     //
@@ -703,12 +708,18 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
-        if (allowShooting && validateOwnership(owner))
-        {
-            allowShooting = false;
-            readyToShoot = true;
-            onFinishEvent = event;
+        //for debug purposes - we just want it to shoot when tim releases 
+        if(validateOwnership(owner)){
+            readyToShoot = true; 
+            onFinishEvent = event; 
+            allowShooting = true; 
         }
+        // if (allowShooting && validateOwnership(owner))
+        // {
+        //     allowShooting = false;
+        //     readyToShoot = true;
+        //     onFinishEvent = event;
+        // }
     }   //shootAllBalls
 
     /**
@@ -864,9 +875,9 @@ public class Shooter implements TrcExclusiveSubsystem
                         // vision was wrong, we also allow the driver to override vision by controlling turn
                         // using joystick.
                         double[] inputs = robot.robotDrive.getDriveInputs();
-                        xPower = inputs[0];
-                        yPower = inputs[1];
-                        rotPower = inputs[2];
+                        xPower = inputs[0]*0.3;
+                        yPower = inputs[1]*0.3;
+                        rotPower = inputs[2]*0.5;
                     }
 
                     if (visionAlignEnabled && rotPower == 0.0)
@@ -887,9 +898,9 @@ public class Shooter implements TrcExclusiveSubsystem
                         robot.dashboard.displayPrintf(
                             10, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
                     }
-
-                    if (visionPidOnTarget)
-                    {
+                    //commented out because we have not tuned turning to vision target PID 
+                    // if (visionPidOnTarget)
+                    // {
                         if (onFinishEvent != null)
                         {
                             // This is mainly for notifying autonomous we are prep'd to shoot.
@@ -902,7 +913,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             robot.robotDrive.driveBase.stop();
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
-                        }
+                        // }
                     }
                     break;
 

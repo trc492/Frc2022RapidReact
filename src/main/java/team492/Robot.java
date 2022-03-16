@@ -189,6 +189,7 @@ public class Robot extends FrcRobotBase
             conveyor = new Conveyor(this);
             intake = new Intake(this);
             shooter = new Shooter(this);
+            shooter.setVisionAlignEnabled(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_GREEN1));
             climber = new Climber(this);
         }
 
@@ -405,10 +406,10 @@ public class Robot extends FrcRobotBase
                         2, "Shooter.SetVel: Lower=%.0f, Upper=%.0f, VelMode=%s",
                         lowerFlywheelUserVel, upperFlywheelUserVel, shooter.isFlywheelInVelocityMode());
                     dashboard.displayPrintf(
-                        3, "Shooter.Flywheel: Pwr=%.1f/%.1f, Vel=%.1f/%.1f, OnTarget=%s",
+                        3, "Shooter.Flywheel: Pwr=%.1f/%.1f, Vel=%.1f/%.1f, OnTarget=%s, AlignEnabled=%s",
                         shooter.getLowerFlywheelPower(), shooter.getUpperFlywheelPower(),
                         shooter.getLowerFlywheelVelocity(), shooter.getUpperFlywheelVelocity(),
-                        shooter.isFlywheelVelOnTarget());
+                        shooter.isFlywheelVelOnTarget(), shooter.isVisionAlignEnabled());
                     dashboard.displayPrintf(
                         4, "Shooter.Tilter: Far=%s, Pos=%.1f",
                         shooter.isTilterAtFarPosition(), shooter.getTilterPosition());

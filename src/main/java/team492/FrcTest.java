@@ -26,7 +26,6 @@ import java.util.Locale;
 
 import TrcCommonLib.command.CmdDriveMotorsTest;
 import TrcCommonLib.command.CmdPidDrive;
-import TrcCommonLib.command.CmdPurePursuitDrive;
 import TrcCommonLib.command.CmdTimedDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import TrcFrcLib.frclib.FrcChoiceMenu;
@@ -284,6 +283,7 @@ public class FrcTest extends FrcTeleOp
                 break;
 
             case PP_DRIVE:
+                robot.robotDrive.purePursuitDrive.setMoveOutputLimit(testChoices.getDrivePower());
                 robot.robotDrive.purePursuitDrive.start(
                     null, robot.robotDrive.driveBase.getFieldPosition(), true,
                     new TrcPose2D(

@@ -264,7 +264,7 @@ public class RobotParams
     public static final double SWERVE_INCHES_PER_COUNT          = 9.250709670962152e-4;
     public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
-    public static final double SWERVE_KD                        = 0.005;
+    public static final double SWERVE_KD                        = 0.0;
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
@@ -347,7 +347,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 1.0;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR

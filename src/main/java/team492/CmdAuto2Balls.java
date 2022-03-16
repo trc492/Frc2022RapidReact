@@ -106,11 +106,11 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(1, "State: disabled or waiting...");
+            robot.dashboard.displayPrintf(8, "State: disabled or waiting...");
         }
         else
         {
-            robot.dashboard.displayPrintf(1, "State: %s", state);
+            robot.dashboard.displayPrintf(8, "State: %s", state);
 
             switch (state)
             {
@@ -139,7 +139,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 36.0, 180.0));
+                        new TrcPose2D(0.0, 36.0, 0.0));
                     sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
 

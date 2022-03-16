@@ -367,29 +367,32 @@ public class Robot extends FrcRobotBase
                 }
             }
 
-            if (vision != null)
+            if (RobotParams.Preferences.showVisionStatus)
             {
-                FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
+                if (vision != null)
+                {
+                    FrcRemoteVisionProcessor.RelativePose pose = vision.getLastPose();
 
-                if (pose != null)
-                {
-                    double horiAngle = vision.getTargetHorizontalAngle();
-                    double vertAngle = vision.getTargetVerticalAngle();
-                    double distanceToTarget = vision.getTargetDistance();
-                    dashboard.putNumber("Camera/distance", distanceToTarget + RobotParams.VISION_TARGET_RADIUS);
-                    dashboard.putNumber("Camera/horiAngle", horiAngle);
-                    dashboard.putNumber("Camera/vertAngle", vertAngle);
-                    if (RobotParams.Preferences.debugVision)
+                    if (pose != null)
                     {
-                        dashboard.displayPrintf(
-                            9, "VisionTarget: x=%.1f,y=%.1f,depth=%.1f/%.1f,horiAngle=%.1f,vertAngle=%.1f",
-                            pose.x, pose.y, pose.r, distanceToTarget + RobotParams.VISION_TARGET_RADIUS, horiAngle,
-                            vertAngle);
+                        double horiAngle = vision.getTargetHorizontalAngle();
+                        double vertAngle = vision.getTargetVerticalAngle();
+                        double distanceToTarget = vision.getTargetDistance();
+                        dashboard.putNumber("Camera/distance", distanceToTarget + RobotParams.VISION_TARGET_RADIUS);
+                        dashboard.putNumber("Camera/horiAngle", horiAngle);
+                        dashboard.putNumber("Camera/vertAngle", vertAngle);
+                        if (RobotParams.Preferences.debugVision)
+                        {
+                            dashboard.displayPrintf(
+                                15, "VisionTarget: x=%.1f,y=%.1f,depth=%.1f/%.1f,horiAngle=%.1f,vertAngle=%.1f",
+                                pose.x, pose.y, pose.r, distanceToTarget + RobotParams.VISION_TARGET_RADIUS,
+                                horiAngle, vertAngle);
+                        }
                     }
-                }
-                else if (RobotParams.Preferences.debugVision)
-                {
-                    dashboard.displayPrintf(9, "VisionTarget: No target found!");
+                    else if (RobotParams.Preferences.debugVision)
+                    {
+                        dashboard.displayPrintf(15, "VisionTarget: No target found!");
+                    }
                 }
             }
 

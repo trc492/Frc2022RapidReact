@@ -805,7 +805,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
 
                     // Use odometry to determine shoot parameters.
-                    if (shootParams == null || alignAngle == null)
+                    if (shootParams == null)    // || alignAngle == null)
                     {
                         // Caller did not provide shootParams and vision did not detect target or we are shooting
                         // with no vision, use robot odometry to get distance to target and interpolate shootParams

@@ -110,11 +110,11 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(1, "State: disabled or waiting...");
+            robot.dashboard.displayPrintf(8, "State: disabled or waiting...");
         }
         else
         {
-            robot.dashboard.displayPrintf(1, "State: %s", state);
+            robot.dashboard.displayPrintf(8, "State: %s", state);
             switch (state)
             {
                 case START_DELAY:
@@ -137,7 +137,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     }
 
                 case AIM_TO_SHOOT:
-                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                    robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
                     sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     break;
 

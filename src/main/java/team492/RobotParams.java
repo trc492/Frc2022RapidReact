@@ -47,6 +47,7 @@ public class RobotParams
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
+        public static final boolean showVisionStatus            = true;
         public static final boolean showSubsystemStatus         = true;
 
         public static final boolean debugPowerConsumption       = false;
@@ -271,7 +272,7 @@ public class RobotParams
     // 2022-03-01: PID=0.007, 0.0, 0.0007, Tol=2.0
     public static final double GYRO_TURN_KP                     = 0.007;
     public static final double GYRO_TURN_KI                     = 0.0;
-    public static final double GYRO_TURN_KD                     = 0.0007;
+    public static final double GYRO_TURN_KD                     = 0.0;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 5.0;
 
@@ -334,7 +335,8 @@ public class RobotParams
     public static final double PPD_FOLLOWING_DISTANCE           = 10.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
     public static final double PPD_TURN_TOLERANCE               = 2.0;
-    public static final double PPD_MOVE_OUTPUT_LIMIT            = 0.6;
+    public static final double PPD_MOVE_OUTPUT_LIMIT            = 0.3;
+    public static final double PPD_ROT_OUTPUT_LIMIT             = 0.3;
 
     //
     // Other subsystems.

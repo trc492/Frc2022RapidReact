@@ -113,11 +113,11 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(1, "State: disabled or waiting...");
+            robot.dashboard.displayPrintf(8, "State: disabled or waiting...");
         }
         else
         {
-            robot.dashboard.displayPrintf(1, "State: %s", state);
+            robot.dashboard.displayPrintf(8, "State: %s", state);
 
             //sequence of states:
             //shoot no vision
@@ -161,7 +161,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     if(numBallsShot == 0)
                     {
                         numBallsShot = 1;
-                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
                     else
                     {
@@ -202,7 +202,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                             new TrcPose2D(-282.0, -117.7, 259.5));
                     }
                     //might have to change this if it makes ball catch on flywheel
-                    sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
+                    sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     break;
 
                 case PICKUP_ONE_MORE:

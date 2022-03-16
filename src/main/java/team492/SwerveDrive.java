@@ -175,6 +175,7 @@ public class SwerveDrive extends RobotDrive
             "purePursuitDrive", driveBase, RobotParams.PPD_FOLLOWING_DISTANCE, RobotParams.PPD_POS_TOLERANCE,
             RobotParams.PPD_TURN_TOLERANCE, xPosPidCoeff, yPosPidCoeff, turnPidCoeff, velPidCoeff);
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_OUTPUT_LIMIT);
+        purePursuitDrive.setRotOutputLimit(RobotParams.PPD_ROT_OUTPUT_LIMIT);
         purePursuitDrive.setFastModeEnabled(true);
         purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
     }   //SwerveDrive

@@ -200,59 +200,114 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "3,0": {
             "size": [
-              26,
+              3,
               2
             ],
             "content": {
-              "_type": "Split Button Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto/AutoStrategies",
-              "_title": "AutoStrategies"
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto/Alliance",
+              "_title": "SmartDashboard/Auto/Alliance"
+            }
+          },
+          "6,2": {
+            "size": [
+              6,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto/StartPos",
+              "_title": "SmartDashboard/Auto/StartPos"
+            }
+          },
+          "6,0": {
+            "size": [
+              6,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto/Strategy",
+              "_title": "SmartDashboard/Auto/Strategy"
+            }
+          },
+          "9,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto/DrivePower",
+              "_title": "SmartDashboard/Auto/DrivePower"
+            }
+          },
+          "0,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto/DriveTime",
+              "_title": "SmartDashboard/Auto/DriveTime"
             }
           },
           "0,2": {
             "size": [
-              10,
+              6,
               2
             ],
             "content": {
-              "_type": "Split Button Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto/StartPositions",
-              "_title": "StartPositions"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto/PathFile",
+              "_title": "SmartDashboard/Auto/PathFile"
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto/StartDelay",
+              "_title": "SmartDashboard/Auto/StartDelay"
+            }
+          },
+          "6,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto/TurnAngle",
+              "_title": "SmartDashboard/Auto/TurnAngle"
             }
           },
           "0,4": {
             "size": [
-              10,
-              3
-            ],
-            "content": {
-              "_type": "Split Button Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto/ShooterAutoAfterAction",
-              "_title": "ShooterAutoAfterAction"
-            }
-          },
-          "10,2": {
-            "size": [
-              4,
+              3,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Auto/CustomXPos",
-              "_title": "CustomXPos"
+              "_source0": "network_table:///SmartDashboard/Auto/XDriveDistance",
+              "_title": "SmartDashboard/Auto/XDriveDistance"
             }
           },
-          "14,2": {
+          "3,4": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Auto/Delay",
-              "_title": "Delay"
+              "_source0": "network_table:///SmartDashboard/Auto/YDriveDistance",
+              "_title": "SmartDashboard/Auto/YDriveDistance"
             }
           }
         }
@@ -890,9 +945,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -6.400000095367432,
-    "y": 1.600000023841858,
-    "width": 1547.199951171875,
-    "height": 828.7999877929688
+    "x": -6.0,
+    "y": 2.0,
+    "width": 1548.0,
+    "height": 829.0
   }
 }

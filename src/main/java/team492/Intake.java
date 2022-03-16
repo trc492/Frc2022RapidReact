@@ -114,7 +114,6 @@ public class Intake implements TrcExclusiveSubsystem
                 funcName, "owner=%s, event=%s, entrance=%s, exit=%s", owner, event, ballAtEntrance, ballAtExit);
         }
 
-        // this.onFinishedEvent = event; //??? Why??? Should be done inside the if.
         if (validateOwnership(owner))
         {
             // Only do this if there is room. There are 4 scenarios:

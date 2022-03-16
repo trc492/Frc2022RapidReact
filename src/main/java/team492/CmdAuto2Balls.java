@@ -40,7 +40,9 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         SHOOT,
         PICKUP_BALL,
         DRIVE_TO_SHOOT_POSITION,
-
+        //TODOL implement when i have time
+        PICKUP_ENEMY_BALL,
+        DEPOSIT_ENEMY_BALL,
         DONE
     }   //enum State
 
@@ -179,6 +181,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                 break; 
 
                 case PREPARE_TO_SHOOT:
+                    robot.dashboard.displayPrintf(15, "PREPARING TO SHOOT");
                     if (!shootWithVision)
                     {
                         //this is shooting first ball no vision

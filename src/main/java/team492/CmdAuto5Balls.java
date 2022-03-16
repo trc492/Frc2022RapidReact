@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2022 Titan Robotics Club (http://www.titanrobotics.com)
  *
@@ -21,7 +22,6 @@
  */
 
 package team492;
-
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
@@ -36,13 +36,11 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
-        SHOOT_PRELOADED_BALL,
-        PICKUP_BALL_1,
-        PICKUP_BALL_2,
-        SHOOT_1_AND_2,
-        PICKUP_BALL_3,
-        PICKUP_BALL_4,
-        SHOOT_3_AND_4,
+        PREPARE_TO_SHOOT,
+        SHOOT,
+        PICKUP_RING_BALLS,
+        //ignore this for now 
+        PICKUP_FAR_BALLS,
         DONE,
     }   //enum State
 
@@ -51,6 +49,12 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
+
+    private int pointNumber; 
+    private boolean pidOnly = true;
+    private  TrcPose2D[] path; 
+    //keeps track of number of balls robot has already shot 
+    int numBallsShot; 
 
     // private boolean shootWithVision = false;
     // private int pointNumber;
@@ -143,6 +147,9 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
                         RobotParams.RED_START_POS_5_BALL: RobotParams.BLUE_START_POS_5_BALL;
                     robot.robotDrive.driveBase.setFieldPosition(startPose);
+                    //quick reference - delete this once points finalized
+                    //  RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
+                    //  BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
                     //
                     // Do start delay if any.
                     //
@@ -152,27 +159,66 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.SHOOT_PRELOADED_BALL);
+                        sm.setState(State.PREPARE_TO_SHOOT);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.SHOOT_PRELOADED_BALL);
-                        break;
+                        sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
                     }
-                case SHOOT_PRELOADED_BALL:
+                    break; 
+                case PREPARE_TO_SHOOT:
+                    //if we havent shot any balls, we are only shooting the preload 
+                    //otherwise we will shoot 2 balls at once
+                    if(numBallsShot == 0){
+                        numBallsShot = 1; 
+                        robot.shooter.prepareToShootNoVision(moduleName, event, "tarmac_auto");
+                    }
+                    else{
+                        numBallsShot +=2; 
+                        robot.shooter.prepareToShootWithVision(moduleName, event, true);
+                    }
+                    sm.waitForSingleEvent(event, State.SHOOT);
+                    
                     break;
-                case PICKUP_BALL_1:
-                    break;
-                case PICKUP_BALL_2:
-                    break;
-                case SHOOT_1_AND_2:
-                    break;
-                case PICKUP_BALL_3:
-                    break;
-                case PICKUP_BALL_4:
-                    break;
-                case SHOOT_3_AND_4:
+                case SHOOT:
+                    
+                    robot.shooter.shootAllBalls(moduleName, event);
+                    //only shot one ball before, need to pickup the 2 ring balls 
+                    if(numBallsShot ==1){
+                        sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
+                    }
+                    else{
+                        sm.waitForSingleEvent(event, State.DONE);
+                    }
+
+                //case for picking up balls in the rings just outside tarmac 
+                case PICKUP_RING_BALLS:
+                    //drive to point while running intake
+                    //move on to drive to shoot position when intake has a ball 
+                    //Make sure to test this with raised intake first 
+                    
+                    //TODO: need to check the points
+                    if(autoChoices.getAlliance() == DriverStation.Alliance.Blue){
+                        
+                        robot.robotDrive.purePursuitDrive.start(
+                            null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, 
+                            new TrcPose2D(-24, -132, 177.0),
+                            new TrcPose2D(-111.4, -95.8, 302),
+                            new TrcPose2D(-282.0, -117.7, 259.5)
+                            );
+                    }
+                    else{
+                        robot.robotDrive.purePursuitDrive.start(
+                            null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, 
+                                new TrcPose2D(26.5, 108.5, 358.0),
+                                new TrcPose2D(125.75, 88.3, 302.0),
+                                new TrcPose2D(283.5, 117, 259.5)
+                            );
+                    }
+                    //might have to change this if it makes ball catch on flywheel
+                    robot.intake.setPower(0.5);
+                    sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
                     break;
                 case DONE:
                 default:

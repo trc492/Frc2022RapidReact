@@ -511,8 +511,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     }
                 }
                 break;
-
+            //use this button to simulate auto with teleop
+            //just drive robot towards ball and check what it says position is
+            //plug into desmos to see if it makes sense 
             case FrcJoystick.LOGITECH_BUTTON9:
+                robot.robotDrive.driveBase.setFieldPosition(RobotParams.BLUE_START_POS_2_BALL_PICKUP_FIRST); 
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:

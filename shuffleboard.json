@@ -425,7 +425,7 @@
         "tiles": {
           "0,0": {
             "size": [
-              26,
+              28,
               12
             ],
             "content": {
@@ -470,13 +470,13 @@
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/MatchTime",
-                  "_title": "MatchTime"
+                  "_source0": "network_table:///SmartDashboard/03",
+                  "_title": "/SmartDashboard/03"
                 }
               ]
             }
           },
-          "26,0": {
+          "28,0": {
             "size": [
               3,
               2
@@ -487,7 +487,7 @@
               "_title": "SmartDashboard/Camera/distance"
             }
           },
-          "26,2": {
+          "28,2": {
             "size": [
               3,
               2
@@ -498,7 +498,7 @@
               "_title": "SmartDashboard/Camera/horiAngle"
             }
           },
-          "26,4": {
+          "28,4": {
             "size": [
               3,
               2
@@ -853,6 +853,34 @@
                   "_title": "DigitalInput[9]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,4]/Value",
+                  "_title": "LiveWindow/Ungrouped/Solenoid[30,4]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[7]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[7]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[30,5]/Value",
+                  "_title": "LiveWindow/Ungrouped/Solenoid[30,5]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -862,8 +890,8 @@
     }
   ],
   "windowGeometry": {
-    "x": -5.599999904632568,
-    "y": 0.800000011920929,
+    "x": -6.400000095367432,
+    "y": 1.600000023841858,
     "width": 1547.199951171875,
     "height": 828.7999877929688
   }

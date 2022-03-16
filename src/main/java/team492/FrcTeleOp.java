@@ -597,7 +597,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_BLUE2:
                 if (pressed)
                 {
-                    robot.climber.climber.setTarget(26.0, true);
+                    //robot.climber.climber.setTarget(26.0, true);
+                    robot.climber.traverseOneRung();
                 }
                 break;
 

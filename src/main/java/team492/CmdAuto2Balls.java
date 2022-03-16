@@ -55,7 +55,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
 
     private  TrcPose2D[] path; 
     Double expireTime; 
-    private boolean pidOnly = true;
+    private boolean pidOnly = false;
     //may convert this into an autochoice  
     private boolean pickupFirst = true; 
     State nextState = null; 
@@ -85,6 +85,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
 
         pointNumber = 0; 
         robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
+        robot.robotDrive.purePursuitDrive.setMoveOutputLimit(0.2);
     }   //CmdAuto2Balls
 
     //
@@ -146,6 +147,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     // Set robot starting position in the field.
                     //
                     if(pickupFirst){
+                        robot.intake.extend();
                         TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
                             RobotParams.RED_START_POS_2_BALL_PICKUP_FIRST: RobotParams.BLUE_START_POS_2_BALL_PICKUP_FIRST;
                             robot.robotDrive.driveBase.setFieldPosition(startPose);
@@ -173,20 +175,20 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     {
                         timer.set(startDelay, event);
                         sm.waitForSingleEvent(event, nextState);
-                        break;
                     }
+                break; 
 
                 case PREPARE_TO_SHOOT:
                     if (!shootWithVision)
                     {
                         //this is shooting first ball no vision
-                        robot.shooter.prepareToShootWithVision(moduleName, event, "preload");
+                        robot.shooter.prepareToShootWithVision(moduleName, event, "tarmac_auto");
                     }
                     else
                     {
                         //this is second ball, after this we are done
                         //TODO change this preset
-                        robot.shooter.prepareToShootWithVision(moduleName, event, "tarmac_mid");
+                        robot.shooter.prepareToShootWithVision(moduleName, event, "tarmac_auto");
                     }
                     sm.waitForSingleEvent(event, State.SHOOT);
                     break;
@@ -204,9 +206,10 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                         robot.robotDrive.pidDrive.setRelativeYTarget(40, null);
                     }
                     else{
-                        pointNumber++; 
                         robot.robotDrive.purePursuitDrive.start(
-                            null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                            null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0, 36, 0));
+                        pointNumber++; 
+
                     }
        
                     robot.intake.pickup(event);
@@ -223,9 +226,9 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     }
                     else{
                         robot.robotDrive.purePursuitDrive.start(
-                            event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[pointNumber]);
+                            event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0, 0, 180));
                     }
-                    sm.waitForSingleEvent(event, State.SHOOT);
+                    sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
 
                     break; 
 

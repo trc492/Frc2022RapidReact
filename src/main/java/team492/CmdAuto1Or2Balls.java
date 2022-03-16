@@ -23,30 +23,34 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
+import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
+import team492.ShootParamTable.ShootLoc;
 
-class CmdAuto1Ball implements TrcRobot.RobotCommand
+class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto1Ball";
+    private static final String moduleName = "CmdAuto1Or2Balls";
 
     private enum State
     {
         START_DELAY,
-        PREPARE_TO_SHOOT,
-        SHOOT_PRELOADED_BALL,
+        AIM_TO_SHOOT,
+        SHOOT_BALL,
+        PICKUP_2ND_BALL,
+        TURN_AROUND,
         GET_OFF_TARMAC,
-
         DONE
     }   //enum State
 
     private final Robot robot;
     private final FrcAuto.AutoChoices autoChoices;
+    private final boolean do2Balls;
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
-    Double expireTime; 
+    private boolean got2ndBall = false;
 
     /**
      * Constructor: Create an instance of the object.
@@ -54,23 +58,19 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto1Ball(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto1Or2Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do2Balls)
     {
-        robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
+        robot.globalTracer.traceInfo(
+            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, autoChoices, do2Balls);
 
         this.robot = robot;
         this.autoChoices = autoChoices;
+        this.do2Balls = do2Balls;
         timer = new TrcTimer(moduleName + ".timer");
         event = new TrcEvent(moduleName + ".event");
         sm = new TrcStateMachine<>(moduleName);
         sm.start(State.START_DELAY);
-
-        // int startPos = autoChoices.getStartPos();
-        // path = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-        //             RobotParams.RED_PATHS[startPos]: RobotParams.BLUE_PATHS[startPos];
-
-        robot.robotDrive.purePursuitDrive.setFastModeEnabled(true);
-    }   //CmdAuto1Ball
+    }   //CmdAuto1Or2Balls
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -114,19 +114,10 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
         }
         else
         {
-            boolean traceState = true;
-
             robot.dashboard.displayPrintf(1, "State: %s", state);
             switch (state)
             {
                 case START_DELAY:
-                    //
-                    // Set robot starting position in the field.
-                    //
-                    // int pos = autoChoices.getStartPos();
-                    // TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                    //     RobotParams.RED_START_POSES[pos]: RobotParams.BLUE_START_POSES[pos];
-                    // robot.robotDrive.driveBase.setFieldPosition(startPose);
                     //
                     // Do start delay if any.
                     //
@@ -136,44 +127,53 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.PREPARE_TO_SHOOT);
+                        sm.setState(State.AIM_TO_SHOOT);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
+                        sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                         break;
                     }
 
-                case PREPARE_TO_SHOOT:
-                    robot.dashboard.displayPrintf(12, "entered shoot auto");
-                    //BUGBUG: fix parameters by look up table on the StartPosition.
-                    robot.shooter.prepareToShootWithVision(moduleName, event, "preload");
-                    sm.waitForSingleEvent(event, State.SHOOT_PRELOADED_BALL);
+                case AIM_TO_SHOOT:
+                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     break;
 
-                case SHOOT_PRELOADED_BALL:
+                case SHOOT_BALL:
                     robot.shooter.shootAllBalls(moduleName, event);
-                    sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
+                    sm.waitForSingleEvent(
+                        event, do2Balls && !got2ndBall? State.PICKUP_2ND_BALL: State.GET_OFF_TARMAC);
+                    break;
+
+                case PICKUP_2ND_BALL:
+                    //drive to the ball while running the intake
+                    robot.intake.extend();
+                    robot.intake.pickup(event);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -36.0, 180.0));
+                    sm.waitForSingleEvent(event, State.TURN_AROUND);
+                    break;
+
+                case TURN_AROUND:
+                    got2ndBall = true;
+                    robot.intake.retract();
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -36.0, 180.0));
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     break;
 
                 case GET_OFF_TARMAC:
+                    // robot.robotDrive.purePursuitDrive.start(
+                    //     event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                    //     new TrcPose2D(0.0, -40.0, 0.0));
                     robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
                     timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.DONE);
                     break;
-
-                // CodeReview: should shoot the preloaded ball first.
-                // case PICKUP_BALL:
-                //     //drive to the ball while running the intake
-                //     robot.robotDrive.purePursuitDrive.start(
-                //         event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false, path[0]);
-                //     robot.intake.pickup(event2);
-                //     //when robot arrived at location and intake event is signaled, move on to shoot event
-                //     sm.addEvent(event);
-                //     sm.addEvent(event2);
-                //     sm.waitForEvents(State.SHOOT, 0.0, true);
-                //     break;
 
                 case DONE:
                 default:
@@ -184,15 +184,12 @@ class CmdAuto1Ball implements TrcRobot.RobotCommand
                     break;
             }
 
-            if (traceState)
-            {
-                robot.globalTracer.traceStateInfo(
-                    state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
-                    robot.robotDrive.purePursuitDrive, null);
-            }
+            robot.globalTracer.traceStateInfo(
+                state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
+                robot.robotDrive.purePursuitDrive, null);
         }
 
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto1Ball
+}   //class CmdAuto1Or2Balls

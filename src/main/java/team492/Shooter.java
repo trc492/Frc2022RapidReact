@@ -35,10 +35,25 @@ import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import team492.ShootParamTable.ShootLoc;
 
 public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
+
+    // TODO: Need to measure the distances and determine the tilter angles.
+    private final ShootParamTable shootParamTable = new ShootParamTable()
+        .add(ShootLoc.TarmacMid,    1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacAuto,   2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.RingMid,      3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.LaunchPad,    4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
+        //15 - Tilter 31, 2000, 2400, later 2100, 2300
+        //12 - Tilter 31, 2100, 2000 (ballpark)
+        //Tarmac front edge (10ft) - Tilter 43, 1900, 1900 (Tilter 43, 2000, 1900)
+        .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance18ft, 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
 
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
@@ -49,27 +64,12 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcPidController alignPidCtrl;
     private final TrcTaskMgr.TaskObject shooterTaskObj;
 
-    // TODO: Need to measure the distances and determine the tilter angles.
-    private final ShootParamTable shootParamTable = new ShootParamTable()
-        .add("tarmac_mid",  1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("tarmac_auto", 2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("ring_mid",    3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("launchpad",   4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        .add("tower",       5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        .add("13ft",        156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
-        //15 - Tilter 31, 2000, 2400, later 2100, 2300
-        //12 - Tilter 31, 2100, 2000 (ballpark)
-        //Tarmac front edge (10ft) - Tilter 43, 1900, 1900 (Tilter 43, 2000, 1900)
-        .add("15ft",        180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
-        .add("18ft",        216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
-
     private TrcDbgTrace msgTracer = null;
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
     private boolean visionAlignEnabled = false;
     private boolean readyToShoot = false;
-    private boolean allowShooting = false;
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
@@ -390,12 +390,6 @@ public class Shooter implements TrcExclusiveSubsystem
         setFlywheelValue(null, value, null);
     }   //setFlywheelValue
 
-    // CodeReview: What is this for?????
-    public void setFlywheelPower(double power)
-    {
-        lowerFlywheelMotor.setMotorPower(power);
-    }
-
     /**
      * This method checks if the flywheel is spinning at target velocity.
      *
@@ -619,22 +613,22 @@ public class Shooter implements TrcExclusiveSubsystem
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor using vision only for alignment.
-     * The caller will provide the preset table entry for the rest of the shooting parameters.
+     * The caller will provide the preset location entry for the rest of the shooting parameters.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param presetName specifies name of the preset table entry for shoot parameters.
+     * @param presetLoc specifies shoot location of the preset table entry for shoot parameters.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event, String presetName)
+    public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        ShootParamTable.Params params = presetName != null? shootParamTable.get(presetName): null;
+        ShootParamTable.Params params = presetLoc != null? shootParamTable.get(presetLoc): null;
 
         if (params == null)
         {
             throw new IllegalArgumentException(
-                "presetName must not be null and must specify an entry in the ShootParamTable.");
+                "presetLoc must not be null and must specify an entry in the ShootParamTable.");
         }
 
         return prepareToShootWithVision(owner, event, params);
@@ -683,18 +677,18 @@ public class Shooter implements TrcExclusiveSubsystem
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param presetName specifies name of the preset table entry for shoot parameters.
+     * @param presetLoc specifies shoot location of the preset table entry for shoot parameters.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootNoVision(String owner, TrcEvent event, String presetName)
+    public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        ShootParamTable.Params params = presetName != null? shootParamTable.get(presetName): null;
+        ShootParamTable.Params params = presetLoc != null? shootParamTable.get(presetLoc): null;
 
         if (params == null)
         {
             throw new IllegalArgumentException(
-                "presetName must not be null and must specify an entry in the ShootParamTable.");
+                "presetLoc must not be null and must specify an entry in the ShootParamTable.");
         }
 
         return prepareToShootNoVision(owner, event, params);
@@ -708,18 +702,17 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
-        //for debug purposes - we just want it to shoot when tim releases 
-        if(validateOwnership(owner)){
-            readyToShoot = true; 
-            onFinishEvent = event; 
-            allowShooting = true; 
-        }
-        // if (allowShooting && validateOwnership(owner))
-        // {
-        //     allowShooting = false;
+        // //for debug purposes - we just want it to shoot when tim releases
+        // if(validateOwnership(owner)){
         //     readyToShoot = true;
         //     onFinishEvent = event;
+        //     allowShooting = true;
         // }
+        if (getUpperFlywheelVelocity() > 0.0 && validateOwnership(owner))
+        {
+            readyToShoot = true;
+            onFinishEvent = event;
+        }
     }   //shootAllBalls
 
     /**
@@ -865,7 +858,6 @@ public class Shooter implements TrcExclusiveSubsystem
                     setTilterPosition(shootParams.tilterAngle);
                     // set appliedShootParams to true to indicate flywheels spinning and tilter set to correct angle
                     // or we won't allow shooting.
-                    allowShooting = true;
 
                     if (!isAuto)
                     {
@@ -877,7 +869,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         double[] inputs = robot.robotDrive.getDriveInputs();
                         xPower = inputs[0]*0.3;
                         yPower = inputs[1]*0.3;
-                        rotPower = inputs[2]*0.5;
+                        rotPower = inputs[2]*0.3;
                     }
 
                     if (visionAlignEnabled && rotPower == 0.0)
@@ -900,7 +892,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
                     //commented out because we have not tuned turning to vision target PID 
                     // if (visionPidOnTarget)
-                    // {
+                    {
                         if (onFinishEvent != null)
                         {
                             // This is mainly for notifying autonomous we are prep'd to shoot.
@@ -913,7 +905,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             robot.robotDrive.driveBase.stop();
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
-                        // }
+                        }
                     }
                     break;
 

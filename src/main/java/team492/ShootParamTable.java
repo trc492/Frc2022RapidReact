@@ -28,19 +28,33 @@ import java.util.Locale;
 
 public class ShootParamTable
 {
+    public static enum ShootLoc
+    {
+        TarmacAuto,
+        TarmacMid,
+        RingMid,
+        LaunchPad,
+        Tower,
+        Distance13ft,
+        Distance15ft,
+        Distance18ft,
+        Interpolated,
+        Calibration
+    }   //enum ShootLoc
+
     public static class Params
     {
-        public final String name;
+        public final ShootLoc loc;
         public final double distance;
         public final double lowerFlywheelVelocity;
         public final double upperFlywheelVelocity;
         public final double tilterAngle;
 
         public Params(
-            String name, double distance, double lowerFlywheelVelocity, double upperFlywheelVelocity,
+            ShootLoc loc, double distance, double lowerFlywheelVelocity, double upperFlywheelVelocity,
             double tilterAngle)
         {
-            this.name = name;
+            this.loc = loc;
             this.distance = distance;
             this.lowerFlywheelVelocity = lowerFlywheelVelocity;
             this.upperFlywheelVelocity = upperFlywheelVelocity;
@@ -51,14 +65,14 @@ public class ShootParamTable
         public String toString()
         {
             return String.format(
-                Locale.US, "name=%s, distance=%.1f, lowerFwVel=%.0f, upperFwVel=%.0f, tilterAngle=%.2f",
-                name, distance, lowerFlywheelVelocity, upperFlywheelVelocity, tilterAngle);
+                Locale.US, "loc=%s, distance=%.1f, lowerFwVel=%.0f, upperFwVel=%.0f, tilterAngle=%.2f",
+                loc, distance, lowerFlywheelVelocity, upperFlywheelVelocity, tilterAngle);
         }   //toString
 
     }   //class Params
 
     private final ArrayList<Params> paramTable;
-    private final HashMap<String, Params> paramMap;
+    private final HashMap<ShootLoc, Params> paramMap;
 
     /**
      * Constructor: Create an instance of the object.
@@ -72,7 +86,7 @@ public class ShootParamTable
     /**
      * This method adds an entry to the ShootParamTable sorted by distance.
      *
-     * @param name specifies the name of the entry.
+     * @param loc specifies the shoot location for the entry.
      * @param distance specifies the target distance.
      * @param lowerFlywheelVel specifies the lower flywheel velocity RPM.
      * @param upperFlywheelVel specifies the upper flywheel velocity in RPM.
@@ -81,9 +95,9 @@ public class ShootParamTable
      * @return this instance object.
      */
     public ShootParamTable add(
-        String name, double distance, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
+        ShootLoc loc, double distance, double lowerFlywheelVel, double upperFlywheelVel, double tilterAngle)
     {
-        Params newEntry = new Params(name, distance, lowerFlywheelVel, upperFlywheelVel, tilterAngle);
+        Params newEntry = new Params(loc, distance, lowerFlywheelVel, upperFlywheelVel, tilterAngle);
         int insertPoint = paramTable.size();
 
         if (tilterAngle != RobotParams.TILTER_FAR_ANGLE && tilterAngle != RobotParams.TILTER_CLOSE_ANGLE)
@@ -106,19 +120,19 @@ public class ShootParamTable
         }
 
         paramTable.add(insertPoint, newEntry);
-        paramMap.put(newEntry.name, newEntry);
+        paramMap.put(newEntry.loc, newEntry);
         return this;
     }   //add
 
     /**
      * This method returns the Shoot Param entry that matches the given name.
      *
-     * @param name specifies the name of the entry.
-     * @return shoot param entry that matches the name, null if not found.
+     * @param loc specifies the shoot location for the entry.
+     * @return shoot param entry that matches the shoot location, null if not found.
      */
-    public Params get(String name)
+    public Params get(ShootLoc loc)
     {
-        return paramMap.get(name);
+        return paramMap.get(loc);
     }   //get
 
     /**
@@ -148,7 +162,7 @@ public class ShootParamTable
                     Params prevEntry = paramTable.get(i - 1);
                     double w = (distance - prevEntry.distance) / (entry.distance - prevEntry.distance);
                     foundEntry = new Params(
-                        "interpolated", distance,
+                        ShootLoc.Interpolated, distance,
                         (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
                         (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
                         entry.tilterAngle);

@@ -292,11 +292,11 @@ public class FrcAuto implements TrcRobot.RobotMode
         switch (autoChoices.getStrategy())
         {
             case AUTO_1_BALL:
-                autoCommand = new CmdAuto1Ball(robot, autoChoices);
+                autoCommand = new CmdAuto1Or2Balls(robot, autoChoices, false);
                 break;
 
             case AUTO_2_BALLS:
-                autoCommand = new CmdAuto2Balls(robot, autoChoices);
+                autoCommand = new CmdAuto1Or2Balls(robot, autoChoices, true);
                 break;
 
             case PP_DRIVE:

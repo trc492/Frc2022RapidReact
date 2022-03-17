@@ -30,24 +30,29 @@ import TrcCommonLib.trclib.TrcTimer;
 import edu.wpi.first.wpilibj.DriverStation;
 import team492.ShootParamTable.ShootLoc;
 
-class CmdAuto5Balls implements TrcRobot.RobotCommand
+class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto5Balls";
+    private static final String moduleName = "CmdAuto3Or5Balls";
 
     private enum State
     {
         START_DELAY,
         PREPARE_TO_SHOOT,
         SHOOT,
+        TURN_TO_2ND_BALL,
         PICKUP_RING_BALLS,
+
+
         PICKUP_ONE_MORE,
         //ignore this for now
         PICKUP_FAR_BALLS,
+        GO_TO_TERMINAL,
         DONE
     }   //enum State
 
     private final Robot robot;
     private final FrcAuto.AutoChoices autoChoices;
+    private final boolean do5Balls;
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcEvent driveEvent;
@@ -61,19 +66,22 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
      *
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
+     * @param do5Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
      */
-    CmdAuto5Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto3Or5Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do5Balls)
     {
-        robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
+        robot.globalTracer.traceInfo(
+            moduleName, ">>> robot=%s, choices=%s, do5Balls=%s", robot, autoChoices, do5Balls);
 
         this.robot = robot;
         this.autoChoices = autoChoices;
+        this.do5Balls = do5Balls;
         timer = new TrcTimer(moduleName);
         event = new TrcEvent(moduleName + ".event");
         driveEvent = new TrcEvent(moduleName + ".driveEvent");
         sm = new TrcStateMachine<>(moduleName);
         sm.start(State.START_DELAY);
-    }   //CmdAuto5Balls
+    }   //CmdAuto3Or5Balls
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -96,6 +104,8 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
+        robot.shooter.cancel();
+        robot.shooter.stopFlywheel();
         robot.robotDrive.cancel();
         sm.stop();
     }   //cancel
@@ -118,13 +128,6 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
         else
         {
             robot.dashboard.displayPrintf(8, "State: %s", state);
-
-            //sequence of states:
-            //shoot no vision
-            //pick up ball
-            //drive to shooting spot
-            //shoot with vision
-            //done 
             switch (state)
             {
                 case START_DELAY:
@@ -160,31 +163,46 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     //otherwise we will shoot 2 balls at once
                     if(numBallsShot == 0)
                     {
-                        numBallsShot = 1;
                         robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                        numBallsShot++;
                     }
                     else
                     {
+                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacMid);
                         numBallsShot += 2;
-                        robot.shooter.prepareToShootWithVision(moduleName, event, true);
                     }
                     sm.waitForSingleEvent(event, State.SHOOT);
                     break;
 
                 case SHOOT:
-                    robot.shooter.shootAllBalls(moduleName, event);
                     //only shot one ball before, need to pickup the 2 ring balls
-                    sm.waitForSingleEvent(event, numBallsShot == 1? State.PICKUP_RING_BALLS: State.DONE);
+                    sm.waitForSingleEvent(
+                        event, numBallsShot == 1? State.TURN_TO_2ND_BALL:
+                               numBallsShot == 3 && do5Balls? State.GO_TO_TERMINAL: State.DONE);
+                    robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
-                //case for picking up balls in the rings just outside tarmac
-                case PICKUP_RING_BALLS:
-                    //drive to point while running intake
-                    //move on to drive to shoot position when intake has a ball
-                    //Make sure to test this with raised intake first
+                case TURN_TO_2ND_BALL:
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -10.0, 180.0));
+                    sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
+                    break;
 
+                // case PICKUP_2ND_BALL:
+                //     //drive to the ball while running the intake
+                //     robot.intake.extend();
+                //     robot.intake.pickup(event);
+                //     robot.robotDrive.purePursuitDrive.start(
+                //         null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                //         new TrcPose2D(0.0, 26.0, 0));
+                //     sm.waitForSingleEvent(event, State.TURN_AROUND);
+                //     break;
+
+                case PICKUP_RING_BALLS:
+                    robot.intake.extend();
                     robot.intake.pickup(event);
-                    //TODO: need to check the points
+                    sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         robot.robotDrive.purePursuitDrive.start(
@@ -201,8 +219,6 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                             new TrcPose2D(-111.4, -95.8, 302),
                             new TrcPose2D(-282.0, -117.7, 259.5));
                     }
-                    //might have to change this if it makes ball catch on flywheel
-                    sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     break;
 
                 case PICKUP_ONE_MORE:
@@ -227,4 +243,4 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto5Balls
+}   //class CmdAuto3Or5Balls

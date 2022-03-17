@@ -89,6 +89,8 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
+        robot.shooter.cancel();
+        robot.shooter.stopFlywheel();
         robot.robotDrive.cancel();
         sm.stop();
     }   //cancel

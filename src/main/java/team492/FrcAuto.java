@@ -53,6 +53,8 @@ public class FrcAuto implements TrcRobot.RobotMode
     {
         AUTO_1_BALL,
         AUTO_2_BALLS,
+        AUTO_3_BALLS,
+        AUTO_5_BALLS,
         PP_DRIVE,
         PID_DRIVE,
         TIMED_DRIVE,
@@ -118,6 +120,8 @@ public class FrcAuto implements TrcRobot.RobotMode
             
             autoStrategyMenu.addChoice("Autonomous 1 Ball", AutoStrategy.AUTO_1_BALL, false,  false);
             autoStrategyMenu.addChoice("Autonomous 2 Balls", AutoStrategy.AUTO_2_BALLS, true, false);
+            autoStrategyMenu.addChoice("Autonomous 3 Balls", AutoStrategy.AUTO_3_BALLS, false, false);
+            autoStrategyMenu.addChoice("Autonomous 5 Balls", AutoStrategy.AUTO_5_BALLS, false, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
@@ -297,6 +301,14 @@ public class FrcAuto implements TrcRobot.RobotMode
 
             case AUTO_2_BALLS:
                 autoCommand = new CmdAuto1Or2Balls(robot, autoChoices, true);
+                break;
+
+            case AUTO_3_BALLS:
+                autoCommand = new CmdAuto3Or5Balls(robot, autoChoices, false);
+                break;
+
+            case AUTO_5_BALLS:
+                autoCommand = new CmdAuto3Or5Balls(robot, autoChoices, true);
                 break;
 
             case PP_DRIVE:

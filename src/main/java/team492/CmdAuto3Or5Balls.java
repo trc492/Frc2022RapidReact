@@ -132,11 +132,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // Set robot starting position in the field.
                     //
                     TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                        RobotParams.RED_START_POS_5_BALL: RobotParams.BLUE_START_POS_5_BALL;
+                        RobotParams.AUTO_5BALL_STARTPOS_RED: RobotParams.AUTO_5BALL_STARTPOS_BLUE;
                     robot.robotDrive.driveBase.setFieldPosition(startPose);
-                    //quick reference - delete this once points finalized
-                    //  RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
-                    //  BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
                     //
                     // Do start delay if any.
                     //

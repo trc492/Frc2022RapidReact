@@ -102,11 +102,23 @@ public class RobotParams
     // public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
 
     // The following info is precisely measured from the Field CAD file. Do not modify lightly.
-    // 5 ball auto start position:
-    // Red Ball: 25.91, 150.79, 189.75
-    // Blue Ball: -25.91, -150.79, 9.75
-    public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(14.869, 86.534, 189.75);
-    public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-14.869, -86.534, 9.75);
+    // 5-ball auto positions:
+    public static final TrcPose2D AUTO_5BALL_STARTPOS_RED = new TrcPose2D(14.869, 86.534, 189.75);
+    public static final TrcPose2D AUTO_5BALL_STARTPOS_BLUE = new TrcPose2D(-14.869, -86.534, 9.75);
+    public static final TrcPose2D AUTO_5BALL_BALL1_RED = new TrcPose2D(25.91, 150.79, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL1_BLUE = new TrcPose2D(-25.91, -150.79, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL2_RED = new TrcPose2D(124.946, 88.303, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL2_BLUE = new TrcPose2D(-124.946, -88.303, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL3_RED = new TrcPose2D(129.396, -81.643, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL3_BLUE = new TrcPose2D(-129.396, 81.643, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL4_RED = new TrcPose2D(33.767, -149.227, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL4_BLUE = new TrcPose2D(-33.767, 149.227, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL5_RED = new TrcPose2D(-149.227, -33.767, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL5_BLUE = new TrcPose2D(149.227, 33.767, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL6_RED = new TrcPose2D(-88.303, 124.946, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL6_BLUE = new TrcPose2D(88.303, -124.946, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL7_RED = new TrcPose2D(282.08, 117.725, 0.0);
+    public static final TrcPose2D AUTO_5BALL_BALL7_BLUE = new TrcPose2D(-282.08, -117.725, 0.0);
 
     //path points for each different auto path
     //first point: robot picking up the ball around the tarmacs

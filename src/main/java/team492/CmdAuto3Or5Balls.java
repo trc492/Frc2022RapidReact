@@ -41,11 +41,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
         SHOOT,
         TURN_TO_2ND_BALL,
         PICKUP_RING_BALLS,
-
-
         PICKUP_ONE_MORE,
         //ignore this for now
-        PICKUP_FAR_BALLS,
         GO_TO_TERMINAL,
         DONE
     }   //enum State
@@ -226,6 +223,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(driveEvent, State.PREPARE_TO_SHOOT);
                     break;
 
+                case GO_TO_TERMINAL:
                 case DONE:
                 default:
                     //

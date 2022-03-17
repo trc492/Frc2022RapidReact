@@ -916,12 +916,12 @@ public class Shooter implements TrcExclusiveSubsystem
                     else if (ballAtEntrance)
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
+                        sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                         robot.conveyor.advance(currOwner, conveyorEvent);
                         if (msgTracer != null)
                         {
                             msgTracer.traceInfo(funcName, "Advance ball to exit.");
                         }
-                        sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                     }
                     else
                     {
@@ -992,7 +992,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     private double getTargetAngle()
     {
-        return robot.vision != null ? robot.vision.vision.getHeading() : 0.0;
+        return robot.vision != null ? robot.vision.getTargetHorizontalAngle() : 0.0;
     }   //getTargetAngle
 
 }   //class Shooter

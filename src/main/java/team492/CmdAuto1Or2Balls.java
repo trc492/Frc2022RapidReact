@@ -38,6 +38,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
         START_DELAY,
         AIM_TO_SHOOT,
         SHOOT_BALL,
+        TURN_TO_2ND_BALL,
         PICKUP_2ND_BALL,
         TURN_AROUND,
         GET_OFF_TARMAC,
@@ -57,6 +58,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
      *
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
+     * @param do2Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
      */
     CmdAuto1Or2Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do2Balls)
     {
@@ -110,7 +112,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(8, "State: disabled or waiting...");
+            robot.dashboard.displayPrintf(8, "State: disabled or waiting (nextState=%s)...", sm.getNextState());
         }
         else
         {
@@ -137,14 +139,28 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     }
 
                 case AIM_TO_SHOOT:
-                    robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                    if (got2ndBall)
+                    {
+                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                    }
+                    else
+                    {
+                        robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                    }
                     sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     break;
 
                 case SHOOT_BALL:
-                    robot.shooter.shootAllBalls(moduleName, event);
                     sm.waitForSingleEvent(
-                        event, do2Balls && !got2ndBall? State.PICKUP_2ND_BALL: State.GET_OFF_TARMAC);
+                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.DONE);
+                    robot.shooter.shootAllBalls(moduleName, event);
+                    break;
+
+                case TURN_TO_2ND_BALL:
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -10.0, 180.0));
+                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     break;
 
                 case PICKUP_2ND_BALL:
@@ -153,7 +169,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -36.0, 180.0));
+                        new TrcPose2D(0.0, 26.0, 0));
                     sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
 
@@ -162,7 +178,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     robot.intake.retract();
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -36.0, 180.0));
+                        new TrcPose2D(0.0, -20.0, 180.0));
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     break;
 

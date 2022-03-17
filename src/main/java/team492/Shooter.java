@@ -43,11 +43,11 @@ public class Shooter implements TrcExclusiveSubsystem
 
     // TODO: Need to measure the distances and determine the tilter angles.
     private final ShootParamTable shootParamTable = new ShootParamTable()
+        .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacMid,    1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacAuto,   2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.RingMid,      3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.LaunchPad,    4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
         //15 - Tilter 31, 2000, 2400, later 2100, 2300
         //12 - Tilter 31, 2100, 2000 (ballpark)
@@ -74,7 +74,8 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
     private boolean isAuto = false;
-    private TrcEvent onFinishEvent = null;
+    private TrcEvent onFinishPrepEvent = null;
+    private TrcEvent onFinishShootEvent = null;
 
     /**
      * Constructor: Create an instance of the object.
@@ -163,10 +164,15 @@ public class Shooter implements TrcExclusiveSubsystem
         visionAlignEnabled = enabled;
     }   //setVisionAlignEnabled
 
+    /**
+     * This method checks if vision align is enabled.
+     *
+     * @return true if vision align is enabled, false if disabled.
+     */
     public boolean isVisionAlignEnabled()
     {
         return visionAlignEnabled;
-    }
+    }   //isVisionAlignedEnabled
 
     //
     // Flywheel methods.
@@ -542,10 +548,16 @@ public class Shooter implements TrcExclusiveSubsystem
             currOwner = null;
         }
 
-        if (onFinishEvent != null)
+        if (onFinishPrepEvent != null)
         {
-            onFinishEvent.signal();
-            onFinishEvent = null;
+            onFinishPrepEvent.signal();
+            onFinishPrepEvent = null;
+        }
+
+        if (onFinishShootEvent != null)
+        {
+            onFinishShootEvent.signal();
+            onFinishShootEvent = null;
         }
 
         alignPidCtrl.reset();
@@ -574,11 +586,11 @@ public class Shooter implements TrcExclusiveSubsystem
         // Acquire ownership of all subsystems involved. Don't need drivebase ownership if not using vision.
         if (this.acquireExclusiveAccess(owner) &&
             robot.conveyor.acquireExclusiveAccess(owner) &&
-            (!usingVision || robot.robotDrive.driveBase.acquireExclusiveAccess(owner)))
+            (robot.robotDrive.driveBase.acquireExclusiveAccess(owner)))
         {
             currOwner = owner;
             readyToShoot = false;
-            onFinishEvent = event;
+            onFinishPrepEvent = event;
             sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
         }
@@ -702,16 +714,10 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
-        // //for debug purposes - we just want it to shoot when tim releases
-        // if(validateOwnership(owner)){
-        //     readyToShoot = true;
-        //     onFinishEvent = event;
-        //     allowShooting = true;
-        // }
         if (getUpperFlywheelVelocity() > 0.0 && validateOwnership(owner))
         {
             readyToShoot = true;
-            onFinishEvent = event;
+            onFinishShootEvent = event;
         }
     }   //shootAllBalls
 
@@ -759,8 +765,8 @@ public class Shooter implements TrcExclusiveSubsystem
                     else if (ballAtEntrance)
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
-                        robot.conveyor.advance(currOwner, conveyorEvent);
                         sm.waitForSingleEvent(conveyorEvent, State.PREP_TO_SHOOT);
+                        robot.conveyor.advance(currOwner, conveyorEvent);
                     }
                     else
                     {
@@ -850,6 +856,7 @@ public class Shooter implements TrcExclusiveSubsystem
                                 matchTime, robotX, robotY, distance, alignAngle, shootParams);
                         }
                     }
+
                     // Apply shoot parameters to flywheels and tilter.
                     // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                     setFlywheelValue(
@@ -872,7 +879,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         rotPower = inputs[2]*0.3;
                     }
 
-                    if (visionAlignEnabled && rotPower == 0.0)
+                    if (visionAlignEnabled && usingVision && rotPower == 0.0)
                     {
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
@@ -888,16 +895,18 @@ public class Shooter implements TrcExclusiveSubsystem
                     if (RobotParams.Preferences.debugShooter)
                     {
                         robot.dashboard.displayPrintf(
-                            10, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
+                            11, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
                     }
-                    //commented out because we have not tuned turning to vision target PID 
+                    // The commented out line is for tuning vision PID so that we will always wait for vision PID even
+                    // if we are in TeleOp.
                     // if (visionPidOnTarget)
+                    if (robot.isTeleop() || visionPidOnTarget)
                     {
-                        if (onFinishEvent != null)
+                        if (onFinishPrepEvent != null)
                         {
                             // This is mainly for notifying autonomous we are prep'd to shoot.
-                            onFinishEvent.signal();
-                            onFinishEvent = null;
+                            onFinishPrepEvent.signal();
+                            onFinishPrepEvent = null;
                         }
     
                         if (readyToShoot)
@@ -918,14 +927,14 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Ball at the exit, shoot it.
                         if (isFlywheelVelOnTarget())
                         {
+                            sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                             robot.conveyor.advance(currOwner, conveyorEvent);
                             if (msgTracer != null)
                             {
                                 msgTracer.traceInfo(
-                                    funcName, "Shoot a ball (lowerFlywheel=%.0f, upperFlywheel=%.0f).",
+                                    funcName, "Shot a ball (lowerFlywheel=%.0f, upperFlywheel=%.0f).",
                                     getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
                             }
-                            sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                         }
                     }
                     else if (ballAtEntrance)
@@ -940,7 +949,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
                     else
                     {
-                        sm.waitForEvents(State.DONE);
+                        sm.setState(State.DONE);
                     }
                     break;
 

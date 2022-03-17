@@ -64,6 +64,7 @@ public class FrcTest extends FrcTeleOp
         TUNE_X_PID,
         TUNE_Y_PID,
         TUNE_TURN_PID,
+        TUNE_VISION_PID,
         LIVE_WINDOW
     }   //enum Test
 
@@ -116,6 +117,7 @@ public class FrcTest extends FrcTeleOp
             testMenu.addChoice("Tune X PID", Test.TUNE_X_PID);
             testMenu.addChoice("Tune Y PID", Test.TUNE_Y_PID);
             testMenu.addChoice("Tune Turn PID", Test.TUNE_TURN_PID);
+            testMenu.addChoice("Tune Vision PID", Test.TUNE_VISION_PID);
             testMenu.addChoice("Live Window", Test.LIVE_WINDOW, false, true);
             //
             // Initialize dashboard with default choice values.
@@ -322,6 +324,10 @@ public class FrcTest extends FrcTeleOp
                     testChoices.getTunePidCoefficients(), new TrcPose2D(0.0, 0.0, testChoices.getTurnAngle()));
                 break;
 
+            case TUNE_VISION_PID:
+                testCommand = new CmdVisionPidDrive(robot, testChoices);
+                break;
+
             case LIVE_WINDOW:
                 liveWindowEnabled = true;
                 break;
@@ -401,6 +407,14 @@ public class FrcTest extends FrcTeleOp
                 robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
                 break;
     
+            case TUNE_VISION_PID:
+                robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                robot.dashboard.displayPrintf(
+                    10, "horiAngle=%.2f, vertAngle=%.2f, distance=%.2f",
+                    robot.vision.getTargetHorizontalAngle(), robot.vision.getTargetVerticalAngle(),
+                    robot.vision.getTargetDistance());
+                break;
+
             default:
                 break;
         }

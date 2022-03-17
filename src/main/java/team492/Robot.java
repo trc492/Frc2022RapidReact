@@ -189,7 +189,6 @@ public class Robot extends FrcRobotBase
             conveyor = new Conveyor(this);
             intake = new Intake(this);
             shooter = new Shooter(this);
-            shooter.setVisionAlignEnabled(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_GREEN1));
             climber = new Climber(this);
         }
 
@@ -231,14 +230,24 @@ public class Robot extends FrcRobotBase
         //
         // Start subsystems.
         //
-        if (runMode == RunMode.TELEOP_MODE && pdp != null)
+        if (runMode == RunMode.TELEOP_MODE || runMode == RunMode.TEST_MODE)
         {
-            pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
+            if (pdp != null)
+            {
+                pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
+            }
+            shooter.setVisionAlignEnabled(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_GREEN1));
         }
+        else if (runMode == RunMode.AUTO_MODE)
+        {
+            shooter.setVisionAlignEnabled(true);
+        }
+
         if (vision != null)
         {
             vision.setEnabled(true);
         }
+
         robotDrive.startMode(runMode, prevMode);
         climber.zeroCalibrateClimber();
         // if (runMode == RunMode.AUTO_MODE)

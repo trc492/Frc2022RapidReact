@@ -23,30 +23,25 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
-import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
-import TrcCommonLib.trclib.TrcTimer;
+import TrcFrcLib.frclib.FrcJoystick;
 import team492.ShootParamTable.ShootLoc;
 
-class CmdAuto2Balls implements TrcRobot.RobotCommand
+class CmdVisionPidDrive implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto2Balls";
+    private static final String moduleName = "CmdVisionPidDrive";
 
     private enum State
     {
-        START_DELAY,
-        PICKUP_BALL,
-        TURN_AROUND,
-        AIM_TO_SHOOT,
-        SHOOT_BALL,
-        GET_OFF_TARMAC,
+        START,
+        PREP_TO_SHOOT,
+        WAIT_FOR_RELEASE,
         DONE
     }   //enum State
 
     private final Robot robot;
-    private final FrcAuto.AutoChoices autoChoices;
-    private final TrcTimer timer;
+    private final FrcTest.TestChoices testChoices;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
 
@@ -54,19 +49,19 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
      * Constructor: Create an instance of the object.
      *
      * @param robot specifies the robot object for providing access to various global objects.
-     * @param autoChoices specifies all the choices from the autonomous menus.
+     * @param testChoices specifies all the choices from the test menus.
      */
-    CmdAuto2Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdVisionPidDrive(Robot robot, FrcTest.TestChoices testChoices)
     {
-        robot.globalTracer.traceInfo(moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
+        robot.globalTracer.traceInfo(
+            moduleName, ">>> robot=%s, choices=%s", robot, testChoices);
 
         this.robot = robot;
-        this.autoChoices = autoChoices;
-        timer = new TrcTimer(moduleName);
+        this.testChoices = testChoices;
         event = new TrcEvent(moduleName + ".event");
         sm = new TrcStateMachine<>(moduleName);
-        sm.start(State.START_DELAY);
-    }   //CmdAuto2Balls
+        sm.start(State.PREP_TO_SHOOT);
+    }   //CmdVisionPidDrive
 
     //
     // Implements the TrcRobot.RobotCommand interface.
@@ -89,7 +84,8 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
-        robot.robotDrive.cancel();
+        robot.shooter.cancel();
+        robot.shooter.stopFlywheel();
         sm.stop();
     }   //cancel
 
@@ -111,61 +107,36 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         else
         {
             robot.dashboard.displayPrintf(8, "State: %s", state);
-
             switch (state)
             {
-                case START_DELAY:
-                    //
-                    // Do start delay if any.
-                    //
-                    double startDelay = autoChoices.getStartDelay();
-                    if (startDelay == 0.0)
+                case START:
+                    // Set shooter to use vision alignment, since this is what we are tuning.
+                    robot.shooter.setVisionAlignEnabled(true);
+                    // Trigger must be pressed (& held) to start the alignment process.
+                    if (robot.operatorStick.isButtonPressed(FrcJoystick.LOGITECH_TRIGGER))
                     {
-                        //
-                        // Intentionally falling through to the next state.
-                        //
-                        sm.setState(State.PICKUP_BALL);
+                        // Read dashboard for the new PID.
+                        robot.robotDrive.pidDrive.getTurnPidCtrl().setPidCoefficients(
+                            testChoices.getTunePidCoefficients());
+                        sm.setState(State.PREP_TO_SHOOT);
                     }
-                    else
-                    {
-                        timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.PICKUP_BALL);
-                    }
-                    break; 
-
-                case PICKUP_BALL:
-                    //drive to the ball while running the intake
-                    robot.intake.extend();
-                    robot.intake.pickup(event);
-                    robot.robotDrive.purePursuitDrive.start(
-                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 36.0, 0.0));
-                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
 
-                case TURN_AROUND:
-                    robot.intake.retract();
-                    robot.robotDrive.purePursuitDrive.start(
-                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -36.0, 180.0));
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
-                    break;
-
-                case AIM_TO_SHOOT:
+                case PREP_TO_SHOOT:
+                    // Start angling the robot. Shooter method allows driver to turn the robot at the same time,
+                    // this is to make it easier to watch the robot snap back to the target.
                     robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
-                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
+                    // Once PID determines the robot is on target, it will move on to the next state.
+                    sm.waitForSingleEvent(event, State.WAIT_FOR_RELEASE);
                     break;
 
-                case SHOOT_BALL:
-                    robot.shooter.shootAllBalls(moduleName, event);
-                    sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
-                    break;
-
-                case GET_OFF_TARMAC:
-                    robot.robotDrive.purePursuitDrive.start(
-                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -40.0, 0.0));
-                    sm.waitForSingleEvent(event, State.DONE);
+                case WAIT_FOR_RELEASE:
+                    // We are just waiting for the operator to release the trigger button.
+                    if (!robot.operatorStick.isButtonPressed(FrcJoystick.LOGITECH_TRIGGER))
+                    {
+                        // After the trigger is released, we are done.
+                        sm.setState(State.DONE);
+                    }
                     break;
 
                 case DONE:
@@ -185,4 +156,4 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         return !sm.isEnabled();
     }   //cmdPeriodic
 
-}   //class CmdAuto2Balls
+}   //class CmdVisionPidDrive

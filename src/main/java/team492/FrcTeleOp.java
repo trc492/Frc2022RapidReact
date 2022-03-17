@@ -22,6 +22,7 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
@@ -498,6 +499,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON9:
+                if(pressed)
+                {
+                    robot.robotDrive.driveBase.setFieldPosition(new TrcPose2D(0, 0, 0));
+                    //RobotParams.BLUE_START_POS_2_BALL_PICKUP_FIRST); 
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:
@@ -588,10 +594,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW2:
-                // if (pressed)
-                // {
-                //     robot.shooter.zeroCalibrateTilter();
-                // }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE2:

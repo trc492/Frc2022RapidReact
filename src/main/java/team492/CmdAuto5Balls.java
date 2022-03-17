@@ -113,7 +113,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(8, "State: disabled or waiting...");
+            robot.dashboard.displayPrintf(8, "State: disabled or waiting (nextState=%s)...", sm.getNextState());
         }
         else
         {

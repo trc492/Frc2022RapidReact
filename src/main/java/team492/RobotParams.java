@@ -98,9 +98,15 @@ public class RobotParams
     public static final TrcPose2D RED_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(83.4, -42.0, -134.0);
     public static final TrcPose2D BLUE_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(-85.3, 41.1, 316);
 
-    //5 ball auto start point
-    public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
-    public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
+    // public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
+    // public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
+
+    // The following info is precisely measured from the Field CAD file. Do not modify lightly.
+    // 5 ball auto start position:
+    // Red Ball: 25.91, 150.79, 189.75
+    // Blue Ball: -25.91, -150.79, 9.75
+    public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(14.869, 86.534, 189.75);
+    public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-14.869, -86.534, 9.75);
 
     //path points for each different auto path
     //first point: robot picking up the ball around the tarmacs

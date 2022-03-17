@@ -816,29 +816,8 @@ public class Shooter implements TrcExclusiveSubsystem
                         double robotX = robot.robotDrive.driveBase.getXPosition();
                         double robotY = robot.robotDrive.driveBase.getYPosition();
                         double distance = TrcUtil.magnitude(robotX, robotY);
-                        double theta = 90.0 - Math.abs(Math.atan(robotY / robotX));
 
-                        if (robotX > 0.0 && robotY > 0.0)
-                        {
-                            // Quadrant 1
-                            alignAngle = 180 + theta;
-                        }
-                        else if (robotX < 0 && robotY > 0)
-                        {
-                            // Quadrant 2
-                            alignAngle = 180 - theta;
-                        }
-                        else if (robotX < 0 && robotY < 0)
-                        {
-                            // Quadrant 3
-                            alignAngle = theta;
-                        }
-                        else
-                        {
-                            // Quadrant 4
-                            alignAngle = -theta;
-                        }
-
+                        alignAngle = getAlignAngleFromOdometry(robotX, robotY);
                         if (shootParams == null)
                         {
                             shootParams = shootParamTable.get(distance);
@@ -964,6 +943,47 @@ public class Shooter implements TrcExclusiveSubsystem
                 null);
         }
     }   //autoShootTask
+
+    /**
+     * This method calculates the target alignment angle using robot's odometry location.
+     *
+     * @param robotX specifies the robot's absolute X location.
+     * @param robotY specifies the robot's absolute Y location.
+     * @return target alignment angle.
+     */
+    private double getAlignAngleFromOdometry(double robotX, double robotY)
+    {
+        double angle;
+        double theta = robotX != 0.0? 90.0 - Math.abs(Math.atan(robotY / robotX)): 0.0;
+
+        if (robotX > 0.0 && robotY > 0.0)
+        {
+            // Quadrant 1
+            angle = 180.0 + theta;
+        }
+        else if (robotX < 0.0 && robotY > 0.0)
+        {
+            // Quadrant 2
+            angle = 180.0 - theta;
+        }
+        else if (robotX < 0.0 && robotY <= 0.0)
+        {
+            // Quadrant 3
+            angle = theta;
+        }
+        else if (robotX > 0.0 && robotY <= 0.0)
+        {
+            // Quadrant 4
+            angle = -theta;
+        }
+        else
+        {
+            // robotX is 0.0
+            angle = robotY > 0.0? 180.0: 0.0;
+        }
+
+        return angle;
+    }   //getAlignAngleFromOdometry
 
     /**
      * This method is called by alignPidCtrl to get the vision target heading for aligning the robot to the target.

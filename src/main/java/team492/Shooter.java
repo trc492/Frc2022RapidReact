@@ -73,7 +73,6 @@ public class Shooter implements TrcExclusiveSubsystem
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
-    private boolean isAuto = false;
     private TrcEvent onFinishPrepEvent = null;
     private TrcEvent onFinishShootEvent = null;
 
@@ -563,7 +562,6 @@ public class Shooter implements TrcExclusiveSubsystem
         alignPidCtrl.reset();
         readyToShoot = false;
         usingVision = false;
-        isAuto = false;
 
         sm.stop();
         shooterTaskObj.unregisterTask();
@@ -651,13 +649,12 @@ public class Shooter implements TrcExclusiveSubsystem
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
-     * @param isAuto specifies true if called by autonomous, false otherwise.
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event, boolean isAuto)
+    public boolean prepareToShootWithVision(String owner, TrcEvent event)
     {
-        this.isAuto = isAuto;
+        shootParams = null;
         return prepareToShootWithVision(owner, event, (ShootParamTable.Params) null);
     }   //prepareToShootWithVision
 
@@ -866,7 +863,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // set appliedShootParams to true to indicate flywheels spinning and tilter set to correct angle
                     // or we won't allow shooting.
 
-                    if (!isAuto)
+                    if (robot.isTeleop() || robot.isTest())
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.
                         // The joystick can control X and Y driving but vision is controlling the heading.

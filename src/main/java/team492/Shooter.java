@@ -846,8 +846,6 @@ public class Shooter implements TrcExclusiveSubsystem
                         currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, null);
                     // Pneumatic takes hardly any time, so fire and forget.
                     setTilterPosition(shootParams.tilterAngle);
-                    // set appliedShootParams to true to indicate flywheels spinning and tilter set to correct angle
-                    // or we won't allow shooting.
 
                     if (robot.isTeleop() || robot.isTest())
                     {

@@ -341,6 +341,12 @@ public class Robot extends FrcRobotBase
                 dashboard.putNumber("DriveBase/xPos", robotPose.x);
                 dashboard.putNumber("DriveBase/yPos", robotPose.y);
                 dashboard.putData("DriveBase/heading", ((FrcAHRSGyro)robotDrive.gyro).getGyroSendable());
+                dashboard.putNumber("DriveBase/Yaw", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getYaw());
+                dashboard.putNumber("DriveBase/Pitch", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getPitch());
+                dashboard.putNumber("DriveBase/Roll", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
+                dashboard.putNumber("DriveBase/AccelX", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelX());
+                dashboard.putNumber("DriveBase/AccelY", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelY());
+                dashboard.putNumber("DriveBase/AccelZ", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelZ());
 
                 //
                 // DriveBase debug info.

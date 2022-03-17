@@ -47,8 +47,8 @@ public class RobotParams
         public static final boolean useStreamCamera             = true;
         public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
-        public static final boolean showVisionStatus            = true;
         public static final boolean showSubsystemStatus         = true;
+        public static final boolean showVisionStatus            = true;
 
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugPidDrive               = false;

@@ -775,9 +775,16 @@ public class Shooter implements TrcExclusiveSubsystem
                 case PREP_TO_SHOOT:
                     //
                     // Before we can shoot, we need to:
-                    // - Spin the flywheel to the proper speed.
+                    // - Spin the flywheels to the proper velocities.
                     // - Aim the shooter at the target.
                     // - Align the robot to the target.
+                    //
+                    // Flywheel velocities and shooter angle can be obtained from vision and interpolated from
+                    // ShootParam table or provided by the caller in the form of a ShootParam table entry.
+                    // Alignment angle can only be obtained by vision. If there is no vision, the caller is
+                    // responsible for aligning the robot. In the scenario where vision is enabled but vision
+                    // failed to find the target and the caller did not provide shoot params, we will attempt to
+                    // calculate the params from robot odometry location.
                     //
                     Double alignAngle = null;   // absolute field heading.
                     double xPower = 0.0, yPower = 0.0, rotPower = 0.0;
@@ -788,6 +795,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         if (robot.vision.targetAcquired())
                         {
+                            // alignAngle is not really used but interesting info to display nevertheless.
                             alignAngle = robot.vision.getTargetHorizontalAngle() +
                                          robot.robotDrive.driveBase.getHeading();
                             if (shootParams == null)
@@ -808,15 +816,14 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
 
                     // Use odometry to determine shoot parameters.
-                    if (shootParams == null)    // || alignAngle == null)
+                    if (shootParams == null)
                     {
-                        // Caller did not provide shootParams and vision did not detect target or we are shooting
-                        // with no vision, use robot odometry to get distance to target and interpolate shootParams
-                        // from it.
+                        // Caller did not provide shootParams and vision did not detect target, use robot odometry
+                        // to get distance to target and interpolate shootParams from it.
                         double robotX = robot.robotDrive.driveBase.getXPosition();
                         double robotY = robot.robotDrive.driveBase.getYPosition();
                         double distance = TrcUtil.magnitude(robotX, robotY);
-
+                        // alignAngle is not really used but interesting info to display nevertheless.
                         alignAngle = getAlignAngleFromOdometry(robotX, robotY);
                         if (shootParams == null)
                         {

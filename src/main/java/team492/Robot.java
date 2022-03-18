@@ -511,6 +511,49 @@ public class Robot extends FrcRobotBase
     }   //setTraceLogEnabled
 
     /**
+     * This method calculates the target alignment angle using robot's odometry location.
+     *
+     * @param robotX specifies the robot's absolute X location.
+     * @param robotY specifies the robot's absolute Y location.
+     * @return target alignment angle.
+     */
+    public double getAlignAngleFromOdometry(double robotX, double robotY)
+    {
+        final String funcName = "getAlignAngleFromOdometry";
+        double angle;
+        double theta = robotX != 0.0? 90.0 - Math.abs(Math.atan(robotY / robotX)): 0.0;
+
+        if (robotX > 0.0 && robotY > 0.0)
+        {
+            // Quadrant 1
+            angle = 180.0 + theta;
+        }
+        else if (robotX < 0.0 && robotY > 0.0)
+        {
+            // Quadrant 2
+            angle = 180.0 - theta;
+        }
+        else if (robotX < 0.0 && robotY <= 0.0)
+        {
+            // Quadrant 3
+            angle = theta;
+        }
+        else if (robotX > 0.0 && robotY <= 0.0)
+        {
+            // Quadrant 4
+            angle = -theta;
+        }
+        else
+        {
+            // robotX is 0.0
+            angle = robotY > 0.0? 180.0: 0.0;
+        }
+
+        globalTracer.traceInfo(funcName, "x=%.2f, y=%.2f, angle=%.2f", robotX, robotY, angle);
+        return angle;
+    }   //getAlignAngleFromOdometry
+
+    /**
      * This method clones the given target point and adds adjustments to x, y and angle.
      *
      * @param targetPoint specifies the original target point.
@@ -529,6 +572,21 @@ public class Robot extends FrcRobotBase
 
         return point;
     }   //pathPoint
+
+    /**
+     * This method creates the path point for shooting. It only requires x and y. This method will calculate the
+     * heading from x and y. Optionally, one can specify an angle adjustment to the calulated heading.
+     *
+     * @param x specifies the absolute X field coordinate of the shooting point.
+     * @param y specifies the absolute Y field coordinate of the shooting point.
+     * @param angleAdj specifies the angle adjustment to be added to the calculated heading, can be zero if no
+     *                 adjustment is necessary..
+     * @return shooting point.
+     */
+    public TrcPose2D shootingPoint(double x, double y, double angleAdj)
+    {
+        return new TrcPose2D(x, y, getAlignAngleFromOdometry(x, y) + angleAdj);
+    }   //shootingPoint
 
     /**
      * This method builds a path with the given list of poses. It will also adjust each waypoint in the path to

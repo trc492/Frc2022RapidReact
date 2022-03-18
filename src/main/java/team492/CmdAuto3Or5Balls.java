@@ -195,14 +195,14 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                         path = robot.buildPath(
                             false,
                             robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_RED, 0.0, 0.0, 122.25),
-                            new TrcPose2D(70.0, 80.0, 221.0));
+                            robot.shootingPoint(70.0, 80.0, 0.0));
                     }
                     else
                     {
                         path = robot.buildPath(
                             false,
                             robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, -57.75),
-                            new TrcPose2D(-70.0, -80.0, 41.0));
+                            robot.shootingPoint(-70, -80.0, 0.0));
                     }
                     robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0);
                     break;

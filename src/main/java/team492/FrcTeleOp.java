@@ -530,28 +530,28 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_RED1:
                 if (pressed)
                 {
-                    currShootParams = robot.shootParamTable().get(ShootLoc.LaunchPad);
+                    currShootParams = robot.shootParamTable.get(ShootLoc.LaunchPad);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_GREEN1:
                 if (pressed)
                 {
-                    currShootParams = robot.shootParamTable().get(ShootLoc.RingMid);
+                    currShootParams = robot.shootParamTable.get(ShootLoc.RingMid);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_BLUE1:
                 if (pressed)
                 {
-                    currShootParams = robot.shootParamTable().get(ShootLoc.TarmacMid);
+                    currShootParams = robot.shootParamTable.get(ShootLoc.TarmacMid);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
                 if (pressed)
                 {
-                    currShootParams = robot.shootParamTable().get(ShootLoc.TarmacAuto);
+                    currShootParams = robot.shootParamTable.get(ShootLoc.TarmacAuto);
                 }
                 break;
 

@@ -75,8 +75,8 @@ public class VisionTargeting
 
     public void setEnabled(boolean enabled)
     {
-        setLightEnabled(enabled);
         vision.setEnabled(enabled);
+        setLightEnabled(enabled);
     }
 
     public FrcRemoteVisionProcessor.RelativePose getMedianPose(int numFrames, boolean requireAll)

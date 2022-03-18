@@ -38,7 +38,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
-        PREPARE_TO_SHOOT,
+        AIM,
         SHOOT,
         TURN_TO_2ND_BALL,
         PICKUP_RING_BALLS,
@@ -146,16 +146,16 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.PREPARE_TO_SHOOT);
+                        sm.setState(State.AIM);
                     }
                     else
                     {
-                        sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
+                        sm.waitForSingleEvent(event, State.AIM);
                         timer.set(startDelay, event);
                     }
                     break;
 
-                case PREPARE_TO_SHOOT:
+                case AIM:
                     //if we havent shot any balls, we are only shooting the preload
                     //otherwise we will shoot 2 balls at once
                     sm.waitForSingleEvent(event, State.SHOOT);
@@ -209,7 +209,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 
                 case PICKUP_ONE_MORE:
                     robot.intake.pickup();
-                    sm.waitForSingleEvent(driveEvent, State.PREPARE_TO_SHOOT);
+                    sm.waitForSingleEvent(driveEvent, State.AIM);
                     break;
 
                 case GO_TO_TERMINAL:

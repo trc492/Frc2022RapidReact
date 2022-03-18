@@ -9,7 +9,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -66,8 +65,7 @@
               "_title": "Station Number",
               "Slider Settings/Min": 1.0,
               "Slider Settings/Max": 3.0,
-              "Slider Settings/Block increment": 1.0,
-              "Visuals/Display value": true
+              "Slider Settings/Block increment": 1.0
             }
           },
           "0,6": {
@@ -93,7 +91,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -202,7 +199,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "3,0": {
             "size": [
@@ -326,7 +322,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -339,7 +334,7 @@
               "_title": "TestMode"
             }
           },
-          "0,2": {
+          "0,5": {
             "size": [
               12,
               3
@@ -379,7 +374,7 @@
               }
             }
           },
-          "0,5": {
+          "0,8": {
             "size": [
               12,
               4
@@ -429,7 +424,28 @@
                   "Layout/Number of columns": 4,
                   "Layout/Number of rows": 1,
                   "Layout/Label position": "BOTTOM",
-                  "_children": {}
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKp",
+                      "_title": "Tune Kp"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKi",
+                      "_title": "Tune Ki"
+                    },
+                    "2,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKd",
+                      "_title": "Tune Kd"
+                    },
+                    "3,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///SmartDashboard/Test/TuneKf",
+                      "_title": "Tune Kf"
+                    }
+                  }
                 }
               ]
             }
@@ -444,55 +460,9 @@
               "_source0": "network_table:///SmartDashboard/Test/FlywheelVel",
               "_title": "Flywheel Velocity",
               "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
-            }
-          },
-          "0,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Test/TuneKp",
-              "_title": "Tune Kp"
-            }
-          },
-          "3,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Test/TuneKi",
-              "_title": "Tune Ki"
-            }
-          },
-          "6,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Test/TuneKd",
-              "_title": "Tune Kd"
-            }
-          },
-          "9,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Test/TuneKf",
-              "_title": "Tune Kf"
+              "Y-axis/Lower bound": -1.0
             }
           }
         }
@@ -507,17 +477,16 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
               28,
-              14
+              12
             ],
             "content": {
               "_type": "List Layout",
               "_title": "Driver Vision",
-              "Layout/Label position": "HIDDEN",
+              "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "Grid Layout",
@@ -533,7 +502,7 @@
                       "Crosshair/Show crosshair": true,
                       "Crosshair/Crosshair color": "#FFFFFFFF",
                       "Controls/Show controls": false,
-                      "Controls/Rotation": "NONE",
+                      "Controls/Rotation": "HALF",
                       "compression": -1.0,
                       "fps": -1,
                       "imageWidth": -1,
@@ -558,16 +527,6 @@
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/03",
                   "_title": "/SmartDashboard/03"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/10",
-                  "_title": "/SmartDashboard/10"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/11",
-                  "_title": "/SmartDashboard/11"
                 }
               ]
             }
@@ -617,7 +576,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -987,9 +945,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -6.400000095367432,
-    "y": 0.800000011920929,
-    "width": 1548.0,
-    "height": 829.5999755859375
+    "x": -7.0,
+    "y": 2.0,
+    "width": 1235.0,
+    "height": 707.0
   }
 }

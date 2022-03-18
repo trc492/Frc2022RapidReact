@@ -25,6 +25,7 @@ package team492;
 import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
+import TrcCommonLib.trclib.TrcOwnershipMgr;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
@@ -587,12 +588,21 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishPrepEvent = event;
             sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+            success = true;
         }
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
                 funcName, "owner=%s, event=%s, success=%s (shootParams=%s)", owner, event, success, shootParams);
+            if (!success)
+            {
+                TrcOwnershipMgr ownershipMgr = TrcOwnershipMgr.getInstance();
+                msgTracer.traceInfo(
+                    funcName, "shooterOwern=%s, conveyorOwner=%s, driveBaseOwner=%s",
+                    ownershipMgr.getOwner(this), ownershipMgr.getOwner(robot.conveyor),
+                    ownershipMgr.getOwner(robot.robotDrive.driveBase));
+            }
         }
 
         return success;
@@ -685,6 +695,15 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
+        final String funcName = "shootAllBalls";
+        double flywheelVel = getUpperFlywheelVelocity();
+
+        if (msgTracer != null)
+        {
+            msgTracer.traceInfo(
+                funcName, "owner=%s, event=%s, flywheelVel=%.0f, currOwner=%s", owner, event, flywheelVel, currOwner);
+        }
+
         if (getUpperFlywheelVelocity() > 0.0 && currOwner != null && validateOwnership(owner))
         {
             readyToShoot = true;

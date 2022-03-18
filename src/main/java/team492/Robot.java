@@ -262,7 +262,7 @@ public class Robot extends FrcRobotBase
             shooter.setVisionAlignEnabled(true);
         }
 
-        if (vision != null)
+        if (vision != null && runMode != RunMode.DISABLED_MODE)
         {
             vision.setEnabled(true);
         }

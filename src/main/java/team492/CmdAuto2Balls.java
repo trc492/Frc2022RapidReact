@@ -130,44 +130,44 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        timer.set(startDelay, event);
                         sm.waitForSingleEvent(event, State.PICKUP_BALL);
+                        timer.set(startDelay, event);
                     }
                     break; 
 
                 case PICKUP_BALL:
                     //drive to the ball while running the intake
                     robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, 36.0, 0.0));
-                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
 
                 case TURN_AROUND:
                     robot.intake.retract();
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -36.0, 180.0));
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     break;
 
                 case AIM_TO_SHOOT:
-                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     sm.waitForSingleEvent(event, State.SHOOT_BALL);
+                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     break;
 
                 case SHOOT_BALL:
-                    robot.shooter.shootAllBalls(moduleName, event);
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
+                    robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
                 case GET_OFF_TARMAC:
+                    sm.waitForSingleEvent(event, State.DONE);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -40.0, 0.0));
-                    sm.waitForSingleEvent(event, State.DONE);
                     break;
 
                 case DONE:

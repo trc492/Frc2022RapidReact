@@ -218,41 +218,41 @@ public class Climber
             {
                 case PULL_DOWN_PRIMARY_HOOK:
                     // Pull robot up.
+                    sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
                     limitSwitchTrigger.setEnabled(true);
                     setPosition(26.0, true, null);
-                    sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
                     break;
 
                 case DEPLOY_SECONDARY_HOOK:
                     // Deploy the hook arm to hook on the rung.
                     limitSwitchTrigger.setEnabled(false);
                     extendHookArm();
-                    timer.set(0.3, event);
                     sm.waitForSingleEvent(event, State.UNHOOK_PRIMARY_HOOK);
+                    timer.set(0.3, event);
                     break;
 
                 case UNHOOK_PRIMARY_HOOK:
                     // Extend primary hook to release it from the rung.
-                    setPosition(59.0, true, event);
                     sm.waitForSingleEvent(event, State.ENGAGE_NEXT_RUNG);
+                    setPosition(59.0, true, event);
                     break;
 
                 case ENGAGE_NEXT_RUNG:
                     // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
-                    timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
+                    timer.set(2.0, event);
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:
                     // Pull up to the next rung to unhook the previous rung.
-                    setPosition(45.0, true, event, 1.8);
                     sm.waitForSingleEvent(event, State.DAMPENED_SWING);
+                    setPosition(45.0, true, event, 1.8);
                     break;
 
                 case DAMPENED_SWING:
-                    setPosition(60.0, true, event);
                     sm.waitForSingleEvent(event, State.DONE);
+                    setPosition(60.0, true, event);
                     break;
 
                 case DONE:

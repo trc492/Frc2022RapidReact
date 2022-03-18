@@ -150,14 +150,15 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        timer.set(startDelay, event);
                         sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT);
+                        timer.set(startDelay, event);
                     }
                     break;
 
                 case PREPARE_TO_SHOOT:
                     //if we havent shot any balls, we are only shooting the preload
                     //otherwise we will shoot 2 balls at once
+                    sm.waitForSingleEvent(event, State.SHOOT);
                     if(numBallsShot == 0)
                     {
                         robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
@@ -168,7 +169,6 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                         robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacMid);
                         numBallsShot += 2;
                     }
-                    sm.waitForSingleEvent(event, State.SHOOT);
                     break;
 
                 case SHOOT:
@@ -180,16 +180,16 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_TO_2ND_BALL:
+                    sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
-                    sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
                     break;
 
                 case PICKUP_RING_BALLS:
                     robot.intake.extend();
-                    robot.intake.pickup(event);
                     sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
+                    robot.intake.pickup(event);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         path = robot.buildPath(

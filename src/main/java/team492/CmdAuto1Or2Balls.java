@@ -135,12 +135,13 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        timer.set(startDelay, event);
                         sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
+                        timer.set(startDelay, event);
                         break;
                     }
 
                 case AIM_TO_SHOOT:
+                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     if (got2ndBall)
                     {
                         robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
@@ -149,7 +150,6 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     {
                         robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
-                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     break;
 
                 case SHOOT_BALL:
@@ -159,29 +159,29 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_TO_2ND_BALL:
+                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
-                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     break;
 
                 case PICKUP_2ND_BALL:
                     //drive to the ball while running the intake
                     robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, 26.0, 0));
-                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
 
                 case TURN_AROUND:
                     got2ndBall = true;
                     robot.intake.retract();
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -20.0, 180.0));
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     break;
 
                 case GET_OFF_TARMAC:
@@ -189,8 +189,8 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     //     event, robot.robotDrive.driveBase.getFieldPosition(), true,
                     //     new TrcPose2D(0.0, -40.0, 0.0));
                     robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
-                    timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.DONE);
+                    timer.set(2.0, event);
                     break;
 
                 case DONE:

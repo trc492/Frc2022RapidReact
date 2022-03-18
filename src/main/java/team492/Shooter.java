@@ -577,7 +577,7 @@ public class Shooter implements TrcExclusiveSubsystem
         final String funcName = "prepareToShoot";
         boolean success = false;
 
-        // Acquire ownership of all subsystems involved. Don't need drivebase ownership if not using vision.
+        // Acquire ownership of all subsystems involved.
         if (this.acquireExclusiveAccess(owner) &&
             robot.conveyor.acquireExclusiveAccess(owner) &&
             robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
@@ -674,15 +674,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        ShootParamTable.Params params = presetLoc != null? robot.shootParamTable.get(presetLoc): null;
-
-        if (params == null)
-        {
-            throw new IllegalArgumentException(
-                "presetLoc must not be null and must specify an entry in the ShootParamTable.");
-        }
-
-        return prepareToShootNoVision(owner, event, params);
+        return prepareToShootNoVision(owner, event, presetLoc != null? robot.shootParamTable.get(presetLoc): null);
     }   //prepareToShootWithVision
 
     /**

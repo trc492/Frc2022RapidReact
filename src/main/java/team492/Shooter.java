@@ -57,6 +57,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private String currOwner = null;
     private boolean visionAlignEnabled = false;
     private boolean readyToShoot = false;
+    private boolean allowToShoot = false;
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
@@ -558,6 +559,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
         alignPidCtrl.reset();
         readyToShoot = false;
+        allowToShoot = false;
         usingVision = false;
 
         sm.stop();
@@ -696,17 +698,17 @@ public class Shooter implements TrcExclusiveSubsystem
     public void shootAllBalls(String owner, TrcEvent event)
     {
         final String funcName = "shootAllBalls";
-        double flywheelVel = getUpperFlywheelVelocity();
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
-                funcName, "owner=%s, event=%s, flywheelVel=%.0f, currOwner=%s", owner, event, flywheelVel, currOwner);
+                funcName, "owner=%s, event=%s, allowToShoot=%s, currOwner=%s", owner, event, allowToShoot, currOwner);
         }
 
-        if (getUpperFlywheelVelocity() > 0.0 && currOwner != null && validateOwnership(owner))
+        if (allowToShoot && currOwner != null && validateOwnership(owner))
         {
             readyToShoot = true;
+            allowToShoot = false;
             onFinishShootEvent = event;
         }
     }   //shootAllBalls
@@ -876,13 +878,14 @@ public class Shooter implements TrcExclusiveSubsystem
                     // if (visionPidOnTarget)
                     if (robot.isTeleop() || visionPidOnTarget)
                     {
+                        allowToShoot = true;
                         if (onFinishPrepEvent != null)
                         {
                             // This is mainly for notifying autonomous we are prep'd to shoot.
                             onFinishPrepEvent.signal();
                             onFinishPrepEvent = null;
                         }
-    
+
                         if (readyToShoot)
                         {
                             robot.robotDrive.driveBase.stop();

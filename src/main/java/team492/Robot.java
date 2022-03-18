@@ -239,10 +239,12 @@ public class Robot extends FrcRobotBase
             {
                 pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
             }
+            shooter.setVisionAlignNoOscillation(true);
             shooter.setVisionAlignEnabled(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_GREEN1));
         }
         else if (runMode == RunMode.AUTO_MODE)
         {
+            shooter.setVisionAlignNoOscillation(false);
             shooter.setVisionAlignEnabled(true);
         }
 

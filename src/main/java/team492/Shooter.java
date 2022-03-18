@@ -164,6 +164,16 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setVisionAlignEnabled
 
     /**
+     * This method enables/disables NoOscillation for the align PID controller.
+     *
+     * @param noOscillation specifies true to enable no oscillation, false otherwise.
+     */
+    public void setVisionAlignNoOscillation(boolean noOscillation)
+    {
+        alignPidCtrl.setNoOscillation(noOscillation);
+    }   //setVisionAlignNoOscillation
+
+    /**
      * This method checks if vision align is enabled.
      *
      * @return true if vision align is enabled, false if disabled.
@@ -584,7 +594,7 @@ public class Shooter implements TrcExclusiveSubsystem
         // Acquire ownership of all subsystems involved. Don't need drivebase ownership if not using vision.
         if (this.acquireExclusiveAccess(owner) &&
             robot.conveyor.acquireExclusiveAccess(owner) &&
-            (robot.robotDrive.driveBase.acquireExclusiveAccess(owner)))
+            robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
         {
             currOwner = owner;
             readyToShoot = false;
@@ -711,7 +721,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void shootAllBalls(String owner, TrcEvent event)
     {
-        if (getUpperFlywheelVelocity() > 0.0 && validateOwnership(owner))
+        if (getUpperFlywheelVelocity() > 0.0 && currOwner != null && validateOwnership(owner))
         {
             readyToShoot = true;
             onFinishShootEvent = event;

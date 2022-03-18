@@ -23,6 +23,7 @@
 package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
+import TrcCommonLib.trclib.TrcPath;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
@@ -124,6 +125,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
         }
         else
         {
+            TrcPath path;
+
             robot.dashboard.displayPrintf(8, "State: %s", state);
             switch (state)
             {
@@ -183,36 +186,25 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
                     break;
 
-                // case PICKUP_2ND_BALL:
-                //     //drive to the ball while running the intake
-                //     robot.intake.extend();
-                //     robot.intake.pickup(event);
-                //     robot.robotDrive.purePursuitDrive.start(
-                //         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                //         new TrcPose2D(0.0, 26.0, 0));
-                //     sm.waitForSingleEvent(event, State.TURN_AROUND);
-                //     break;
-
                 case PICKUP_RING_BALLS:
                     robot.intake.extend();
                     robot.intake.pickup(event);
                     sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
-                        robot.robotDrive.purePursuitDrive.start(
-                            driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            new TrcPose2D(26.5, 108.5, 358.0),
-                            new TrcPose2D(125.75, 88.3, 302.0),
-                            new TrcPose2D(283.5, 117, 259.5));
+                        path = robot.buildPath(
+                            false,
+                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_RED, 0.0, 0.0, 122.25),
+                            new TrcPose2D(70.0, 80.0, 221.0));
                     }
                     else
                     {
-                        robot.robotDrive.purePursuitDrive.start(
-                            driveEvent, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            new TrcPose2D(-24, -132, 177.0),
-                            new TrcPose2D(-111.4, -95.8, 302),
-                            new TrcPose2D(-282.0, -117.7, 259.5));
+                        path = robot.buildPath(
+                            false,
+                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, -57.75),
+                            new TrcPose2D(-70.0, -80.0, 41.0));
                     }
+                    robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0);
                     break;
 
                 case PICKUP_ONE_MORE:

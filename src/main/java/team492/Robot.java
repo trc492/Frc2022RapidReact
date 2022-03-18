@@ -25,9 +25,12 @@ package team492;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
+import TrcCommonLib.trclib.TrcPath;
+import TrcCommonLib.trclib.TrcPathBuilder;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
 import TrcCommonLib.trclib.TrcUtil;
+import TrcCommonLib.trclib.TrcWaypoint;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcDashboard;
@@ -506,6 +509,60 @@ public class Robot extends FrcRobotBase
             globalTracer.setTraceLogEnabled(enabled);
         }
     }   //setTraceLogEnabled
+
+    /**
+     * This method clones the given target point and adds adjustments to x, y and angle.
+     *
+     * @param targetPoint specifies the original target point.
+     * @param xAdj specifies adjustment added to X.
+     * @param yAdj specifies adjustment added to Y.
+     * @param angleAdj specifies adjustment added to angle.
+     * @return adjusted target point.
+     */
+    public TrcPose2D pathPoint(TrcPose2D targetPoint, double xAdj, double yAdj, double angleAdj)
+    {
+        TrcPose2D point = targetPoint.clone();
+
+        point.x += xAdj;
+        point.y += yAdj;
+        point.angle += angleAdj;
+
+        return point;
+    }   //pathPoint
+
+    /**
+     * This method builds a path with the given list of poses. It will also adjust each waypoint in the path to
+     * compensate for the robot length and intake offset so that the intake will be reaching the target point
+     * instead of the centroid of the robot.
+     *
+     * @param incrementalPath specifies true if the poses are incremental from the their poses.
+     * @param poses specifies an array of poses used to build the path.
+     * @return path built for PurePursuit.
+     */
+    public TrcPath buildPath(boolean  incrementalPath, TrcPose2D... poses)
+    {
+        TrcPath path;
+        TrcPathBuilder pathBuilder = new TrcPathBuilder(robotDrive.driveBase.getFieldPosition(), incrementalPath);
+
+        for (TrcPose2D pose: poses)
+        {
+            pathBuilder.append(pose);
+        }
+        path = pathBuilder.toRelativeStartPath();
+
+        TrcWaypoint[] waypoints = path.getAllWaypoints();
+        for (int i = 1; i < waypoints.length; i++)
+        {
+            TrcPose2D relativePose = waypoints[i].pose.relativeTo(waypoints[i - 1].pose);
+            double distance = TrcUtil.magnitude(relativePose.x, relativePose.y) - RobotParams.INTAKE_OFFSET;
+
+            relativePose.x = distance*Math.cos(Math.toRadians(relativePose.angle));
+            relativePose.y = distance*Math.sin(Math.toRadians(relativePose.angle));
+            waypoints[i].pose.setAs(waypoints[i - 1].pose.addRelativePose(relativePose));
+        }
+
+        return path;
+    }   //buildPath
 
     //
     // Getters for sensor data.

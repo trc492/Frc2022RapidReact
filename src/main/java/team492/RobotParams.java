@@ -76,6 +76,7 @@ public class RobotParams
 
     public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
     public static final double ROBOT_LENGTH                     = 37.0;     // Frame dimensions, including bumpers.
+    public static final double INTAKE_OFFSET                    = ROBOT_LENGTH / 2.0 + 8.0;
 
     //
     // Vision subsystem.

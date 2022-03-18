@@ -248,6 +248,8 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (((boolean) active) && robot.conveyor.isExitSensorActive())
         {
+            // Stop only when a ball has reached exit. If the conveyor has only one ball, that ball will be
+            // transported all the way to the exit before we will stop the conveyor.
             setPower(0.0, 0.0, 0.0);
         }
 

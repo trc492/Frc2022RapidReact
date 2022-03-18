@@ -599,6 +599,7 @@ public class Robot extends FrcRobotBase
      */
     public TrcPath buildPath(boolean  incrementalPath, TrcPose2D... poses)
     {
+        final String funcName = "buildPath";
         TrcPath path;
         TrcPathBuilder pathBuilder = new TrcPathBuilder(robotDrive.driveBase.getFieldPosition(), incrementalPath);
 
@@ -619,6 +620,7 @@ public class Robot extends FrcRobotBase
             waypoints[i].pose.setAs(waypoints[i - 1].pose.addRelativePose(relativePose));
         }
 
+        globalTracer.traceInfo(funcName, "buildPath=%s", path);
         return path;
     }   //buildPath
 

@@ -41,20 +41,6 @@ public class Shooter implements TrcExclusiveSubsystem
 {
     private static final String moduleName  = "Shooter";
 
-    // TODO: Need to measure the distances and determine the tilter angles.
-    private final ShootParamTable shootParamTable = new ShootParamTable()
-        .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacMid,    1.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacAuto,   2.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.RingMid,      3.0, 1000, 3400, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.LaunchPad,    4.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
-        //15 - Tilter 31, 2000, 2400, later 2100, 2300
-        //12 - Tilter 31, 2100, 2000 (ballpark)
-        //Tarmac front edge (10ft) - Tilter 43, 1900, 1900 (Tilter 43, 2000, 1900)
-        .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
-        .add(ShootLoc.Distance18ft, 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
-
     private final Robot robot;
     private final FrcCANFalcon lowerFlywheelMotor, upperFlywheelMotor;
     private final TrcThresholdTrigger flywheelVelocityTrigger;
@@ -164,16 +150,6 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //setVisionAlignEnabled
 
     /**
-     * This method enables/disables NoOscillation for the align PID controller.
-     *
-     * @param noOscillation specifies true to enable no oscillation, false otherwise.
-     */
-    public void setVisionAlignNoOscillation(boolean noOscillation)
-    {
-        alignPidCtrl.setNoOscillation(noOscillation);
-    }   //setVisionAlignNoOscillation
-
-    /**
      * This method checks if vision align is enabled.
      *
      * @return true if vision align is enabled, false if disabled.
@@ -182,6 +158,16 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         return visionAlignEnabled;
     }   //isVisionAlignedEnabled
+
+    /**
+     * This method enables/disables NoOscillation for the align PID controller.
+     *
+     * @param noOscillation specifies true to enable no oscillation, false otherwise.
+     */
+    public void setVisionAlignNoOscillation(boolean noOscillation)
+    {
+        alignPidCtrl.setNoOscillation(noOscillation);
+    }   //setVisionAlignNoOscillation
 
     //
     // Flywheel methods.
@@ -643,7 +629,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        ShootParamTable.Params params = presetLoc != null? shootParamTable.get(presetLoc): null;
+        ShootParamTable.Params params = presetLoc != null? robot.shootParamTable.get(presetLoc): null;
 
         if (params == null)
         {
@@ -652,20 +638,6 @@ public class Shooter implements TrcExclusiveSubsystem
         }
 
         return prepareToShootWithVision(owner, event, params);
-    }   //prepareToShootWithVision
-
-    /**
-     * This method starts the auto shoot operation to shoot all balls in the conveyor using only vision.
-     *
-     * @param owner specifies the owner ID who is shooting.
-     * @param event specifies the events to signal when completed, can be null if not provided.
-     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
-     *         of the involved subsystems).
-     */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event)
-    {
-        shootParams = null;
-        return prepareToShootWithVision(owner, event, (ShootParamTable.Params) null);
     }   //prepareToShootWithVision
 
     /**
@@ -702,7 +674,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        ShootParamTable.Params params = presetLoc != null? shootParamTable.get(presetLoc): null;
+        ShootParamTable.Params params = presetLoc != null? robot.shootParamTable.get(presetLoc): null;
 
         if (params == null)
         {
@@ -812,7 +784,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             {
                                 // Caller did not provide shootParams (i.e. full vision), using vision
                                 // detected distance to interpolate shootParams.
-                                shootParams = shootParamTable.get(
+                                shootParams = robot.shootParamTable.get(
                                     robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
                             }
 
@@ -837,7 +809,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         alignAngle = robot.getAlignAngleFromOdometry(robotX, robotY);
                         if (shootParams == null)
                         {
-                            shootParams = shootParamTable.get(distance);
+                            shootParams = robot.shootParamTable.get(distance);
                         }
 
                         if (msgTracer != null)

@@ -32,11 +32,14 @@ public class ShootParamTable
     {
         TarmacAuto,
         TarmacMid,
+        Distance11ft,
         RingMid,
         LaunchPad,
         Tower,
         Distance13ft,
+        Distance14ft,
         Distance15ft,
+        Distance17ft,
         Distance18ft,
         Interpolated,
         Calibration

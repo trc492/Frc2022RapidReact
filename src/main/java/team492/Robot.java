@@ -45,6 +45,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import team492.ShootParamTable.ShootLoc;
 
 /**
  * The Main class is configured to instantiate and automatically run this class,
@@ -87,7 +88,20 @@ public class Robot extends FrcRobotBase
     //
     // Vision subsystem.
     //
-    public VisionTargeting vision;  // TO-DO: decide what vision processing to use.
+    public VisionTargeting vision;
+    public final ShootParamTable shootParamTable = new ShootParamTable()
+        // .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacAuto,    84.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacMid,    108.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.Distance11ft, 132.0, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
+        .add(ShootLoc.Distance18ft, 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
+
     //
     // Other subsystems.
     //
@@ -240,7 +254,7 @@ public class Robot extends FrcRobotBase
                 pdp.setSwitchableChannel(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_RED1));
             }
             shooter.setVisionAlignNoOscillation(true);
-            shooter.setVisionAlignEnabled(switchPanel.isButtonPressed(FrcJoystick.PANEL_SWITCH_GREEN1));
+            shooter.setVisionAlignEnabled(true);
         }
         else if (runMode == RunMode.AUTO_MODE)
         {
@@ -254,7 +268,7 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.startMode(runMode, prevMode);
-        climber.zeroCalibrateClimber();
+        // climber.zeroCalibrateClimber();
         // if (runMode == RunMode.AUTO_MODE)
         {
             shooter.setMsgTracer(globalTracer);

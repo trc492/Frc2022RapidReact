@@ -49,6 +49,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean hookArmExtended = false;
     private boolean tilterClose = false;
     private DriveOrientation driveOrientation = DriveOrientation.ROBOT;
+    private ShootParamTable.Params currShootParams = null;
 
     /**
      * Constructor: Create an instance of the object.
@@ -421,23 +422,15 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.prepareToShootWithVision("teleOp", null, ShootLoc.TarmacAuto);
+                    robot.shooter.prepareToShootWithVision("teleOp", null, currShootParams);
                 }
                 else
                 {
                     robot.shooter.shootAllBalls("teleOp");
                 }
-            break;
+                break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                if (pressed)
-                {
-                    robot.shooter.prepareToShootWithVision("teleOp", null, ShootLoc.TarmacAuto);
-                }
-                else
-                {
-                    robot.shooter.cancel();
-                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
@@ -475,6 +468,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                         new ShootParamTable.Params(
                             ShootLoc.Calibration, 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
                             robot.shooter.getTilterPosition()));
+                }
+                else
+                {
+                    robot.shooter.shootAllBalls("teleOp");
                 }
                 break;
 
@@ -533,29 +530,28 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_RED1:
                 if (pressed)
                 {
-                    robot.intake.retract();
+                    currShootParams = robot.shootParamTable().get(ShootLoc.LaunchPad);
+                }
+                break;
+
+            case FrcJoystick.PANEL_BUTTON_GREEN1:
+                if (pressed)
+                {
+                    currShootParams = robot.shootParamTable().get(ShootLoc.RingMid);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_BLUE1:
                 if (pressed)
                 {
-                    robot.shooter.prepareToShootWithVision("teleOp", null, ShootLoc.TarmacMid);
-                }
-                else
-                {
-                    robot.shooter.cancel();
+                    currShootParams = robot.shootParamTable().get(ShootLoc.TarmacMid);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
                 if (pressed)
                 {
-                    robot.shooter.prepareToShootWithVision("teleOp", null, ShootLoc.TarmacAuto);
-                }
-                else
-                {
-                    robot.shooter.cancel();
+                    currShootParams = robot.shootParamTable().get(ShootLoc.TarmacAuto);
                 }
                 break;
 

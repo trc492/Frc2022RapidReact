@@ -233,7 +233,7 @@ public class Climber
 
                 case UNHOOK_PRIMARY_HOOK:
                     // Extend primary hook to release it from the rung.
-                    setPosition(60.0, true, event);
+                    setPosition(59.0, true, event);
                     sm.waitForSingleEvent(event, State.ENGAGE_NEXT_RUNG);
                     break;
 

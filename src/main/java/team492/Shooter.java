@@ -737,6 +737,7 @@ public class Shooter implements TrcExclusiveSubsystem
         if (state != null)
         {
             double matchTime = TrcUtil.getModeElapsedTime();
+            ShootParamTable.Params params = null;
 
             switch (state)
             {
@@ -793,11 +794,15 @@ public class Shooter implements TrcExclusiveSubsystem
                             // alignAngle is not really used but interesting info to display nevertheless.
                             alignAngle = robot.vision.getTargetHorizontalAngle() +
                                          robot.robotDrive.driveBase.getHeading();
-                            if (shootParams == null)
+                            if (shootParams != null)
+                            {
+                                params = shootParams;
+                            }
+                            else
                             {
                                 // Caller did not provide shootParams (i.e. full vision), using vision
                                 // detected distance to interpolate shootParams.
-                                shootParams = robot.shootParamTable.get(
+                                params = robot.shootParamTable.get(
                                     robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
                             }
 
@@ -809,9 +814,13 @@ public class Shooter implements TrcExclusiveSubsystem
                             }
                         }
                     }
+                    else
+                    {
+                        params = shootParams;
+                    }
 
                     // Use odometry to determine shoot parameters.
-                    if (shootParams == null)
+                    if (params == null)
                     {
                         // Caller did not provide shootParams and vision did not detect target, use robot odometry
                         // to get distance to target and interpolate shootParams from it.

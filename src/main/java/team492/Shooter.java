@@ -820,7 +820,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             {
                                 msgTracer.traceInfo(
                                     funcName, "[%.3f] Vision: alignAngle=%.1f, shootParams=%s",
-                                    matchTime, alignAngle, shootParams);
+                                    matchTime, alignAngle, params);
                             }
                         }
                     }
@@ -839,10 +839,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         double distance = TrcUtil.magnitude(robotX, robotY);
                         // alignAngle is not really used but interesting info to display nevertheless.
                         alignAngle = robot.getAlignAngleFromOdometry(robotX, robotY);
-                        if (shootParams == null)
-                        {
-                            shootParams = robot.shootParamTable.get(distance);
-                        }
+                        params = robot.shootParamTable.get(distance);
 
                         if (msgTracer != null)
                         {
@@ -850,16 +847,16 @@ public class Shooter implements TrcExclusiveSubsystem
                                 funcName,
                                 "[%.3f] Odometry: robotX=%.1f, robotY=%.1f, distance=%.1f, " +
                                 "alignAngle=%.1f, shootParams=%s",
-                                matchTime, robotX, robotY, distance, alignAngle, shootParams);
+                                matchTime, robotX, robotY, distance, alignAngle, params);
                         }
                     }
 
                     // Apply shoot parameters to flywheels and tilter.
                     // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                     setFlywheelValue(
-                        currOwner, shootParams.lowerFlywheelVelocity, shootParams.upperFlywheelVelocity, null);
+                        currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
                     // Pneumatic takes hardly any time, so fire and forget.
-                    setTilterPosition(shootParams.tilterAngle);
+                    setTilterPosition(params.tilterAngle);
 
                     if (robot.isTeleop() || robot.isTest())
                     {
@@ -908,7 +905,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (readyToShoot)
                         {
                             robot.robotDrive.driveBase.stop();
-                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
                         }
                     }

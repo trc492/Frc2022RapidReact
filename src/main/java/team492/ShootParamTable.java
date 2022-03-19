@@ -33,6 +33,8 @@ public class ShootParamTable
         TarmacAuto,
         TarmacMid,
         Distance11ft,
+        Distance12ft,
+        FarThreshold,
         RingMid,
         LaunchPad,
         Tower,
@@ -169,6 +171,7 @@ public class ShootParamTable
                         (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
                         (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
                         entry.tilterAngle);
+                    break;
                 }
             }
         }

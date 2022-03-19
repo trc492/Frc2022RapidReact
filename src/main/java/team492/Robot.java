@@ -92,9 +92,9 @@ public class Robot extends FrcRobotBase
     public final ShootParamTable shootParamTable = new ShootParamTable()
         // .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacAuto,    88.0, 2200, 1300, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacMid,    108.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE) // Double check, it was missing
-        //~112
-        //set point tune for both close and far tilter angle , use same point but in code separate by 0.005
+        .add(ShootLoc.TarmacMid,    108.0, 2000, 1800, RobotParams.TILTER_CLOSE_ANGLE) // Double check, it was missing
+        .add(ShootLoc.Distance12ft, 120.0, 1900, 2200, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.FarThreshold, 120.0001, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance11ft, 132.0, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
@@ -102,7 +102,7 @@ public class Robot extends FrcRobotBase
         .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
-        .add(ShootLoc.Distance18ft, 216.0, 1900, 3200, RobotParams.TILTER_FAR_ANGLE);
+        .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
 
     //
     // Other subsystems.
@@ -270,8 +270,8 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.startMode(runMode, prevMode);
-        climber.zeroCalibrateClimber();
-        climber.climberPneumatic.retract();
+        // climber.zeroCalibrateClimber();
+        // climber.climberPneumatic.retract();
         // if (runMode == RunMode.AUTO_MODE)
         {
             shooter.setMsgTracer(globalTracer);

@@ -806,6 +806,7 @@ public class Shooter implements TrcExclusiveSubsystem
                                          robot.robotDrive.driveBase.getHeading();
                             if (shootParams != null)
                             {
+                                // Caller provided shootParams, let's use it.
                                 params = shootParams;
                             }
                             else

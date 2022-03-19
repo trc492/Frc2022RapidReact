@@ -44,6 +44,7 @@ public class ShootParamTable
         Distance17ft,
         Distance18ft,
         Interpolated,
+        Extrapolated,
         Calibration
     }   //enum ShootLoc
 
@@ -152,31 +153,96 @@ public class ShootParamTable
     {
         Params foundEntry = null;
 
-        for (int i = 0; i < paramTable.size(); i++)
+        if (paramTable.size() < 2)
         {
-            Params entry = paramTable.get(i);
-            if (distance == entry.distance)
+            throw new RuntimeException("ShootParamTable must have at least 2 entries.");
+        }
+
+        Params firstEntry = paramTable.get(0);
+        Params lastEntry = paramTable.get(paramTable.size() - 1);
+
+        if (distance <= firstEntry.distance)
+        {
+            // The provided distance is below the table range, extropolate.
+            Params nextEntry = paramTable.get(1);
+            foundEntry = new Params(
+                ShootLoc.Extrapolated, distance,
+                extrapolateVelocity(false, distance, firstEntry, nextEntry),
+                extrapolateVelocity(true, distance, firstEntry, nextEntry),
+                firstEntry.tilterAngle);
+        }
+        else if (distance > lastEntry.distance)
+        {
+            // The provided distance is above the table range, extropolate.
+            Params prevEntry = paramTable.get(paramTable.size() - 2);
+            foundEntry = new Params(
+                ShootLoc.Extrapolated, distance,
+                extrapolateVelocity(false, distance, prevEntry, lastEntry),
+                extrapolateVelocity(true, distance, prevEntry, lastEntry),
+                lastEntry.tilterAngle);
+        }
+        else
+        {
+            for (int i = 0; i < paramTable.size(); i++)
             {
-                foundEntry = entry;
-                break;
-            }
-            else if (distance < entry.distance)
-            {
-                if (i > 0)
+                Params entry = paramTable.get(i);
+                if (distance <= entry.distance)
                 {
-                    Params prevEntry = paramTable.get(i - 1);
-                    double w = (distance - prevEntry.distance) / (entry.distance - prevEntry.distance);
-                    foundEntry = new Params(
-                        ShootLoc.Interpolated, distance,
-                        (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
-                        (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
-                        entry.tilterAngle);
-                    break;
+                    if (i > 0)
+                    {
+                        Params prevEntry = paramTable.get(i - 1);
+                        double w = (distance - prevEntry.distance) / (entry.distance - prevEntry.distance);
+                        foundEntry = new Params(
+                            ShootLoc.Interpolated, distance,
+                            (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
+                            (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
+                            entry.tilterAngle);
+                        break;
+                    }
                 }
             }
         }
 
         return foundEntry;
     }   //get
+
+    /**
+     * This method extrapolates the lower or upper flywheel velocity with the given distance and the two points
+     * of the neighboring segment in the table.
+     *
+     * @param upper specifies true to extrapolate upper flywheel velocity, false to extrapolate lower flywheel
+     *              velocity.
+     * @param distance specifies the target distance.
+     * @param entry1 specifies the lower entry of the neighboring segment.
+     * @param entry2 specifies the upper entry of the neighboring segment.
+     * @return
+     */
+    private double extrapolateVelocity(boolean upper, double distance, Params entry1, Params entry2)
+    {
+        double deltaVel = upper? entry2.upperFlywheelVelocity - entry1.upperFlywheelVelocity:
+                                 entry2.lowerFlywheelVelocity - entry1.lowerFlywheelVelocity;
+        double deltaDistance = entry2.distance - entry1.distance;
+        double m = deltaVel / deltaDistance;
+        double b = (upper? entry1.upperFlywheelVelocity: entry1.lowerFlywheelVelocity) - m*entry1.distance;
+        double vel = m*distance + b;
+
+        if (vel < 0.0)
+        {
+            // If extrapolated velocity is negative, just return the velocity of one of the two entries whoever is
+            // closer to the given distance.
+            double d1 = Math.abs(distance - entry1.distance);
+            double d2 = Math.abs(distance - entry2.distance);
+            if (d1 < d2)
+            {
+                vel = upper? entry1.upperFlywheelVelocity: entry1.lowerFlywheelVelocity;
+            }
+            else
+            {
+                vel = upper? entry2.upperFlywheelVelocity: entry2.lowerFlywheelVelocity;
+            }
+        }
+
+        return m*distance + b;
+    }   //extrapolateVelocity
 
 }   //class ShootParamTable

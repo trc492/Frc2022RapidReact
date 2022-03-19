@@ -380,7 +380,6 @@ public class RobotParams
 
     public static final double TILTER_CLOSE_ANGLE               = 43.0;
     public static final double TILTER_FAR_ANGLE                 = 31.0;
-    public static final double TILTER_ANGLE_THRESHOLD           = 35.0; // TODO: Need to calibrate with LimeLight for this.
 
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 0.6;

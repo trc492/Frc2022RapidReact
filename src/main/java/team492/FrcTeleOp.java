@@ -22,7 +22,6 @@
 
 package team492;
 
-import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
@@ -431,6 +430,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
+                if (pressed)
+                {
+                    currShootParams = null;
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
@@ -461,18 +464,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON6:
-                if (pressed)
-                {
-                    robot.shooter.prepareToShootWithVision(
-                        "teleOp", null,
-                        new ShootParamTable.Params(
-                            ShootLoc.Calibration, 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
-                            robot.shooter.getTilterPosition()));
-                }
-                else
-                {
-                    robot.shooter.shootAllBalls("teleOp");
-                }
+                // if (pressed)
+                // {
+                //     robot.shooter.prepareToShootWithVision(
+                //         "teleOp", null,
+                //         new ShootParamTable.Params(
+                //             ShootLoc.Calibration, 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
+                //             robot.shooter.getTilterPosition()));
+                // }
+                // else
+                // {
+                //     robot.shooter.shootAllBalls("teleOp");
+                // }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON7:
@@ -496,11 +499,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON9:
-                if(pressed)
-                {
-                    robot.robotDrive.driveBase.setFieldPosition(new TrcPose2D(0, 0, 0));
-                    //RobotParams.BLUE_START_POS_2_BALL_PICKUP_FIRST); 
-                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:
@@ -559,17 +557,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 //TODO: Owner overrides
                 if (pressed)
                 {
-                    robot.shooter.cancel();
+                    robot.shooter.shutdown();
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
                     robot.intake.retract();
-                    robot.shooter.setFlywheelValue(0.0);
                 }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_RED2:
                 double power = pressed? -0.5: 0.0;
-                robot.shooter.setFlywheelValue(power);
+                robot.shooter.setFlywheelValue(RobotParams.FLYWHEEL_MAX_RPM*power);
                 robot.conveyor.setPower(power);
                 robot.intake.setPower(power);
                 break;

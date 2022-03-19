@@ -91,8 +91,10 @@ public class Robot extends FrcRobotBase
     public VisionTargeting vision;
     public final ShootParamTable shootParamTable = new ShootParamTable()
         // .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacAuto,    84.0, 1900, 1700, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacMid,    108.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacAuto,    88.0, 2200, 1300, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacMid,    108.0, 2000, 1900, RobotParams.TILTER_CLOSE_ANGLE) // Double check, it was missing
+        //~112
+        //set point tune for both close and far tilter angle , use same point but in code separate by 0.005
         .add(ShootLoc.Distance11ft, 132.0, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
@@ -268,7 +270,8 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.startMode(runMode, prevMode);
-        // climber.zeroCalibrateClimber();
+        climber.zeroCalibrateClimber();
+        climber.climberPneumatic.retract();
         // if (runMode == RunMode.AUTO_MODE)
         {
             shooter.setMsgTracer(globalTracer);

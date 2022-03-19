@@ -95,8 +95,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
-        robot.shooter.cancel();
-        robot.shooter.stopFlywheel();
+        robot.shooter.shutdown();
         robot.robotDrive.cancel();
         sm.stop();
     }   //cancel
@@ -181,7 +180,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -20.0, 180.0));
+                        new TrcPose2D(0.0, -36.0, 180.0));
                     break;
 
                 case GET_OFF_TARMAC:

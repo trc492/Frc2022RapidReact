@@ -55,7 +55,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
-    private boolean visionAlignEnabled = false;
+    private boolean visionAlignEnabled = true;
     private boolean readyToShoot = false;
     private boolean allowToShoot = false;
 
@@ -567,6 +567,16 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //cancel
 
     /**
+     * This method shuts down the shooter subsystem by canceling any pending auto-shooting operation and turning off
+     * the flywheels.
+     */
+    public void shutdown()
+    {
+        cancel();
+        stopFlywheel();
+    }   //shutdown
+
+    /**
      * This method is the worker preparing to shoot all balls. It is called by both prepareToShootWithVision or
      * prepareToShootNoVision.
      *
@@ -589,7 +599,7 @@ public class Shooter implements TrcExclusiveSubsystem
             readyToShoot = false;
             onFinishPrepEvent = event;
             sm.start(State.START);
-            shooterTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+            shooterTaskObj.registerTask(TaskType.POSTCONTINUOUS_TASK);
             success = true;
         }
 

@@ -153,7 +153,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 
                 case SHOOT_BALL:
                     sm.waitForSingleEvent(
-                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.DONE);
+                        event, do2Balls && !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
                     robot.shooter.shootAllBalls(moduleName, event);
                     break;
 

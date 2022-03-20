@@ -196,9 +196,30 @@ public class SwerveDrive extends RobotDrive
         CANCoder encoder = new CANCoder(encoderCanID);
         FrcCANFalcon steerMotor = new FrcCANFalcon(name, motorCanID);
 
-        encoder.configFactoryDefault();
-        encoder.configFeedbackCoefficient(1.0, "pulse", SensorTimeBase.PerSecond);
-        encoder.configSensorDirection(true);
+        errCode = encoder.configFactoryDefault();
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: CANcoder.configFactoryDefault failed (code=%s).",
+                name, errCode);
+        }
+
+        errCode = encoder.configFeedbackCoefficient(1.0, "pulse", SensorTimeBase.PerSecond);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: CANcoder.configFeedbackCoefficient failed (code=%s).",
+                name, errCode);
+        }
+
+        errCode = encoder.configSensorDirection(true);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: CANcoder.configSensorDirection failed (code=%s).",
+                name, errCode);
+        }
+
         errCode = encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
         if (errCode != ErrorCode.OK)
         {
@@ -207,9 +228,24 @@ public class SwerveDrive extends RobotDrive
                 name, errCode);
         }
 
-        steerMotor.motor.configFactoryDefault();
-        steerMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+        errCode = steerMotor.motor.configFactoryDefault();
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configFactoryDefault failed (code=%s).",
+                name, errCode);
+        }
+
+        errCode = steerMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configVoltageCompSaturation failed (code=%s).",
+                name, errCode);
+        }
+
         steerMotor.motor.enableVoltageCompensation(true);
+
         errCode = steerMotor.motor.configRemoteFeedbackFilter(encoder, 0);
         if (errCode != ErrorCode.OK)
         {
@@ -217,6 +253,7 @@ public class SwerveDrive extends RobotDrive
                 funcName, "%s: Falcon.configRemoteFeedbackFilter failed (code=%s).",
                 name, errCode);
         }
+
         errCode = steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
         if (errCode != ErrorCode.OK)
         {
@@ -224,6 +261,7 @@ public class SwerveDrive extends RobotDrive
                 funcName, "%s: Falcon.configSelectedFeedbackSensor failed (code=%s).",
                 name, errCode);
         }
+
         steerMotor.setInverted(inverted);
         steerMotor.setBrakeModeEnabled(true);
 

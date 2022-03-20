@@ -180,16 +180,14 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -36.0, 180.0));
+                        new TrcPose2D(0.0, -20.0, 180.0));
                     break;
 
                 case GET_OFF_TARMAC:
-                    // robot.robotDrive.purePursuitDrive.start(
-                    //     event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                    //     new TrcPose2D(0.0, -40.0, 0.0));
-                    robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
                     sm.waitForSingleEvent(event, State.DONE);
-                    timer.set(2.0, event);
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -40.0, 0.0));
                     break;
 
                 case DONE:

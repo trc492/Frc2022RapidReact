@@ -27,7 +27,6 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
-import team492.ShootParamTable.Params;
 import team492.ShootParamTable.ShootLoc;
 
 class CmdAuto3Balls implements TrcRobot.RobotCommand
@@ -153,6 +152,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     }
 
                 case AIM_TO_SHOOT:
+                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     if (got2ndBall)
                     {
                         robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
@@ -161,7 +161,6 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     {
                         robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
-                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
                     break;
 
                 case SHOOT_BALL:
@@ -171,67 +170,68 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_TO_2ND_BALL:
+                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
-                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     break;
 
                 case PICKUP_2ND_BALL:
-                    //drive to the ball(forward 26 inches) while running the intake
+                    //drive to the ball while running the intake
                     robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, 26.0, 0));
-                    sm.waitForSingleEvent(event, State.TURN_AROUND);
                     break;
                     //move robot forward while turning 180 degrees to point at goal 
                 case TURN_AROUND:
                     got2ndBall = true;
                     robot.intake.retract();
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        //this used to be -36, but it kept overshooting because robot to close 
+                        //this used to be -36, but it kept overshooting because robot too close
                         new TrcPose2D(0.0, -20.0, 180.0));
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     break;
+
                 case PICKUP_3RD_BALL:
                     //turn 90 degrees counter clockwise and drive forward 110 feet to pickup ball 
                     //so robot driving forward at an angle slightly below horizontal 0 towards the ball 
+                    robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.TURN_AROUND_3RD_BALL);
+                    robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 110.0, -90.0));
-                    robot.intake.pickup(event);
-                    sm.waitForSingleEvent(event, State.TURN_AROUND_3RD_BALL); 
-                    break; 
+                        new TrcPose2D(-90.0, 0.0, -90.0));
+                    break;
+
                 case TURN_AROUND_3RD_BALL:
                     //retract intake
                     //turn 100 degrees clockwise and backup to get in shooting position
-                    robot.intake.retract(); 
+                    robot.intake.retract();
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT_THIRD);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 10.0, 100));
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT_THIRD);
-                    break; 
+                        new TrcPose2D(0.0, -10.0, 120.0));
+                    break;
+
                 case AIM_TO_SHOOT_THIRD:
-                    //shoot no vision because interpolation works pretty well at far distances 
-                    Params currShootParams = null; 
-                    robot.shooter.prepareToShootWithVision(moduleName, event, currShootParams);
+                    //shoot with vision because interpolation works pretty well at far distances 
                     sm.waitForSingleEvent(event, State.SHOOT_THIRD_BALL); 
+                    robot.shooter.prepareToShootWithVision(moduleName, event);
                     break; 
 
                 case SHOOT_THIRD_BALL:
-                    robot.shooter.shootAllBalls(moduleName, event);
                     sm.waitForSingleEvent(event, State.DONE);
+                    robot.shooter.shootAllBalls(moduleName, event);
 
                 case GET_OFF_TARMAC:
-                    // robot.robotDrive.purePursuitDrive.start(
-                    //     event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                    //     new TrcPose2D(0.0, -40.0, 0.0));
-                    robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
-                    timer.set(2.0, event);
                     sm.waitForSingleEvent(event, State.DONE);
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -40.0, 0.0));
                     break;
 
                 case DONE:

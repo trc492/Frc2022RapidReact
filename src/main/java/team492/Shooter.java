@@ -640,6 +640,21 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //prepareToShootWithVision
 
     /**
+     * This method starts the auto shoot operation to shoot all balls in the conveyor using full vision. It means it
+     * does not require any ShootParams provided by the caller. It will use vision to determine target distance and
+     * will interpolate the ShootParams from the ShootParamTable.
+     *
+     * @param owner specifies the owner ID who is shooting.
+     * @param event specifies the events to signal when completed, can be null if not provided.
+     * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
+     *         of the involved subsystems).
+     */
+    public boolean prepareToShootWithVision(String owner, TrcEvent event)
+    {
+        return prepareToShootWithVision(owner, event, (ShootParamTable.Params) null);
+    }   //prepareToShootWithVision
+
+    /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor using vision only for alignment.
      * The caller will provide the preset location entry for the rest of the shooting parameters.
      *

@@ -185,7 +185,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, 26.0, 0));
                     break;
-                    //move robot forward while turning 180 degrees to point at goal 
+
                 case TURN_AROUND:
                     got2ndBall = true;
                     robot.intake.retract();
@@ -197,8 +197,6 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_3RD_BALL:
-                    //turn 90 degrees counter clockwise and drive forward 110 feet to pickup ball 
-                    //so robot driving forward at an angle slightly below horizontal 0 towards the ball 
                     robot.intake.extend();
                     sm.waitForSingleEvent(event, State.TURN_AROUND_3RD_BALL);
                     robot.intake.pickup(event);

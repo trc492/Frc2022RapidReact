@@ -80,10 +80,13 @@ public class SwerveDrive extends RobotDrive
 
         lfSteerMotor = createSteerMotor(
             "lfSteer", RobotParams.CANID_LEFTFRONT_STEER, RobotParams.CANID_LEFTFRONT_STEER_ENCODER, false);
+        TrcUtil.sleep(50);
         rfSteerMotor = createSteerMotor(
             "rfSteer", RobotParams.CANID_RIGHTFRONT_STEER, RobotParams.CANID_RIGHTFRONT_STEER_ENCODER, false);
+        TrcUtil.sleep(50);
         lbSteerMotor = createSteerMotor(
             "lbSteer", RobotParams.CANID_LEFTBACK_STEER, RobotParams.CANID_LEFTBACK_STEER_ENCODER, false);
+        TrcUtil.sleep(50);
         rbSteerMotor = createSteerMotor(
             "rbSteer", RobotParams.CANID_RIGHTBACK_STEER, RobotParams.CANID_RIGHTBACK_STEER_ENCODER, false);
 
@@ -291,6 +294,17 @@ public class SwerveDrive extends RobotDrive
     }   //createSwerveModule
 
     /**
+     * This method is called to set all swerve wheels to zero degrees without optimization.
+     */
+    public void setSteerZero()
+    {
+        lfWheel.setSteerAngle(0.0, false);
+        rfWheel.setSteerAngle(0.0, false);
+        lbWheel.setSteerAngle(0.0, false);
+        rbWheel.setSteerAngle(0.0, false);
+    }   //setSteerZero
+
+    /**
      * This method is called to prepare the robot base before a robot mode is about to start.
      *
      * @param runMode specifies the current run mode.
@@ -300,10 +314,7 @@ public class SwerveDrive extends RobotDrive
     public void startMode(RunMode runMode, RunMode prevMode)
     {
         super.startMode(runMode, prevMode);
-        lfWheel.setSteerAngle(0.0, false);
-        rfWheel.setSteerAngle(0.0, false);
-        lbWheel.setSteerAngle(0.0, false);
-        rbWheel.setSteerAngle(0.0, false);
+        setSteerZero();
     }   //startMode
 
     /**
@@ -316,10 +327,7 @@ public class SwerveDrive extends RobotDrive
     public void stopMode(RunMode runMode, RunMode nextMode)
     {
         super.stopMode(runMode, nextMode);
-        lfWheel.setSteerAngle(0.0, false);
-        rfWheel.setSteerAngle(0.0, false);
-        lbWheel.setSteerAngle(0.0, false);
-        rbWheel.setSteerAngle(0.0, false);
+        setSteerZero();
     }   //stopMode
 
     @Override

@@ -58,6 +58,8 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean visionAlignEnabled = true;
     private boolean readyToShoot = false;
     private boolean allowToShoot = false;
+    private Double targetAngle = null;
+    private Double targetDistance = null;
 
     private boolean usingVision = false;
     private ShootParamTable.Params shootParams = null;
@@ -807,9 +809,11 @@ public class Shooter implements TrcExclusiveSubsystem
                     // failed to find the target and the caller did not provide shoot params, we will attempt to
                     // calculate the params from robot odometry location.
                     //
-                    Double alignAngle = null;   // absolute field heading.
                     double xPower = 0.0, yPower = 0.0, rotPower = 0.0;
                     boolean visionPidOnTarget;
+
+                    targetAngle = null;
+                    targetDistance = null;
 
                     // Use vision to determine shoot parameters.
                     if (usingVision && robot.vision != null)
@@ -817,56 +821,47 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (robot.vision.targetAcquired())
                         {
                             // alignAngle is not really used but interesting info to display nevertheless.
-                            alignAngle = robot.vision.getTargetHorizontalAngle() +
-                                         robot.robotDrive.driveBase.getHeading();
-                            if (shootParams != null)
-                            {
-                                // Caller provided shootParams, let's use it.
-                                params = shootParams;
-                            }
-                            else
-                            {
-                                // Caller did not provide shootParams (i.e. full vision), using vision
-                                // detected distance to interpolate shootParams.
-                                params = robot.shootParamTable.get(
-                                    robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS);
-                            }
+                            targetAngle = robot.vision.getTargetHorizontalAngle();
+                            targetDistance = robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS;
 
                             if (msgTracer != null)
                             {
                                 msgTracer.traceInfo(
-                                    funcName, "[%.3f] Vision: alignAngle=%.1f, shootParams=%s",
-                                    matchTime, alignAngle, params);
+                                    funcName, "[%.3f] Vision: targetAngle=%.2f, targetDistance=%.2f",
+                                    matchTime, targetAngle, targetDistance);
                             }
                         }
                     }
-                    else
-                    {
-                        params = shootParams;
-                    }
 
-                    // Use odometry to determine shoot parameters.
-                    if (params == null)
+                    if (targetAngle == null)
                     {
-                        // Caller did not provide shootParams and vision did not detect target, use robot odometry
-                        // to get distance to target and interpolate shootParams from it.
+                        // Either we are not using vision or vision did not detect target, use robot odometry instead.
                         double robotX = robot.robotDrive.driveBase.getXPosition();
                         double robotY = robot.robotDrive.driveBase.getYPosition();
-                        double distance = TrcUtil.magnitude(robotX, robotY);
-                        // alignAngle is not really used but interesting info to display nevertheless.
-                        alignAngle = robot.getAlignAngleFromOdometry(robotX, robotY);
-                        params = robot.shootParamTable.get(distance);
+
+                        targetAngle = robot.getAlignAngleFromOdometry(robotX, robotY) -
+                                      robot.robotDrive.driveBase.getHeading();
+                        targetDistance = TrcUtil.magnitude(robotX, robotY);
 
                         if (msgTracer != null)
                         {
                             msgTracer.traceInfo(
-                                funcName,
-                                "[%.3f] Odometry: robotX=%.1f, robotY=%.1f, distance=%.1f, " +
-                                "alignAngle=%.1f, shootParams=%s",
-                                matchTime, robotX, robotY, distance, alignAngle, params);
+                                funcName, "[%.3f] Odometry: targetAngle=%.2f, targetDistance=%.2f",
+                                matchTime, targetAngle, targetDistance);
                         }
                     }
 
+                    if (shootParams != null)
+                    {
+                        // Caller provided shootParams, let's use it.
+                        params = shootParams;
+                    }
+                    else
+                    {
+                        // Caller did not provide shootParams (e.g. full vision), use distance to lookup ShootParam
+                        // table to interpolate/extrapolate shootParams.
+                        params = robot.shootParamTable.get(targetDistance);
+                    }
                     // Apply shoot parameters to flywheels and tilter.
                     // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                     setFlywheelValue(
@@ -887,7 +882,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         rotPower = inputs[2]*0.3;
                     }
 
-                    if (visionAlignEnabled && usingVision && rotPower == 0.0)
+                    if (visionAlignEnabled && rotPower == 0.0)
                     {
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
@@ -905,9 +900,10 @@ public class Shooter implements TrcExclusiveSubsystem
                         robot.dashboard.displayPrintf(
                             11, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
                     }
-                    // The commented out line is for tuning vision PID so that we will always wait for vision PID even
-                    // if we are in TeleOp.
-                    // if (visionPidOnTarget)
+                    //
+                    // In Teleop mode, let the operator controls when to shoot. In autonomous mode, only allows
+                    // shooting when vision is onTarget.
+                    //
                     if (robot.isTeleop() || visionPidOnTarget)
                     {
                         allowToShoot = true;
@@ -984,7 +980,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     private double getTargetAngle()
     {
-        return robot.vision != null ? robot.vision.getTargetHorizontalAngle() : 0.0;
+        return targetAngle != null? targetAngle: 0.0;
     }   //getTargetAngle
 
 }   //class Shooter

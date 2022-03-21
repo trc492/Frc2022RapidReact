@@ -534,7 +534,7 @@ public class Robot extends FrcRobotBase
      *
      * @param robotX specifies the robot's absolute X location.
      * @param robotY specifies the robot's absolute Y location.
-     * @return target alignment angle.
+     * @return target absolute field angle from robot's location.
      */
     public double getAlignAngleFromOdometry(double robotX, double robotY)
     {

@@ -62,7 +62,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private Double targetDistance = null;
 
     private boolean usingVision = false;
-    private ShootParamTable.Params shootParams = null;
+    private ShootParamTable.Params providedParams = null;
     private TrcEvent onFinishPrepEvent = null;
     private TrcEvent onFinishShootEvent = null;
 
@@ -611,7 +611,7 @@ public class Shooter implements TrcExclusiveSubsystem
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
-                funcName, "owner=%s, event=%s, success=%s (shootParams=%s)", owner, event, success, shootParams);
+                funcName, "owner=%s, event=%s, success=%s (shootParams=%s)", owner, event, success, providedParams);
             if (!success)
             {
                 TrcOwnershipMgr ownershipMgr = TrcOwnershipMgr.getInstance();
@@ -640,7 +640,7 @@ public class Shooter implements TrcExclusiveSubsystem
     public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
     {
         usingVision = true;
-        this.shootParams = shootParams;
+        this.providedParams = shootParams;
         return prepareToShoot(owner, event);
     }   //prepareToShootWithVision
 
@@ -700,7 +700,7 @@ public class Shooter implements TrcExclusiveSubsystem
         }
 
         usingVision = false;
-        this.shootParams = shootParams;
+        this.providedParams = shootParams;
         return prepareToShoot(owner, event);
     }   //prepareToShootNoVision
 
@@ -853,10 +853,10 @@ public class Shooter implements TrcExclusiveSubsystem
                         }
                     }
 
-                    if (shootParams != null)
+                    if (providedParams != null)
                     {
                         // Caller provided shootParams, let's use it.
-                        params = shootParams;
+                        params = providedParams;
                     }
                     else
                     {
@@ -871,6 +871,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // Pneumatic takes hardly any time, so fire and forget.
                     setTilterPosition(params.tilterAngle);
 
+                    //fetch driver inputs if we are in teleOp or Test mode 
                     if (robot.isTeleop() || robot.isTest())
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.

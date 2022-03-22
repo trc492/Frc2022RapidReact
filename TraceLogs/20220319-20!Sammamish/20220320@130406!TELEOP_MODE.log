@@ -1,0 +1,12 @@
+globalTracer.robotStartMode_Info: [0.262] Sun Mar 20 13:04:04 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.064s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.491s)
+globalTracer.setFlywheelValue_Info: owner=null, lower=6400.00, upper=3200.00, event=null
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.setFlywheelValue_Info: owner=null, lower=6400.00, upper=3200.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

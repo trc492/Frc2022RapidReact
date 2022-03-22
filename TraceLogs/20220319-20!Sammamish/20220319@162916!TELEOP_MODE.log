@@ -1,0 +1,1189 @@
+globalTracer.robotStartMode_Info: [0.030] Wed Dec 31 16:00:39 PST 1969: ***** TELEOP_MODE *****
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-728.00
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.052s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.247s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-900.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-289.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-281.00
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.052s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=24.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=26.00
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.511" tag=">>>>>" state="START" />
+globalTracer.autoShootTask_Info: [10.558] Vision: alignAngle=48.1, shootParams=loc=Interpolated, distance=131.2, lowerFwVel=2214, upperFwVel=1707, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2214.04, upper=1707.02, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.570" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.581] Vision: alignAngle=48.1, shootParams=loc=Interpolated, distance=131.2, lowerFwVel=2214, upperFwVel=1707, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2214.04, upper=1707.02, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.595" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.601] Vision: alignAngle=47.0, shootParams=loc=Interpolated, distance=130.4, lowerFwVel=2227, upperFwVel=1713, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2226.68, upper=1713.34, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.619" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.665] Vision: alignAngle=47.1, shootParams=loc=Interpolated, distance=130.3, lowerFwVel=2228, upperFwVel=1714, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2227.94, upper=1713.97, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.684" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.702] Vision: alignAngle=47.2, shootParams=loc=Interpolated, distance=130.1, lowerFwVel=2231, upperFwVel=1716, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2231.17, upper=1715.59, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.725" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.737] Vision: alignAngle=47.2, shootParams=loc=Interpolated, distance=130.5, lowerFwVel=2226, upperFwVel=1713, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2225.55, upper=1712.77, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.781" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.811] Vision: alignAngle=48.4, shootParams=loc=Interpolated, distance=130.9, lowerFwVel=2219, upperFwVel=1709, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2218.53, upper=1709.27, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.831" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.846] Vision: alignAngle=48.5, shootParams=loc=Interpolated, distance=131.4, lowerFwVel=2210, upperFwVel=1705, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2210.33, upper=1705.16, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.871" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.889] Vision: alignAngle=48.4, shootParams=loc=Interpolated, distance=130.5, lowerFwVel=2224, upperFwVel=1712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2224.24, upper=1712.12, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.921" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.953] Vision: alignAngle=47.7, shootParams=loc=Interpolated, distance=128.8, lowerFwVel=2253, upperFwVel=1727, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2253.37, upper=1726.69, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.983" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [10.994] Vision: alignAngle=48.3, shootParams=loc=Interpolated, distance=131.0, lowerFwVel=2217, upperFwVel=1709, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2217.30, upper=1708.65, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.023" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [11.056] Vision: alignAngle=48.4, shootParams=loc=Interpolated, distance=131.2, lowerFwVel=2214, upperFwVel=1707, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2213.61, upper=1706.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.085" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [11.099] Vision: alignAngle=48.3, shootParams=loc=Interpolated, distance=131.0, lowerFwVel=2217, upperFwVel=1709, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2217.40, upper=1708.70, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.121" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [11.157] Vision: alignAngle=48.3, shootParams=loc=Interpolated, distance=130.5, lowerFwVel=2224, upperFwVel=1712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2224.29, upper=1712.15, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.184" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [11.205] Vision: alignAngle=48.3, shootParams=loc=Interpolated, distance=130.5, lowerFwVel=2224, upperFwVel=1712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2224.34, upper=1712.17, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.233" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.269" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.287" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.305" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.318" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.328" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.344" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.384" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.404" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.416" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.429" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.448" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2299, upperFlywheel=1773).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.498" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.513" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.528" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.536" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.546" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.551" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.561" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.568" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.597" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.616" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.631" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.647" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.664" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.712" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.729" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.748" tag=">>>>>" state="null" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.764" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.809" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.823" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.841" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.855" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.867" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.908" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.926" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.945" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.958" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="11.972" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.012" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.028" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.046" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.065" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.080" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.095" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.131" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.148" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.165" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.202" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.244" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.262" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.296" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.310" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2317, upperFlywheel=1754).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.359" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.376" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.389" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.405" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.427" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.464" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.485" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.502" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.519" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.566" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.591" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.807" tag=">>>>>" state="START" />
+globalTracer.autoShootTask_Info: [24.826] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=208.5, lowerFwVel=1900, upperFwVel=2676, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2675.68, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.831" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.839] Vision: alignAngle=146.5, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2711, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.38, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.847" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.852] Vision: alignAngle=146.5, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2711, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.48, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.862" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.868] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.75, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.876" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.882] Vision: alignAngle=146.7, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.97, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.890" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.893] Vision: alignAngle=146.7, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.97, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.908" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.922] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2711, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.48, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.941" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.975] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=209.1, lowerFwVel=1900, upperFwVel=2685, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2685.00, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.993" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.009] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=209.1, lowerFwVel=1900, upperFwVel=2685, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2685.00, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.032" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.050] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.0, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2700.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.072" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.105] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=209.1, lowerFwVel=1900, upperFwVel=2685, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2685.00, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.121" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.127] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.65, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.140" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.148] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.16, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.160" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.169] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.183" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.201] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=209.1, lowerFwVel=1900, upperFwVel=2685, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2685.00, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.215" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.224] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.0, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2700.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.234" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.245] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.258" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.266] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2711, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.48, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.280" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.312] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.325" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.331] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.02, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.347" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.356] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.1, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2701.02, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.368" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.377] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.7, lowerFwVel=1900, upperFwVel=2712, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2711.75, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.388" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.392] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.0, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2700.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.407" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [25.426] Vision: alignAngle=146.6, shootParams=loc=Interpolated, distance=210.0, lowerFwVel=1900, upperFwVel=2701, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1900.00, upper=2700.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.442" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.460" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.476" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.492" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.511" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.531" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.540" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.545" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.552" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.555" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.564" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.571" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.574" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.583" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.589" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.596" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.601" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.608" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.618" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.622" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.627" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.635" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.649" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.660" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.665" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.669" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.679" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.683" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.687" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.692" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.702" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.707" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.712" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.715" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.725" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.730" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.736" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.751" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.759" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.766" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.770" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.775" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.786" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.794" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.809" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.827" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.849" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.859" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.864" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.869" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.873" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.881" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.886" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.892" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.895" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=1954, upperFlywheel=2769).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.908" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.915" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.922" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.927" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.931" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.939" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.945" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.950" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.966" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.972" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.978" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.985" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.989" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.993" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.000" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.006" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.009" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.023" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.028" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.035" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.040" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.046" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.049" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.065" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.070" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.075" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.082" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.088" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.092" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.102" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.107" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.116" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.123" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.129" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.137" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.141" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.147" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.156" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.161" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.166" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.171" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.187" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.192" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.199" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.204" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.207" tag=">>>>>" state="null" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.218" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.222" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.228" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.236" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.244" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.248" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.253" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.260" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.265" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.269" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.286" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.292" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.307" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.310" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.321" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.325" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.329" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.337" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.348" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.357" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.362" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.371" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.376" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.390" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.394" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.402" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.407" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.412" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.419" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.424" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.430" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.432" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.441" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.448" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.452" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.460" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.465" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.470" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.478" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.490" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.499" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.504" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.507" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.513" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.522" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.528" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.531" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.542" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.547" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.553" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.557" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.566" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.570" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.577" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.584" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.589" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.592" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.607" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.617" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.621" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.627" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.634" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.641" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.646" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.652" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.660" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.664" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.669" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.677" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.686" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.693" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.696" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.703" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.721" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.735" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.747" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.764" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.771" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.785" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.791" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.799" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.809" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.812" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=1983, upperFlywheel=2757).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.862" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.887" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.909" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.921" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.934" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.968" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.985" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.999" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.012" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.032" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.071" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.098" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=2050.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=2053.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=3740.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=3743.00
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.468" tag=">>>>>" state="START" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.484" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.488" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.490" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.497" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.501" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.527" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.533" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.544" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.548" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.553" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.561" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.567" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.573" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.581" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: [45.587] Vision: alignAngle=14.6, shootParams=loc=Interpolated, distance=127.9, lowerFwVel=2268, upperFwVel=1734, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2267.50, upper=1733.75, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.600" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.607] Vision: alignAngle=14.6, shootParams=loc=Interpolated, distance=127.8, lowerFwVel=2270, upperFwVel=1735, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2269.77, upper=1734.88, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.619" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.639] Vision: alignAngle=14.6, shootParams=loc=Interpolated, distance=128.0, lowerFwVel=2267, upperFwVel=1734, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2267.10, upper=1733.55, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.650" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.659] Vision: alignAngle=14.7, shootParams=loc=Interpolated, distance=128.0, lowerFwVel=2267, upperFwVel=1734, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2267.29, upper=1733.65, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.670" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.680] Vision: alignAngle=15.0, shootParams=loc=Interpolated, distance=128.6, lowerFwVel=2257, upperFwVel=1728, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2256.96, upper=1728.48, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.690" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.700] Vision: alignAngle=15.0, shootParams=loc=Interpolated, distance=129.2, lowerFwVel=2247, upperFwVel=1723, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2246.77, upper=1723.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.711" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.720] Vision: alignAngle=15.5, shootParams=loc=Interpolated, distance=131.0, lowerFwVel=2217, upperFwVel=1708, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2216.63, upper=1708.31, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.736" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.751] Vision: alignAngle=14.2, shootParams=loc=Interpolated, distance=134.1, lowerFwVel=2188, upperFwVel=1724, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2188.10, upper=1723.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.762" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.770] Vision: alignAngle=13.6, shootParams=loc=Interpolated, distance=135.6, lowerFwVel=2180, upperFwVel=1741, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2179.73, upper=1740.53, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.781" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.788] Vision: alignAngle=14.9, shootParams=loc=Interpolated, distance=136.3, lowerFwVel=2176, upperFwVel=1748, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2176.16, upper=1747.69, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.804" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.823] Vision: alignAngle=14.0, shootParams=loc=Interpolated, distance=138.6, lowerFwVel=2163, upperFwVel=1773, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2163.31, upper=1773.38, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.847" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.881] Vision: alignAngle=11.4, shootParams=loc=Interpolated, distance=142.3, lowerFwVel=2143, upperFwVel=1814, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2142.83, upper=1814.34, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.904" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.920] Vision: alignAngle=9.1, shootParams=loc=Interpolated, distance=142.7, lowerFwVel=2141, upperFwVel=1819, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2140.51, upper=1818.99, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.931" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.945] Vision: alignAngle=10.2, shootParams=loc=Interpolated, distance=141.8, lowerFwVel=2145, upperFwVel=1809, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2145.35, upper=1809.31, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="45.961" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [45.997] Vision: alignAngle=8.3, shootParams=loc=Interpolated, distance=141.4, lowerFwVel=2148, upperFwVel=1805, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2147.72, upper=1804.56, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.006" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.011] Vision: alignAngle=8.2, shootParams=loc=Interpolated, distance=141.4, lowerFwVel=2148, upperFwVel=1805, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2147.61, upper=1804.77, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.022" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.029] Vision: alignAngle=7.9, shootParams=loc=Interpolated, distance=141.1, lowerFwVel=2150, upperFwVel=1801, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2149.55, upper=1800.91, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.045" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.052] Vision: alignAngle=7.9, shootParams=loc=Interpolated, distance=141.6, lowerFwVel=2147, upperFwVel=1807, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2146.62, upper=1806.76, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.064" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.071] Vision: alignAngle=7.9, shootParams=loc=Interpolated, distance=141.8, lowerFwVel=2146, upperFwVel=1809, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2145.61, upper=1808.78, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.086" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.123] Vision: alignAngle=8.1, shootParams=loc=Interpolated, distance=142.1, lowerFwVel=2144, upperFwVel=1812, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2144.11, upper=1811.78, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.150" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.166] Vision: alignAngle=8.6, shootParams=loc=Interpolated, distance=142.2, lowerFwVel=2143, upperFwVel=1813, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2143.49, upper=1813.03, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.188" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.199] Vision: alignAngle=8.1, shootParams=loc=Interpolated, distance=142.2, lowerFwVel=2143, upperFwVel=1813, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2143.49, upper=1813.01, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.210" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.246] Vision: alignAngle=9.3, shootParams=loc=Interpolated, distance=142.5, lowerFwVel=2142, upperFwVel=1816, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2141.77, upper=1816.46, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.269" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.278] Vision: alignAngle=9.4, shootParams=loc=Interpolated, distance=142.5, lowerFwVel=2142, upperFwVel=1816, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2141.77, upper=1816.46, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.289" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.299] Vision: alignAngle=9.5, shootParams=loc=Interpolated, distance=142.5, lowerFwVel=2142, upperFwVel=1816, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2141.86, upper=1816.28, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.313" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [46.321] Vision: alignAngle=9.5, shootParams=loc=Interpolated, distance=142.5, lowerFwVel=2142, upperFwVel=1816, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2141.86, upper=1816.28, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.336" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [46.367] Vision: alignAngle=9.5, shootParams=loc=Interpolated, distance=142.0, lowerFwVel=2145, upperFwVel=1811, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2144.52, upper=1810.97, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.380" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.389" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.396" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.406" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.418" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.426" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.432" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.441" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.478" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.488" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.496" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.507" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.512" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.523" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.530" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2221, upperFlywheel=1879).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.552" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.595" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.602" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.607" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.613" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.621" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.627" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.632" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.638" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.644" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.650" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.656" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.660" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.667" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.672" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.691" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.699" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.707" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.711" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.719" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.727" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="46.736" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="59.960" tag=">>>>>" state="START" />
+globalTracer.autoShootTask_Info: [59.962] Vision: alignAngle=169.7, shootParams=loc=Interpolated, distance=138.5, lowerFwVel=2164, upperFwVel=1772, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2163.89, upper=1772.22, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="59.967" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [59.969] Vision: alignAngle=169.8, shootParams=loc=Interpolated, distance=138.3, lowerFwVel=2165, upperFwVel=1770, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2164.95, upper=1770.11, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="59.976" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [59.978] Vision: alignAngle=169.8, shootParams=loc=Interpolated, distance=138.3, lowerFwVel=2165, upperFwVel=1770, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2164.95, upper=1770.11, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="59.980" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [59.982] Vision: alignAngle=169.8, shootParams=loc=Interpolated, distance=138.3, lowerFwVel=2165, upperFwVel=1770, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2164.95, upper=1770.11, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="59.988" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [59.991] Vision: alignAngle=169.8, shootParams=loc=Interpolated, distance=138.5, lowerFwVel=2164, upperFwVel=1772, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2163.80, upper=1772.40, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.008" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.016] Vision: alignAngle=169.8, shootParams=loc=Interpolated, distance=138.1, lowerFwVel=2166, upperFwVel=1768, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2165.87, upper=1768.25, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.023" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.037] Vision: alignAngle=169.7, shootParams=loc=Interpolated, distance=137.8, lowerFwVel=2168, upperFwVel=1764, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2167.80, upper=1764.41, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.043" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.052] Vision: alignAngle=170.8, shootParams=loc=Interpolated, distance=135.2, lowerFwVel=2182, upperFwVel=1736, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2182.03, upper=1735.94, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.060" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.068] Vision: alignAngle=169.9, shootParams=loc=Interpolated, distance=139.0, lowerFwVel=2161, upperFwVel=1778, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2161.05, upper=1777.90, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.070" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.076] Vision: alignAngle=170.5, shootParams=loc=Interpolated, distance=136.4, lowerFwVel=2176, upperFwVel=1749, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2175.59, upper=1748.82, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.095" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.107] Vision: alignAngle=173.2, shootParams=loc=Interpolated, distance=136.9, lowerFwVel=2173, upperFwVel=1754, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2172.85, upper=1754.30, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.116" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.132] Vision: alignAngle=173.1, shootParams=loc=Interpolated, distance=143.8, lowerFwVel=2135, upperFwVel=1831, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2134.50, upper=1831.00, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.142" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.152] Vision: alignAngle=175.2, shootParams=loc=Interpolated, distance=143.9, lowerFwVel=2134, upperFwVel=1832, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2133.77, upper=1832.45, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.166" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.175] Vision: alignAngle=173.1, shootParams=loc=Interpolated, distance=150.5, lowerFwVel=2127, upperFwVel=1891, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2126.60, upper=1891.13, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.183" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.188] Vision: alignAngle=172.6, shootParams=loc=Interpolated, distance=149.4, lowerFwVel=2103, upperFwVel=1893, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2103.35, upper=1893.30, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.199" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.206] Vision: alignAngle=175.0, shootParams=loc=Interpolated, distance=152.7, lowerFwVel=2234, upperFwVel=1855, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2234.22, upper=1855.26, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.212" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.221] Vision: alignAngle=174.4, shootParams=loc=Interpolated, distance=155.3, lowerFwVel=2365, upperFwVel=1812, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2364.54, upper=1811.82, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.229" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.233] Vision: alignAngle=175.3, shootParams=loc=Interpolated, distance=155.7, lowerFwVel=2383, upperFwVel=1806, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2383.07, upper=1805.64, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.249" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.266] Vision: alignAngle=175.9, shootParams=loc=Interpolated, distance=157.6, lowerFwVel=2374, upperFwVel=1813, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2373.71, upper=1813.14, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.278" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.289] Vision: alignAngle=175.3, shootParams=loc=Interpolated, distance=156.4, lowerFwVel=2394, upperFwVel=1803, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2393.58, upper=1803.21, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.301" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.310] Vision: alignAngle=177.9, shootParams=loc=Interpolated, distance=156.8, lowerFwVel=2387, upperFwVel=1807, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2386.53, upper=1806.74, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.319" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.326] Vision: alignAngle=177.9, shootParams=loc=Interpolated, distance=155.5, lowerFwVel=2375, upperFwVel=1808, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2375.14, upper=1808.29, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.332" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.339] Vision: alignAngle=179.8, shootParams=loc=Interpolated, distance=155.5, lowerFwVel=2375, upperFwVel=1808, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2375.14, upper=1808.29, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.346" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.350] Vision: alignAngle=178.1, shootParams=loc=Interpolated, distance=155.7, lowerFwVel=2383, upperFwVel=1806, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2382.61, upper=1805.80, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.361" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.391] Vision: alignAngle=179.5, shootParams=loc=Interpolated, distance=153.2, lowerFwVel=2261, upperFwVel=1846, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2261.37, upper=1846.21, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.406" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.419] Vision: alignAngle=180.9, shootParams=loc=Interpolated, distance=154.9, lowerFwVel=2346, upperFwVel=1818, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2346.32, upper=1817.89, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.437" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.448] Vision: alignAngle=182.0, shootParams=loc=Interpolated, distance=155.9, lowerFwVel=2396, upperFwVel=1801, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2395.95, upper=1801.35, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.468" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.498] Vision: alignAngle=181.8, shootParams=loc=Interpolated, distance=155.8, lowerFwVel=2388, upperFwVel=1804, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2388.22, upper=1803.93, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.512" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.528] Vision: alignAngle=180.5, shootParams=loc=Interpolated, distance=156.4, lowerFwVel=2393, upperFwVel=1803, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2393.44, upper=1803.28, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.545" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.557] Vision: alignAngle=180.8, shootParams=loc=Interpolated, distance=156.5, lowerFwVel=2392, upperFwVel=1804, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2392.25, upper=1803.87, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.579" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.612] Vision: alignAngle=179.8, shootParams=loc=Interpolated, distance=156.7, lowerFwVel=2388, upperFwVel=1806, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2388.27, upper=1805.86, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.638" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.651] Vision: alignAngle=179.5, shootParams=loc=Interpolated, distance=157.0, lowerFwVel=2383, upperFwVel=1808, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2383.35, upper=1808.32, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.675" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [60.712] Vision: alignAngle=179.1, shootParams=loc=Interpolated, distance=156.4, lowerFwVel=2393, upperFwVel=1804, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2392.93, upper=1803.53, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.736" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [60.756] Vision: alignAngle=179.0, shootParams=loc=Interpolated, distance=157.6, lowerFwVel=2374, upperFwVel=1813, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2373.71, upper=1813.14, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.781" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.816" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.834" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.848" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.863" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.875" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.885" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.920" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2457, upperFlywheel=1864).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.945" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.960" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.973" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="60.984" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.000" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.011" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.045" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.061" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.072" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.090" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.106" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.125" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.135" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.165" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.178" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.192" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.206" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.218" tag=">>>>>" state="null" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.229" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.246" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.257" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.289" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.313" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.328" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.340" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.355" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.365" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.401" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.415" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.435" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.448" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.464" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.480" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.494" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.523" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.540" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.559" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.570" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.586" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.601" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.631" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.647" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.665" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.677" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.684" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.688" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.693" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.703" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.707" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.711" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.725" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.730" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.736" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.744" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.749" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.753" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.762" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.767" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.771" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.778" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.784" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.789" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.798" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.804" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.808" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.815" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2480, upperFlywheel=1858).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.832" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.839" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.842" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.850" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.856" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.861" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.867" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.871" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.876" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.881" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.887" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.891" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.899" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.903" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.908" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.916" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.927" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.932" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.938" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.944" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.949" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.957" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.962" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.966" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.972" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.979" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.984" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.989" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="61.998" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="62.002" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="62.005" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="62.010" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="62.019" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.459" tag=">>>>>" state="START" />
+globalTracer.autoShootTask_Info: [82.461] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.2, lowerFwVel=1860, upperFwVel=2495, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1860.28, upper=2494.52, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.480" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.501] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.9, lowerFwVel=1836, upperFwVel=2536, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1836.35, upper=2536.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.508" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.521] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.2, lowerFwVel=1860, upperFwVel=2495, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1860.28, upper=2494.52, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.529" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.539] Vision: alignAngle=-9.6, shootParams=loc=Interpolated, distance=176.8, lowerFwVel=1908, upperFwVel=2412, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1907.64, upper=2411.62, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.547" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.560] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.9, lowerFwVel=1836, upperFwVel=2536, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1836.35, upper=2536.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.567" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.573] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.9, lowerFwVel=1836, upperFwVel=2536, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1836.35, upper=2536.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.580" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.588] Vision: alignAngle=-9.8, shootParams=loc=Interpolated, distance=178.9, lowerFwVel=1836, upperFwVel=2536, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1836.35, upper=2536.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.597" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.608] Vision: alignAngle=-9.3, shootParams=loc=Interpolated, distance=178.9, lowerFwVel=1836, upperFwVel=2536, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1836.35, upper=2536.39, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.619" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.624] Vision: alignAngle=-9.8, shootParams=loc=Interpolated, distance=179.1, lowerFwVel=1830, upperFwVel=2548, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1829.92, upper=2547.63, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.630" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.639] Vision: alignAngle=-9.7, shootParams=loc=Interpolated, distance=179.1, lowerFwVel=1830, upperFwVel=2547, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1830.05, upper=2547.41, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.653" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.659] Vision: alignAngle=-9.7, shootParams=loc=Interpolated, distance=179.1, lowerFwVel=1830, upperFwVel=2548, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1829.94, upper=2547.60, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.669" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.673] Vision: alignAngle=-9.3, shootParams=loc=Interpolated, distance=179.1, lowerFwVel=1830, upperFwVel=2547, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1830.42, upper=2546.76, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.685" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.691] Vision: alignAngle=-9.3, shootParams=loc=Interpolated, distance=179.1, lowerFwVel=1830, upperFwVel=2548, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1829.80, upper=2547.85, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.703" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.719] Vision: alignAngle=-9.5, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.82, upper=2518.06, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.741" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.758] Vision: alignAngle=-9.1, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2517, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1847.19, upper=2517.41, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.788" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.803] Vision: alignAngle=-8.8, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2517, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1847.19, upper=2517.41, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.829" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.859] Vision: alignAngle=-8.7, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1848, upperFwVel=2516, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1848.19, upper=2515.67, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.887" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.904] Vision: alignAngle=-8.5, shootParams=loc=Interpolated, distance=178.8, lowerFwVel=1840, upperFwVel=2531, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1839.66, upper=2530.60, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.926" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.935] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.8, lowerFwVel=1840, upperFwVel=2529, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1840.45, upper=2529.21, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.945" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.960] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.91, upper=2517.91, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.975" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [82.984] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.91, upper=2517.91, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="82.997" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.003] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.91, upper=2517.91, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.017" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.023] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.8, lowerFwVel=1840, upperFwVel=2529, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1840.45, upper=2529.21, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.037" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.047] Vision: alignAngle=-8.5, shootParams=loc=Interpolated, distance=178.8, lowerFwVel=1839, upperFwVel=2531, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1839.40, upper=2531.04, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.062" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.079] Vision: alignAngle=-8.7, shootParams=loc=Interpolated, distance=178.8, lowerFwVel=1841, upperFwVel=2529, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1840.69, upper=2528.79, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.092" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.104] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.62, upper=2518.42, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.118" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [83.128] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.62, upper=2518.42, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.145" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [83.196] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=178.6, lowerFwVel=1847, upperFwVel=2518, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=1846.62, upper=2518.42, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.227" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.249" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.259" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.263" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.268" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.284" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.289" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.296" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.303" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.309" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.316" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.322" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.328" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.336" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.342" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.347" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.354" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.362" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.367" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.377" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.388" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.399" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.405" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.411" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.420" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.426" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.430" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.440" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.445" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.448" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.457" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.463" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.468" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.477" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.485" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.489" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.495" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.510" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=1913, upperFlywheel=2588).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.524" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.530" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.539" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.544" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.550" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.557" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.564" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.567" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.572" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.581" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.586" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.597" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.601" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.608" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.612" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.628" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.635" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.643" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.651" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.661" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.666" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.671" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.679" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.685" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.690" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.698" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.704" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.711" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.718" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.728" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.734" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.750" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.756" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.764" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.767" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.776" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.782" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.787" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.795" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.810" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.826" tag=">>>>>" state="null" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.861" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.879" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.891" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.904" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.910" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.920" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.926" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.931" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.938" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.944" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.950" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.965" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.973" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.981" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.985" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="83.990" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.000" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.006" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.011" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.019" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.022" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.030" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.034" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.043" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.049" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.055" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.068" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.078" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.087" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.092" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.095" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.103" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.110" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.118" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.123" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.130" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.139" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.143" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.151" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.156" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.161" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.168" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.185" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.193" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.202" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.205" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.214" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.219" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.226" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.232" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.235" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.244" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.249" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.253" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.260" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.267" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.277" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.282" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.289" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.293" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.309" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.319" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.326" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.330" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.337" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.344" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.350" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.358" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.364" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.368" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.377" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.382" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.388" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.397" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.402" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.407" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.425" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=1934, upperFlywheel=2572).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.436" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.443" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.448" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.456" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.462" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.468" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.471" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.483" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.487" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.496" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.503" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.507" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.510" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.529" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.538" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.544" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.548" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.553" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.562" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.566" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.570" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.581" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.586" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.591" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.599" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.604" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.610" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.617" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.625" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.629" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.645" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.650" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.660" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="84.668" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=true, Exit=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.435" tag=">>>>>" state="START" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.445" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.452" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.462" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.471" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.475" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.483" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.489" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.510" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.528" tag=">>>>>" state="null" />
+globalTracer.autoShootTask_Info: [96.544] Vision: alignAngle=-8.7, shootParams=loc=Interpolated, distance=138.0, lowerFwVel=2167, upperFwVel=1767, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2166.66, upper=1766.69, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.573" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.593] Vision: alignAngle=-8.6, shootParams=loc=Interpolated, distance=137.7, lowerFwVel=2168, upperFwVel=1764, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2168.23, upper=1763.54, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.607" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.625] Vision: alignAngle=-7.8, shootParams=loc=Interpolated, distance=136.8, lowerFwVel=2173, upperFwVel=1754, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2173.24, upper=1753.53, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.643" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.663] Vision: alignAngle=-7.3, shootParams=loc=Interpolated, distance=137.6, lowerFwVel=2169, upperFwVel=1762, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2168.90, upper=1762.20, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.698" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.731] Vision: alignAngle=-7.9, shootParams=loc=Interpolated, distance=139.9, lowerFwVel=2156, upperFwVel=1787, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2156.38, upper=1787.24, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.749" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.768] Vision: alignAngle=-6.7, shootParams=loc=Interpolated, distance=139.7, lowerFwVel=2157, upperFwVel=1785, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2157.44, upper=1785.12, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.779" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.788] Vision: alignAngle=-5.9, shootParams=loc=Interpolated, distance=139.4, lowerFwVel=2159, upperFwVel=1783, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2158.73, upper=1782.53, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.812" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.854] Vision: alignAngle=-6.5, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.71, upper=1788.58, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.879" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.892] Vision: alignAngle=-6.4, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.69, upper=1788.62, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.923" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.960] Vision: alignAngle=-6.5, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.75, upper=1788.50, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="96.985" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [96.997] Vision: alignAngle=-6.3, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.67, upper=1788.65, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.023" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [97.041] Vision: alignAngle=-6.4, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.73, upper=1788.54, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.068" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [97.106] Vision: alignAngle=-6.4, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.69, upper=1788.62, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.134" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [97.145] Vision: alignAngle=-6.4, shootParams=loc=Interpolated, distance=140.0, lowerFwVel=2156, upperFwVel=1789, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: owner=teleOp, lower=2155.69, upper=1788.62, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.159" tag=">>>>>" state="PREP_TO_SHOOT" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.168" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.177" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.183" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.191" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.194" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.211" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.227" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.238" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.243" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.251" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.259" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.265" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.271" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.278" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.287" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.292" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.302" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.309" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.331" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.339" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.346" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.353" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.361" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.369" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.377" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.382" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.390" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.397" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.405" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.411" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.428" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.440" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.446" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.455" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.462" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.467" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.476" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.481" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.490" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.autoShootTask_Info: Shot a ball (lowerFlywheel=2224, upperFlywheel=1852).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.503" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.508" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.516" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.552" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.580" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.598" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.619" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.657" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.679" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.692" tag=">>>>>" state="null" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.707" tag=">>>>>" state="SHOOT_WHEN_READY" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="97.727" tag=">>>>>" state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

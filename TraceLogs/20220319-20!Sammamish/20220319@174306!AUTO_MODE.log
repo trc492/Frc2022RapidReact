@@ -1,0 +1,13 @@
+globalTracer.robotStartMode_Info: [0.284] Wed Dec 31 16:00:39 PST 1969: ***** AUTO_MODE *****
+globalTracer.FrcAuto_Info: <Info name="MatchInfo" date="Wed Dec 31 16:00:39 PST 1969" event="null" type="None" match=0 replay=0 alliance="Invalid" location=0 gameMsg="null" />
+globalTracer.FrcAuto_Info: <Info name="AutoChoices" alliance="Blue" strategy="TIMED_DRIVE" startPos="0" startDelay=0 sec pathFile="DrivePath.csv" xDistance=6.0 ft yDistance=6.0 ft turnDegrees=0 deg driveTime=2 sec drivePower=2.0 />
+globalTracer.CmdTimedDrive_Info: delay=0.000, time=2.0, xPower=0.0, yPower=2.0, turnPower=0.0
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="0.511" tag=">>>>>" state="DO_DELAY" />
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-1865.00
+globalTracer.startCompetition_Warn: AUTO_MODE.runPeriodic took too long (0.086s)
+globalTracer.startCompetition_Warn: AUTO_MODE took too long (1647736814.438s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-914.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="2.486" tag=">>>>>" state="DONE" />
+globalTracer.startCompetition_Info: *** Transitioning from AUTO_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

@@ -1,0 +1,14 @@
+globalTracer.robotStartMode_Info: [0.290] Sun Mar 20 10:54:15 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.151s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.570s)
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.063s)
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=true!
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=false!
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=true!
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=31.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=485.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-455.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-556.00
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

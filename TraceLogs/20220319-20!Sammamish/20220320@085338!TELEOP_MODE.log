@@ -1,0 +1,17 @@
+globalTracer.robotStartMode_Info: [0.233] Wed Dec 31 16:00:40 PST 1969: ***** TELEOP_MODE *****
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-4975.00
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.135s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (1647791446.472s)
+globalTracer.prepareToShoot_Info: owner=teleOp, event=null, success=true (shootParams=null)
+globalTracer.autoShootTask_Info: Entrance=false, Exit=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.091" tag=">>>>>" state="START" />
+globalTracer.cancel_Info: Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.104" tag=">>>>>" state="DONE" />
+globalTracer.shootAllBalls_Info: owner=teleOp, event=null, allowToShoot=false, currOwner=null
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-3119.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-3791.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-3265.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-4106.00
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

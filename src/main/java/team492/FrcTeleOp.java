@@ -464,7 +464,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON4:
                 if (pressed)
                 {
-                    robot.intake.extend();
+                    if (robot.intake.isExtended())
+                    {
+                        robot.intake.retract();
+                    }
+                    else
+                    {
+                        robot.intake.extend();
+                    }
                 }
                 break;
 
@@ -573,6 +580,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
                     robot.intake.retract();
+                    robot.climber.cancel();
                 }
                 break;
 
@@ -599,6 +607,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW2:
+                if (pressed)
+                {
+                    robot.climber.climber.setTarget(26.0, true);
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE2:
@@ -624,6 +636,15 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.PANEL_SWITCH_WHITE1:
+                // if (pressed)
+                // {
+                //     robot.shooter.setFlywheelValue(RobotParams.FLYWHEEL_MAX_RPM, 0.5*RobotParams.FLYWHEEL_MAX_RPM);
+                //     // robot.shooter.setFlywheelValue(-0.5*RobotParams.FLYWHEEL_MAX_RPM, 0.0);
+                // }
+                // else
+                // {
+                //     robot.shooter.shutdown();
+                // }
                 break;
 
             case FrcJoystick.PANEL_SWITCH_RED1:

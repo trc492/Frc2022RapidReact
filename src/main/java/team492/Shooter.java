@@ -906,7 +906,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (readyToShoot)
                         {
                             robot.robotDrive.driveBase.stop();
-                            // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
                         }
                     }

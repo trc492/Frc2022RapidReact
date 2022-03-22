@@ -382,8 +382,8 @@ public class RobotParams
     public static final double TILTER_FAR_ANGLE                 = 31.0;
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 0.6;
-    public static final double INTAKE_SPITOUT_POWER             = -0.6;
+    public static final double INTAKE_PICKUP_POWER              = 0.7;
+    public static final double INTAKE_SPITOUT_POWER             = -0.7;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.

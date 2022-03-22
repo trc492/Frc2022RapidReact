@@ -33,6 +33,7 @@ public class ShootParamTable
         TarmacAuto,
         TarmacMid,
         Distance11ft,
+        Calibration125in,
         Distance12ft,
         FarThreshold,
         RingMid,

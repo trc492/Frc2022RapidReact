@@ -29,12 +29,14 @@ import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
 import team492.ShootParamTable.ShootLoc;
 
-class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
+class CmdAuto3Balls implements TrcRobot.RobotCommand
 {
-    private static final String moduleName = "CmdAuto1Or2Balls";
+    private static final String moduleName = "CmdAuto3Balls";
 
     private enum State
     {
+        //copied from CmdAUto1Or2Balls
+        //minor change for shooting 2nd ball- dont go forward as much to shoot 2nd ball,  use tarmac_auto preset because within tarmac
         START_DELAY,
         AIM_TO_SHOOT,
         SHOOT_BALL,
@@ -42,7 +44,16 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
         PICKUP_2ND_BALL,
         TURN_AROUND,
         GET_OFF_TARMAC,
-        DONE
+        DONE,
+        //new 3ball auto states
+        //turn -100 degrees drive forward to pickup 3rd ball
+        PICKUP_3RD_BALL,
+        //once 3rd ball picked up turn forward 50 degrees 
+        TURN_AROUND_3RD_BALL,
+        //shoot with vision(no preset provided )
+        AIM_TO_SHOOT_THIRD,
+        SHOOT_THIRD_BALL,
+
     }   //enum State
 
     private final Robot robot;
@@ -60,7 +71,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
      * @param autoChoices specifies all the choices from the autonomous menus.
      * @param do2Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
      */
-    CmdAuto1Or2Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do2Balls)
+    CmdAuto3Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do2Balls)
     {
         robot.globalTracer.traceInfo(
             moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, autoChoices, do2Balls);
@@ -95,7 +106,8 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
-        robot.shooter.shutdown();
+        robot.shooter.cancel();
+        robot.shooter.stopFlywheel();
         robot.robotDrive.cancel();
         sm.stop();
     }   //cancel
@@ -134,8 +146,8 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                         timer.set(startDelay, event);
+                        sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                         break;
                     }
 
@@ -153,7 +165,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 
                 case SHOOT_BALL:
                     sm.waitForSingleEvent(
-                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
+                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.PICKUP_3RD_BALL);
                     robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
@@ -180,16 +192,44 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        //this used to be -36, but it kept overshooting because robot too close
                         new TrcPose2D(0.0, -36.0, 180.0));
                     break;
 
-                case GET_OFF_TARMAC:
-                    // robot.robotDrive.purePursuitDrive.start(
-                    //     event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                    //     new TrcPose2D(0.0, -40.0, 0.0));
-                    robot.robotDrive.driveBase.holonomicDrive(0.0, -0.2, 0.0);
+                case PICKUP_3RD_BALL:
+                    robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.TURN_AROUND_3RD_BALL);
+                    robot.intake.pickup(event);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(-90.0, 0.0, -90.0));
+                    break;
+
+                case TURN_AROUND_3RD_BALL:
+                    //retract intake
+                    //turn 100 degrees clockwise and backup to get in shooting position
+                    robot.intake.retract();
+                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT_THIRD);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, 10.0, 120.0));
+                    break;
+
+                case AIM_TO_SHOOT_THIRD:
+                    //shoot with vision because interpolation works pretty well at far distances 
+                    sm.waitForSingleEvent(event, State.SHOOT_THIRD_BALL); 
+                    robot.shooter.prepareToShootWithVision(moduleName, event, (ShootParamTable.Params) null);
+                    break; 
+
+                case SHOOT_THIRD_BALL:
                     sm.waitForSingleEvent(event, State.DONE);
-                    timer.set(2.0, event);
+                    robot.shooter.shootAllBalls(moduleName, event);
+
+                case GET_OFF_TARMAC:
+                    sm.waitForSingleEvent(event, State.DONE);
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -40.0, 0.0));
                     break;
 
                 case DONE:

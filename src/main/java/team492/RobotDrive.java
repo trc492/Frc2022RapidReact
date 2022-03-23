@@ -22,6 +22,8 @@
 
 package team492;
 
+import com.ctre.phoenix.ErrorCode;
+
 import TrcCommonLib.trclib.TrcDriveBase;
 import TrcCommonLib.trclib.TrcGyro;
 import TrcCommonLib.trclib.TrcPidController;
@@ -160,10 +162,26 @@ public class RobotDrive
 
     protected FrcCANFalcon createDriveMotor(String name, int motorCanID, boolean inverted)
     {
+        final String funcName = "createDriveMotor";
         FrcCANFalcon driveMotor = new FrcCANFalcon(name, motorCanID);
+        ErrorCode errCode;
 
-        driveMotor.motor.configFactoryDefault();
-        driveMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE);
+        errCode = driveMotor.motor.configFactoryDefault(10);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configFactoryDefault failed (code=%s).",
+                name, errCode);
+        }
+
+        errCode = driveMotor.motor.configVoltageCompSaturation(RobotParams.BATTERY_NOMINAL_VOLTAGE, 10);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.configVoltageCompSaturation failed (code=%s).",
+                name, errCode);
+        }
+
         driveMotor.motor.enableVoltageCompensation(true);
         driveMotor.setInverted(inverted);
         driveMotor.setBrakeModeEnabled(true);

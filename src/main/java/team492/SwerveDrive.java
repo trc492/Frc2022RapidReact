@@ -31,6 +31,7 @@ import java.util.stream.IntStream;
 
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
@@ -231,6 +232,14 @@ public class SwerveDrive extends RobotDrive
                 name, errCode);
         }
 
+        // errCode = encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+        // if (errCode != ErrorCode.OK)
+        // {
+        //     robot.globalTracer.traceWarn(
+        //         funcName, "%s: CANcoder.configAbsoluteSensorRange failed (code=%s).",
+        //         name, errCode);
+        // }
+
         return encoder;
     }   //createSteerEncoder
 
@@ -306,6 +315,8 @@ public class SwerveDrive extends RobotDrive
         // ErrorCode errCode;
         // double encoderPos = steerEncoder.getAbsolutePosition();
 
+        // // Which one should I use?
+        // errCode = steerMotor.motor.setSelectedSensorPosition(encoderPos, 0, 10);
         // errCode = steerMotor.motor.getSensorCollection().setIntegratedSensorPosition(encoderPos, 10);
         // if (errCode != ErrorCode.OK)
         // {
@@ -323,6 +334,8 @@ public class SwerveDrive extends RobotDrive
         //         funcName, "%s: Falcon.setSelectedSensorPosition failed (code=%s, pos=%.0f).",
         //         name, errCode, pos);
         // }
+
+        // steerEncoder.setStatusFramePeriod(StatusFrame., periodMs, timeoutMs);
 
         FrcFalconServo servo = new FrcFalconServo(
             name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, steerZero,

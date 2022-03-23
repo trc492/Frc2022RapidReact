@@ -32,12 +32,12 @@ public class RobotParams
 {
     //
     // Robot preferences.
-    //
+    //          
     public static class Preferences
     {
         public static final boolean useSubsystems               = true;
         public static final boolean useExternalOdometry         = false;
-        public static final boolean useXboxController           = false;
+        public static final boolean useXboxController           = true;
         public static final boolean useButtonPanels             = true;
         public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;

@@ -259,17 +259,24 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private void driverControllerButtonEvent(int button, boolean pressed)
     {
         robot.dashboard.displayPrintf(
-            8, "DriverController: button=0x%04x %s, auto=%b", button, pressed ? "pressed" : "released");
+            8, "DriverController: button=0x%04x %s", button, pressed ? "pressed" : "released");
 
         switch (button)
         {
             case FrcXboxController.BUTTON_A:
+                if (pressed)
+                {
+                    TrcPose2D robotPose = robot.robotDrive.driveBase.getFieldPosition();
+                    robotPose.angle = 0.0;
+                    robot.robotDrive.driveBase.setFieldPosition(robotPose);
+                }
                 break;
 
             case FrcXboxController.BUTTON_B:
                 break;
 
             case FrcXboxController.BUTTON_X:
+                robot.robotDrive.setAntiDefenseEnabled("AntiDefense", pressed);
                 break;
 
             case FrcXboxController.BUTTON_Y:

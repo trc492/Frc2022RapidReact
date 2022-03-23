@@ -56,7 +56,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private TrcEvent flywheelToSpeedEvent = null;
     private String currOwner = null;
     private boolean visionAlignEnabled = true;
-    private boolean readyToShoot = false;
+    private boolean committedToShoot = false;
     private boolean allowToShoot = false;
     private Double targetAngle = null;
     private Double targetDistance = null;
@@ -560,7 +560,7 @@ public class Shooter implements TrcExclusiveSubsystem
         }
 
         alignPidCtrl.reset();
-        readyToShoot = false;
+        committedToShoot = false;
         allowToShoot = false;
         usingVision = false;
 
@@ -579,8 +579,8 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //shutdown
 
     /**
-     * This method is the worker preparing to shoot all balls. It is called by both prepareToShootWithVision or
-     * prepareToShootNoVision.
+     * This method is the worker preparing to shoot all balls. It is called by both shootWithVision or
+     * shootWithNoVision.
      *
      * @param owner specifies the owner ID who is shooting.
      * @param event specifies the events to signal when completed, can be null if not provided.
@@ -598,11 +598,8 @@ public class Shooter implements TrcExclusiveSubsystem
             robot.robotDrive.driveBase.acquireExclusiveAccess(owner))
         {
             currOwner = owner;
-            readyToShoot = false;
-            //if we are in autonomous signal event for shooter when it is done shooting 
-            if(robot.isAutonomous()){
-                onFinishShootEvent = event;
-            }
+            onFinishShootEvent = event;
+            committedToShoot = false;
             sm.start(State.START);
             shooterTaskObj.registerTask(TaskType.POSTCONTINUOUS_TASK);
             success = true;
@@ -611,7 +608,7 @@ public class Shooter implements TrcExclusiveSubsystem
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
-                funcName, "owner=%s, event=%s, success=%s (shootParams=%s)", owner, event, success, providedParams);
+                funcName, "owner=%s, event=%s, success=%s (providedParams=%s)", owner, event, success, providedParams);
             if (!success)
             {
                 TrcOwnershipMgr ownershipMgr = TrcOwnershipMgr.getInstance();
@@ -637,12 +634,12 @@ public class Shooter implements TrcExclusiveSubsystem
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
+    public boolean shootWithVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
     {
         usingVision = true;
         this.providedParams = shootParams;
         return prepareToShoot(owner, event);
-    }   //prepareToShootWithVision
+    }   //shootWithVision
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor using full vision. It means it
@@ -654,10 +651,10 @@ public class Shooter implements TrcExclusiveSubsystem
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event)
+    public boolean shootWithVision(String owner, TrcEvent event)
     {
-        return prepareToShootWithVision(owner, event, (ShootParamTable.Params) null);
-    }   //prepareToShootWithVision
+        return shootWithVision(owner, event, (ShootParamTable.Params) null);
+    }   //shootWithVision
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor using vision only for alignment.
@@ -669,7 +666,7 @@ public class Shooter implements TrcExclusiveSubsystem
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootWithVision(String owner, TrcEvent event, ShootLoc presetLoc)
+    public boolean shootWithVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
         ShootParamTable.Params params = presetLoc != null? robot.shootParamTable.get(presetLoc): null;
 
@@ -679,8 +676,8 @@ public class Shooter implements TrcExclusiveSubsystem
                 "presetLoc must not be null and must specify an entry in the ShootParamTable.");
         }
 
-        return prepareToShootWithVision(owner, event, params);
-    }   //prepareToShootWithVision
+        return shootWithVision(owner, event, params);
+    }   //shootWithVision
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor without vision. The caller must
@@ -692,7 +689,7 @@ public class Shooter implements TrcExclusiveSubsystem
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
+    public boolean shootWithNoVision(String owner, TrcEvent event, ShootParamTable.Params shootParams)
     {
         if (shootParams == null)
         {
@@ -702,7 +699,7 @@ public class Shooter implements TrcExclusiveSubsystem
         usingVision = false;
         this.providedParams = shootParams;
         return prepareToShoot(owner, event);
-    }   //prepareToShootNoVision
+    }   //shootWithNoVision
 
     /**
      * This method starts the auto shoot operation to shoot all balls in the conveyor without vision. The caller must
@@ -714,44 +711,36 @@ public class Shooter implements TrcExclusiveSubsystem
      * @return true if the operation was started successfully, false otherwise (could not acquire exclusive ownership
      *         of the involved subsystems).
      */
-    public boolean prepareToShootNoVision(String owner, TrcEvent event, ShootLoc presetLoc)
+    public boolean shootWithNoVision(String owner, TrcEvent event, ShootLoc presetLoc)
     {
-        return prepareToShootNoVision(owner, event, presetLoc != null? robot.shootParamTable.get(presetLoc): null);
-    }   //prepareToShootWithVision
+        return shootWithNoVision(owner, event, presetLoc != null? robot.shootParamTable.get(presetLoc): null);
+    }   //shootWithNoVision
 
     /**
-     * This method shoots all balls in the conveyor.
+     * This method is intended to be called by teleop to commit to shoot all balls in the conveyor. This assumes
+     * a previous call to shootWithVision or shootWithNoVision has been made which will prep the shooter to aim
+     * at the target. This method is allowed to proceed only if the previous call to shootWithVision or
+     * shootWithNoVision signals the aiming is complete.
      *
      * @param owner specifies the owner ID who is shooting.
-     * @param event specifies the events to signal when completed, can be null if not provided.
      */
-    public void shootAllBalls(String owner, TrcEvent event)
+    public void commitToShoot(String owner)
     {
-        final String funcName = "shootAllBalls";
+        final String funcName = "commitToShoot";
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
-                funcName, "owner=%s, event=%s, allowToShoot=%s, currOwner=%s", owner, event, allowToShoot, currOwner);
+                funcName, "owner=%s, allowToShoot=%s, currOwner=%s", owner, allowToShoot, currOwner);
         }
 
-        if (allowToShoot && currOwner != null && validateOwnership(owner))
+        if ((robot.isTeleop() || robot.isTest()) &&
+            allowToShoot && currOwner != null && validateOwnership(owner))
         {
-            readyToShoot = true;
+            committedToShoot = true;
             allowToShoot = false;
-            onFinishShootEvent = event;
         }
-    }   //shootAllBalls
-
-    /**
-     * This method shoots all balls in the conveyor.
-     *
-     * @param owner specifies the owner ID who is shooting.
-     */
-    public void shootAllBalls(String owner)
-    {
-        shootAllBalls(owner, null);
-    }   //shootAllBalls
+    }   //commitToShoot
 
     /**
      * This method is called periodically to execute the auto shoot task.
@@ -871,7 +860,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // Pneumatic takes hardly any time, so fire and forget.
                     setTilterPosition(params.tilterAngle);
 
-                    //fetch driver inputs if we are in teleOp or Test mode 
+                    // Fetch driver inputs if we are in teleOp or Test mode 
                     if (robot.isTeleop() || robot.isTest())
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.
@@ -904,24 +893,23 @@ public class Shooter implements TrcExclusiveSubsystem
                             11, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
                     }
                     //
-                    // In Teleop mode, let the operator controls when to shoot. In autonomous mode, only allows
+                    // In Teleop or test mode, let the operator decides when to shoot. In autonomous mode, only allows
                     // shooting when vision is onTarget.
                     //
-                    if (robot.isTeleop() || visionPidOnTarget)
+                    if (robot.isTeleop() || robot.isTest() || visionPidOnTarget)
                     {
-                        allowToShoot = true;
-                        if (onFinishPrepEvent != null)
+                        if (robot.isAutonomous() || committedToShoot)
                         {
-                            // This is mainly for notifying autonomous we are prep'd to shoot.
-                            onFinishPrepEvent.signal();
-                            onFinishPrepEvent = null;
-                        }
-
-                        if (readyToShoot)
-                        {
+                            // If in autonomous mode, visionPidOnTarget must be true.
+                            // If in teleop or test mode, shoot trigger has been released (committed).
                             robot.robotDrive.driveBase.stop();
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
+                        }
+                        else
+                        {
+                            // allowToShoot is only relevant in teleop or test mode.
+                            allowToShoot = true;
                         }
                     }
                     break;

@@ -126,7 +126,7 @@ class CmdVisionPidDrive implements TrcRobot.RobotCommand
                     // Start angling the robot. Shooter method allows driver to turn the robot at the same time,
                     // this is to make it easier to watch the robot snap back to the target.
                     sm.waitForSingleEvent(event, State.WAIT_FOR_RELEASE);
-                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                    robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     // Once PID determines the robot is on target, it will move on to the next state.
                     break;
 

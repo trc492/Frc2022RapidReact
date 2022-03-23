@@ -38,8 +38,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
         //copied from CmdAUto1Or2Balls
         //minor change for shooting 2nd ball- dont go forward as much to shoot 2nd ball,  use tarmac_auto preset because within tarmac
         START_DELAY,
-        AIM_TO_SHOOT,
-        SHOOT_BALL,
+        SHOOT,
         TURN_TO_2ND_BALL,
         PICKUP_2ND_BALL,
         TURN_AROUND,
@@ -142,31 +141,26 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.AIM_TO_SHOOT);
+                        sm.setState(State.SHOOT);
                     }
                     else
                     {
                         timer.set(startDelay, event);
-                        sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
+                        sm.waitForSingleEvent(event, State.SHOOT);
                         break;
                     }
 
-                case AIM_TO_SHOOT:
-                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
+                case SHOOT:
+                    sm.waitForSingleEvent(
+                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.PICKUP_3RD_BALL);
                     if (got2ndBall)
                     {
-                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
                     else
                     {
-                        robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithNoVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
-                    break;
-
-                case SHOOT_BALL:
-                    sm.waitForSingleEvent(
-                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.PICKUP_3RD_BALL);
-                    robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
                 case TURN_TO_2ND_BALL:
@@ -189,7 +183,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                 case TURN_AROUND:
                     got2ndBall = true;
                     robot.intake.retract();
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
+                    sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         //this used to be -36, but it kept overshooting because robot too close
@@ -217,13 +211,9 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
 
                 case AIM_TO_SHOOT_THIRD:
                     //shoot with vision because interpolation works pretty well at far distances 
-                    sm.waitForSingleEvent(event, State.SHOOT_THIRD_BALL); 
-                    robot.shooter.prepareToShootWithVision(moduleName, event);
-                    break; 
-
-                case SHOOT_THIRD_BALL:
                     sm.waitForSingleEvent(event, State.DONE);
-                    robot.shooter.shootAllBalls(moduleName, event);
+                    robot.shooter.shootWithVision(moduleName, event);
+                    break; 
 
                 case GET_OFF_TARMAC:
                     sm.waitForSingleEvent(event, State.DONE);

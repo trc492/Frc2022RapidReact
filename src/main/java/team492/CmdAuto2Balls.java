@@ -38,8 +38,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
         START_DELAY,
         PICKUP_BALL,
         TURN_AROUND,
-        AIM_TO_SHOOT,
-        SHOOT_BALL,
+        SHOOT,
         GET_OFF_TARMAC,
         DONE
     }   //enum State
@@ -146,20 +145,15 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
 
                 case TURN_AROUND:
                     robot.intake.retract();
-                    sm.waitForSingleEvent(event, State.AIM_TO_SHOOT);
+                    sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -36.0, 180.0));
                     break;
 
-                case AIM_TO_SHOOT:
-                    sm.waitForSingleEvent(event, State.SHOOT_BALL);
-                    robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacAuto);
-                    break;
-
-                case SHOOT_BALL:
+                case SHOOT:
                     sm.waitForSingleEvent(event, State.GET_OFF_TARMAC);
-                    robot.shooter.shootAllBalls(moduleName, event);
+                    robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     break;
 
                 case GET_OFF_TARMAC:

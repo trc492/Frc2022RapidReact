@@ -184,22 +184,20 @@ public class ShootParamTable
         }
         else
         {
-            for (int i = 0; i < paramTable.size(); i++)
+            for (int i = 1; i < paramTable.size(); i++)
             {
                 Params entry = paramTable.get(i);
+
                 if (distance <= entry.distance)
                 {
-                    if (i > 0)
-                    {
-                        Params prevEntry = paramTable.get(i - 1);
-                        double w = (distance - prevEntry.distance) / (entry.distance - prevEntry.distance);
-                        foundEntry = new Params(
-                            ShootLoc.Interpolated, distance,
-                            (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
-                            (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
-                            entry.tilterAngle);
-                        break;
-                    }
+                    Params prevEntry = paramTable.get(i - 1);
+                    double w = (distance - prevEntry.distance) / (entry.distance - prevEntry.distance);
+                    foundEntry = new Params(
+                        ShootLoc.Interpolated, distance,
+                        (1 - w) * prevEntry.lowerFlywheelVelocity + w * entry.lowerFlywheelVelocity,
+                        (1 - w) * prevEntry.upperFlywheelVelocity + w * entry.upperFlywheelVelocity,
+                        entry.tilterAngle);
+                    break;
                 }
             }
         }

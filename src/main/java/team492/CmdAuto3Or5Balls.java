@@ -38,7 +38,6 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
-        AIM,
         SHOOT,
         TURN_TO_2ND_BALL,
         PICKUP_RING_BALLS,
@@ -145,37 +144,31 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                         //
                         // Intentionally falling through to the next state.
                         //
-                        sm.setState(State.AIM);
+                        sm.setState(State.SHOOT);
                     }
                     else
                     {
-                        sm.waitForSingleEvent(event, State.AIM);
+                        sm.waitForSingleEvent(event, State.SHOOT);
                         timer.set(startDelay, event);
                     }
                     break;
 
-                case AIM:
+                case SHOOT:
                     //if we havent shot any balls, we are only shooting the preload
                     //otherwise we will shoot 2 balls at once
-                    sm.waitForSingleEvent(event, State.SHOOT);
+                    sm.waitForSingleEvent(
+                        event, numBallsShot == 1? State.TURN_TO_2ND_BALL:
+                               numBallsShot == 3 && do5Balls? State.GO_TO_TERMINAL: State.DONE);
                     if(numBallsShot == 0)
                     {
-                        robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithNoVision(moduleName, event, ShootLoc.TarmacAuto);
                         numBallsShot++;
                     }
                     else
                     {
-                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacMid);
+                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacMid);
                         numBallsShot += 2;
                     }
-                    break;
-
-                case SHOOT:
-                    //only shot one ball before, need to pickup the 2 ring balls
-                    sm.waitForSingleEvent(
-                        event, numBallsShot == 1? State.TURN_TO_2ND_BALL:
-                               numBallsShot == 3 && do5Balls? State.GO_TO_TERMINAL: State.DONE);
-                    robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
                 case TURN_TO_2ND_BALL:
@@ -208,7 +201,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 
                 case PICKUP_ONE_MORE:
                     robot.intake.pickup();
-                    sm.waitForSingleEvent(driveEvent, State.AIM);
+                    sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     break;
 
                 case GO_TO_TERMINAL:

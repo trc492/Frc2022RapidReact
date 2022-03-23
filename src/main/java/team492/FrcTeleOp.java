@@ -446,11 +446,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_TRIGGER:
                 if (pressed)
                 {
-                    robot.shooter.prepareToShootWithVision("teleOp", null, currShootParams);
+                    robot.shooter.shootWithVision("teleOp", null, currShootParams);
                 }
                 else
                 {
-                    robot.shooter.shootAllBalls("teleOp");
+                    robot.shooter.commitToShoot("teleOp");
                 }
                 break;
 
@@ -494,7 +494,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.LOGITECH_BUTTON6:
                 if (pressed)
                 {
-                    robot.shooter.prepareToShootWithVision(
+                    robot.shooter.shootWithVision(
                         "teleOp", null,
                         new ShootParamTable.Params(
                             ShootLoc.Calibration, 0.0, robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel,
@@ -502,7 +502,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 else
                 {
-                    robot.shooter.shootAllBalls("teleOp");
+                    robot.shooter.commitToShoot("teleOp");
                 }
                 break;
 

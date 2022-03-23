@@ -41,7 +41,7 @@
 
 # Log file
 *.log
-!tracelogs/*.log
+!TraceLogs/*/*.log
 
 # BlueJ files
 *.ctxt

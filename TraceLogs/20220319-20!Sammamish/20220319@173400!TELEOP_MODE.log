@@ -1,0 +1,7 @@
+globalTracer.robotStartMode_Info: [0.303] Sat Mar 19 17:33:55 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-5387.00
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.497s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-5131.00
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=true!
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=false!
+globalTracer.connectionListener_Err: Client 10.4.92.11 connected=true!

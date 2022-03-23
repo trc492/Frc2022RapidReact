@@ -153,14 +153,14 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 
                 case SHOOT_BALL:
                     sm.waitForSingleEvent(
-                        event, do2Balls && !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
+                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
                     robot.shooter.shootAllBalls(moduleName, event);
                     break;
 
                 case TURN_TO_2ND_BALL:
                     sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     robot.robotDrive.purePursuitDrive.start(
-                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        event, 2.0, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
                     break;
 

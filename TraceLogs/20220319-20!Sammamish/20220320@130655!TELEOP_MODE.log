@@ -1,0 +1,8 @@
+globalTracer.robotStartMode_Info: [0.290] Sun Mar 20 13:06:52 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.064s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.466s)
+globalTracer.setFlywheelValue_Info: owner=null, lower=6400.00, upper=3200.00, event=null
+globalTracer.flywheelTriggerEvent_Info: active=true
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=117.00
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: active=false

@@ -1,0 +1,63 @@
+globalTracer.robotStartMode_Info: [0.286] Sun Mar 20 13:05:24 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.057s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.461s)
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=-3200.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=0.00, upper=0.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=-3200.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=0.00, upper=0.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=-3200.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=0.00, upper=0.00, event=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.setFlywheelValue_Info: owner=null, lower=-3200.00, upper=0.00, event=null
+globalTracer.cancel_Info: Canceling: currOwner=null

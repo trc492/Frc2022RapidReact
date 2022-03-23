@@ -910,12 +910,18 @@ public class Shooter implements TrcExclusiveSubsystem
                     if (robot.isTeleop() || visionPidOnTarget)
                     {
                         allowToShoot = true;
-                        //if we are in autonomous this means visionPidOnTarget so we can go to SHOOT_WHEN_READY 
-                        //if we are in teleOp readyToShoot means Tim has released joystick so we can go to SHOOT_WHEN_READY
-                        if(robot.isAutonomous() || readyToShoot){
-                                robot.robotDrive.driveBase.stop();
-                                robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
-                                sm.setState(State.SHOOT_WHEN_READY);
+                        if (onFinishPrepEvent != null)
+                        {
+                            // This is mainly for notifying autonomous we are prep'd to shoot.
+                            onFinishPrepEvent.signal();
+                            onFinishPrepEvent = null;
+                        }
+
+                        if (readyToShoot)
+                        {
+                            robot.robotDrive.driveBase.stop();
+                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            sm.setState(State.SHOOT_WHEN_READY);
                         }
                     }
                     break;

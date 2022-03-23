@@ -1,0 +1,6 @@
+globalTracer.robotStartMode_Info: [0.221] Sat Mar 19 18:51:19 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.100s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.446s)
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

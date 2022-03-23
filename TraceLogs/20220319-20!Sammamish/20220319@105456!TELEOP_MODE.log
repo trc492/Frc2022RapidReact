@@ -1,0 +1,4 @@
+globalTracer.robotStartMode_Info: [0.028] Sat Mar 19 10:40:24 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

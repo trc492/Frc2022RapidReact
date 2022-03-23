@@ -172,7 +172,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                 case TURN_TO_2ND_BALL:
                     sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     robot.robotDrive.purePursuitDrive.start(
-                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        event, 2.0, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
                     break;
 
@@ -193,7 +193,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
                         //this used to be -36, but it kept overshooting because robot too close
-                        new TrcPose2D(0.0, -20.0, 180.0));
+                        new TrcPose2D(0.0, -36.0, 180.0));
                     break;
 
                 case PICKUP_3RD_BALL:
@@ -212,7 +212,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT_THIRD);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -10.0, 120.0));
+                        new TrcPose2D(0.0, 10.0, 120.0));
                     break;
 
                 case AIM_TO_SHOOT_THIRD:

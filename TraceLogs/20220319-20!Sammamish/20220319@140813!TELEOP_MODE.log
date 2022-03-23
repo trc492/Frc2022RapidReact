@@ -1,0 +1,5 @@
+globalTracer.robotStartMode_Info: [0.048] Wed Dec 31 16:00:39 PST 1969: ***** TELEOP_MODE *****
+globalTracer.resetMotorPosition_Err: resetPosition() on device 3 failed with error SigNotUpdated!
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

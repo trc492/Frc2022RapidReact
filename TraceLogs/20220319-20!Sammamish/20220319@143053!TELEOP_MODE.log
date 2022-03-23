@@ -1,0 +1,10 @@
+globalTracer.robotStartMode_Info: [0.037] Wed Dec 31 16:00:40 PST 1969: ***** TELEOP_MODE *****
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-496.00
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.153s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-148.00
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-3383.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-3531.00
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)

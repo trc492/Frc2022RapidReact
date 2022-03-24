@@ -54,6 +54,8 @@ public class Shooter implements TrcExclusiveSubsystem
     private TrcDbgTrace msgTracer = null;
     private boolean flywheelInVelocityMode = false;
     private TrcEvent flywheelToSpeedEvent = null;
+    private double nextFlywheelUpdateTime = 0.0;
+
     private String currOwner = null;
     private boolean visionAlignEnabled = true;
     private boolean committedToShoot = false;
@@ -62,6 +64,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private Double targetDistance = null;
 
     private boolean usingVision = false;
+    private boolean useOdometry = false;
     private ShootParamTable.Params providedParams = null;
     private TrcEvent onFinishPrepEvent = null;
     private TrcEvent onFinishShootEvent = null;
@@ -142,36 +145,6 @@ public class Shooter implements TrcExclusiveSubsystem
     {
         msgTracer = tracer;
     }   //setMsgTracer
-
-    /**
-     * This method enables/disables auto vision alignment.
-     *
-     * @param enabled specifies true to enable, false to disable.
-     */
-    public void setVisionAlignEnabled(boolean enabled)
-    {
-        visionAlignEnabled = enabled;
-    }   //setVisionAlignEnabled
-
-    /**
-     * This method checks if vision align is enabled.
-     *
-     * @return true if vision align is enabled, false if disabled.
-     */
-    public boolean isVisionAlignEnabled()
-    {
-        return visionAlignEnabled;
-    }   //isVisionAlignedEnabled
-
-    /**
-     * This method enables/disables NoOscillation for the align PID controller.
-     *
-     * @param noOscillation specifies true to enable no oscillation, false otherwise.
-     */
-    public void setVisionAlignNoOscillation(boolean noOscillation)
-    {
-        alignPidCtrl.setNoOscillation(noOscillation);
-    }   //setVisionAlignNoOscillation
 
     //
     // Flywheel methods.
@@ -522,6 +495,46 @@ public class Shooter implements TrcExclusiveSubsystem
     }   //enum State
 
     /**
+     * This method enables/disables auto vision alignment.
+     *
+     * @param enabled specifies true to enable, false to disable.
+     */
+    public void setVisionAlignEnabled(boolean enabled)
+    {
+        visionAlignEnabled = enabled;
+    }   //setVisionAlignEnabled
+
+    /**
+     * This method checks if vision align is enabled.
+     *
+     * @return true if vision align is enabled, false if disabled.
+     */
+    public boolean isVisionAlignEnabled()
+    {
+        return visionAlignEnabled;
+    }   //isVisionAlignedEnabled
+
+    /**
+     * This method enables/disables NoOscillation for the align PID controller.
+     *
+     * @param noOscillation specifies true to enable no oscillation, false otherwise.
+     */
+    public void setVisionAlignNoOscillation(boolean noOscillation)
+    {
+        alignPidCtrl.setNoOscillation(noOscillation);
+    }   //setVisionAlignNoOscillation
+
+    /**
+     * This method allows/disallows the use of robot odometry to estimate target distance and angle.
+     *
+     * @param enabled specifies true to allow and false to disallow.
+     */
+    public void allowUseOdometry(boolean enabled)
+    {
+        useOdometry = enabled;
+    }   //allowUseOdometry
+
+    /**
      * This method is called to cancel any pending operations and stop the subsystems. It is typically called before
      * exiting the competition mode.
      */
@@ -824,7 +837,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         }
                     }
 
-                    if (targetAngle == null)
+                    if (targetAngle == null && useOdometry)
                     {
                         // Either we are not using vision or vision did not detect target, use robot odometry instead.
                         double robotX = robot.robotDrive.driveBase.getXPosition();
@@ -847,20 +860,27 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Caller provided shootParams, let's use it.
                         params = providedParams;
                     }
-                    else
+                    else if (targetDistance != null)
                     {
                         // Caller did not provide shootParams (e.g. full vision), use distance to lookup ShootParam
                         // table to interpolate/extrapolate shootParams.
                         params = robot.shootParamTable.get(targetDistance);
                     }
-                    // Apply shoot parameters to flywheels and tilter.
-                    // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
-                    setFlywheelValue(
-                        currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
-                    // Pneumatic takes hardly any time, so fire and forget.
-                    setTilterPosition(params.tilterAngle);
 
-                    // Fetch driver inputs if we are in teleOp or Test mode 
+                    double currTime = TrcUtil.getCurrentTime();
+                    if (params != null && currTime > nextFlywheelUpdateTime)
+                    {
+                        // To reduce CAN traffic, we only update flywheel at a slower update interval.
+                        nextFlywheelUpdateTime = currTime + RobotParams.FLYWHEEL_UPDATE_INTERVAL;
+                        // Apply shoot parameters to flywheels and tilter.
+                        // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
+                        setFlywheelValue(
+                            currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
+                        // Pneumatic takes hardly any time, so fire and forget.
+                        setTilterPosition(params.tilterAngle);
+                    }
+
+                    // Fetch driver inputs if we are in teleOp or Test mode.
                     if (robot.isTeleop() || robot.isTest())
                     {
                         // In Teleop, we allow joystick control to drive the robot around before shooting.
@@ -868,6 +888,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Therefore, the robot is always aiming at the vision target. However, in case
                         // vision was wrong, we also allow the driver to override vision by controlling turn
                         // using joystick.
+                        // Note: we are driving with slower speed while using vision.
                         double[] inputs = robot.robotDrive.getDriveInputs();
                         xPower = inputs[0]*0.3;
                         yPower = inputs[1]*0.3;
@@ -899,8 +920,9 @@ public class Shooter implements TrcExclusiveSubsystem
                     //
                     // In Teleop or test mode, let the operator decides when to shoot. In autonomous mode, only allows
                     // shooting when vision is onTarget.
+                    // We only allow shooting if flywheels are spinning.
                     //
-                    if (robot.isTeleop() || robot.isTest() || visionPidOnTarget)
+                    if (getUpperFlywheelPower() > 0.0 && (robot.isTeleop() || robot.isTest() || visionPidOnTarget))
                     {
                         if (robot.isAutonomous() || committedToShoot)
                         {

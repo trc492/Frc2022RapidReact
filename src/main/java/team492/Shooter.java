@@ -879,6 +879,10 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
                         visionPidOnTarget = alignPidCtrl.isOnTarget();
+                        if (robot.ledIndicator != null)
+                        {
+                            robot.ledIndicator.setVisionOnTarget(visionPidOnTarget);
+                        }
                     }
                     else
                     {

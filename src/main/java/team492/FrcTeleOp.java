@@ -290,6 +290,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     {
                         driveOrientation = DriveOrientation.ROBOT;
                     }
+                    robot.ledIndicator.setDriveOrientation(driveOrientation);
                 }
                 break;
 
@@ -302,6 +303,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     driveOrientation = DriveOrientation.FIELD;
                 }
+                robot.ledIndicator.setDriveOrientation(driveOrientation);
                 break;
 
             case FrcXboxController.RIGHT_BUMPER:

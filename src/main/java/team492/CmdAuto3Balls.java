@@ -196,7 +196,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(-90.0, 0.0, -90.0));
+                        new TrcPose2D(-100.0, 0.0, -90.0));
                     break;
 
                 case TURN_AROUND_3RD_BALL:
@@ -205,8 +205,8 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     robot.intake.retract();
                     sm.waitForSingleEvent(event, State.AIM_TO_SHOOT_THIRD);
                     robot.robotDrive.purePursuitDrive.start(
-                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 10.0, 120.0));
+                        event, 2.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, 10.0, 100.0));
                     break;
 
                 case AIM_TO_SHOOT_THIRD:

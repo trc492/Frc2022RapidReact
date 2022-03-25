@@ -309,7 +309,7 @@ public class FrcAuto implements TrcRobot.RobotMode
                 break;
 
             case AUTO_5_BALLS:
-                autoCommand = new CmdAuto5Balls(robot, autoChoices, true);
+                autoCommand = new CmdAuto5Balls(robot, autoChoices);
                 break;
 
             case PP_DRIVE:

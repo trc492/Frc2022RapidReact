@@ -27,7 +27,6 @@ import TrcCommonLib.trclib.TrcPath;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
-import TrcCommonLib.trclib.TrcTimer;
 import edu.wpi.first.wpilibj.DriverStation;
 import team492.ShootParamTable.ShootLoc;
 
@@ -40,7 +39,6 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
         START_DELAY,
         PICKUP_SECOND_BALL, //picks up the second ball near the wall of the field
 	    GO_TO_FIRST_SHOOT_POS, //drive right behind the ball near the center of the field to shoot the two balls in the robot
-        PREPARE_TO_SHOOT, //prepare to shoot
         SHOOT, //shoots all balls in the robot
         PICKUP_THIRD_BALL, //picks up the ball near the center of the field and shoot it immediately
         PICKUP_TERMINAL_BALL, //picks up the ball at the terminal
@@ -51,7 +49,6 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
 
     private final Robot robot;
     private final FrcAuto.AutoChoices autoChoices;
-    private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcEvent driveEvent;
     private final TrcStateMachine<State> sm;
@@ -65,14 +62,13 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
      * @param robot specifies the robot object for providing access to various global objects.
      * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto5Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do5Balls)
+    CmdAuto5Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
     {
         robot.globalTracer.traceInfo(
             moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
 
         this.robot = robot;
         this.autoChoices = autoChoices;
-        timer = new TrcTimer(moduleName);
         event = new TrcEvent(moduleName + ".event");
         driveEvent = new TrcEvent(moduleName + ".driveEvent");
         sm = new TrcStateMachine<>(moduleName);
@@ -132,11 +128,11 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     //if we havent shot any balls, we are only shooting the preload
                     //otherwise we will shoot 2 balls at once
                     if(numBallsShot == 0) {
-                        robot.shooter.prepareToShootNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithNoVision(moduleName, event, ShootLoc.TarmacAuto);
                         numBallsShot++;
                     }
                     else {
-                        robot.shooter.prepareToShootWithVision(moduleName, event, ShootLoc.TarmacMid);
+                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacMid);
                         numBallsShot += 2;
                     }
                     sm.waitForSingleEvent(event, State.PICKUP_SECOND_BALL);
@@ -159,7 +155,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0); //goes to the location of the second ball
                     break;
                 case GO_TO_FIRST_SHOOT_POS: //go right behind the second ball to pick up (closer to the tarmac) to shoot the first 2 balls
-                    sm.waitForSingleEvent(driveEvent, State.PREPARE_TO_SHOOT); //prepare to shoot after we get to the position we want to be
+                    sm.waitForSingleEvent(driveEvent, State.SHOOT); //shoot after we get to the position we want to be
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red) {
                     path = robot.buildPath(
                             false,
@@ -172,13 +168,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     }
                     robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0); //drives to the shoot position
                     break;
-                case PREPARE_TO_SHOOT:
-                    robot.shooter.prepareToShootWithVision(moduleName, event);
-                    //if we havent shot any balls yet, this means we are shooting first 2 balls, so add 2 
-                    //the third ball we shoot alone so only add one if weve shot two so far
-                    numBallsShot += (numBallsShot==0 || numBallsShot==3)? 2 : 1;
-                    sm.waitForSingleEvent(event, State.SHOOT);
-                    break;
+
                 case SHOOT:
                     //decides the next state based on how many balls weve shot so far
                     sm.waitForSingleEvent(
@@ -186,11 +176,15 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                                numBallsShot == 3? State.PICKUP_TERMINAL_BALL: 
                                numBallsShot == 5? State.DONE:
                                State.DONE  );
-                    robot.shooter.shootAllBalls(moduleName, event); //shoots
+                    robot.shooter.shootWithVision(moduleName, event);
+                    //if we havent shot any balls yet, this means we are shooting first 2 balls, so add 2 
+                    //the third ball we shoot alone so only add one if weve shot two so far
+                    numBallsShot += (numBallsShot==0 || numBallsShot==3)? 2 : 1;
                     break;
+
                 case PICKUP_THIRD_BALL: //picks up the ball close to the tarmac (right behind us right now)
                     robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.PREPARE_TO_SHOOT); //prepare to shoot after picking up a ball
+                    sm.waitForSingleEvent(event, State.SHOOT); //shoot after picking up a ball
                     robot.intake.pickup(event);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red) {
                     path = robot.buildPath(
@@ -229,9 +223,9 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                 case PICKUP_HUMAN_PLAYER_BALL: //runs intake until human player ball is inputted, then goes to shoot position
                     robot.intake.extend();
                     sm.waitForSingleEvent(event, State.GO_TO_FINAL_SHOOT_POS);
-                    robot.intake.pickup(event); //when the ball is picked up we can prepare to shoot
+                    robot.intake.pickup(event); //when the ball is picked up we can shoot
                 case GO_TO_FINAL_SHOOT_POS: //drives about 8 ft closer to the goal in order to shoot with value from shootParams table
-                    sm.waitForSingleEvent(driveEvent, State.PREPARE_TO_SHOOT); //prepare to shoot once we arrive at the final shoot position
+                    sm.waitForSingleEvent(driveEvent, State.SHOOT); //shoot once we arrive at the final shoot position
                     path = robot.buildPath(
                         false,
                         new TrcPose2D(0.0, -94.44, 180.0));

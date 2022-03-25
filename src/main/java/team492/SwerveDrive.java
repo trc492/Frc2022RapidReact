@@ -31,7 +31,6 @@ import java.util.stream.IntStream;
 
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
@@ -199,7 +198,7 @@ public class SwerveDrive extends RobotDrive
         final String funcName = "createSteerEncoder";
         CANCoder encoder = new CANCoder(encoderCanID);
         ErrorCode errCode;
-
+        // Reset encoder back to factory default to clear potential previous mis-configurations.
         errCode = encoder.configFactoryDefault(10);
         if (errCode != ErrorCode.OK)
         {
@@ -207,15 +206,32 @@ public class SwerveDrive extends RobotDrive
                 funcName, "%s: CANcoder.configFactoryDefault failed (code=%s).",
                 name, errCode);
         }
-
-        errCode = encoder.configFeedbackCoefficient(1.0, "pulse", SensorTimeBase.PerSecond, 10);
+        // // Set encoder to report degrees instead of CPR.
+        // errCode = encoder.configFeedbackCoefficient(
+        //     360.0/RobotParams.CANCODER_CPR, "deg", SensorTimeBase.PerSecond, 10);
+        // if (errCode != ErrorCode.OK)
+        // {
+        //     robot.globalTracer.traceWarn(
+        //         funcName, "%s: CANcoder.configFeedbackCoefficient failed (code=%s).",
+        //         name, errCode);
+        // }
+        // // Set the encoder to report a absolute sensor range of [-180, 180) degree instead of [0, 360).
+        // errCode = encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180, 10);
+        // if (errCode != ErrorCode.OK)
+        // {
+        //     robot.globalTracer.traceWarn(
+        //         funcName, "%s: CANcoder.configAbsoluteSensorRange failed (code=%s).",
+        //         name, errCode);
+        // }
+        // Set encoder to report CPR instead of degrees.
+        errCode = encoder.configFeedbackCoefficient(1.0, "cpr", SensorTimeBase.PerSecond, 10);
         if (errCode != ErrorCode.OK)
         {
             robot.globalTracer.traceWarn(
                 funcName, "%s: CANcoder.configFeedbackCoefficient failed (code=%s).",
                 name, errCode);
         }
-
+        // Configure the sensor direction to match the steering motor direction.
         errCode = encoder.configSensorDirection(inverted, 10);
         if (errCode != ErrorCode.OK)
         {
@@ -223,7 +239,7 @@ public class SwerveDrive extends RobotDrive
                 funcName, "%s: CANcoder.configSensorDirection failed (code=%s).",
                 name, errCode);
         }
-
+        // Configure the encoder to initialize to absolute position value at boot.
         errCode = encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition, 10);
         if (errCode != ErrorCode.OK)
         {
@@ -231,12 +247,12 @@ public class SwerveDrive extends RobotDrive
                 funcName, "%s: CANcoder.configSensorInitializationStrategy failed (code=%s).",
                 name, errCode);
         }
-
-        // errCode = encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
+        // Slow down the status frame rate to reduce CAN traffic.
+        // errCode = encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100, 10);
         // if (errCode != ErrorCode.OK)
         // {
         //     robot.globalTracer.traceWarn(
-        //         funcName, "%s: CANcoder.configAbsoluteSensorRange failed (code=%s).",
+        //         funcName, "%s: CANcoder.setStatusFramePeriod failed (code=%s).",
         //         name, errCode);
         // }
 
@@ -257,7 +273,7 @@ public class SwerveDrive extends RobotDrive
         final String funcName = "createSteerMotor";
         FrcCANFalcon steerMotor = new FrcCANFalcon(name, motorCanID);
         ErrorCode errCode;
-
+        // Reset encoder back to factory default to clear potential previous mis-configurations.
         errCode = steerMotor.motor.configFactoryDefault(10);
         if (errCode != ErrorCode.OK)
         {
@@ -276,6 +292,7 @@ public class SwerveDrive extends RobotDrive
 
         steerMotor.motor.enableVoltageCompensation(true);
 
+        // Comment this code after fully debug integrated encoder.
         errCode = steerMotor.motor.configRemoteFeedbackFilter(encoder, 0, 10);
         if (errCode != ErrorCode.OK)
         {
@@ -313,32 +330,21 @@ public class SwerveDrive extends RobotDrive
     {
         // final String funcName = "createSwerveModule";
         // ErrorCode errCode;
-        // double encoderPos = steerEncoder.getAbsolutePosition();
+        // double encoderPos =
+        //     (steerEncoder.getAbsolutePosition() - steerZero)/RobotParams.CANCODER_CPR *
+        //     RobotParams.FALCON_CPR*RobotParams.STEER_GEAR_RATIO;
 
-        // // Which one should I use?
         // errCode = steerMotor.motor.setSelectedSensorPosition(encoderPos, 0, 10);
-        // errCode = steerMotor.motor.getSensorCollection().setIntegratedSensorPosition(encoderPos, 10);
-        // if (errCode != ErrorCode.OK)
-        // {
-        //     robot.globalTracer.traceWarn(
-        //         funcName, "%s: Falcon.setIntegratedSensorPosition failed (code=%s, pos=%.0f).",
-        //         name, errCode, encoderPos);
-        // }
-
-        // int modPos = (int) TrcUtil.modulo(steerMotor.motor.getSelectedSensorPosition(), 4096);
-        // int pos = modPos > 2048 ? modPos - 4096 : modPos;
-        // errCode = steerMotor.motor.setSelectedSensorPosition(pos, 0, 10);
         // if (errCode != ErrorCode.OK)
         // {
         //     robot.globalTracer.traceWarn(
         //         funcName, "%s: Falcon.setSelectedSensorPosition failed (code=%s, pos=%.0f).",
-        //         name, errCode, pos);
+        //         name, errCode, encoderPos);
         // }
 
-        // steerEncoder.setStatusFramePeriod(StatusFrame., periodMs, timeoutMs);
-
         FrcFalconServo servo = new FrcFalconServo(
-            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, steerZero,
+            // name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, 0.0,
+            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, steerZero,
             RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
         TrcSwerveModule module = new TrcSwerveModule(
             name, driveMotor, new TrcEnhancedServo(name + ".enhancedServo", servo));
@@ -350,13 +356,13 @@ public class SwerveDrive extends RobotDrive
     /**
      * This method is called to set all swerve wheels to zero degrees without optimization.
      */
-    public void setSteerZero()
+    public void setSteerAngleZero(boolean optimize)
     {
-        lfWheel.setSteerAngle(0.0, false);
-        rfWheel.setSteerAngle(0.0, false);
-        lbWheel.setSteerAngle(0.0, false);
-        rbWheel.setSteerAngle(0.0, false);
-    }   //setSteerZero
+        lfWheel.setSteerAngle(0.0, optimize);
+        rfWheel.setSteerAngle(0.0, optimize);
+        lbWheel.setSteerAngle(0.0, optimize);
+        rbWheel.setSteerAngle(0.0, optimize);
+    }   //setSteerAngleZero
 
     /**
      * This method is called to prepare the robot base before a robot mode is about to start.
@@ -368,7 +374,7 @@ public class SwerveDrive extends RobotDrive
     public void startMode(RunMode runMode, RunMode prevMode)
     {
         super.startMode(runMode, prevMode);
-        setSteerZero();
+        // setSteerAngleZero(false);
     }   //startMode
 
     /**
@@ -381,7 +387,7 @@ public class SwerveDrive extends RobotDrive
     public void stopMode(RunMode runMode, RunMode nextMode)
     {
         super.stopMode(runMode, nextMode);
-        setSteerZero();
+        // setSteerAngleZero(false);
     }   //stopMode
 
     @Override
@@ -456,10 +462,10 @@ public class SwerveDrive extends RobotDrive
 
         try (PrintStream out = new PrintStream(new FileOutputStream(RobotParams.TEAM_FOLDER + "/steerzeros.txt")))
         {
-            out.printf("%.0f\n", TrcUtil.modulo(lfSteerMotor.getMotorPosition(), RobotParams.STEER_ENCODER_PPR));
-            out.printf("%.0f\n", TrcUtil.modulo(rfSteerMotor.getMotorPosition(), RobotParams.STEER_ENCODER_PPR));
-            out.printf("%.0f\n", TrcUtil.modulo(lbSteerMotor.getMotorPosition(), RobotParams.STEER_ENCODER_PPR));
-            out.printf("%.0f\n", TrcUtil.modulo(rbSteerMotor.getMotorPosition(), RobotParams.STEER_ENCODER_PPR));
+            out.printf("%.0f\n", TrcUtil.modulo(lfSteerMotor.getMotorPosition(), RobotParams.CANCODER_CPR));
+            out.printf("%.0f\n", TrcUtil.modulo(rfSteerMotor.getMotorPosition(), RobotParams.CANCODER_CPR));
+            out.printf("%.0f\n", TrcUtil.modulo(lbSteerMotor.getMotorPosition(), RobotParams.CANCODER_CPR));
+            out.printf("%.0f\n", TrcUtil.modulo(rbSteerMotor.getMotorPosition(), RobotParams.CANCODER_CPR));
             robot.globalTracer.traceInfo(funcName, "Saved steer zeros!");
         }
         catch (FileNotFoundException e)

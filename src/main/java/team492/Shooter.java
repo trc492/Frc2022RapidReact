@@ -103,7 +103,8 @@ public class Shooter implements TrcExclusiveSubsystem
         TrcPidController.PidCoefficients alignPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.GYRO_ALIGN_KP, RobotParams.GYRO_ALIGN_KI, RobotParams.GYRO_ALIGN_KD);
         alignPidCtrl = new TrcPidController(
-            "aligPidCtrl", alignPidCoeff, RobotParams.GYRO_ALIGN_TOLERANCE, this::getTargetAngle);
+            "aligPidCtrl", alignPidCoeff, RobotParams.GYRO_ALIGN_TOLERANCE, RobotParams.GYRO_ALIGN_STEADY_STATE_ERROR,
+            this::getTargetAngle);
         alignPidCtrl.setAbsoluteSetPoint(true);
         alignPidCtrl.setInverted(true);
         alignPidCtrl.setTarget(0.0);
@@ -900,6 +901,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
                         visionPidOnTarget = alignPidCtrl.isOnTarget();
+                        alignPidCtrl.printPidInfo(robot.globalTracer);
                         if (robot.ledIndicator != null)
                         {
                             robot.ledIndicator.setVisionOnTarget(visionPidOnTarget);

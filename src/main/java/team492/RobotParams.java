@@ -299,6 +299,7 @@ public class RobotParams
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0;
     public static final double GYRO_ALIGN_TOLERANCE             = 3.5;
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 5.0;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 
@@ -329,20 +330,24 @@ public class RobotParams
     public static final double DRIVE_RAMP_RATE                  = 0.2;
 
     // Applicable only for Swerve Drive.
-    public static final int STEER_ENCODER_PPR                   = 4096;
-    public static final double STEER_DEGREES_PER_TICK           = 360.0 / STEER_ENCODER_PPR;
+    public static final double CANCODER_CPR                     = 4096.0;
+    public static final double FALCON_CPR                       = 2048.0;
+    public static final double STEER_ENCODER_SCALE              = FALCON_CPR / CANCODER_CPR;
+    public static final double STEER_GEAR_RATIO                 = (24.0/12.0) * (72.0/14.0);
+
+    public static final double STEER_DEGREES_PER_COUNT          = 360.0 / (FALCON_CPR*STEER_GEAR_RATIO);
     public static final double STEER_MAX_REQ_VEL                = 1000.0;   // deg/sec. max commanded velocity, not necessarily max vel
     public static final double STEER_MAX_ACCEL                  = 5000.0;   // deg/sec^2
     // ((theoretical max rpm * speed loss constant / gear ratio) / 60 sec/min) * 360 deg/rev
     public static final double STEER_MAX_VEL                    = ((18700.0 * 0.81 / 56.67) / 60.0) * 360.0;        // deg/sec
-    public static final double STEER_MAX_VEL_TICKS_PER_100MS    = (STEER_MAX_VEL / STEER_DEGREES_PER_TICK) / 10.0;  // ticks/100ms
+    public static final double STEER_MAX_VEL_COUNT_PER_100MS    = (STEER_MAX_VEL / STEER_DEGREES_PER_COUNT) / 10.0; // count/100ms
 
     // order is lf, rf, lr, rr
     // steerzeros.txt: 3974, 3748, 1192, 3487
     public static final int[] STEER_ZEROS                       = new int[]{ 3971, 3743, 1189, 3490 };  // this is a backup if the zeros file isn't found
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
-        new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_TICKS_PER_100MS, 5.0 / STEER_DEGREES_PER_TICK);
+        new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);
     public static final double STEER_KP                         = 0.9;
     public static final double STEER_KI                         = 0.0;
     public static final double STEER_KD                         = 32.0;
@@ -370,6 +375,7 @@ public class RobotParams
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
     public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
+    public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0;

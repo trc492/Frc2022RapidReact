@@ -172,7 +172,7 @@ public class Intake implements TrcExclusiveSubsystem
         spitOut(null);
     }   //spitOut
 
-    public void stop(String owner)
+    public void stop(String owner, double delay)
     {
         final String funcName = "stop";
 
@@ -183,13 +183,18 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (validateOwnership(owner))
         {
-            setPower(0.0);
+            setPower(delay, 0.0, 0.0);
         }
+    }   //stop
+
+    public void stop(double delay)
+    {
+        stop(null, delay);
     }   //stop
 
     public void stop()
     {
-        stop(null);
+        stop(null, 0.0);
     }   //stop
 
     public void extend(String owner)

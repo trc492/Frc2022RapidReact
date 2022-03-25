@@ -90,18 +90,20 @@ public class Robot extends FrcRobotBase
     //
     public VisionTargeting vision;
     public final ShootParamTable shootParamTable = new ShootParamTable()
-        // .add(ShootLoc.Tower,        5.0, 3400, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacAuto,    88.0, 2200, 1300, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.TarmacMid,    108.0, 2000, 1800, RobotParams.TILTER_CLOSE_ANGLE) // Double check, it was missing
-        .add(ShootLoc.Distance12ft, 120.0, 1900, 2200, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.Calibration125in, 125.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.FarThreshold, 132.0, 2000, 2200, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.Distance11ft, 132.0001, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Tower,        71.83, 2800, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.Distance7ft,  84.0, 2500, 1400, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacAuto,   95.4, 2200, 1500, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacMid,    107.0, 2100, 1600, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.Distance12ft, 120.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.FarThreshold, 132.0, 2000, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.OldThreshold, 132.0001, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
+        //Tune inflection with lower at 145.99999
+        .add(ShootLoc.StartFar,     146.0, 2400, 1600, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
-        .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
         .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
 
@@ -155,11 +157,11 @@ public class Robot extends FrcRobotBase
         }
         else
         {
-            leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
-            leftDriveStick.setYInverted(true);
             rightDriveStick.setYInverted(true);
         }
+        leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
+        leftDriveStick.setYInverted(true);
         operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
         operatorStick.setYInverted(false);
         if (RobotParams.Preferences.useButtonPanels)

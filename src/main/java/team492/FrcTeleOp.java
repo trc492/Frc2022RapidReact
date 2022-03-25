@@ -105,7 +105,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         //
         // Disable subsystems before exiting if necessary.
         //
-        if(robot.vision != null)
+        if (robot.vision != null)
         {
             robot.vision.setEnabled(false);
         }
@@ -217,10 +217,9 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         }
         else
         {
-            robot.leftDriveStick.setButtonHandler(enabled? this::leftDriveStickButtonEvent: null);
             robot.rightDriveStick.setButtonHandler(enabled? this::rightDriveStickButtonEvent: null);
         }
-
+        robot.leftDriveStick.setButtonHandler(enabled? this::leftDriveStickButtonEvent: null);
         robot.operatorStick.setButtonHandler(enabled? this::operatorStickButtonEvent: null);
         if (RobotParams.Preferences.useButtonPanels)
         {
@@ -467,7 +466,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 else
                 {
-                    robot.intake.stop();
+                    robot.intake.stop(0.2);
                     robot.intake.retract();
                 }
                 break;
@@ -593,6 +592,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 if (pressed)
                 {
                     robot.shooter.cancel();
+                    robot.shooter.stopFlywheel();
                     robot.conveyor.setPower(0.0);
                     robot.intake.setPower(0.0);
                     robot.intake.retract();

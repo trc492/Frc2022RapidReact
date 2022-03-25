@@ -871,7 +871,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     if (params != null && currTime > nextFlywheelUpdateTime)
                     {
                         // To reduce CAN traffic, we only update flywheel at a slower update interval.
-                        nextFlywheelUpdateTime = currTime + RobotParams.FLYWHEEL_UPDATE_INTERVAL;
+                        nextFlywheelUpdateTime = currTime + 0.1;//RobotParams.FLYWHEEL_UPDATE_INTERVAL;
                         // Apply shoot parameters to flywheels and tilter.
                         // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                         setFlywheelValue(
@@ -928,7 +928,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         {
                             // If in autonomous mode, visionPidOnTarget must be true.
                             // If in teleop or test mode, shoot trigger has been released (committed).
-                            robot.robotDrive.driveBase.stop();
+                            robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             sm.setState(State.SHOOT_WHEN_READY);
                         }

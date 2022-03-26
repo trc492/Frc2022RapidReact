@@ -320,6 +320,7 @@ public class Robot extends FrcRobotBase
                 funcName, "TotalEnergy=%.3fWh (%.2f%%)",
                 totalEnergy, totalEnergy * 100.0 / RobotParams.BATTERY_CAPACITY_WATT_HOUR);
         }
+        printPerformanceMetrics(globalTracer);
         //
         // Stop trace logging.
         //

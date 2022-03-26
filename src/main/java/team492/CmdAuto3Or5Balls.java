@@ -40,6 +40,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
         START_DELAY,
         SHOOT,
         TURN_TO_2ND_BALL,
+        PICKUP_2ND_BALL,
         PICKUP_RING_BALLS,
         PICKUP_ONE_MORE,
         //ignore this for now
@@ -55,7 +56,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
     private final TrcEvent driveEvent;
     private final TrcStateMachine<State> sm;
 
-    //keeps track of number of balls robot has already shot
+    // Keeps track of number of balls robot has already shot.
     int numBallsShot = 0;
 
     /**
@@ -154,11 +155,11 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case SHOOT:
-                    //if we havent shot any balls, we are only shooting the preload
-                    //otherwise we will shoot 2 balls at once
+                    // If we haven't shot any balls, we are only shooting the preload.
+                    // Otherwise, we will shoot 2 balls at once.
                     sm.waitForSingleEvent(
-                        event, numBallsShot == 1? State.TURN_TO_2ND_BALL:
-                               numBallsShot == 3 && do5Balls? State.GO_TO_TERMINAL: State.DONE);
+                        event, numBallsShot == 0? State.TURN_TO_2ND_BALL:
+                               numBallsShot == 2 && do5Balls? State.GO_TO_TERMINAL: State.DONE);
                     if(numBallsShot == 0)
                     {
                         robot.shooter.shootWithNoVision(moduleName, event, ShootLoc.TarmacAuto);
@@ -166,28 +167,39 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacMid);
+                        robot.shooter.shootWithVision(moduleName, event);
                         numBallsShot += 2;
                     }
                     break;
 
                 case TURN_TO_2ND_BALL:
-                    sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
+                    robot.intake.extend();
+                    robot.intake.pickup();
+                    sm.waitForSingleEvent(event, State.PICKUP_2ND_BALL);
                     robot.robotDrive.purePursuitDrive.start(
-                        event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        event, 3.0, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, -10.0, 180.0));
                     break;
 
-                case PICKUP_RING_BALLS:
+                case PICKUP_2ND_BALL:
+                    //drive to the ball while running the intake
                     robot.intake.extend();
+                    sm.waitForSingleEvent(event, State.PICKUP_RING_BALLS);
+                    robot.intake.pickup(event);
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, 26.0, 0));
+                    break;
+
+                case PICKUP_RING_BALLS:
                     sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     robot.intake.pickup(event);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         path = robot.buildPath(
                             false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_RED, 0.0, 0.0, 122.25),
-                            robot.shootingPoint(70.0, 80.0, 0.0));
+                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_RED, 0.0, 0.0, 122.25));
+                            //robot.shootingPoint(70.0, 80.0, 0.0));
                     }
                     else
                     {

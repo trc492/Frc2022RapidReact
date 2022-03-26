@@ -344,7 +344,7 @@ public class SwerveDrive extends RobotDrive
 
         FrcFalconServo servo = new FrcFalconServo(
             // name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, 0.0,
-            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, steerZero,
+            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, steerZero,
             RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
         TrcSwerveModule module = new TrcSwerveModule(
             name, driveMotor, new TrcEnhancedServo(name + ".enhancedServo", servo));

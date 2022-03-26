@@ -104,6 +104,7 @@ public class Robot extends FrcRobotBase
         .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+        //195
         .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
         .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
 

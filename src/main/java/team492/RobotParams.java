@@ -104,6 +104,8 @@ public class RobotParams
 
     // The following info is precisely measured from the Field CAD file. Do not modify lightly.
     // 5-ball auto positions:
+    public static final TrcPose2D NATHAN_5_BALL_STARTPOS_RED = new TrcPose2D(25.5, 90.5, 357.0);
+    public static final TrcPose2D NATHAN_5_BALL_STARTPOS_BLUE = new TrcPose2D(-25.5, -90.5, 177.0);
     public static final TrcPose2D AUTO_5BALL_STARTPOS_RED = new TrcPose2D(14.869, 86.534, 189.75);
     public static final TrcPose2D AUTO_5BALL_STARTPOS_BLUE = new TrcPose2D(-14.869, -86.534, 9.75);
     public static final TrcPose2D AUTO_5BALL_BALL1_RED = new TrcPose2D(25.91, 150.79, 0.0);
@@ -335,6 +337,7 @@ public class RobotParams
     public static final double STEER_ENCODER_SCALE              = FALCON_CPR / CANCODER_CPR;
     public static final double STEER_GEAR_RATIO                 = (24.0/12.0) * (72.0/14.0);
 
+    public static final double STEER_DEGREES_PER_TICK           = 360.0 / CANCODER_CPR;
     public static final double STEER_DEGREES_PER_COUNT          = 360.0 / (FALCON_CPR*STEER_GEAR_RATIO);
     public static final double STEER_MAX_REQ_VEL                = 1000.0;   // deg/sec. max commanded velocity, not necessarily max vel
     public static final double STEER_MAX_ACCEL                  = 5000.0;   // deg/sec^2

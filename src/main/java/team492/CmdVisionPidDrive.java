@@ -149,7 +149,7 @@ class CmdVisionPidDrive implements TrcRobot.RobotCommand
             }
 
             robot.globalTracer.traceStateInfo(
-                state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
+                sm.toString(), state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
                 robot.robotDrive.purePursuitDrive, null);
         }
 

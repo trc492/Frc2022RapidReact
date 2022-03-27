@@ -58,7 +58,7 @@ public class RobotParams
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
 
-    public static final String GAME_NAME                        = "RapidReact";
+    public static final String ROBOT_NAME                       = "RapidReact_Robot";
     public static final String TEAM_FOLDER                      = "/home/lvuser/trc492";
     public static final double DASHBOARD_UPDATE_INTERVAL        = 0.1;
 

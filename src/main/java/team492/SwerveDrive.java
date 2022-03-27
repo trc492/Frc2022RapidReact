@@ -53,6 +53,8 @@ import TrcFrcLib.frclib.FrcPdp;
  */
 public class SwerveDrive extends RobotDrive
 {
+    private static final boolean logPoseEvents = true;
+    private static final boolean tracePidInfo = false;
     private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
     private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
     private static final String DBKEY_TEST_SAVE_ANGLES = "Test/SaveAngles";
@@ -174,7 +176,7 @@ public class SwerveDrive extends RobotDrive
         // of the absolute target position.
         pidDrive.setAbsoluteTargetModeEnabled(true);
         pidDrive.setStallDetectionEnabled(true);
-        pidDrive.setMsgTracer(robot.globalTracer, true, true);
+        pidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
 
         purePursuitDrive = new TrcPurePursuitDrive(
             "purePursuitDrive", driveBase, RobotParams.PPD_FOLLOWING_DISTANCE, RobotParams.PPD_POS_TOLERANCE,
@@ -182,7 +184,7 @@ public class SwerveDrive extends RobotDrive
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_OUTPUT_LIMIT);
         purePursuitDrive.setRotOutputLimit(RobotParams.PPD_ROT_OUTPUT_LIMIT);
         purePursuitDrive.setFastModeEnabled(true);
-        purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
+        purePursuitDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
     }   //SwerveDrive
 
     /**

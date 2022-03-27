@@ -32,6 +32,7 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcTimer;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
@@ -42,7 +43,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Climber
 {
     private static final String moduleName = "Climber";
-    private static final boolean debugEnabled = false;
+    private static final boolean debugEnabled = true;
 
     private final Robot robot;
     public final FrcCANFalcon climberMotor;
@@ -151,7 +152,7 @@ public class Climber
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "RetractClimber: currPos=%.1f", climber.getPosition());
+                funcName, "[%.3f] RetractClimber: currPos=%.1f", TrcUtil.getModeElapsedTime(), climber.getPosition());
         }
 
         climber.zeroCalibrate();
@@ -264,7 +265,7 @@ public class Climber
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceStateInfo(state);
+            robot.globalTracer.traceStateInfo(sm.toString(), state);
         }
     }   //autoClimbTask
 

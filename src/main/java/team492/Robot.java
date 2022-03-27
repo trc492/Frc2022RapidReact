@@ -126,7 +126,7 @@ public class Robot extends FrcRobotBase
      */
     public Robot()
     {
-        super(RobotParams.GAME_NAME);
+        super(RobotParams.ROBOT_NAME);
     }   //Robot
 
     /**
@@ -274,12 +274,9 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.startMode(runMode, prevMode);
+        shooter.setMsgTracer(globalTracer);
         climber.zeroCalibrateClimber();
         climber.climberPneumatic.retract();
-        // if (runMode == RunMode.AUTO_MODE)
-        {
-            shooter.setMsgTracer(globalTracer);
-        }
         ledIndicator.reset();
     }   //robotStartMode
 

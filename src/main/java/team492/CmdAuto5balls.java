@@ -182,7 +182,10 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case SHOOT:
-                    // robot.robotDrive.driveBase.stop();
+                    if (robot.robotDrive.purePursuitDrive.isActive())
+                    {
+                        robot.robotDrive.purePursuitDrive.cancel();
+                    }
                     robot.intake.retract();
                     robot.intake.stop();    //????
                     // if we havent shot any balls yet, this means we are shooting first 2 balls, so add 2
@@ -272,7 +275,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
             }
     
             robot.globalTracer.traceStateInfo(
-                state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
+                sm.toString(), state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
                 robot.robotDrive.purePursuitDrive, null);
         }
     

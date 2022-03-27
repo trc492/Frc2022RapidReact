@@ -24,6 +24,7 @@ package team492;
 
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -31,7 +32,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Intake implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Intake";
-    private static final boolean debugEnabled = false;
+    private static final boolean debugEnabled = true;
 
     private final Robot robot;
     private final FrcCANFalcon intakeMotor;
@@ -83,7 +84,8 @@ public class Intake implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "owner=%s, delay=%.1f, power=%.1f, duration=%.3f", owner, delay, power, duration);
+                funcName, "[%.3f] owner=%s, delay=%.1f, power=%.1f, duration=%.3f",
+                TrcUtil.getModeElapsedTime(), owner, delay, power, duration);
         }
 
         if (validateOwnership(owner))
@@ -111,7 +113,8 @@ public class Intake implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "owner=%s, event=%s, entrance=%s, exit=%s", owner, event, ballAtEntrance, ballAtExit);
+                funcName, "[%.3f] owner=%s, event=%s, entrance=%s, exit=%s",
+                TrcUtil.getModeElapsedTime(), owner, event, ballAtEntrance, ballAtExit);
         }
 
         if (validateOwnership(owner))
@@ -154,8 +157,8 @@ public class Intake implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "owner=%s, entrance=%s, exit=%s",
-                owner, robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
+                funcName, "[%.3f] owner=%s, entrance=%s, exit=%s",
+                TrcUtil.getModeElapsedTime(), owner, robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
         }
 
         if (validateOwnership(owner))
@@ -178,7 +181,7 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -203,7 +206,7 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -223,7 +226,7 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceInfo(funcName, "owner=%s", owner);
+            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -248,7 +251,7 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceInfo(funcName, "activer=%s", active);
+            robot.globalTracer.traceInfo(funcName, "[%.3f] activer=%s", TrcUtil.getModeElapsedTime(), active);
         }
 
         if (((boolean) active) && robot.conveyor.isExitSensorActive())

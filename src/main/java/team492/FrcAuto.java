@@ -211,11 +211,11 @@ public class FrcAuto implements TrcRobot.RobotMode
                 "startPos=\"%s\" " +
                 "startDelay=%.0f sec " +
                 "pathFile=\"%s\" " +
-                "xDistance=%.1f ft " +
-                "yDistance=%.1f ft " +
-                "turnDegrees=%.0f deg " +
-                "driveTime=%.0f sec " +
-                "drivePower=%.1f",
+                "xDistance=\"%.1f ft\" " +
+                "yDistance=\"%.1f ft\" " +
+                "turnDegrees=\"%.0f deg\" " +
+                "driveTime=\"%.0f sec\" " +
+                "drivePower=\"%.1f\"",
                 getAlliance(), getStrategy(), getStartPos(), getStartDelay(), getPathFile(), getXDriveDistance(),
                 getYDriveDistance(), getTurnAngle(), getDriveTime(), getDrivePower());
         }   //toString

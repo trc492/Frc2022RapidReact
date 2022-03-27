@@ -25,13 +25,14 @@ import TrcCommonLib.trclib.TrcDigitalInputTrigger;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcNotifier;
+import TrcCommonLib.trclib.TrcUtil;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 
 public class Conveyor implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Conveyor";
-    private static final boolean debugEnabled = false;
+    private static final boolean debugEnabled = true;
 
     private enum TriggerAction
     {
@@ -248,8 +249,9 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "power=%.1f, event=%s, entrance=%s, exit=%s, triggerAction=%s",
-                power, event, entranceSensor.isActive(), exitSensor.isActive(), triggerAction);
+                funcName, "[%.3f] power=%.1f, event=%s, entrance=%s, exit=%s, triggerAction=%s",
+                TrcUtil.getModeElapsedTime(), power, event, entranceSensor.isActive(), exitSensor.isActive(),
+                triggerAction);
         }
 
         // Turn on conveyor only if there is a ball to move, either to take in a ball from the entrance, to shoot a
@@ -350,7 +352,7 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "active=%s, triggerAction=%s", active, triggerAction);
+                funcName, "[%.3f] active=%s, triggerAction=%s", TrcUtil.getModeElapsedTime(), active, triggerAction);
         }
 
         if (active)
@@ -401,7 +403,7 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "active=%s, triggerAction=%s", active, triggerAction);
+                funcName, "[%.3f] active=%s, triggerAction=%s", TrcUtil.getModeElapsedTime(), active, triggerAction);
         }
 
         if (triggerAction == TriggerAction.StopOnForward)

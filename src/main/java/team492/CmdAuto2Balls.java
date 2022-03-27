@@ -144,6 +144,7 @@ class CmdAuto2Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_AROUND:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     robot.intake.retract();
                     sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(

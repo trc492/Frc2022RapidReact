@@ -162,6 +162,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case GO_TO_FIRST_SHOOT_POS:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     // go right behind the second ball to pick up (closer to the tarmac) to shoot the first 2 balls
                     robot.intake.retract();
                     // shoot after we get to the position we want to be
@@ -182,10 +183,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case SHOOT:
-                    if (robot.robotDrive.purePursuitDrive.isActive())
-                    {
-                        robot.robotDrive.purePursuitDrive.cancel();
-                    }
+                    robot.robotDrive.purePursuitDrive.cancel();
                     robot.intake.retract();
                     robot.intake.stop();    //????
                     // if we havent shot any balls yet, this means we are shooting first 2 balls, so add 2
@@ -249,6 +247,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_HUMAN_PLAYER_BALL:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     // runs intake until human player ball is inputted, then goes to shoot position
                     robot.intake.extend();
                     sm.waitForSingleEvent(event, State.GO_TO_FINAL_SHOOT_POS);

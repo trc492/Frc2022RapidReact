@@ -192,6 +192,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_RING_BALLS:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     sm.waitForSingleEvent(event, State.PICKUP_ONE_MORE);
                     robot.intake.pickup(event);
                     if (autoChoices.getAlliance() == DriverStation.Alliance.Red)

@@ -181,6 +181,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_AROUND:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     got2ndBall = true;
                     robot.intake.retract();
                     sm.waitForSingleEvent(event, State.SHOOT);
@@ -200,6 +201,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     break;
 
                 case TURN_AROUND_3RD_BALL:
+                    robot.robotDrive.purePursuitDrive.cancel();
                     //retract intake
                     //turn 100 degrees clockwise and backup to get in shooting position
                     robot.intake.retract();

@@ -588,14 +588,12 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.PANEL_BUTTON_WHITE1:
-                //TODO: Owner overrides
+                //TODO: Owner overrides?
                 if (pressed)
                 {
-                    robot.shooter.cancel();
-                    robot.shooter.stopFlywheel();
-                    robot.conveyor.setPower(0.0);
-                    robot.intake.setPower(0.0);
-                    robot.intake.retract();
+                    robot.shooter.shutdown();
+                    robot.conveyor.cancel();
+                    robot.intake.cancel();
                     robot.climber.cancel();
                 }
                 break;

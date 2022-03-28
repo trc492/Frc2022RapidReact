@@ -93,69 +93,37 @@ public class RobotParams
     //
     // Autonomous constants.
     //
-    //2 ball auto
-    public static final TrcPose2D RED_START_POS_2_BALL = new TrcPose2D(84.6, -43.0, -134.0);
-    public static final TrcPose2D BLUE_START_POS_2_BALL = new TrcPose2D(-85.7, 32.6, -250.0);
-    public static final TrcPose2D RED_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(83.4, -42.0, -134.0);
-    public static final TrcPose2D BLUE_START_POS_2_BALL_PICKUP_FIRST = new TrcPose2D(-85.3, 41.1, 316);
 
-    // public static final TrcPose2D RED_START_POS_5_BALL = new TrcPose2D(26, 89.3, 358.0);
-    // public static final TrcPose2D BLUE_START_POS_5_BALL = new TrcPose2D(-25.3, -88.0, 177.0 );
+    // The following info is precisely measured from the Field CAD file. Do NOT modify.
+    public static final TrcPose2D BALLPOS_RED_1 = new TrcPose2D(  25.910,  150.790, 0.0);
+    public static final TrcPose2D BALLPOS_RED_2 = new TrcPose2D( 124.946,   88.303, 0.0);
+    public static final TrcPose2D BALLPOS_RED_3 = new TrcPose2D( 129.396,  -81.643, 0.0);
+    public static final TrcPose2D BALLPOS_RED_4 = new TrcPose2D(  33.767, -149.227, 0.0);
+    public static final TrcPose2D BALLPOS_RED_5 = new TrcPose2D(-149.227,  -33.767, 0.0);
+    public static final TrcPose2D BALLPOS_RED_6 = new TrcPose2D( -88.303,  124.946, 0.0);
+    public static final TrcPose2D BALLPOS_RED_7 = new TrcPose2D( 282.080,  117.725, 0.0);
 
-    // The following info is precisely measured from the Field CAD file. Do not modify lightly.
-    // 5-ball auto positions:
-    public static final TrcPose2D NATHAN_5_BALL_STARTPOS_RED = new TrcPose2D(25.5, 90.5, 357.0);
-    public static final TrcPose2D NATHAN_5_BALL_STARTPOS_BLUE = new TrcPose2D(-25.5, -90.5, 177.0);
-    public static final TrcPose2D AUTO_5BALL_STARTPOS_RED = new TrcPose2D(14.869, 86.534, 189.75);
-    public static final TrcPose2D AUTO_5BALL_STARTPOS_BLUE = new TrcPose2D(-14.869, -86.534, 9.75);
-    public static final TrcPose2D AUTO_5BALL_BALL1_RED = new TrcPose2D(25.91, 150.79, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL1_BLUE = new TrcPose2D(-25.91, -150.79, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL2_RED = new TrcPose2D(124.946, 88.303, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL2_BLUE = new TrcPose2D(-124.946, -88.303, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL3_RED = new TrcPose2D(129.396, -81.643, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL3_BLUE = new TrcPose2D(-129.396, 81.643, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL4_RED = new TrcPose2D(33.767, -149.227, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL4_BLUE = new TrcPose2D(-33.767, 149.227, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL5_RED = new TrcPose2D(-149.227, -33.767, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL5_BLUE = new TrcPose2D(149.227, 33.767, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL6_RED = new TrcPose2D(-88.303, 124.946, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL6_BLUE = new TrcPose2D(88.303, -124.946, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL7_RED = new TrcPose2D(282.08, 117.725, 0.0);
-    public static final TrcPose2D AUTO_5BALL_BALL7_BLUE = new TrcPose2D(-282.08, -117.725, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_1 = new TrcPose2D( -25.910, -150.790, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_2 = new TrcPose2D(-124.946,  -88.303, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_3 = new TrcPose2D(-129.396,   81.643, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_4 = new TrcPose2D( -33.767,  149.227, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_5 = new TrcPose2D( 149.227,   33.767, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_6 = new TrcPose2D(  88.303, -124.946, 0.0);
+    public static final TrcPose2D BALLPOS_BLUE_7 = new TrcPose2D(-282.080, -117.725, 0.0);
 
-    //path points for each different auto path
-    //first point: robot picking up the ball around the tarmacs
-    //second point: robot moving into shooter position 
-    //2 BALL AUTO PATH 
-    public static final TrcPose2D[] BLUE_2_BALL_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(-119, 73.7, -47),
-        new TrcPose2D(-119, 73.7, -238)
-    };
+    public static final TrcPose2D STARTPOS_RED_1 = new TrcPose2D(  14.869,   86.534, 189.750);
+    public static final TrcPose2D STARTPOS_RED_2 = new TrcPose2D(  62.800,   62.800, 225.000);
+    public static final TrcPose2D STARTPOS_RED_3 = new TrcPose2D(  74.281,  -46.861, -57.750);
+    public static final TrcPose2D STARTPOS_BLUE_1 = new TrcPose2D( -14.869,  -86.534,   9.750);
+    public static final TrcPose2D STARTPOS_BLUE_2 = new TrcPose2D( -62.800,  -62.800,  45.000);
+    public static final TrcPose2D STARTPOS_BLUE_3 = new TrcPose2D( -74.281,   46.861, 122.250);
 
-    public static final TrcPose2D[] RED_2_BALL_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(128.8, -79.8, -134),
-        new TrcPose2D(109, -43.2, -68)
-    };
+    public static final TrcPose2D[] startPosRed = {STARTPOS_RED_1, STARTPOS_RED_2, STARTPOS_RED_3};
+    public static final TrcPose2D[] startPosBlue = {STARTPOS_BLUE_1, STARTPOS_BLUE_2, STARTPOS_BLUE_3};
 
-    //5 BALL AUTO PATH
-    //point 1: ball near tarmac and center of field y axis
-    //point 2: other ball near tarmac and first ball
-    //point 3: ball near human player, also where it will wait for human player ball input
-    public static final TrcPose2D[] BLUE_5_BALL_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(-25.9, -151.4, 177.0),
-        new TrcPose2D(-124.88, -88.3, 302),
-        new TrcPose2D(-282.0, -117.7, 259.5),
-    };
+    public static final TrcPose2D STARTPOS_RED_AUTO_5BALL = new TrcPose2D( 24.987,  89.810,  15.550);
+    public static final TrcPose2D STARTPOS_BLUE_AUTO_5BALL = new TrcPose2D(-24.987, -89.810, 195.550);
 
-    public static final TrcPose2D[] RED_5_BALL_PATH = new TrcPose2D[]
-    {
-        new TrcPose2D(26.5, 108.5, 358.0),
-        new TrcPose2D(125.75, 88.3, 302.0),
-        new TrcPose2D(283.5, 117, 259.5),
-    };
     //
     // Joystick ports.
     //

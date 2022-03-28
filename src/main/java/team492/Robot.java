@@ -60,6 +60,7 @@ public class Robot extends FrcRobotBase
     //
     public final FrcDashboard dashboard = FrcDashboard.getInstance();
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
+    public final FrcAuto.AutoChoices autoChoices = new FrcAuto.AutoChoices();
     private double nextDashboardUpdateTime = TrcUtil.getCurrentTime();
     private boolean traceLogOpened = false;
     //
@@ -371,6 +372,7 @@ public class Robot extends FrcRobotBase
                 dashboard.putNumber("DriveBase/AccelX", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelX());
                 dashboard.putNumber("DriveBase/AccelY", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelY());
                 dashboard.putNumber("DriveBase/AccelZ", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelZ());
+                dashboard.putNumber("DriverBase/Compass", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getCompassHeading());
 
                 //
                 // DriveBase debug info.

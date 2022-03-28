@@ -56,7 +56,6 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
     }   //enum State
 
     private final Robot robot;
-    private final FrcAuto.AutoChoices autoChoices;
     private final boolean do2Balls;
     private final TrcTimer timer;
     private final TrcEvent event;
@@ -67,16 +66,14 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
      * Constructor: Create an instance of the object.
      *
      * @param robot specifies the robot object for providing access to various global objects.
-     * @param autoChoices specifies all the choices from the autonomous menus.
      * @param do2Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
      */
-    CmdAuto3Balls(Robot robot, FrcAuto.AutoChoices autoChoices, boolean do2Balls)
+    CmdAuto3Balls(Robot robot, boolean do2Balls)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, autoChoices, do2Balls);
+            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, robot.autoChoices, do2Balls);
 
         this.robot = robot;
-        this.autoChoices = autoChoices;
         this.do2Balls = do2Balls;
         timer = new TrcTimer(moduleName + ".timer");
         event = new TrcEvent(moduleName + ".event");
@@ -133,9 +130,13 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
             {
                 case START_DELAY:
                     //
+                    // Set robot starting position in the field.
+                    //
+                    robot.robotDrive.setFieldPosition(true);
+                    //
                     // Do start delay if any.
                     //
-                    double startDelay = autoChoices.getStartDelay();
+                    double startDelay = robot.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
                         //

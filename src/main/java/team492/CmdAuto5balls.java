@@ -29,6 +29,7 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 class CmdAuto5Balls implements TrcRobot.RobotCommand
 {
@@ -48,7 +49,6 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     }   //enum State
 
     private final Robot robot;
-    private final FrcAuto.AutoChoices autoChoices;
     private final TrcEvent event;
     private final TrcEvent driveEvent;
     private final TrcStateMachine<State> sm;
@@ -61,15 +61,13 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
      * Constructor: Create an instance of the object.
      *
      * @param robot specifies the robot object for providing access to various global objects.
-     * @param autoChoices specifies all the choices from the autonomous menus.
      */
-    CmdAuto5Balls(Robot robot, FrcAuto.AutoChoices autoChoices)
+    CmdAuto5Balls(Robot robot)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, choices=%s", robot, autoChoices);
+            moduleName, ">>> robot=%s, choices=%s", robot, robot.autoChoices);
 
         this.robot = robot;
-        this.autoChoices = autoChoices;
         event = new TrcEvent(moduleName + ".event");
         timer = new TrcTimer(moduleName);
         driveEvent = new TrcEvent(moduleName + ".driveEvent");
@@ -130,13 +128,13 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    TrcPose2D startPose = autoChoices.getAlliance() == DriverStation.Alliance.Red?
-                        RobotParams.NATHAN_5_BALL_STARTPOS_RED: RobotParams.NATHAN_5_BALL_STARTPOS_BLUE;
-                    robot.robotDrive.driveBase.setFieldPosition(startPose);
+                    TrcPose2D startPos = robot.autoChoices.getAlliance() == Alliance.Red?
+                                            RobotParams.STARTPOS_RED_AUTO_5BALL: RobotParams.STARTPOS_BLUE_AUTO_5BALL;
+                    robot.robotDrive.setFieldPosition(startPos, true);
                     //
                     // Do start delay if any.
                     //
-                    double startDelay = autoChoices.getStartDelay();
+                    double startDelay = robot.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
                         sm.setState(State.PICKUP_SECOND_BALL);
@@ -167,7 +165,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     robot.intake.retract();
                     // shoot after we get to the position we want to be
                     sm.waitForSingleEvent(event, State.SHOOT);
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    if (robot.autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         robot.robotDrive.purePursuitDrive.start(
                             event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
@@ -178,7 +176,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     {
                         robot.robotDrive.purePursuitDrive.start(
                             event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 56));
+                            robot.pathPoint(RobotParams.BALLPOS_BLUE_2, 0.0, 0.0, 56));
                     }
                     break;
 
@@ -203,7 +201,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     robot.intake.extend();
                     sm.waitForSingleEvent(event, State.SHOOT); //shoot after picking up a ball
                     robot.intake.pickup(event);
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    if (robot.autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         // path = robot.buildPath(
                         //     false,
@@ -218,7 +216,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     {
                         path = robot.buildPath(
                             false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 240.0),
+                            robot.pathPoint(RobotParams.BALLPOS_BLUE_2, 0.0, 0.0, 240.0),
                             new TrcPose2D(0.0, -10.0, 180.0));
                     }
                     // robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0); //goes to the location of the third ball
@@ -230,7 +228,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.DONE);//PICKUP_HUMAN_PLAYER_BALL);
                     robot.intake.pickup(event);
                     // turns about halfway in the path in order to be facing the correct angle when picking up the ball
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    if (robot.autoChoices.getAlliance() == DriverStation.Alliance.Red)
                     {
                         robot.robotDrive.purePursuitDrive.start(
                             null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
@@ -241,8 +239,8 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     {
                         path = robot.buildPath(
                             false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 50.0, 50.0, 260.0),
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 0.0, 0.0, 230.0));
+                            robot.pathPoint(RobotParams.BALLPOS_BLUE_7, 50.0, 50.0, 260.0),
+                            robot.pathPoint(RobotParams.BALLPOS_BLUE_7, 0.0, 0.0, 230.0));
                     }
                     break;
 

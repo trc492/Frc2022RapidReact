@@ -22,18 +22,26 @@
 
 package team492;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import com.ctre.phoenix.ErrorCode;
 
 import TrcCommonLib.trclib.TrcDriveBase;
 import TrcCommonLib.trclib.TrcGyro;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPidDrive;
+import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 /**
  * This class is intended to be extended by subclasses implementing different robot drive bases.
@@ -248,6 +256,94 @@ public class RobotDrive
 
         return new double[] { x, y, rot };
     }   //getDriveInput
+
+    /**
+     * This method saves the compass heading value when the robot is facing field zero.
+     */
+    public void saveFieldZeroCompassHeading()
+    {
+        final String funcName = "saveFieldZeroCompassHeading";
+
+        try (PrintStream out = new PrintStream(
+                new FileOutputStream(RobotParams.TEAM_FOLDER + "/FieldZeroHeading.txt")))
+        {
+            double fieldZeroHeading = ((FrcAHRSGyro) gyro).ahrs.getCompassHeading();
+
+            out.printf("%f\n", fieldZeroHeading);
+            out.close();
+            robot.globalTracer.traceInfo(funcName, "FieldZeroCompassHeading = %f", fieldZeroHeading);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }   //saveFieldZeroCompassHeading
+
+    /**
+     * This method retrieves the field zero compass heading from the calibration data file.
+     *
+     * @return calibration data of field zero compass heading.
+     */
+    private Double getFieldZeroCompassHeading()
+    {
+        final String funcName = "getFieldZeroCompassHeading";
+
+        try (Scanner in = new Scanner(new FileReader(RobotParams.TEAM_FOLDER + "/FieldZeroHeading.txt")))
+        {
+            return in.nextDouble();
+        }
+        catch (Exception e)
+        {
+            robot.globalTracer.traceWarn(funcName, "FieldZeroHeading file not found.");
+            return null;
+        }
+    }   //getFieldZeroHeading
+
+    /**
+     * This method sets the robot's absolute field position. This is typically called at the beginning of a match for
+     * robot localization. The provided pose should be the robot's starting position. Optionally, the caller can set
+     * useCompassHeading to true for using compass heading to determine the true robot heading. This only works if
+     * the robot has been calibrated on the competition field for its field zero position.
+     * Note: if reading the field zero calibration file failed, it will behave as if useCompassHeading is false.
+     *
+     * @param pose speicifies the robot's starting position on the field.
+     * @param useCompassHeading specifies true to use compass to determine the robot's true heading, false otherwise.
+     */
+    public void setFieldPosition(TrcPose2D pose, boolean useCompassHeading)
+    {
+        TrcPose2D robotPose = pose;
+
+        if (useCompassHeading)
+        {
+            Double fieldZero = getFieldZeroCompassHeading();
+
+            if (fieldZero != null)
+            {
+                robotPose = pose.clone();
+                robotPose.angle = ((FrcAHRSGyro) gyro).ahrs.getCompassHeading() - fieldZero;
+            }
+        }
+
+        driveBase.setFieldPosition(robotPose);
+    }   //setAbsoluteFieldHeading
+
+    /**
+     * This method sets the robot's absolute field position. This is typically called at the beginning of a match for
+     * robot localization. The robot pose is specified in the "StartPos" auto choice menu. Optionally, the caller can
+     * set useCompassHeading to true for using compass heading to determine the true robot heading. This only works if
+     * the robot has been calibrated on the competition field for its field zero position.
+     * Note: if reading the field zero calibration file failed, it will behave as if useCompassHeading is false.
+     *
+     * @param pose speicifies the robot's starting position on the field.
+     * @param useCompassHeading specifies true to use compass to determine the robot's true heading, false otherwise.
+     */
+    public void setFieldPosition(boolean useCompassHeading)
+    {
+        int startPos = robot.autoChoices.getStartPos();
+        TrcPose2D robotPose = robot.autoChoices.getAlliance() == Alliance.Red?
+                                RobotParams.startPosRed[startPos]: RobotParams.startPosBlue[startPos];
+        setFieldPosition(robotPose, useCompassHeading);
+    }   //setFieldPosition
 
     /**
      * This method is called to start steering calibration for Swerve Drive.

@@ -85,7 +85,7 @@ public class FrcAuto implements TrcRobot.RobotMode
      * 4. Add a getter method for the new choice.
      * 5. Add an entry of the new choice to the toString method.
      */
-    public class AutoChoices
+    public static class AutoChoices
     {
         // Smart dashboard keys for Autonomous choices.
         private static final String DBKEY_AUTO_ALLIANCE = "Auto/Alliance";
@@ -227,7 +227,6 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
 
     private final Robot robot;
-    private final AutoChoices autoChoices = new AutoChoices();
     private TrcRobot.RobotCommand autoCommand;
 
     /**
@@ -289,27 +288,26 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Retrieve Auto choices.
         //
         robot.globalTracer.logInfo(moduleName, "MatchInfo", "%s", FrcMatchInfo.getMatchInfo());
-        robot.globalTracer.logInfo(moduleName, "AutoChoices", "%s", autoChoices);
+        robot.globalTracer.logInfo(moduleName, "AutoChoices", "%s", robot.autoChoices);
         //
         // Create autonomous command.
         //
-        switch (autoChoices.getStrategy())
+        switch (robot.autoChoices.getStrategy())
         {
             case AUTO_1_BALL:
-                autoCommand = new CmdAuto1Or2Balls(robot, autoChoices, false);
+                autoCommand = new CmdAuto1Or2Balls(robot, false);
                 break;
 
             case AUTO_2_BALLS:
-                autoCommand = new CmdAuto1Or2Balls(robot, autoChoices, true);
+                autoCommand = new CmdAuto1Or2Balls(robot, true);
                 break;
 
             case AUTO_3_BALLS:
-                autoCommand = new CmdAuto3Balls(robot, autoChoices, true); 
-                //autoCommand = new CmdAuto3Or5Balls(robot, autoChoices, false);
+                autoCommand = new CmdAuto3Balls(robot, true);
                 break;
 
             case AUTO_5_BALLS:
-                autoCommand = new CmdAuto5Balls(robot, autoChoices);
+                autoCommand = new CmdAuto5Balls(robot);
                 break;
 
             case PP_DRIVE:
@@ -318,21 +316,24 @@ public class FrcAuto implements TrcRobot.RobotMode
                     robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
                 ((CmdPurePursuitDrive) autoCommand).start(
                     0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                    RobotParams.TEAM_FOLDER + "/" + autoChoices.getPathFile(), false);
+                    RobotParams.TEAM_FOLDER + "/" + robot.autoChoices.getPathFile(), false);
                 break;
 
             case PID_DRIVE:
                 autoCommand = new CmdPidDrive(
-                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, autoChoices.getStartDelay(),
-                    autoChoices.getDrivePower(), null,
-                    new TrcPose2D(autoChoices.getXDriveDistance()*12.0, autoChoices.getYDriveDistance()*12.0,
-                                  autoChoices.getTurnAngle()));
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, robot.autoChoices.getStartDelay(),
+                    robot.autoChoices.getDrivePower(), null,
+                    new TrcPose2D(robot.autoChoices.getXDriveDistance()*12.0,
+                                  robot.autoChoices.getYDriveDistance()*12.0,
+                                  robot.autoChoices.getTurnAngle()));
                 break;
 
             case TIMED_DRIVE:
                 autoCommand = new CmdTimedDrive(
-                    robot.robotDrive.driveBase, autoChoices.getStartDelay(), autoChoices.getDriveTime(), 0.0,
-                    autoChoices.getDrivePower(), 0.0);
+                    robot.robotDrive.driveBase,
+                    robot.autoChoices.getStartDelay(),
+                    robot.autoChoices.getDriveTime(), 0.0,
+                    robot.autoChoices.getDrivePower(), 0.0);
                 break;
 
             default:

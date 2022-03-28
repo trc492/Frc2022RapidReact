@@ -37,14 +37,14 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
-        PICKUP_SECOND_BALL, //picks up the second ball near the wall of the field
-	    GO_TO_FIRST_SHOOT_POS, //drive right behind the ball near the center of the field to shoot the two balls in the robot
-        SHOOT, //shoots all balls in the robot
-        PICKUP_THIRD_BALL, //picks up the ball near the center of the field and shoot it immediately
-        PICKUP_TERMINAL_BALL, //picks up the ball at the terminal
-	    PICKUP_HUMAN_PLAYER_BALL, //spins the robot intake until the human player places his ball in it
-        GO_TO_FINAL_SHOOT_POS, //drive closer to the center of the field to shoot the two balls in the robot
-        DONE //done
+        PICKUP_SECOND_BALL,       // Picks up the second ball which is right in front of it.
+	    GO_TO_FIRST_SHOOT_POS,    // Drives behind the third ball (near the center of the field) to shoot the two balls in the robot.
+        SHOOT,                    // Shoots all balls in the robot.
+        PICKUP_THIRD_BALL,        // Picks up the ball right in front of it and shoots it immediately.
+        PICKUP_TERMINAL_BALL,     // Picks up the ball at the terminal.
+	    PICKUP_HUMAN_PLAYER_BALL, // Spins the intake until the human player's ball is collected.
+        GO_TO_FINAL_SHOOT_POS,    // Drives closer to the center of the field to shoot the final two balls in the robot.
+        DONE
     }   //enum State
 
     private final Robot robot;
@@ -54,8 +54,8 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
     private final TrcStateMachine<State> sm;
     private final TrcTimer timer;
 
-    //keeps track of number of balls robot has already shot
-    int numBallsShot = 0;
+    // Keeps track of the number of balls the robot has already shot
+    private int numBallsShot = 0;
 
     /**
      * Constructor: Create an instance of the object.
@@ -149,119 +149,120 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_SECOND_BALL:
-                    // sets the flywheel speed to 2000,2000 while picking up the ball near the horizontal center
-                    // of the field and the vertical top
+                    // Sets the flywheel speed to lower:2000, upper:2000 while picking up the ball right in front of it.
                     robot.shooter.setFlywheelValue(2000.0, 2000.0);
                     robot.intake.extend();
-                    // after we pick up the ball, we can then go to the first shoot position (right behind the ball
-                    // near the center) to shoot
+                    // After we pick up the ball, we can go to the first shoot position.
                     sm.waitForSingleEvent(event, State.GO_TO_FIRST_SHOOT_POS);
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
-                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0, 40, 0));
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0, 40, 0));
                     break;
 
                 case GO_TO_FIRST_SHOOT_POS:
                     robot.robotDrive.purePursuitDrive.cancel();
-                    // go right behind the second ball to pick up (closer to the tarmac) to shoot the first 2 balls
+                    // Go right behind the third ball to pick up (closer to the tarmac) to shoot the first two balls
                     robot.intake.retract();
-                    // shoot after we get to the position we want to be
+                    // Shoot after we get to the position we want to be
                     sm.waitForSingleEvent(event, State.SHOOT);
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
-                    {
+                    // All pure pursuit locations are relative, no need to specify which alliance
+                    // if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    // {
                         robot.robotDrive.purePursuitDrive.start(
                             event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            new TrcPose2D(166, 111 + 20, -125),
-                            new TrcPose2D(166-5, 111-5, -125));
-                    }
-                    else
-                    {
-                        robot.robotDrive.purePursuitDrive.start(
-                            event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 56));
-                    }
+                            new TrcPose2D(166, 111 + 25, -125), // We swing wide to avoid hitting the third ball on our way
+                            new TrcPose2D(161, 106, -125));
+                    // }
+                    // else
+                    // {
+                    //     robot.robotDrive.purePursuitDrive.start(
+                    //         event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                    //         robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 56));
+                    // }
                     break;
 
                 case SHOOT:
                     robot.robotDrive.purePursuitDrive.cancel();
                     robot.intake.retract();
-                    robot.intake.stop();    //????
-                    // if we havent shot any balls yet, this means we are shooting first 2 balls, so add 2
-                    // the third ball we shoot alone so only add one if weve shot two so far
-                    numBallsShot += (numBallsShot == 0 || numBallsShot == 3) ? 2 : 1;
-                    // decides the next state based on how many balls weve shot so far
+                    // The first and last time we are shooting, we shoot two balls in total (1 & 2, 4 & 5)
+                    // The only time we shoot one ball by itself is the third ball (if we've only shot two so far)
+                    numBallsShot += (numBallsShot == 2) ? 1 : 2;
+                    // Decides the next state based on how many balls we've shot so far
                     sm.waitForSingleEvent(
                         event, numBallsShot == 2? State.PICKUP_THIRD_BALL:
                                numBallsShot == 3? State.PICKUP_TERMINAL_BALL: 
-                               numBallsShot == 5? State.DONE:
                                State.DONE);
                     robot.shooter.shootWithVision(moduleName, event);
                     break;
 
                 case PICKUP_THIRD_BALL:
-                    // picks up the ball close to the tarmac (right behind us right now)
+                    // Picks up the ball close to the tarmac, which is right in front of us
                     robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.SHOOT); //shoot after picking up a ball
+                    sm.waitForSingleEvent(event, State.SHOOT); // Shoot after picking up the ball
                     robot.intake.pickup(event);
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
-                    {
+                    // All pure pursuit locations are relative, no need to specify which alliance
+                    // if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    // {
                         // path = robot.buildPath(
                         //     false,
                         //     robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_RED, 0.0, 0.0, 60.0),
                         //     new TrcPose2D(0.0, -10.0, 180.0));
                         robot.robotDrive.purePursuitDrive.start(
                             null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                            new TrcPose2D(166 - 20, 111 - 20, -125),
+                            new TrcPose2D(166 - 20, 111 - 20, -125), // We move forward and then immediately back up to the same position
                             new TrcPose2D(166, 111, -125));
-                    }
-                    else
-                    {
-                        path = robot.buildPath(
-                            false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 240.0),
-                            new TrcPose2D(0.0, -10.0, 180.0));
-                    }
+                    // }
+                    // else
+                    // {
+                    //     path = robot.buildPath(
+                    //         false,
+                    //         robot.pathPoint(RobotParams.AUTO_5BALL_BALL2_BLUE, 0.0, 0.0, 240.0),
+                    //         new TrcPose2D(0.0, -10.0, 180.0));
+                    // }
                     // robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0); //goes to the location of the third ball
                     break;
 
                 case PICKUP_TERMINAL_BALL:
-                    // drives to the terminal and picks up the ball close to it
+                    // Drives to the terminal and picks up the ball resting there
                     robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.DONE);//PICKUP_HUMAN_PLAYER_BALL);
+                    sm.waitForSingleEvent(event, State.DONE);//PICKUP_HUMAN_PLAYER_BALL); TODO
                     robot.intake.pickup(event);
-                    // turns about halfway in the path in order to be facing the correct angle when picking up the ball
-                    if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
-                    {
+                    // All pure pursuit locations are relative, no need to specify which alliance
+                    // if (autoChoices.getAlliance() == DriverStation.Alliance.Red)
+                    // {
                         robot.robotDrive.purePursuitDrive.start(
                             null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                            // Turns about halfway in the path in order to be facing the correct angle when picking up the ball
                             new TrcPose2D(200, 100, 0),
                             new TrcPose2D(260, 90, 45));
-                    }
-                    else
-                    {
-                        path = robot.buildPath(
-                            false,
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 50.0, 50.0, 260.0),
-                            robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 0.0, 0.0, 230.0));
-                    }
+                    // }
+                    // else
+                    // {
+                    //     path = robot.buildPath(
+                    //         false,
+                    //         robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 50.0, 50.0, 260.0),
+                    //         robot.pathPoint(RobotParams.AUTO_5BALL_BALL7_BLUE, 0.0, 0.0, 230.0));
+                    // }
                     break;
 
                 case PICKUP_HUMAN_PLAYER_BALL:
                     robot.robotDrive.purePursuitDrive.cancel();
-                    // runs intake until human player ball is inputted, then goes to shoot position
+                    // Runs intake until human player ball is inputted, then goes to shoot position
                     robot.intake.extend();
                     sm.waitForSingleEvent(event, State.GO_TO_FINAL_SHOOT_POS);
-                    robot.intake.pickup(event); //when the ball is picked up we can shoot
+                    robot.intake.pickup(event); // When the ball is picked up we can shoot
                     break;
 
                 case GO_TO_FINAL_SHOOT_POS:
-                    // drives about 8 ft closer to the goal in order to shoot with value from shootParams table
-                    // shoot once we arrive at the final shoot position
+                    // Drives about 8 ft closer to the goal in order to shoot with a value from the shootParams table
+                    // Shoot once we arrive at the final shoot position
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
+                    //TODO: buildPath() not working, use relative coordinates instead
                     path = robot.buildPath(
                         false,
                         new TrcPose2D(0.0, -94.44, 180.0));
-                    robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0); //drives to the final shoot position
+                    robot.robotDrive.purePursuitDrive.start(path, driveEvent, 0.0);
                     break;
 
                 case DONE:

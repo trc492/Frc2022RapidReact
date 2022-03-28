@@ -180,7 +180,8 @@ public class Climber
     {
         PULL_DOWN_PRIMARY_HOOK,
         DEPLOY_SECONDARY_HOOK,
-        UNHOOK_PRIMARY_HOOK,
+        LOWER_ONTO_RUNG,
+        EXTEND_PRIMARY_HOOK,
         ENGAGE_NEXT_RUNG,
         UNHOOK_PREVIOUS_RUNG,
         DAMPENED_SWING,
@@ -228,12 +229,19 @@ public class Climber
                     // Deploy the hook arm to hook on the rung.
                     limitSwitchTrigger.setEnabled(false);
                     extendHookArm();
-                    sm.waitForSingleEvent(event, State.UNHOOK_PRIMARY_HOOK);
+                    sm.waitForSingleEvent(event, State.LOWER_ONTO_RUNG);
                     timer.set(0.3, event);
                     break;
 
-                case UNHOOK_PRIMARY_HOOK:
-                    // Extend primary hook to release it from the rung.
+                case LOWER_ONTO_RUNG: //TODO: Test if doing a slow power on climber works as intended
+                    // Run the primary hook up slowly to lower itself onto the rung
+                    // This is to avoid the violent release of the current rung
+                    setPower(0.1);
+                    sm.waitForSingleEvent(event, State.EXTEND_PRIMARY_HOOK);
+                    timer.set(1.0, event);
+
+                case EXTEND_PRIMARY_HOOK:
+                    // Extend primary hook to engage the next rung.
                     sm.waitForSingleEvent(event, State.ENGAGE_NEXT_RUNG);
                     setPosition(59.0, true, event);
                     break;
@@ -242,7 +250,7 @@ public class Climber
                     // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
-                    timer.set(2.0, event);
+                    timer.set(2.0, event); //TODO: Time engaging of rung tighter?
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:

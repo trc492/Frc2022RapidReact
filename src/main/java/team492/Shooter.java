@@ -883,8 +883,8 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                         setFlywheelValue(
                             currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
-                        // Pneumatic takes hardly any time, so fire and forget.
-                        setTilterPosition(params.tilterAngle);
+                        // Not setting tilter position here, otherwise if the robot is at the inflection point,
+                        // the tilter will oscillate quickly, rapidly decreasing pressure.
 
                         if (msgTracer != null)
                         {
@@ -946,6 +946,8 @@ public class Shooter implements TrcExclusiveSubsystem
                             // If in teleop or test mode, shoot trigger has been released (committed).
                             robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            // Pneumatic takes hardly any time, so fire and forget.
+                            setTilterPosition(params.tilterAngle);
                             sm.setState(State.SHOOT_WHEN_READY);
                         }
                         else

@@ -56,7 +56,6 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
     }   //enum State
 
     private final Robot robot;
-    private final boolean do2Balls;
     private final TrcTimer timer;
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
@@ -66,15 +65,13 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
      * Constructor: Create an instance of the object.
      *
      * @param robot specifies the robot object for providing access to various global objects.
-     * @param do2Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
      */
-    CmdAuto3Balls(Robot robot, boolean do2Balls)
+    CmdAuto3Balls(Robot robot)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, robot.autoChoices, do2Balls);
+            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, robot.autoChoices);
 
         this.robot = robot;
-        this.do2Balls = do2Balls;
         timer = new TrcTimer(moduleName + ".timer");
         event = new TrcEvent(moduleName + ".event");
         sm = new TrcStateMachine<>(moduleName);
@@ -153,10 +150,10 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
 
                 case SHOOT:
                     sm.waitForSingleEvent(
-                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.PICKUP_3RD_BALL);
+                        event, !got2ndBall? State.TURN_TO_2ND_BALL: State.PICKUP_3RD_BALL);
                     if (got2ndBall)
                     {
-                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithVision(moduleName, event);
                     }
                     else
                     {
@@ -188,7 +185,6 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        //this used to be -36, but it kept overshooting because robot too close
                         new TrcPose2D(0.0, -36.0, 180.0));
                     break;
 

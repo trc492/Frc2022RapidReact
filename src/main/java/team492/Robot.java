@@ -406,6 +406,20 @@ public class Robot extends FrcRobotBase
                     lineNum += 2;
                     robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
                 }
+                else
+                {
+                    dashboard.displayPrintf(
+                        11, "Gyro: Yaw=%.2f, Pitch=%.2f, Roll=%.2f",
+                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getYaw(), ((FrcAHRSGyro)robotDrive.gyro).ahrs.getPitch(),
+                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
+                    dashboard.displayPrintf(
+                        12, "Accel: X=%.2f, Y=%.2f, Z=%.2f",
+                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelX(),
+                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelY(),
+                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelZ());
+                    dashboard.displayPrintf(
+                        13, "Compass: Heading=%.2f", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getCompassHeading());
+                }
             }
 
             if (RobotParams.Preferences.showVisionStatus)

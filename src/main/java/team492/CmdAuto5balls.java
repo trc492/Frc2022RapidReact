@@ -184,7 +184,7 @@ class CmdAuto5Balls implements TrcRobot.RobotCommand
                     robot.intake.retract();
                     // The first and last time we are shooting, we shoot two balls in total (1 & 2, 4 & 5)
                     // The only time we shoot one ball by itself is the third ball (if we've only shot two so far)
-                    numBallsShot += (numBallsShot == 2) ? 1 : 2;
+                    numBallsShot += (numBallsShot == 0 || numBallsShot == 3) ? 2 : 1;
                     // Decides the next state based on how many balls we've shot so far
                     sm.waitForSingleEvent(
                         event, numBallsShot == 2? State.PICKUP_THIRD_BALL:

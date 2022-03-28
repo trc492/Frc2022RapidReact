@@ -30,8 +30,8 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
@@ -250,13 +250,13 @@ public class SwerveDrive extends RobotDrive
                 name, errCode);
         }
         // Slow down the status frame rate to reduce CAN traffic.
-        // errCode = encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100, 10);
-        // if (errCode != ErrorCode.OK)
-        // {
-        //     robot.globalTracer.traceWarn(
-        //         funcName, "%s: CANcoder.setStatusFramePeriod failed (code=%s).",
-        //         name, errCode);
-        // }
+        errCode = encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100, 10);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: CANcoder.setStatusFramePeriod failed (code=%s).",
+                name, errCode);
+        }
 
         return encoder;
     }   //createSteerEncoder
@@ -294,22 +294,22 @@ public class SwerveDrive extends RobotDrive
 
         steerMotor.motor.enableVoltageCompensation(true);
 
-        // Comment this code after fully debug integrated encoder.
-        errCode = steerMotor.motor.configRemoteFeedbackFilter(encoder, 0, 10);
-        if (errCode != ErrorCode.OK)
-        {
-            robot.globalTracer.traceWarn(
-                funcName, "%s: Falcon.configRemoteFeedbackFilter failed (code=%s).",
-                name, errCode);
-        }
+        // // Comment this code after fully debug integrated encoder.
+        // errCode = steerMotor.motor.configRemoteFeedbackFilter(encoder, 0, 10);
+        // if (errCode != ErrorCode.OK)
+        // {
+        //     robot.globalTracer.traceWarn(
+        //         funcName, "%s: Falcon.configRemoteFeedbackFilter failed (code=%s).",
+        //         name, errCode);
+        // }
 
-        errCode = steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, 10);
-        if (errCode != ErrorCode.OK)
-        {
-            robot.globalTracer.traceWarn(
-                funcName, "%s: Falcon.configSelectedFeedbackSensor failed (code=%s).",
-                name, errCode);
-        }
+        // errCode = steerMotor.motor.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, 10);
+        // if (errCode != ErrorCode.OK)
+        // {
+        //     robot.globalTracer.traceWarn(
+        //         funcName, "%s: Falcon.configSelectedFeedbackSensor failed (code=%s).",
+        //         name, errCode);
+        // }
 
         steerMotor.setInverted(inverted);
         steerMotor.setBrakeModeEnabled(true);
@@ -330,23 +330,23 @@ public class SwerveDrive extends RobotDrive
     private TrcSwerveModule createSwerveModule(
         String name, FrcCANFalcon driveMotor, FrcCANFalcon steerMotor, CANCoder steerEncoder, int steerZero)
     {
-        // final String funcName = "createSwerveModule";
-        // ErrorCode errCode;
-        // double encoderPos =
-        //     (steerEncoder.getAbsolutePosition() - steerZero)/RobotParams.CANCODER_CPR *
-        //     RobotParams.FALCON_CPR*RobotParams.STEER_GEAR_RATIO;
+        final String funcName = "createSwerveModule";
+        ErrorCode errCode;
+        double encoderPos =
+            (steerEncoder.getAbsolutePosition() - steerZero)/RobotParams.CANCODER_CPR *
+            RobotParams.FALCON_CPR*RobotParams.STEER_GEAR_RATIO;
 
-        // errCode = steerMotor.motor.setSelectedSensorPosition(encoderPos, 0, 10);
-        // if (errCode != ErrorCode.OK)
-        // {
-        //     robot.globalTracer.traceWarn(
-        //         funcName, "%s: Falcon.setSelectedSensorPosition failed (code=%s, pos=%.0f).",
-        //         name, errCode, encoderPos);
-        // }
+        errCode = steerMotor.motor.setSelectedSensorPosition(encoderPos, 0, 10);
+        if (errCode != ErrorCode.OK)
+        {
+            robot.globalTracer.traceWarn(
+                funcName, "%s: Falcon.setSelectedSensorPosition failed (code=%s, pos=%.0f).",
+                name, errCode, encoderPos);
+        }
 
         FrcFalconServo servo = new FrcFalconServo(
-            // name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, 0.0,
-            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, steerZero,
+            name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_COUNT, 0.0,
+            // name + ".servo", steerMotor, RobotParams.steerCoeffs, RobotParams.STEER_DEGREES_PER_TICK, steerZero,
             RobotParams.STEER_MAX_REQ_VEL, RobotParams.STEER_MAX_ACCEL);
         TrcSwerveModule module = new TrcSwerveModule(
             name, driveMotor, new TrcEnhancedServo(name + ".enhancedServo", servo));

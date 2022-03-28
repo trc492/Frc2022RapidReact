@@ -456,6 +456,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
+                robot.robotDrive.driveBase.setFieldPosition(RobotParams.STARTPOS_RED_AUTO_5BALL);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:

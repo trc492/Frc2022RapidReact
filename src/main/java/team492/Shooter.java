@@ -64,7 +64,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private Double targetDistance = null;
 
     private boolean usingVision = false;
-    private boolean useOdometry = false;
+    private boolean useOdometry = true;
     private ShootParamTable.Params providedParams = null;
     private TrcEvent onFinishPrepEvent = null;
     private TrcEvent onFinishShootEvent = null;
@@ -264,7 +264,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, lower=%.2f, upper=%.2f, event=%s",
-                TrcUtil.getModeElapsedTime(), lowerValue, upperValue, event);
+                TrcUtil.getModeElapsedTime(), owner, lowerValue, upperValue, event);
         }
 
         if (validateOwnership(owner))

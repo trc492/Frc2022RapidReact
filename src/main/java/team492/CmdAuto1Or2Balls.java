@@ -60,7 +60,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     CmdAuto1Or2Balls(Robot robot, boolean do2Balls)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, choices=%s, do2Balls=%s", robot, robot.autoChoices, do2Balls);
+            moduleName, ">>> robot=%s, do2Balls=%s, choices=%s", robot, do2Balls, robot.autoChoices);
 
         this.robot = robot;
         this.do2Balls = do2Balls;

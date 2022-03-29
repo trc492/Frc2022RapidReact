@@ -631,10 +631,11 @@ public class Robot extends FrcRobotBase
      * instead of the centroid of the robot.
      *
      * @param incrementalPath specifies true if the poses are incremental from the their poses.
+     * @param distanceAdj specifies the distance adjustment towards the ball (positive is closer to the ball).
      * @param poses specifies an array of poses used to build the path.
      * @return path built for PurePursuit.
      */
-    public TrcPath buildPath(boolean  incrementalPath, TrcPose2D... poses)
+    public TrcPath buildPath(boolean  incrementalPath, double distanceAdj, TrcPose2D... poses)
     {
         final String funcName = "buildPath";
         TrcPath path;
@@ -651,7 +652,7 @@ public class Robot extends FrcRobotBase
         TrcWaypoint secondLastWaypoint = path.getWaypoint(path.getSize() - 2);
         TrcWaypoint lastWaypoint = path.getLastWaypoint();
         TrcPose2D relativePose = lastWaypoint.pose.relativeTo(secondLastWaypoint.pose);
-        double distance = TrcUtil.magnitude(relativePose.x, relativePose.y) - RobotParams.INTAKE_OFFSET;
+        double distance = TrcUtil.magnitude(relativePose.x, relativePose.y) + distanceAdj - RobotParams.INTAKE_OFFSET;
 
         relativePose.x = distance*Math.cos(Math.toRadians(relativePose.angle));
         relativePose.y = distance*Math.sin(Math.toRadians(relativePose.angle));

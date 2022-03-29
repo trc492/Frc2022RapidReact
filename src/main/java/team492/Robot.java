@@ -646,18 +646,19 @@ public class Robot extends FrcRobotBase
         }
         path = pathBuilder.toRelativeStartPath();
 
-        TrcWaypoint[] waypoints = path.getAllWaypoints();
-        for (int i = 1; i < waypoints.length; i++)
-        {
-            TrcPose2D relativePose = waypoints[i].pose.relativeTo(waypoints[i - 1].pose);
-            double distance = TrcUtil.magnitude(relativePose.x, relativePose.y) - RobotParams.INTAKE_OFFSET;
+        globalTracer.traceInfo(funcName, "OriginalPath: %s", path);
 
-            relativePose.x = distance*Math.cos(Math.toRadians(relativePose.angle));
-            relativePose.y = distance*Math.sin(Math.toRadians(relativePose.angle));
-            waypoints[i].pose.setAs(waypoints[i - 1].pose.addRelativePose(relativePose));
-        }
+        TrcWaypoint secondLastWaypoint = path.getWaypoint(path.getSize() - 2);
+        TrcWaypoint lastWaypoint = path.getLastWaypoint();
+        TrcPose2D relativePose = lastWaypoint.pose.relativeTo(secondLastWaypoint.pose);
+        double distance = TrcUtil.magnitude(relativePose.x, relativePose.y) - RobotParams.INTAKE_OFFSET;
 
-        globalTracer.traceInfo(funcName, "buildPath=%s", path);
+        relativePose.x = distance*Math.cos(Math.toRadians(relativePose.angle));
+        relativePose.y = distance*Math.sin(Math.toRadians(relativePose.angle));
+        lastWaypoint.pose.setAs(secondLastWaypoint.pose.addRelativePose(relativePose));
+
+        globalTracer.traceInfo(funcName, "AdjustedPath: %s", path);
+
         return path;
     }   //buildPath
 

@@ -103,7 +103,8 @@ public class Shooter implements TrcExclusiveSubsystem
         TrcPidController.PidCoefficients alignPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.GYRO_ALIGN_KP, RobotParams.GYRO_ALIGN_KI, RobotParams.GYRO_ALIGN_KD);
         alignPidCtrl = new TrcPidController(
-            "aligPidCtrl", alignPidCoeff, RobotParams.GYRO_ALIGN_TOLERANCE, RobotParams.GYRO_ALIGN_STEADY_STATE_ERROR,
+            "aligPidCtrl", alignPidCoeff, RobotParams.GYRO_ALIGN_TOLERANCE, RobotParams.GYRO_ALIGN_SETTLING_TIME,
+            RobotParams.GYRO_ALIGN_STEADY_STATE_ERROR, RobotParams.GYRO_ALIGN_ERRRATE_THRESHOLD,
             this::getTargetAngle);
         alignPidCtrl.setAbsoluteSetPoint(true);
         alignPidCtrl.setInverted(true);

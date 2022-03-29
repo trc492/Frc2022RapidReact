@@ -285,7 +285,9 @@ public class RobotParams
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0;
     public static final double GYRO_ALIGN_TOLERANCE             = 3.5;
+    public static final double GYRO_ALIGN_SETTLING_TIME         = 0.1;
     public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 5.0;
+    public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 

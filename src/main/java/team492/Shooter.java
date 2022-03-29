@@ -879,13 +879,13 @@ public class Shooter implements TrcExclusiveSubsystem
                     if (params != null && currTime > nextFlywheelUpdateTime)
                     {
                         // To reduce CAN traffic, we only update flywheel at a slower update interval.
-                        nextFlywheelUpdateTime = currTime + 0.1;//RobotParams.FLYWHEEL_UPDATE_INTERVAL;
-                        // Apply shoot parameters to flywheels and tilter.
+                        nextFlywheelUpdateTime = currTime + RobotParams.FLYWHEEL_UPDATE_INTERVAL;
+                        // Apply shoot parameters to flywheels only. Not setting tilter position here,
+                        // otherwise if the robot is at the inflection point, the tilter will oscillate
+                        // between close and far quickly, rapidly decreasing pneumatic pressure.
                         // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                         setFlywheelValue(
                             currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
-                        // Not setting tilter position here, otherwise if the robot is at the inflection point,
-                        // the tilter will oscillate quickly, rapidly decreasing pressure.
 
                         if (msgTracer != null)
                         {
@@ -924,8 +924,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
                     else
                     {
-                        // Vision alignment is disabled or driver is overriding. We'll say it's always ontarget.
-                        visionPidOnTarget = true;
+                        visionPidOnTarget = false;
                     }
                     robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
 
@@ -935,26 +934,41 @@ public class Shooter implements TrcExclusiveSubsystem
                             11, "x=%.1f, y=%.1f, rot=%.1f, onTarget=%s", xPower, yPower, rotPower, visionPidOnTarget);
                     }
                     //
-                    // In Teleop or test mode, let the operator decides when to shoot. In autonomous mode, only allows
-                    // shooting when vision is onTarget.
-                    // We only allow shooting if flywheels are spinning.
+                    // In Teleop or test mode, if visionAlign is disabled, let operator decide when to shoot. This
+                    // allows the operator to shoot even if vision has problem detecting target by disabling
+                    // visionAlign. Otherwise, we always rely on vision to shoot but the operator can decide when
+                    // to commit shooting (by releasing the trigger).
                     //
-                    if (getUpperFlywheelPower() > 0.0 && (robot.isTeleop() || robot.isTest() || visionPidOnTarget))
+                    if (getUpperFlywheelPower() > 0.0)
                     {
-                        if (robot.isAutonomous() || committedToShoot)
+                        // Flywheels must be spinning to allow shooting or the shooter will jam.
+                        boolean goShoot = false;
+
+                        if ((robot.isTeleop() || robot.isTest()) && !committedToShoot)
                         {
-                            // If in autonomous mode, visionPidOnTarget must be true.
-                            // If in teleop or test mode, shoot trigger has been released (committed).
+                            // Wait for trigger release to commit shooting.
+                            allowToShoot = true;
+                        }
+                        else if (visionPidOnTarget)
+                        {
+                            if (robot.isAutonomous() || committedToShoot)
+                            {
+                                goShoot = true;
+                            }
+                        }
+                        else if (!robot.isAutonomous() && !visionAlignEnabled && committedToShoot)
+                        {
+                            // Target is not aligned but operator is doing manual override, shoot anyway.
+                            goShoot = true;
+                        }
+
+                        if (goShoot)
+                        {
                             robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                             // Pneumatic takes hardly any time, so fire and forget.
                             setTilterPosition(params.tilterAngle);
                             sm.setState(State.SHOOT_WHEN_READY);
-                        }
-                        else
-                        {
-                            // allowToShoot is only relevant in teleop or test mode.
-                            allowToShoot = true;
                         }
                     }
                     break;

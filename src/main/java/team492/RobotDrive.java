@@ -340,8 +340,7 @@ public class RobotDrive
     public void setFieldPosition(boolean useCompassHeading)
     {
         int startPos = robot.autoChoices.getStartPos();
-        TrcPose2D robotPose = robot.autoChoices.getAlliance() == Alliance.Red?
-                                RobotParams.startPosRed[startPos]: RobotParams.startPosBlue[startPos];
+        TrcPose2D robotPose = RobotParams.startPos[startPos];
         setFieldPosition(robotPose, useCompassHeading);
     }   //setFieldPosition
 

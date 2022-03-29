@@ -129,7 +129,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    robot.robotDrive.setFieldPosition(true);
+                    robot.robotDrive.setFieldPosition(false);
                     //
                     // Do start delay if any.
                     //

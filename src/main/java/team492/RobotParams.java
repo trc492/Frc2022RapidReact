@@ -51,10 +51,10 @@ public class RobotParams
         public static final boolean showVisionStatus            = true;
 
         public static final boolean debugPowerConsumption       = false;
-        public static final boolean debugDriveBase              = true;
+        public static final boolean debugDriveBase              = false;
         public static final boolean debugPidDrive               = false;
-        public static final boolean debugVision                 = true;
-        public static final boolean debugShooter                = true;
+        public static final boolean debugVision                 = false;
+        public static final boolean debugShooter                = false;
         public static final boolean debugLoopTime               = false;
     }   //class Preferences
 
@@ -95,34 +95,50 @@ public class RobotParams
     //
 
     // The following info is precisely measured from the Field CAD file. Do NOT modify.
-    public static final TrcPose2D BALLPOS_RED_1 = new TrcPose2D(  25.910,  150.790, 0.0);
-    public static final TrcPose2D BALLPOS_RED_2 = new TrcPose2D( 124.946,   88.303, 0.0);
-    public static final TrcPose2D BALLPOS_RED_3 = new TrcPose2D( 129.396,  -81.643, 0.0);
-    public static final TrcPose2D BALLPOS_RED_4 = new TrcPose2D(  33.767, -149.227, 0.0);
-    public static final TrcPose2D BALLPOS_RED_5 = new TrcPose2D(-149.227,  -33.767, 0.0);
-    public static final TrcPose2D BALLPOS_RED_6 = new TrcPose2D( -88.303,  124.946, 0.0);
-    public static final TrcPose2D BALLPOS_RED_7 = new TrcPose2D( 282.080,  117.725, 0.0);
+    public static final TrcPose2D BALLPOS_1 = new TrcPose2D( 150.790,  -25.910, 0.0);
+    public static final TrcPose2D BALLPOS_2 = new TrcPose2D(  88.303, -124.946, 0.0);
+    public static final TrcPose2D BALLPOS_3 = new TrcPose2D( -81.643, -129.396, 0.0);
+    public static final TrcPose2D BALLPOS_4 = new TrcPose2D(-149.227,  -33.767, 0.0);
+    public static final TrcPose2D BALLPOS_5 = new TrcPose2D( -33.767,  149.227, 0.0);
+    public static final TrcPose2D BALLPOS_6 = new TrcPose2D( 124.946,   88.303, 0.0);
+    public static final TrcPose2D BALLPOS_7 = new TrcPose2D( 117.725, -282.080, 0.0);
 
-    public static final TrcPose2D BALLPOS_BLUE_1 = new TrcPose2D( -25.910, -150.790, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_2 = new TrcPose2D(-124.946,  -88.303, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_3 = new TrcPose2D(-129.396,   81.643, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_4 = new TrcPose2D( -33.767,  149.227, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_5 = new TrcPose2D( 149.227,   33.767, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_6 = new TrcPose2D(  88.303, -124.946, 0.0);
-    public static final TrcPose2D BALLPOS_BLUE_7 = new TrcPose2D(-282.080, -117.725, 0.0);
+    public static final TrcPose2D STARTPOS_1 = new TrcPose2D(  86.534,  -14.869,  -80.250);
+    public static final TrcPose2D STARTPOS_2 = new TrcPose2D(  62.800,  -62.800,  -45.000);
+    public static final TrcPose2D STARTPOS_3 = new TrcPose2D( -46.861,  -74.281,   32.250);
 
-    public static final TrcPose2D STARTPOS_RED_1 = new TrcPose2D(  14.869,   86.534, 189.750);
-    public static final TrcPose2D STARTPOS_RED_2 = new TrcPose2D(  62.800,   62.800, 225.000);
-    public static final TrcPose2D STARTPOS_RED_3 = new TrcPose2D(  74.281,  -46.861, -57.750);
-    public static final TrcPose2D STARTPOS_BLUE_1 = new TrcPose2D( -14.869,  -86.534,   9.750);
-    public static final TrcPose2D STARTPOS_BLUE_2 = new TrcPose2D( -62.800,  -62.800,  45.000);
-    public static final TrcPose2D STARTPOS_BLUE_3 = new TrcPose2D( -74.281,   46.861, 122.250);
+    public static final TrcPose2D[] startPos = {STARTPOS_1, STARTPOS_2, STARTPOS_3};
 
-    public static final TrcPose2D[] startPosRed = {STARTPOS_RED_1, STARTPOS_RED_2, STARTPOS_RED_3};
-    public static final TrcPose2D[] startPosBlue = {STARTPOS_BLUE_1, STARTPOS_BLUE_2, STARTPOS_BLUE_3};
+    public static final TrcPose2D STARTPOS_AUTO_5BALL = new TrcPose2D(  89.810,  -24.987,  105.550);
 
-    public static final TrcPose2D STARTPOS_RED_AUTO_5BALL = new TrcPose2D( 24.987,  89.810,  15.550);
-    public static final TrcPose2D STARTPOS_BLUE_AUTO_5BALL = new TrcPose2D(-24.987, -89.810, 195.550);
+    // public static final TrcPose2D BALLPOS_RED_1 = new TrcPose2D(  25.910,  150.790, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_2 = new TrcPose2D( 124.946,   88.303, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_3 = new TrcPose2D( 129.396,  -81.643, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_4 = new TrcPose2D(  33.767, -149.227, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_5 = new TrcPose2D(-149.227,  -33.767, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_6 = new TrcPose2D( -88.303,  124.946, 0.0);
+    // public static final TrcPose2D BALLPOS_RED_7 = new TrcPose2D( 282.080,  117.725, 0.0);
+
+    // public static final TrcPose2D BALLPOS_BLUE_1 = new TrcPose2D( -25.910, -150.790, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_2 = new TrcPose2D(-124.946,  -88.303, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_3 = new TrcPose2D(-129.396,   81.643, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_4 = new TrcPose2D( -33.767,  149.227, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_5 = new TrcPose2D( 149.227,   33.767, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_6 = new TrcPose2D(  88.303, -124.946, 0.0);
+    // public static final TrcPose2D BALLPOS_BLUE_7 = new TrcPose2D(-282.080, -117.725, 0.0);
+
+    // public static final TrcPose2D STARTPOS_RED_1 = new TrcPose2D(  14.869,   86.534, 189.750);
+    // public static final TrcPose2D STARTPOS_RED_2 = new TrcPose2D(  62.800,   62.800, 225.000);
+    // public static final TrcPose2D STARTPOS_RED_3 = new TrcPose2D(  74.281,  -46.861, -57.750);
+    // public static final TrcPose2D STARTPOS_BLUE_1 = new TrcPose2D( -14.869,  -86.534,   9.750);
+    // public static final TrcPose2D STARTPOS_BLUE_2 = new TrcPose2D( -62.800,  -62.800,  45.000);
+    // public static final TrcPose2D STARTPOS_BLUE_3 = new TrcPose2D( -74.281,   46.861, 122.250);
+
+    // public static final TrcPose2D[] startPosRed = {STARTPOS_RED_1, STARTPOS_RED_2, STARTPOS_RED_3};
+    // public static final TrcPose2D[] startPosBlue = {STARTPOS_BLUE_1, STARTPOS_BLUE_2, STARTPOS_BLUE_3};
+
+    // public static final TrcPose2D STARTPOS_RED_AUTO_5BALL = new TrcPose2D( 24.987,  89.810,  15.550);
+    // public static final TrcPose2D STARTPOS_BLUE_AUTO_5BALL = new TrcPose2D(-24.987, -89.810, 195.550);
 
     //
     // Joystick ports.

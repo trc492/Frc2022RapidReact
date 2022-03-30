@@ -267,7 +267,8 @@ public class RobotParams
     public static final double MECANUM_Y_TOLERANCE              = 2.0;
 
     // 2022-03-10: Scale=9.250709670962152e-4, PID=0.02, 0.0, 0.005, Tol=2.0
-    public static final double SWERVE_INCHES_PER_COUNT          = 9.250709670962152e-4;
+    // 2022-03-30: Scale=9.072106867127145344367826764411e-4, PID=0.02, 0.0, 0.0
+    public static final double SWERVE_INCHES_PER_COUNT          = 9.072106867127145344367826764411e-4;
     public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
     public static final double SWERVE_KD                        = 0.0;
@@ -275,11 +276,12 @@ public class RobotParams
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
     // 2022-03-01: PID=0.007, 0.0, 0.0007, Tol=2.0
-    public static final double GYRO_TURN_KP                     = 0.007;
+    // 2022-03-30: PID=0.012, 0.0, 0.0, Tol=2.0
+    public static final double GYRO_TURN_KP                     = 0.012;
     public static final double GYRO_TURN_KI                     = 0.0;
     public static final double GYRO_TURN_KD                     = 0.0;
     public static final double GYRO_TURN_KF                     = 0.0;
-    public static final double GYRO_TURN_TOLERANCE              = 5.0;
+    public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
     public static final double GYRO_ALIGN_KP                    = 0.015;
     public static final double GYRO_ALIGN_KI                    = 0.0;
@@ -337,9 +339,9 @@ public class RobotParams
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);
-    public static final double STEER_KP                         = 0.8;  //1.2
+    public static final double STEER_KP                         = 0.8;//0.8;  //1.2
     public static final double STEER_KI                         = 0.0;
-    public static final double STEER_KD                         = 2.0;  //16.0
+    public static final double STEER_KD                         = 2.0;//2.0;  //16.0
     public static final double STEER_KF                         = 0.0;
     public static final double STEER_CAL_POWER                  = 0.1;
     public static final TrcPidController.PidCoefficients steerCoeffs =

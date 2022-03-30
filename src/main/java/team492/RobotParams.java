@@ -284,9 +284,9 @@ public class RobotParams
     public static final double GYRO_ALIGN_KP                    = 0.015;
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0;
-    public static final double GYRO_ALIGN_TOLERANCE             = 3.5;
+    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;  //3.5
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.1;
-    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 5.0;
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5;  //5.0
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
@@ -337,9 +337,9 @@ public class RobotParams
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);
-    public static final double STEER_KP                         = 1.2;//0.9;
+    public static final double STEER_KP                         = 0.8;  //1.2
     public static final double STEER_KI                         = 0.0;
-    public static final double STEER_KD                         = 16.0;//32.0;
+    public static final double STEER_KD                         = 2.0;  //16.0
     public static final double STEER_KF                         = 0.0;
     public static final double STEER_CAL_POWER                  = 0.1;
     public static final TrcPidController.PidCoefficients steerCoeffs =

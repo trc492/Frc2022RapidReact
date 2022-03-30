@@ -875,6 +875,13 @@ public class Shooter implements TrcExclusiveSubsystem
                         params = robot.shootParamTable.get(targetDistance);
                     }
 
+                    if (msgTracer != null)
+                    {
+                        msgTracer.traceInfo(
+                            funcName, "[%.3f] using %s ShootParams: %s",
+                            matchTime, providedParams != null? "provided": "interpolated", params);
+                    }
+
                     double currTime = TrcUtil.getCurrentTime();
                     if (params != null && currTime > nextFlywheelUpdateTime)
                     {
@@ -886,11 +893,6 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Don't need to wait for flywheel here. SHOOT_WHEN_READY will wait for it.
                         setFlywheelValue(
                             currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
-
-                        if (msgTracer != null)
-                        {
-                            msgTracer.traceInfo(funcName, "[%.3f] using ShootParams: %s", matchTime, params);
-                        }
                     }
 
                     // Fetch driver inputs if we are in teleOp or Test mode.
@@ -913,10 +915,15 @@ public class Shooter implements TrcExclusiveSubsystem
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
                         visionPidOnTarget = alignPidCtrl.isOnTarget();
+
                         if (msgTracer != null)
                         {
+                            msgTracer.traceInfo(
+                                funcName, "[%.3f] visionPidOnTarget=%s, rotPower=%.2f",
+                                matchTime, visionPidOnTarget, rotPower);
                             alignPidCtrl.printPidInfo(msgTracer);
                         }
+
                         if (robot.ledIndicator != null)
                         {
                             robot.ledIndicator.setVisionOnTarget(visionPidOnTarget);
@@ -939,7 +946,8 @@ public class Shooter implements TrcExclusiveSubsystem
                     // visionAlign. Otherwise, we always rely on vision to shoot but the operator can decide when
                     // to commit shooting (by releasing the trigger).
                     //
-                    if (getUpperFlywheelPower() > 0.0)
+                    double upperFlywheelPower = getUpperFlywheelPower();
+                    if (upperFlywheelPower > 0.0)
                     {
                         // Flywheels must be spinning to allow shooting or the shooter will jam.
                         boolean goShoot = false;
@@ -962,12 +970,31 @@ public class Shooter implements TrcExclusiveSubsystem
                             goShoot = true;
                         }
 
+                        if (msgTracer != null)
+                        {
+                            msgTracer.traceInfo(
+                                funcName,
+                                "[%.3f] upperFlywheelPower=%.1f, allowToShoot=%s, committedToShoot=%s, goShoot=%s",
+                                matchTime, upperFlywheelPower, allowToShoot, committedToShoot, goShoot);
+                        }
+
                         if (goShoot)
                         {
                             robot.robotDrive.driveBase.stop(currOwner);
                             robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
-                            // Pneumatic takes hardly any time, so fire and forget.
-                            setTilterPosition(params.tilterAngle);
+
+                            if (params != null)
+                            {
+                                // Pneumatic takes hardly any time, so fire and forget.
+                                setTilterPosition(params.tilterAngle);
+                                setFlywheelValue(
+                                    currOwner, params.lowerFlywheelVelocity, params.upperFlywheelVelocity, null);
+                                if (msgTracer != null)
+                                {
+                                    msgTracer.traceInfo(funcName, "[%.3f] final ShootParams: %s", matchTime, params);
+                                }
+                            }
+
                             sm.setState(State.SHOOT_WHEN_READY);
                         }
                     }

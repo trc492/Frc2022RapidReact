@@ -252,7 +252,7 @@ public class Intake implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "[%.3f] activer=%s, onFinishedEvent=%s",
+                funcName, "[%.3f] active=%s, onFinishedEvent=%s",
                 TrcUtil.getModeElapsedTime(), active, onFinishedEvent);
         }
 

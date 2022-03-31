@@ -111,7 +111,8 @@ class CmdAutoTest implements TrcRobot.RobotCommand
                 case PP_DRIVE:
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(60.0, 60.0, 45.0));
+                        new TrcPose2D(60.0, 60.0, 0.0),
+                        new TrcPose2D(60.0, 0.0, 90.0));
                     sm.waitForSingleEvent(event, State.DONE);
                     break;
 

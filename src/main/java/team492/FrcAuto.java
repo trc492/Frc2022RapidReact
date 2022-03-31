@@ -339,9 +339,7 @@ public class FrcAuto implements TrcRobot.RobotMode
                 break;
 
             case AUTO_TEST:
-                autoCommand = new CmdPurePursuitDrive(
-                    robot.robotDrive.driveBase, robot.robotDrive.xPosPidCoeff, robot.robotDrive.yPosPidCoeff,
-                    robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
+                autoCommand = new CmdAutoTest(robot);
                 break;
 
             default:

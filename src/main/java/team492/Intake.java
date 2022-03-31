@@ -251,7 +251,9 @@ public class Intake implements TrcExclusiveSubsystem
 
         if (debugEnabled)
         {
-            robot.globalTracer.traceInfo(funcName, "[%.3f] activer=%s", TrcUtil.getModeElapsedTime(), active);
+            robot.globalTracer.traceInfo(
+                funcName, "[%.3f] activer=%s, onFinishedEvent=%s",
+                TrcUtil.getModeElapsedTime(), active, onFinishedEvent);
         }
 
         if (((boolean) active) && robot.conveyor.isExitSensorActive())
@@ -259,12 +261,12 @@ public class Intake implements TrcExclusiveSubsystem
             // Stop only when a ball has reached exit. If the conveyor has only one ball, that ball will be
             // transported all the way to the exit before we will stop the conveyor.
             setPower(0.0, 0.0, 0.0);
-        }
 
-        if (onFinishedEvent != null)
-        {
-            onFinishedEvent.signal();
-            onFinishedEvent = null;
+            if (onFinishedEvent != null)
+            {
+                onFinishedEvent.signal();
+                onFinishedEvent = null;
+            }
         }
     }   //conveyorEntranceTrigger
 

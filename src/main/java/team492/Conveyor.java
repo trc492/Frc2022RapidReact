@@ -47,7 +47,7 @@ public class Conveyor implements TrcExclusiveSubsystem
     private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
 
     private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
-    private TrcEvent onFinishEvent;
+    private TrcEvent onFinishedEvent;
     private TriggerAction triggerAction = TriggerAction.DoNothing;
 
     /**
@@ -259,7 +259,7 @@ public class Conveyor implements TrcExclusiveSubsystem
         // if necessary.
         if (entranceHasBall || exitHasBall)
         {
-            this.onFinishEvent = event;
+            this.onFinishedEvent = event;
             conveyorMotor.set(power);
         }
     }   //move
@@ -352,7 +352,8 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "[%.3f] active=%s, triggerAction=%s", TrcUtil.getModeElapsedTime(), active, triggerAction);
+                funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
+                TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }
 
         if (active)
@@ -362,9 +363,9 @@ public class Conveyor implements TrcExclusiveSubsystem
                 // backing up a ball to the entrance.
                 conveyorMotor.set(0.0);
                 triggerAction = TriggerAction.DoNothing;
-                if (onFinishEvent != null)
+                if (onFinishedEvent != null)
                 {
-                    onFinishEvent.signal();
+                    onFinishedEvent.signal();
                 }
             }
             else if (triggerAction == TriggerAction.DoNothing)
@@ -403,7 +404,8 @@ public class Conveyor implements TrcExclusiveSubsystem
         if (debugEnabled)
         {
             robot.globalTracer.traceInfo(
-                funcName, "[%.3f] active=%s, triggerAction=%s", TrcUtil.getModeElapsedTime(), active, triggerAction);
+                funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
+                TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }
 
         if (triggerAction == TriggerAction.StopOnForward)
@@ -411,9 +413,9 @@ public class Conveyor implements TrcExclusiveSubsystem
             // advancing a ball to the exit or moving the ball to the shooter.
             conveyorMotor.set(0.0);
             triggerAction = TriggerAction.DoNothing;
-            if (onFinishEvent != null)
+            if (onFinishedEvent != null)
             {
-                onFinishEvent.signal();
+                onFinishedEvent.signal();
             }
         }
 

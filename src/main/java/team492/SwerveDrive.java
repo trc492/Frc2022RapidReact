@@ -389,7 +389,7 @@ public class SwerveDrive extends RobotDrive
     public void stopMode(RunMode runMode, RunMode nextMode)
     {
         super.stopMode(runMode, nextMode);
-        // setSteerAngleZero(false);
+        setSteerAngleZero(false);
     }   //stopMode
 
     @Override

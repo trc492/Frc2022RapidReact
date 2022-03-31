@@ -660,6 +660,7 @@ public class Robot extends FrcRobotBase
 
         relativePose.x = distance*Math.cos(Math.toRadians(relativePose.angle));
         relativePose.y = distance*Math.sin(Math.toRadians(relativePose.angle));
+        relativePose.angle = 0.0;
         lastWaypoint.pose.setAs(secondLastWaypoint.pose.addRelativePose(relativePose));
 
         globalTracer.traceInfo(funcName, "AdjustedPath: %s", path.toAbsolute(robotDrive.driveBase.getFieldPosition()));

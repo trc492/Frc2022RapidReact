@@ -58,6 +58,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         PP_DRIVE,
         PID_DRIVE,
         TIMED_DRIVE,
+        AUTO_TEST,
         DO_NOTHING
     }   //enum AutoStrategy
 
@@ -125,6 +126,7 @@ public class FrcAuto implements TrcRobot.RobotMode
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
+            autoStrategyMenu.addChoice("Auto Test", AutoStrategy.AUTO_TEST);
             autoStrategyMenu.addChoice("Do Nothing", AutoStrategy.DO_NOTHING, false, true);
 
             autoStartPosMenu.addChoice("Start Position 1", AutoStartPos.POS_1, true, false);
@@ -334,6 +336,12 @@ public class FrcAuto implements TrcRobot.RobotMode
                     robot.autoChoices.getStartDelay(),
                     robot.autoChoices.getDriveTime(), 0.0,
                     robot.autoChoices.getDrivePower(), 0.0);
+                break;
+
+            case AUTO_TEST:
+                autoCommand = new CmdPurePursuitDrive(
+                    robot.robotDrive.driveBase, robot.robotDrive.xPosPidCoeff, robot.robotDrive.yPosPidCoeff,
+                    robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
                 break;
 
             default:

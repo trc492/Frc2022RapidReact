@@ -105,12 +105,14 @@ class CmdAutoTest implements TrcRobot.RobotCommand
             {
                 case START:
                     robot.robotDrive.driveBase.setFieldPosition(new TrcPose2D(0.0, 0.0, 0.0));
+                    // robot.robotDrive.driveBase.setFieldPosition(RobotParams.STARTPOS_AUTO_5BALL);
                     sm.setState(State.PP_DRIVE);
                     break;
 
                 case PP_DRIVE:
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        // new TrcPose2D(0.0, -100.0, 0.0));
                         new TrcPose2D(60.0, 60.0, 0.0),
                         new TrcPose2D(60.0, 0.0, 90.0));
                     sm.waitForSingleEvent(event, State.DONE);

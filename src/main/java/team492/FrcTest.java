@@ -286,7 +286,6 @@ public class FrcTest extends FrcTeleOp
 
             case PP_DRIVE:
                 robot.robotDrive.purePursuitDrive.setMoveOutputLimit(testChoices.getDrivePower());
-                robot.robotDrive.purePursuitDrive.getTurnPidCtrl().setNoOscillation(false);
                 robot.robotDrive.purePursuitDrive.start(
                     null, robot.robotDrive.driveBase.getFieldPosition(), true,
                     new TrcPose2D(

@@ -86,6 +86,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Initialize subsystems for TeleOp mode if necessary.
         //
         driveOrientation = DriveOrientation.ROBOT;
+        updateLEDDriveOrientation();
     }   //startMode
 
     /**
@@ -203,6 +204,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     }   //runContinuous
 
     /**
+     * This method update the LED to display the drive orientation status.
+     */
+    private void updateLEDDriveOrientation()
+    {
+        robot.ledIndicator.setDriveOrientation(driveOrientation);
+    }   //updateLEDDriveOrientation
+
+    /**
      * This method enables/disables joystick controls.
      *
      * @param enabled specifies true to enable joystick control, false to disable.
@@ -290,6 +299,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                         driveOrientation = DriveOrientation.ROBOT;
                     }
                     robot.ledIndicator.setDriveOrientation(driveOrientation);
+                    updateLEDDriveOrientation();
                 }
                 break;
 
@@ -302,7 +312,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     driveOrientation = DriveOrientation.FIELD;
                 }
-                robot.ledIndicator.setDriveOrientation(driveOrientation);
+                updateLEDDriveOrientation();
                 break;
 
             case FrcXboxController.RIGHT_BUMPER:
@@ -406,6 +416,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     driveOrientation = DriveOrientation.ROBOT;
                 }
+                updateLEDDriveOrientation();
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
@@ -426,6 +437,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     {
                         driveOrientation = DriveOrientation.ROBOT;
                     }
+                    updateLEDDriveOrientation();
                 }
                 break;
         }

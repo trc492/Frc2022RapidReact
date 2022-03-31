@@ -28,18 +28,23 @@ import TrcFrcLib.frclib.FrcColor;
 
 public class LEDIndicator
 {
-    private static final TrcAddressableLED.Pattern nominalPattern =
-        new TrcAddressableLED.Pattern("FullGreen", FrcColor.FULL_GREEN, RobotParams.NUM_LEDS);
-    private static final TrcAddressableLED.Pattern fieldOrientedPattern =
-        new TrcAddressableLED.Pattern("FullWhite", FrcColor.FULL_WHITE, RobotParams.NUM_LEDS);
-    private static final TrcAddressableLED.Pattern robotOrientedPattern =
-        new TrcAddressableLED.Pattern("FullBlue", FrcColor.FULL_BLUE, RobotParams.NUM_LEDS);
-    private static final TrcAddressableLED.Pattern inverseOrientedPattern =
-        new TrcAddressableLED.Pattern("FullRed", FrcColor.FULL_RED, RobotParams.NUM_LEDS);
-    private static final TrcAddressableLED.Pattern visionOnTargetPattern =
-        new TrcAddressableLED.Pattern("FullCyan", FrcColor.FULL_CYAN, RobotParams.NUM_LEDS);
-    private static final TrcAddressableLED.Pattern flywheelVelOnTargetPattern = 
-        new TrcAddressableLED.Pattern("FullMagenta", FrcColor.FULL_MAGENTA, RobotParams.NUM_LEDS);
+    private static final TrcAddressableLED.Pattern nominalPattern = // Black
+        new TrcAddressableLED.Pattern("Nominal", new FrcColor(0, 0, 0), RobotParams.NUM_LEDS);
+
+    private static final TrcAddressableLED.Pattern fieldOrientedPattern = // Cyan
+        new TrcAddressableLED.Pattern("FieldOriented", new FrcColor(0, 63, 63), RobotParams.NUM_LEDS);
+    private static final TrcAddressableLED.Pattern robotOrientedPattern = // Red
+        new TrcAddressableLED.Pattern("RobotOriented", new FrcColor(63, 0, 0), RobotParams.NUM_LEDS);
+    private static final TrcAddressableLED.Pattern inverseOrientedPattern = // Magenta
+        new TrcAddressableLED.Pattern("InverseOriented", new FrcColor(63, 0, 63), RobotParams.NUM_LEDS);
+
+    private static final TrcAddressableLED.Pattern targetInViewPattern = // Yellow
+        new TrcAddressableLED.Pattern("TargetInView", new FrcColor(63, 63, 0), RobotParams.NUM_LEDS);
+    private static final TrcAddressableLED.Pattern targetAlignedPattern = // Green
+        new TrcAddressableLED.Pattern("TargetAligned", new FrcColor(0, 63, 0), RobotParams.NUM_LEDS);
+    // private static final TrcAddressableLED.Pattern flywheelAtSpeedPattern = // Green
+    //     new TrcAddressableLED.Pattern("ReadyToShoot", new FrcColor(63, 63, 0), RobotParams.NUM_LEDS);
+
     private static final TrcAddressableLED.Pattern[] priorities =
         new TrcAddressableLED.Pattern[]
         {
@@ -47,8 +52,8 @@ public class LEDIndicator
             inverseOrientedPattern,
             robotOrientedPattern,
             fieldOrientedPattern,
-            flywheelVelOnTargetPattern,
-            visionOnTargetPattern
+            targetInViewPattern,
+            targetAlignedPattern,
         };
 
     private FrcAddressableLED led;
@@ -74,16 +79,6 @@ public class LEDIndicator
         led.setPatternState(nominalPattern, true);
     }   //reset
 
-    public void setVisionOnTarget(boolean enabled)
-    {
-        led.setPatternState(visionOnTargetPattern, enabled);
-    }   //setVisionOnTarget
-
-    public void setFlywheelOnTarget(boolean enabled)
-    {
-        led.setPatternState(flywheelVelOnTargetPattern, enabled);
-    }   //setFlywheelOnTarget
-
     /**
      * This method sets the LED to indicate the drive orientation mode of the robot.
      *
@@ -95,22 +90,32 @@ public class LEDIndicator
         {
             case INVERTED:
                 led.setPatternState(inverseOrientedPattern, true);
+                led.setPatternState(robotOrientedPattern, false);
                 led.setPatternState(fieldOrientedPattern, false);
-                led.setPatternState(robotOrientedPattern, false);
-                break;
-
-            case FIELD:
-                led.setPatternState(inverseOrientedPattern, false);
-                led.setPatternState(fieldOrientedPattern, true);
-                led.setPatternState(robotOrientedPattern, false);
                 break;
 
             case ROBOT:
                 led.setPatternState(inverseOrientedPattern, false);
-                led.setPatternState(fieldOrientedPattern, false);
                 led.setPatternState(robotOrientedPattern, true);
+                led.setPatternState(fieldOrientedPattern, false);
+                break;
+
+            case FIELD:
+                led.setPatternState(inverseOrientedPattern, false);
+                led.setPatternState(robotOrientedPattern, false);
+                led.setPatternState(fieldOrientedPattern, true);
                 break;
         }
     }   //setDriveOrientation
+
+    public void setTargetInView(boolean enabled)
+    {
+        led.setPatternState(targetInViewPattern, enabled);
+    }   //setVisionOnTarget
+
+    public void setTargetAligned(boolean enabled)
+    {
+        led.setPatternState(targetAlignedPattern, enabled);
+    }   //setTargetAligned
 
 }   //class LEDIndicator

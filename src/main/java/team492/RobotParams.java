@@ -220,7 +220,7 @@ public class RobotParams
     // PWM channels.
     //
     public static final int PWM_CHANNEL_LED                     = 0;
-    public static final int NUM_LEDS                            = 60;   // TODO: needs updating
+    public static final int NUM_LEDS                            = 144;
 
     //
     // Relay channels.
@@ -271,7 +271,7 @@ public class RobotParams
     public static final double SWERVE_INCHES_PER_COUNT          = 9.072106867127145344367826764411e-4;
     public static final double SWERVE_KP                        = 0.02;
     public static final double SWERVE_KI                        = 0.0;
-    public static final double SWERVE_KD                        = 0.0;
+    public static final double SWERVE_KD                        = 0.002;
     public static final double SWERVE_KF                        = 0.0;
     public static final double SWERVE_TOLERANCE                 = 2.0;
 
@@ -279,16 +279,16 @@ public class RobotParams
     // 2022-03-30: PID=0.012, 0.0, 0.0, Tol=2.0
     public static final double GYRO_TURN_KP                     = 0.012;
     public static final double GYRO_TURN_KI                     = 0.0;
-    public static final double GYRO_TURN_KD                     = 0.0;
+    public static final double GYRO_TURN_KD                     = 0.0012;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
     public static final double GYRO_ALIGN_KP                    = 0.015;
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0;
-    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;  //3.5
+    public static final double GYRO_ALIGN_TOLERANCE             = 3.5;  //3.5
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.1;
-    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5;  //5.0
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 5.0;  //5.0
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
@@ -347,7 +347,7 @@ public class RobotParams
     public static final TrcPidController.PidCoefficients steerCoeffs =
         new TrcPidController.PidCoefficients(STEER_KP, STEER_KI, STEER_KD, STEER_KF);
     //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
-    public static final double PPD_FOLLOWING_DISTANCE           = 10.0;
+    public static final double PPD_FOLLOWING_DISTANCE           = 12.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
     public static final double PPD_TURN_TOLERANCE               = 2.0;
     public static final double PPD_MOVE_OUTPUT_LIMIT            = 0.3;

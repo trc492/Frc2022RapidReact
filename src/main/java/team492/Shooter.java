@@ -397,8 +397,6 @@ public class Shooter implements TrcExclusiveSubsystem
                 TrcUtil.getModeElapsedTime(), active, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
         }
 
-        robot.ledIndicator.setFlywheelOnTarget(active);
-
         if (active && flywheelToSpeedEvent != null)
         {
             flywheelToSpeedEvent.signal();
@@ -831,7 +829,9 @@ public class Shooter implements TrcExclusiveSubsystem
                     // Use vision to determine shoot parameters.
                     if (usingVision && robot.vision != null)
                     {
-                        if (robot.vision.targetAcquired())
+                        boolean targetInView = robot.vision.targetAcquired();
+
+                        if (targetInView)
                         {
                             targetAngle = robot.vision.getTargetHorizontalAngle();
                             targetDistance = robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS;
@@ -843,6 +843,8 @@ public class Shooter implements TrcExclusiveSubsystem
                                     matchTime, targetAngle, targetDistance);
                             }
                         }
+
+                        robot.ledIndicator.setTargetInView(targetInView);
                     }
 
                     if (targetAngle == null && useOdometry)
@@ -924,10 +926,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             alignPidCtrl.printPidInfo(msgTracer);
                         }
 
-                        if (robot.ledIndicator != null)
-                        {
-                            robot.ledIndicator.setVisionOnTarget(visionPidOnTarget);
-                        }
+                        robot.ledIndicator.setTargetAligned(visionPidOnTarget);
                     }
                     else
                     {

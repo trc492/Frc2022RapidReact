@@ -257,12 +257,15 @@ public class Intake implements TrcExclusiveSubsystem
                 TrcUtil.getModeElapsedTime(), active, exitHasBall, onFinishedEvent);
         }
 
-        if (((boolean) active) && exitHasBall)
+        if ((boolean) active)
         {
             // Stop only when a ball has reached exit. If the conveyor has only one ball, that ball will be
             // transported all the way to the exit before we will stop the conveyor. Keep the intake spinning
             // and we will stop the intake when we pick up the second ball.
-            setPower(0.0, 0.0, 0.0);
+            if (exitHasBall)
+            {
+                setPower(0.0, 0.0, 0.0);
+            }
 
             if (onFinishedEvent != null)
             {

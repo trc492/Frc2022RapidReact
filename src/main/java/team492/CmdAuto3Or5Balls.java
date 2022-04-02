@@ -48,8 +48,10 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 
     private final Robot robot;
     private final boolean do5Balls;
-    private final TrcEvent event;
+    private final TrcEvent timerEvent;
     private final TrcEvent driveEvent;
+    private final TrcEvent intakeEvent;
+    private final TrcEvent shootEvent;
     private final TrcStateMachine<State> sm;
     private final TrcTimer timer;
 
@@ -69,9 +71,12 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 
         this.robot = robot;
         this.do5Balls = do5Balls;
-        event = new TrcEvent(moduleName + ".event");
+        // this.robot.shooter.
         timer = new TrcTimer(moduleName);
+        timerEvent = new TrcEvent(moduleName + ".timerEvent");
         driveEvent = new TrcEvent(moduleName + ".driveEvent");
+        intakeEvent = new TrcEvent(moduleName + ".intakeEvent");
+        shootEvent = new TrcEvent(moduleName + ".shootEvent");
         sm = new TrcStateMachine<>(moduleName);
         sm.start(State.START_DELAY);
     }   //CmdAuto3Or5Balls
@@ -116,13 +121,13 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
 
         if (state == null)
         {
-            robot.dashboard.displayPrintf(8, "State: disabled or waiting (nextState=%s)...", sm.getNextState());
+            robot.dashboard.displayPrintf(9, "State: disabled or waiting (nextState=%s)...", sm.getNextState());
         }
         else
         {
             TrcPath path;
 
-            robot.dashboard.displayPrintf(8, "State: %s", state);
+            robot.dashboard.displayPrintf(9, "State: %s", state);
             switch (state)
             {
                 case START_DELAY:
@@ -140,8 +145,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     }
                     else
                     {
-                        sm.waitForSingleEvent(event, State.PICKUP_SECOND_BALL);
-                        timer.set(startDelay, event);
+                        sm.waitForSingleEvent(timerEvent, State.PICKUP_SECOND_BALL);
+                        timer.set(startDelay, timerEvent);
                     }
                     break;
 
@@ -150,8 +155,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     robot.shooter.setFlywheelValue(2000.0, 2000.0);
                     robot.intake.extend();
                     // After we pick up the ball, we can go to the first shoot position.
-                    sm.waitForSingleEvent(event, State.GO_TO_FIRST_SHOOT_POS);
-                    robot.intake.pickup(event);
+                    sm.waitForSingleEvent(intakeEvent, State.GO_TO_FIRST_SHOOT_POS);
+                    robot.intake.pickup(intakeEvent);
                     // Move forward to pick up the ball right in front of the robot, stop as soon as pickup event triggers.
                     robot.robotDrive.purePursuitDrive.start(
                         null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
@@ -164,12 +169,24 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // Go right behind the third ball to pick up (closer to the tarmac) to shoot the first two balls.
                     robot.intake.retract();
                     // Shoot after we get to the position we want to be
-                    sm.waitForSingleEvent(event, State.SHOOT);
+                    sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     // Ball 2 Location: 88.303, -124.946, 0.0
+                    // path = robot.buildPath(
+                    //     false, -24.0,
+                    //     new TrcPose2D(88.303 + 30.0, -124.946, 0.0),
+                    //     new TrcPose2D(88.303 + 30.0, -124.946 - 48.0, -35.0),
+                    //     robot.pathPoint(RobotParams.BALLPOS_2, 0.0, 0.0, -35.0));
+                    // robot.robotDrive.purePursuitDrive.start(path, event, 0.0);
+                    // robot.robotDrive.purePursuitDrive.start(
+                    //     event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                    //     // new TrcPose2D(88.303 + 17.697, -124.946 - 32.454, 0.0));
+                    //     new TrcPose2D(88.303, -124.946));
                     robot.robotDrive.purePursuitDrive.start(
-                        event, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                        new TrcPose2D(88.303 + 42.0, -124.936 - 42.0, -35.0),
-                        new TrcPose2D(88.303 + 18.0, -124.936 - 36.0, -35.0));
+                        driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(140.0, -30, -135.0));
+                        //old numbers
+                        //new TrcPose2D(88.303 + 15.0, -124.946 - 42.0, -35.0));
+                        // new TrcPose2D(88.303 + 18.0, -124.936 - 36.0, -35.0));
                         // new TrcPose2D(111 + 20, -166, -35),
                         // new TrcPose2D(111-5, -(166-5), -35));
                     break;
@@ -182,19 +199,23 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     numBallsShot += (numBallsShot == 0 || numBallsShot == 3) ? 2 : 1;
                     // Decides the next state based on how many balls we've shot so far
                     sm.waitForSingleEvent(
-                        event, numBallsShot == 2? State.PICKUP_THIRD_BALL:
-                               numBallsShot == 3 && do5Balls? State.PICKUP_TERMINAL_BALL: 
-                               State.DONE);
-                    robot.shooter.shootWithVision(moduleName, event);
+                        shootEvent, numBallsShot == 2? State.PICKUP_THIRD_BALL:
+                                    numBallsShot == 3 && do5Balls? State.PICKUP_TERMINAL_BALL: 
+                                    State.DONE);
+                    robot.shooter.shootWithVision(moduleName, shootEvent);
                     break;
 
                 case PICKUP_THIRD_BALL:
                     // Picks up the ball close to the tarmac, which is right in front of us
                     robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.SHOOT); // Shoot after picking up the ball
-                    robot.intake.pickup(event);
-                    path = robot.buildPath(false, 0.0, robot.pathPoint(RobotParams.BALLPOS_2, 0.0, 0.0, -35.0));
-                    robot.robotDrive.purePursuitDrive.start(path, null, 0.0); //goes to the location of the third ball
+                    sm.waitForSingleEvent(intakeEvent, State.SHOOT); // Shoot after picking up the ball
+                    robot.intake.pickup(intakeEvent);
+                    // path = robot.buildPath(false, 0.0, robot.pathPoint(RobotParams.BALLPOS_2, 0.0, 0.0, -35.0));
+                    // robot.robotDrive.purePursuitDrive.start(path, null, 0.0); //goes to the location of the third ball
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, 20.0, 0.0),
+                        new TrcPose2D(0.0, -20.0, 0.0));
                     // robot.robotDrive.purePursuitDrive.start(
                     //     null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
                     //     new TrcPose2D(111 - 20, -(166 - 20), -35), // We move forward and then immediately back up to the same position
@@ -204,23 +225,23 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                 case PICKUP_TERMINAL_BALL:
                     // Drives to the terminal and picks up the ball resting there
                     robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.DONE);//PICKUP_HUMAN_PLAYER_BALL); TO-DO
-                    robot.intake.pickup(event);
-                    path = robot.buildPath(false, 0.0, robot.pathPoint(RobotParams.BALLPOS_7, 0.0, 0.0, 150.0));
+                    sm.waitForSingleEvent(intakeEvent, State.PICKUP_HUMAN_PLAYER_BALL);
+                    robot.intake.pickup(intakeEvent);
+                    // path = robot.buildPath(false, 0.0, robot.pathPoint(RobotParams.BALLPOS_7, 0.0, 0.0, 150.0));
                     // // turns about halfway in the path in order to be facing the correct angle when picking up the ball
-                    // robot.robotDrive.purePursuitDrive.start(
-                    //     null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                    //     // Turns about halfway in the path in order to be facing the correct angle when picking up the ball
-                    //     new TrcPose2D(100, -200, 90),
-                    //     new TrcPose2D(90, -260, 135));
+                    robot.robotDrive.purePursuitDrive.start(
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        // Turns about halfway in the path in order to be facing the correct angle when picking up the ball
+                        new TrcPose2D(-60.0, -100.0, 180.0));
+                        // new TrcPose2D(100, -200, 90),
+                        // new TrcPose2D(90, -260, 135));
                     break;
 
                 case PICKUP_HUMAN_PLAYER_BALL:
                     robot.robotDrive.purePursuitDrive.cancel();
                     // Runs intake until human player ball is inputted, then goes to shoot position
-                    robot.intake.extend();
-                    sm.waitForSingleEvent(event, State.GO_TO_FINAL_SHOOT_POS);
-                    robot.intake.pickup(event); // When the ball is picked up we can shoot
+                    sm.waitForSingleEvent(intakeEvent, State.GO_TO_FINAL_SHOOT_POS);
+                    robot.intake.pickup(intakeEvent); // When the ball is picked up we can shoot
                     break;
 
                 case GO_TO_FINAL_SHOOT_POS:
@@ -228,8 +249,9 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // Shoot once we arrive at the final shoot position
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
-                        driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                        robot.shootingPoint(0.0, -94.44, 0.0));
+                        driveEvent, 2.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(15, -72, 180)); 
+                        //robot.shootingPoint(0.0, -94.44, 180.0));
                     break;
 
                 case DONE:

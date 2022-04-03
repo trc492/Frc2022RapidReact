@@ -280,6 +280,7 @@ public class Robot extends FrcRobotBase
         shooter.setMsgTracer(globalTracer);
         climber.zeroCalibrateClimber();
         climber.climberPneumatic.retract();
+        climber.setMsgTracer(globalTracer);
         ledIndicator.reset();
     }   //robotStartMode
 

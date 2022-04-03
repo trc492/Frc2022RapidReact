@@ -283,12 +283,12 @@ public class RobotParams
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
-    public static final double GYRO_ALIGN_KP                    = 0.02;
+    public static final double GYRO_ALIGN_KP                    = 0.015;    //0.02;
     public static final double GYRO_ALIGN_KI                    = 0.0;
-    public static final double GYRO_ALIGN_KD                    = 0.0012;
-    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;
+    public static final double GYRO_ALIGN_KD                    = 0.0;      //0.0012;
+    public static final double GYRO_ALIGN_TOLERANCE             = 2.0;      //1.0;
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.2;
-    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 1.5;
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5;      //1.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
@@ -364,7 +364,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.75;     //0.5;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
@@ -390,9 +390,9 @@ public class RobotParams
     public static final double CONVEYOR_MOVE_POWER              = 0.5;
 
     // Climber subsystem.
-    public static final double CLIMBER_KP                       = 0.06;
+    public static final double CLIMBER_KP                       = 0.2;  //0.06;
     public static final double CLIMBER_KI                       = 0.0;
-    public static final double CLIMBER_KD                       = 0.005;
+    public static final double CLIMBER_KD                       = 0.0;  //0.005;
     public static final double CLIMBER_TOLERANCE                = 1.0;
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;

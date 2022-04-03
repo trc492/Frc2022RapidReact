@@ -577,12 +577,20 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     currShootParams = robot.shootParamTable.get(ShootLoc.LaunchPad);
                 }
+                else
+                {
+                    currShootParams = null;
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_GREEN1:
                 if (pressed)
                 {
                     currShootParams = robot.shootParamTable.get(ShootLoc.RingMid);
+                }
+                else
+                {
+                    currShootParams = null;
                 }
                 break;
 
@@ -591,12 +599,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 {
                     currShootParams = robot.shootParamTable.get(ShootLoc.TarmacMid);
                 }
+                else
+                {
+                    currShootParams = null;
+                }
                 break;
 
             case FrcJoystick.PANEL_BUTTON_YELLOW1:
                 if (pressed)
                 {
-                    currShootParams = robot.shootParamTable.get(ShootLoc.TarmacAuto);
+                    robot.climber.traverseOneRung(true);
                 }
                 break;
 
@@ -628,8 +640,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_BLUE2:
                 if (pressed)
                 {
-                    //robot.climber.climber.setTarget(26.0, true);
-                    robot.climber.traverseOneRung();
+                    robot.climber.traverseOneRung(false);
                 }
                 break;
 

@@ -25,6 +25,7 @@ package team492;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
+import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcDigitalInputTrigger;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcPidActuator;
@@ -51,12 +52,15 @@ public class Climber
     public final FrcDigitalInput climberLowerLimitSwitch;
     public final TrcPidActuator climber;
 
+    private TrcDbgTrace msgTracer = null;
     private final TrcDigitalInputTrigger limitSwitchTrigger;
     private final TrcEvent limitSwitchEvent;
     private final TrcEvent event;
     private final TrcTimer timer;
     private final TrcStateMachine<State> sm;
     private final TrcTaskMgr.TaskObject climberTaskObj;
+
+    private boolean traversalRung = false;
 
     /**
      * Constructor: Create an instance of the object.
@@ -115,6 +119,16 @@ public class Climber
 
         return motor;
     }   //createClimberMotor
+
+    /**
+     * This method enables/disables tracing for the shooter subsystem.
+     *
+     * @param tracer specifies the tracer to use for logging events.
+     */
+    public void setMsgTracer(TrcDbgTrace tracer)
+    {
+        msgTracer = tracer;
+    }   //setMsgTracer
 
     public boolean isLowerLimitSwitchActive()
     {
@@ -188,8 +202,9 @@ public class Climber
         DONE
     }   //enum State
 
-    public void traverseOneRung()
+    public void traverseOneRung(boolean traversalRung)
     {
+        this.traversalRung = traversalRung;
         sm.start(State.PULL_DOWN_PRIMARY_HOOK);
         climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
     }   //traverseOneRung
@@ -200,6 +215,7 @@ public class Climber
      */
     public void cancel()
     {
+        climber.setManualOverride(false);
         sm.stop();
         climberTaskObj.unregisterTask();
     }   //cancel
@@ -219,6 +235,7 @@ public class Climber
             switch (state)
             {
                 case PULL_DOWN_PRIMARY_HOOK:
+                    climber.setManualOverride(true);
                     // Pull robot up.
                     sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
                     limitSwitchTrigger.setEnabled(true);
@@ -239,6 +256,7 @@ public class Climber
                     setPower(0.1);
                     sm.waitForSingleEvent(event, State.EXTEND_PRIMARY_HOOK);
                     timer.set(1.0, event);
+                    break;
 
                 case EXTEND_PRIMARY_HOOK:
                     // Extend primary hook to engage the next rung.
@@ -250,13 +268,13 @@ public class Climber
                     // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
-                    timer.set(2.0, event); //TODO: Time engaging of rung tighter?
+                    timer.set(traversalRung? 1.75: 1.0, event); //TODO: Time engaging of rung tighter?
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:
                     // Pull up to the next rung to unhook the previous rung.
-                    sm.waitForSingleEvent(event, State.DAMPENED_SWING);
-                    setPosition(40.0, true, event, 1.8);
+                    sm.waitForSingleEvent(event, State.DONE);//DAMPENED_SWING);
+                    setPosition(26.0/*40.0*/, true, event, 1.8);
                     break;
 
                 case DAMPENED_SWING:
@@ -271,7 +289,7 @@ public class Climber
             }
         }
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
             robot.globalTracer.traceStateInfo(sm.toString(), state);
         }

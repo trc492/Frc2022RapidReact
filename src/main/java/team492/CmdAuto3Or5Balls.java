@@ -167,7 +167,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                        robot.ballPickupPoint(RobotParams.BALLPOS_2, 43, -35.25, 0.0, 0.0));
+                        robot.ballPickupPoint(RobotParams.BALLPOS_2, 46, -35.25, 0.0, 0.0));
                     break;
 
                 case SHOOT:
@@ -191,8 +191,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(intakeEvent);
                     robot.robotDrive.purePursuitDrive.start(
                         null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 20.0, 0.0),
-                        new TrcPose2D(0.0, -20.0, 0.0));
+                        new TrcPose2D(0.0, 30.0, 0.0));
+                        //new TrcPose2D(0.0, -30.0, 0.0));
                     break;
 
                 case PICKUP_TERMINAL_BALL:
@@ -202,7 +202,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(intakeEvent);
                     robot.robotDrive.purePursuitDrive.start(
                         null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                        robot.ballPickupPoint(RobotParams.BALLPOS_7, RobotParams.INTAKE_OFFSET - 6.0, 157.35,
+                        robot.ballPickupPoint(RobotParams.BALLPOS_7, RobotParams.INTAKE_OFFSET - 10.0, 157.35,
                         -8.0, 0.0));
                     break;
 

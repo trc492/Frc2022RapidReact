@@ -614,8 +614,8 @@ public class Robot extends FrcRobotBase
 
         deltaX = distance * Math.sin(Math.toRadians(angle));
         deltaY = distance * Math.cos(Math.toRadians(angle));
-        pickupPoint.x -= deltaX + xAdj;
-        pickupPoint.y -= deltaY + yAdj;
+        pickupPoint.x += -deltaX + xAdj;
+        pickupPoint.y += -deltaY + yAdj;
         pickupPoint.angle = angle;
 
         return pickupPoint;

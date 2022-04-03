@@ -283,12 +283,12 @@ public class RobotParams
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
 
-    public static final double GYRO_ALIGN_KP                    = 0.015;
+    public static final double GYRO_ALIGN_KP                    = 0.02;
     public static final double GYRO_ALIGN_KI                    = 0.0;
-    public static final double GYRO_ALIGN_KD                    = 0.0;
-    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;  //3.5
-    public static final double GYRO_ALIGN_SETTLING_TIME         = 0.1;
-    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 4.0;  //5.0
+    public static final double GYRO_ALIGN_KD                    = 0.0012;
+    public static final double GYRO_ALIGN_TOLERANCE             = 1.0;
+    public static final double GYRO_ALIGN_SETTLING_TIME         = 0.2;
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 1.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
@@ -364,8 +364,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 1.0;      // in seconds //0.5
-    // public static final double FLYWHEEL_AUTO_SETTLING_TIME      = 1.0;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;

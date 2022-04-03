@@ -92,10 +92,12 @@ public class Robot extends FrcRobotBase
     public VisionTargeting vision;
     public final ShootParamTable shootParamTable = new ShootParamTable()
         .add(ShootLoc.Tower,        71.83, 2800, 800, RobotParams.TILTER_CLOSE_ANGLE)
+        //tune this better
         .add(ShootLoc.Distance7ft,  84.0, 2500, 1400, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacAuto,   95.4, 2200, 1500, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacMid,    107.0, 2100, 1600, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance12ft, 120.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+        //tune this
         .add(ShootLoc.FarThreshold, 132.0, 2000, 2100, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.OldThreshold, 132.0001, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
         //Tune inflection with lower at 145.99999
@@ -593,6 +595,31 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(funcName, "x=%.2f, y=%.2f, angle=%.2f", robotX, robotY, angle);
         return angle;
     }   //getAlignAngleFromOdometry
+
+    /**
+     * This method calculates the location of the robot for picking the ball given the ball's location and the
+     * distance in front of the ball as well as the angle of approach.
+     *
+     * @param ballPoint specifies the ball location.
+     * @param distance specifies the distance in front of the ball.
+     * @param angle specifies the approach angle.
+     * @param xAdj specifies adjustment in X.
+     * @param yAdj specifies adjustment in Y.
+     * @return robot's location to pickup the ball.
+     */
+    public TrcPose2D ballPickupPoint(TrcPose2D ballPoint, double distance, double angle, double xAdj, double yAdj)
+    {
+        TrcPose2D pickupPoint = ballPoint.clone();
+        double deltaX, deltaY;
+
+        deltaX = distance * Math.sin(Math.toRadians(angle));
+        deltaY = distance * Math.cos(Math.toRadians(angle));
+        pickupPoint.x -= deltaX + xAdj;
+        pickupPoint.y -= deltaY + yAdj;
+        pickupPoint.angle = angle;
+
+        return pickupPoint;
+    }   //ballPickupPoint
 
     /**
      * This method clones the given target point and adds adjustments to x, y and angle.

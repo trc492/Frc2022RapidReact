@@ -233,10 +233,20 @@ public class Robot extends FrcRobotBase
         if (RobotParams.Preferences.useSubsystems)
         {
             // Intake needs Conveyor, so Conveyor must be created before Intake.
-            conveyor = new Conveyor(this);
+            conveyor = new Conveyor();
+            conveyor.setMsgTracer(globalTracer);
+
             intake = new Intake(this);
+            intake.setMsgTracer(globalTracer);
+            intake.retract();
+
+            climber = new Climber();
+            climber.setMsgTracer(globalTracer);
+            climber.climberPneumatic.retract();
+            climber.zeroCalibrateClimber();
+
             shooter = new Shooter(this);
-            climber = new Climber(this);
+            shooter.setMsgTracer(globalTracer);
         }
 
         if (pdp != null)
@@ -298,10 +308,6 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.startMode(runMode, prevMode);
-        shooter.setMsgTracer(globalTracer);
-        climber.zeroCalibrateClimber();
-        climber.climberPneumatic.retract();
-        climber.setMsgTracer(globalTracer);
         ledIndicator.reset();
     }   //robotStartMode
 
@@ -322,12 +328,14 @@ public class Robot extends FrcRobotBase
         {
             vision.setEnabled(false);
         }
+
         robotDrive.stopMode(runMode, nextMode);
+        shooter.cancel();
+        climber.cancel();
         intake.cancel();
         conveyor.cancel();
-        climber.cancel();
-        shooter.cancel();
         ledIndicator.reset();
+
         if (runMode == RunMode.TELEOP_MODE && pdp != null)
         {
             pdp.setSwitchableChannel(false);

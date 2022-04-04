@@ -22,6 +22,7 @@
 
 package team492;
 
+import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
 import TrcCommonLib.trclib.TrcUtil;
@@ -32,12 +33,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Intake implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Intake";
-    private static final boolean debugEnabled = true;
 
     private final Robot robot;
     private final FrcCANFalcon intakeMotor;
     private final FrcPneumatic intakePneumatic;
     private TrcEvent onFinishedEvent;
+    private TrcDbgTrace msgTracer = null;
 
     /**
      * Constructor: Create an instance of the object.
@@ -68,6 +69,16 @@ public class Intake implements TrcExclusiveSubsystem
     }   //cancel
 
     /**
+     * This method enables/disables tracing for the shooter subsystem.
+     *
+     * @param tracer specifies the tracer to use for logging events.
+     */
+    public void setMsgTracer(TrcDbgTrace tracer)
+    {
+        msgTracer = tracer;
+    }   //setMsgTracer
+
+    /**
      * This method returns the motor power set on the intake.
      *
      * @return intake motor power.
@@ -81,9 +92,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         final String funcName = "setPower";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, delay=%.1f, power=%.1f, duration=%.3f",
                 TrcUtil.getModeElapsedTime(), owner, delay, power, duration);
         }
@@ -110,9 +121,9 @@ public class Intake implements TrcExclusiveSubsystem
         boolean ballAtEntrance = robot.conveyor.isEntranceSensorActive();
         boolean ballAtExit = robot.conveyor.isExitSensorActive();
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, event=%s, entrance=%s, exit=%s",
                 TrcUtil.getModeElapsedTime(), owner, event, ballAtEntrance, ballAtExit);
         }
@@ -154,9 +165,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         final String funcName = "spitOut";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, entrance=%s, exit=%s",
                 TrcUtil.getModeElapsedTime(), owner, robot.conveyor.isEntranceSensorActive(), robot.conveyor.isExitSensorActive());
         }
@@ -179,9 +190,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         final String funcName = "stop";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
+            msgTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -204,9 +215,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         final String funcName = "extend";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
+            msgTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -224,9 +235,9 @@ public class Intake implements TrcExclusiveSubsystem
     {
         final String funcName = "retract";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
+            msgTracer.traceInfo(funcName, "[%.3f] owner=%s", TrcUtil.getModeElapsedTime(), owner);
         }
 
         if (validateOwnership(owner))
@@ -250,9 +261,9 @@ public class Intake implements TrcExclusiveSubsystem
         final String funcName = "conveyorEntranceTrigger";
         boolean exitHasBall = robot.conveyor.isExitSensorActive();
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, exitHasBall=%s, onFinishedEvent=%s",
                 TrcUtil.getModeElapsedTime(), active, exitHasBall, onFinishedEvent);
         }

@@ -778,6 +778,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             double matchTime = TrcUtil.getModeElapsedTime();
             ShootParamTable.Params params = null;
+            boolean traceState = true;
 
             switch (state)
             {
@@ -1020,6 +1021,10 @@ public class Shooter implements TrcExclusiveSubsystem
                                     matchTime, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
                             }
                         }
+                        else
+                        {
+                            traceState = false;
+                        }
                     }
                     else if (ballAtEntrance)
                     {
@@ -1042,13 +1047,13 @@ public class Shooter implements TrcExclusiveSubsystem
                     cancel();
                     break; 
             }
-        }
 
-        if (msgTracer != null)
-        {
-            msgTracer.traceStateInfo(
-                sm.toString(), state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
-                robot.robotDrive.purePursuitDrive, null);
+            if (msgTracer != null && traceState)
+            {
+                msgTracer.traceStateInfo(
+                    sm.toString(), state, robot.robotDrive.driveBase, robot.robotDrive.pidDrive,
+                    robot.robotDrive.purePursuitDrive, null);
+            }
         }
     }   //autoShootTask
 

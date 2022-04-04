@@ -44,9 +44,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class Climber
 {
     private static final String moduleName = "Climber";
-    private static final boolean debugEnabled = true;
 
-    private final Robot robot;
     public final FrcCANFalcon climberMotor;
     public final FrcPneumatic climberPneumatic;
     public final FrcDigitalInput climberLowerLimitSwitch;
@@ -67,9 +65,8 @@ public class Climber
      *
      * @param robot specifies the robot object for accessing other global objects.
      */
-    public Climber(Robot robot)
+    public Climber()
     {
-        this.robot = robot;
         climberMotor = createClimberMotor(moduleName + ".motor", RobotParams.CANID_CLIMBER);
         climberPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
@@ -163,9 +160,9 @@ public class Climber
     {
         final String funcName = "zeroClimber";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] RetractClimber: currPos=%.1f", TrcUtil.getModeElapsedTime(), climber.getPosition());
         }
 
@@ -287,11 +284,11 @@ public class Climber
                     cancel();
                     break; 
             }
-        }
 
-        if (msgTracer != null)
-        {
-            robot.globalTracer.traceStateInfo(sm.toString(), state);
+            if (msgTracer != null)
+            {
+                msgTracer.traceStateInfo(sm.toString(), state);
+            }
         }
     }   //autoClimbTask
 
@@ -304,9 +301,9 @@ public class Climber
     {
         final String funcName = "limitSwitchEvent";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(funcName, "active=%s", active);
+            msgTracer.traceInfo(funcName, "active=%s", active);
         }
 
         if (active)

@@ -21,6 +21,7 @@
  */
 package team492;
 
+import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcDigitalInputTrigger;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
@@ -32,7 +33,6 @@ import TrcFrcLib.frclib.FrcDigitalInput;
 public class Conveyor implements TrcExclusiveSubsystem
 {
     private static final String moduleName = "Conveyor";
-    private static final boolean debugEnabled = true;
 
     private enum TriggerAction
     {
@@ -41,7 +41,6 @@ public class Conveyor implements TrcExclusiveSubsystem
         StopOnBackward
     }   //enum TriggerState
 
-    private final Robot robot;
     private final FrcCANTalon conveyorMotor;
     private final FrcDigitalInput entranceSensor, exitSensor;
     private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
@@ -49,13 +48,13 @@ public class Conveyor implements TrcExclusiveSubsystem
     private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
     private TrcEvent onFinishedEvent;
     private TriggerAction triggerAction = TriggerAction.DoNothing;
+    private TrcDbgTrace msgTracer = null;
 
     /**
      * Constructor: Creates an instance of the object.
      */
-    public Conveyor(Robot robot)
+    public Conveyor()
     {
-        this.robot = robot;
         conveyorMotor = new FrcCANTalon(moduleName + ".motor", RobotParams.CANID_CONVEYOR);
         conveyorMotor.motor.configFactoryDefault();
         conveyorMotor.setInverted(RobotParams.CONVEYOR_MOTOR_INVERTED);
@@ -88,6 +87,16 @@ public class Conveyor implements TrcExclusiveSubsystem
             conveyorMotor.set(0.0);
         }
     }   //cancel
+
+    /**
+     * This method enables/disables tracing for the shooter subsystem.
+     *
+     * @param tracer specifies the tracer to use for logging events.
+     */
+    public void setMsgTracer(TrcDbgTrace tracer)
+    {
+        msgTracer = tracer;
+    }   //setMsgTracer
 
     /**
      * This method is called to cancel any pending operations and stop the subsystem. It is typically called before
@@ -246,9 +255,9 @@ public class Conveyor implements TrcExclusiveSubsystem
         boolean entranceHasBall = entranceSensor.isActive();
         boolean exitHasBall = exitSensor.isActive();
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] power=%.1f, event=%s, entrance=%s, exit=%s, triggerAction=%s",
                 TrcUtil.getModeElapsedTime(), power, event, entranceSensor.isActive(), exitSensor.isActive(),
                 triggerAction);
@@ -349,9 +358,9 @@ public class Conveyor implements TrcExclusiveSubsystem
     {
         final String funcName = "entranceEvent";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
                 TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }
@@ -401,9 +410,9 @@ public class Conveyor implements TrcExclusiveSubsystem
     {
         final String funcName = "exitEvent";
 
-        if (debugEnabled)
+        if (msgTracer != null)
         {
-            robot.globalTracer.traceInfo(
+            msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
                 TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }

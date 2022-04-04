@@ -38,6 +38,7 @@ public class ShootParamTable
         Calibration125in,
         Distance12ft,
         FarThreshold,
+        TarmacEdge,
         RingMid,
         LaunchPad,
         Tower,
@@ -47,6 +48,10 @@ public class ShootParamTable
         Distance15ft,
         Distance17ft,
         Distance18ft,
+        Distance195in,
+        Distance250in,
+        Distance275in,
+        Distance300in,
         Interpolated,
         Extrapolated,
         Calibration

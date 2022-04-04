@@ -90,26 +90,47 @@ public class Robot extends FrcRobotBase
     // Vision subsystem.
     //
     public VisionTargeting vision;
+    // Old set before tuning at Royal.
+    // public final ShootParamTable shootParamTable = new ShootParamTable()
+    //     .add(ShootLoc.Tower,        71.83, 2800, 800, RobotParams.TILTER_CLOSE_ANGLE)
+    //     //tune this better
+    //     .add(ShootLoc.Distance7ft,  84.0, 2500, 1400, RobotParams.TILTER_CLOSE_ANGLE)
+    //     .add(ShootLoc.TarmacAuto,   95.4, 2200, 1500, RobotParams.TILTER_CLOSE_ANGLE)
+    //     .add(ShootLoc.TarmacMid,    107.0, 2100, 1600, RobotParams.TILTER_CLOSE_ANGLE)
+    //     .add(ShootLoc.Distance12ft, 120.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+    //     //tune this
+    //     .add(ShootLoc.FarThreshold, 132.0, 2000, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+    //     .add(ShootLoc.OldThreshold, 132.0001, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
+    //     //Tune inflection with lower at 145.99999
+    //     .add(ShootLoc.StartFar,     146.0, 2400, 1600, RobotParams.TILTER_FAR_ANGLE)
+    //     .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
+    //     .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
+    //     .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
+    //     .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
+    //     .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
+    //     //195
+    //     .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
+    //     .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
     public final ShootParamTable shootParamTable = new ShootParamTable()
-        .add(ShootLoc.Tower,        71.83, 2800, 800, RobotParams.TILTER_CLOSE_ANGLE)
-        //tune this better
+        .add(ShootLoc.Tower,        71.83, 2600, 900, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance7ft,  84.0, 2500, 1400, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacAuto,   95.4, 2200, 1500, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacMid,    107.0, 2100, 1600, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance12ft, 120.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
-        //tune this
-        .add(ShootLoc.FarThreshold, 132.0, 2000, 2100, RobotParams.TILTER_CLOSE_ANGLE)
-        .add(ShootLoc.OldThreshold, 132.0001, 2200, 1700, RobotParams.TILTER_FAR_ANGLE)
-        //Tune inflection with lower at 145.99999
-        .add(ShootLoc.StartFar,     146.0, 2400, 1600, RobotParams.TILTER_FAR_ANGLE)
-        .add(ShootLoc.RingMid,      150.0, 2100, 1900, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.OldThreshold, 132.0, 1900, 2100, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.TarmacEdge, 146.0, 1900, 2300, RobotParams.TILTER_CLOSE_ANGLE) //1922
+        .add(ShootLoc.RingMid,      150.0, 1700, 2300, RobotParams.TILTER_CLOSE_ANGLE)
+        .add(ShootLoc.FarThreshold, 155.999, 1900, 2500, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance13ft, 156.0, 2400, 1800, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance14ft, 168.0, 2200, 1900, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance15ft, 180.0, 1800, 2600, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.LaunchPad,    186.0, 2000, 2300, RobotParams.TILTER_FAR_ANGLE)
-        //195
-        .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
-        .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
+        .add(ShootLoc.Distance195in, 195.0, 1900, 2400, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance250in, 250.0, 1900, 3000, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance275in, 275.0, 1800, 3600, RobotParams.TILTER_FAR_ANGLE)
+        .add(ShootLoc.Distance300in, 300.0, 1800, 3900, RobotParams.TILTER_FAR_ANGLE);
 
     //
     // Other subsystems.

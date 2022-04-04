@@ -350,8 +350,8 @@ public class RobotParams
     public static final double PPD_FOLLOWING_DISTANCE           = 12.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
     public static final double PPD_TURN_TOLERANCE               = 2.0;
-    public static final double PPD_MOVE_OUTPUT_LIMIT            = 0.3;
-    public static final double PPD_ROT_OUTPUT_LIMIT             = 0.3;
+    public static final double PPD_MOVE_DEF_OUTPUT_LIMIT        = 0.5;
+    public static final double PPD_ROT_DEF_OUTPUT_LIMIT         = 0.3;
 
     //
     // Other subsystems.

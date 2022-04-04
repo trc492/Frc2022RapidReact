@@ -99,6 +99,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
     @Override
     public void cancel()
     {
+        robot.robotDrive.purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_DEF_OUTPUT_LIMIT);
         robot.shooter.cancel();
         robot.shooter.stopFlywheel();
         robot.robotDrive.cancel();
@@ -130,6 +131,7 @@ class CmdAuto3Balls implements TrcRobot.RobotCommand
                     // Set robot starting position in the field.
                     //
                     robot.robotDrive.setFieldPosition(false);
+                    robot.robotDrive.purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_DEF_OUTPUT_LIMIT);
                     //
                     // Do start delay if any.
                     //

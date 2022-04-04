@@ -580,6 +580,9 @@ public class Shooter implements TrcExclusiveSubsystem
         allowToShoot = false;
         usingVision = false;
 
+        robot.ledIndicator.setTargetAligned(false);
+        robot.ledIndicator.setTargetInView(false);
+
         sm.stop();
         shooterTaskObj.unregisterTask();
     }   //cancel

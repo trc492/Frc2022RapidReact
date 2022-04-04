@@ -374,6 +374,7 @@ public class RobotParams
         FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR; //Tested to be about 220000 SU/s
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
+    public static final double SHOT_COMPLETION_DELAY            = 0.2;      // in seconds
 
     public static final double TILTER_CLOSE_ANGLE               = 43.0;
     public static final double TILTER_FAR_ANGLE                 = 31.0;

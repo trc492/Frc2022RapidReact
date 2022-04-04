@@ -32,6 +32,7 @@ import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcThresholdTrigger;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
 import TrcFrcLib.frclib.FrcPneumatic;
@@ -47,6 +48,8 @@ public class Shooter implements TrcExclusiveSubsystem
     private final TrcThresholdTrigger flywheelVelocityTrigger;
     private final FrcPneumatic tilterPneumatic;
     private final TrcEvent conveyorEvent;
+    private final TrcEvent timerEvent;
+    private final TrcTimer timer;
     private final TrcStateMachine<State> sm;
     private final TrcPidController alignPidCtrl;
     private final TrcTaskMgr.TaskObject shooterTaskObj;
@@ -98,6 +101,8 @@ public class Shooter implements TrcExclusiveSubsystem
         // Create and initialize other objects.
         //
         conveyorEvent = new TrcEvent(moduleName + ".conveyorEvent");
+        timerEvent = new TrcEvent(moduleName + ".timerEvent");
+        timer = new TrcTimer(moduleName + ".timer");
         sm = new TrcStateMachine<>(moduleName);
 
         TrcPidController.PidCoefficients alignPidCoeff = new TrcPidController.PidCoefficients(
@@ -494,6 +499,7 @@ public class Shooter implements TrcExclusiveSubsystem
         START,
         PREP_TO_SHOOT,
         SHOOT_WHEN_READY,
+        WAIT_FOR_SHOT_COMPLETE,
         DONE
     }   //enum State
 
@@ -1004,6 +1010,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     break;
 
                 case SHOOT_WHEN_READY:
+                    boolean ballShot = false;
                     ballAtEntrance = robot.conveyor.isEntranceSensorActive();
                     ballAtExit = robot.conveyor.isExitSensorActive();
 
@@ -1014,6 +1021,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         {
                             sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
                             robot.conveyor.advance(currOwner, conveyorEvent);
+                            ballShot = true;
                             if (msgTracer != null)
                             {
                                 msgTracer.traceInfo(
@@ -1038,8 +1046,13 @@ public class Shooter implements TrcExclusiveSubsystem
                     }
                     else
                     {
-                        sm.setState(State.DONE);
+                        sm.setState(ballShot? State.WAIT_FOR_SHOT_COMPLETE: State.DONE);
                     }
+                    break;
+
+                case WAIT_FOR_SHOT_COMPLETE:
+                    sm.waitForSingleEvent(timerEvent, State.DONE);
+                    timer.set(RobotParams.SHOT_COMPLETION_DELAY, timerEvent);
                     break;
 
                 case DONE:

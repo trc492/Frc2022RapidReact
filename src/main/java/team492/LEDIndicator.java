@@ -38,6 +38,8 @@ public class LEDIndicator
     private static final TrcAddressableLED.Pattern inverseOrientedPattern = // Magenta
         new TrcAddressableLED.Pattern("InverseOriented", new FrcColor(63, 0, 63), RobotParams.NUM_LEDS);
 
+    private static final TrcAddressableLED.Pattern conveyorFullPattern = // White
+        new TrcAddressableLED.Pattern("TargetInView", new FrcColor(63, 63, 63), RobotParams.NUM_LEDS);
     private static final TrcAddressableLED.Pattern targetInViewPattern = // Yellow
         new TrcAddressableLED.Pattern("TargetInView", new FrcColor(63, 63, 0), RobotParams.NUM_LEDS);
     private static final TrcAddressableLED.Pattern targetAlignedPattern = // Green
@@ -52,6 +54,7 @@ public class LEDIndicator
             inverseOrientedPattern,
             robotOrientedPattern,
             fieldOrientedPattern,
+            conveyorFullPattern,
             targetInViewPattern,
             targetAlignedPattern,
         };
@@ -107,6 +110,11 @@ public class LEDIndicator
                 break;
         }
     }   //setDriveOrientation
+
+    public void setConveyorFull(boolean enabled)
+    {
+        led.setPatternState(conveyorFullPattern, enabled);
+    }   //setConveyorFull
 
     public void setTargetInView(boolean enabled)
     {

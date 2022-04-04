@@ -515,10 +515,14 @@ public class Robot extends FrcRobotBase
 
                 if (conveyor != null)
                 {
+                    boolean entranceHasBall = conveyor.isEntranceSensorActive();
+                    boolean exitHasBall = conveyor.isExitSensorActive();
+
                     dashboard.displayPrintf(
                         5, "Conveyor: Power=%.1f, entrance=%s, exit=%s",
-                        conveyor.getMotorPower(), conveyor.isEntranceSensorActive(),
-                        conveyor.isExitSensorActive());
+                        conveyor.getMotorPower(), entranceHasBall, exitHasBall);
+
+                    ledIndicator.setConveyorFull(entranceHasBall && exitHasBall);
                 }
 
                 if (intake != null)

@@ -42,6 +42,7 @@ public class RobotParams
         public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
+        public static final boolean useWallAlignSensor          = true;
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;

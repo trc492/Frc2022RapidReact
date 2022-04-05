@@ -212,7 +212,10 @@ public class Robot extends FrcRobotBase
         }
 
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
-        wallAlignSensor = new WallAlignSensor();
+        if (RobotParams.Preferences.useWallAlignSensor)
+        {
+            wallAlignSensor = new WallAlignSensor();
+        }
         //
         // Create and initialize miscellaneous hardware.
         //
@@ -493,9 +496,17 @@ public class Robot extends FrcRobotBase
             {
                 if (robotDrive != null && robotDrive.driveBase != null)
                 {
-                    dashboard.displayPrintf(
-                        1, "RobotPose: %s, angleToWall=%.1f",
-                        robotDrive.driveBase.getFieldPosition(), wallAlignSensor.getAngleToWall());
+                    if (wallAlignSensor != null)
+                    {
+                        dashboard.displayPrintf(
+                            1, "RobotPose: %s, angleToWall=%.1f",
+                            robotDrive.driveBase.getFieldPosition(), wallAlignSensor.getAngleToWall());
+                    }
+                    else
+                    {
+                        dashboard.displayPrintf(
+                            1, "RobotPose: %s", robotDrive.driveBase.getFieldPosition());
+                    }
                 }
 
                 if (shooter != null)

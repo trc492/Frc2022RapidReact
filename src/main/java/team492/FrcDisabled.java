@@ -63,7 +63,10 @@ public class FrcDisabled implements TrcRobot.RobotMode
     @Override
     public void startMode(RunMode prevMode, RunMode nextMode)
     {
-        robot.wallAlignSensor.setRangingEnabled(true);
+        if (robot.wallAlignSensor != null)
+        {
+            robot.wallAlignSensor.setRangingEnabled(true);
+        }
     }   //startMode
 
     /**
@@ -76,7 +79,10 @@ public class FrcDisabled implements TrcRobot.RobotMode
     @Override
     public void stopMode(RunMode prevMode, RunMode nextMode)
     {
-        robot.wallAlignSensor.setRangingEnabled(false);
+        if (robot.wallAlignSensor != null)
+        {
+            robot.wallAlignSensor.setRangingEnabled(false);
+        }
     }   //stopMode
 
     /**

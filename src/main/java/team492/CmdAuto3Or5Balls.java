@@ -132,7 +132,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    double wallAngle = robot.wallAlignSensor.getAngleToWall();
+                    double wallAngle = robot.wallAlignSensor != null? robot.wallAlignSensor.getAngleToWall(): Double.NaN;
                     TrcPose2D startPos = RobotParams.STARTPOS_AUTO_5BALL.clone();
                     // Check if the wall angle is reasonable. If not, don't trust it.
                     if (wallAngle > RobotParams.WALL_ALIGN_LOW_THRESHOLD &&

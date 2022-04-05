@@ -132,8 +132,15 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    robot.robotDrive.setFieldPosition(RobotParams.STARTPOS_AUTO_5BALL, false);
-                    // robot.robotDrive.setFieldPosition(new TrcPose2D(RobotParams.STARTPOS_AUTO_5BALL.x, RobotParams.STARTPOS_AUTO_5BALL.y, robot.getAngleToWall()), false);
+                    double wallAngle = robot.wallAlignSensor.getAngleToWall();
+                    TrcPose2D startPos = RobotParams.STARTPOS_AUTO_5BALL.clone();
+                    // Check if the wall angle is reasonable. If not, don't trust it.
+                    if (wallAngle > RobotParams.WALL_ALIGN_LOW_THRESHOLD &&
+                        wallAngle < RobotParams.WALL_ALIGN_HIGH_THRESHOLD)
+                    {
+                        startPos.angle = 90.0 + wallAngle;
+                    }
+                    robot.robotDrive.setFieldPosition(startPos, false);
                     robot.robotDrive.purePursuitDrive.setMoveOutputLimit(PPD_DRIVE_FAST_LIMIT);
                     //
                     // Do start delay if any.

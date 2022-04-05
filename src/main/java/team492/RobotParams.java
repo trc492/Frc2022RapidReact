@@ -249,6 +249,12 @@ public class RobotParams
     // public static final double SONAR_ERROR_THRESHOLD            = 50.0; //value should not jump 50-in per time slice.
 
     //
+    // Wall Alignment Sensor.
+    //
+    public static final double WALL_ALIGN_LOW_THRESHOLD         = -0.5;
+    public static final double WALL_ALIGN_HIGH_THRESHOLD        = 0.0;
+
+    //
     // DriveBase subsystem.
     //
     public static final double WCD_INCHES_PER_COUNT             = 2.2421;

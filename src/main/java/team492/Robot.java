@@ -25,23 +25,17 @@ package team492;
 import java.util.Locale;
 
 import TrcCommonLib.trclib.TrcDbgTrace;
-import TrcCommonLib.trclib.TrcDistanceSensor;
-import TrcCommonLib.trclib.TrcFilter;
 import TrcCommonLib.trclib.TrcPath;
 import TrcCommonLib.trclib.TrcPathBuilder;
 import TrcCommonLib.trclib.TrcPose2D;
-import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobotBattery;
-import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcWaypoint;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcAHRSGyro;
-import TrcFrcLib.frclib.FrcCANTimeOfFlight;
 import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcMatchInfo;
-import TrcFrcLib.frclib.FrcMedianFilter;
 import TrcFrcLib.frclib.FrcPdp;
 import TrcFrcLib.frclib.FrcRemoteVisionProcessor;
 import TrcFrcLib.frclib.FrcRobotBase;
@@ -84,9 +78,7 @@ public class Robot extends FrcRobotBase
     public FrcPdp pdp;
     public TrcRobotBattery battery;
     public AnalogInput pressureSensor;  // TO-DO: change to use the REV PCM to read the pressure sensor.
-    public TrcDistanceSensor leftLidar, rightLidar;
-    public TrcFilter leftFilter, rightFilter;
-    public TrcTaskMgr.TaskObject lidarTaskObj;
+    public WallAlignSensor wallAlignSensor;
     //
     // Miscellaneous hardware.
     //
@@ -212,12 +204,6 @@ public class Robot extends FrcRobotBase
             camera.setResolution(160, 120);
         }
 
-        leftLidar = new FrcCANTimeOfFlight("LeftLidar", RobotParams.CANID_LEFT_LIDAR);
-        rightLidar = new FrcCANTimeOfFlight("RightLidar", RobotParams.CANID_RIGHT_LIDAR);
-        leftFilter = new FrcMedianFilter("LeftLidarFilter", 5);
-        rightFilter = new FrcMedianFilter("RightLidarFilter", 5);
-        lidarTaskObj = TrcTaskMgr.createTask("lidarTask", this::lidarTask);
-
         if (RobotParams.Preferences.usePdp)
         {
             pdp = new FrcPdp(RobotParams.CANID_PDP, ModuleType.kRev);
@@ -226,6 +212,7 @@ public class Robot extends FrcRobotBase
         }
 
         pressureSensor = new AnalogInput(RobotParams.AIN_PRESSURE_SENSOR);
+        wallAlignSensor = new WallAlignSensor();
         //
         // Create and initialize miscellaneous hardware.
         //
@@ -302,8 +289,6 @@ public class Robot extends FrcRobotBase
         //
         // Start subsystems.
         //
-        leftFilter.reset();
-        rightFilter.reset();
         if (runMode == RunMode.TELEOP_MODE || runMode == RunMode.TEST_MODE)
         {
             if (pdp != null)
@@ -345,8 +330,6 @@ public class Robot extends FrcRobotBase
         {
             vision.setEnabled(false);
         }
-        leftFilter.reset();
-        rightFilter.reset();
 
         robotDrive.stopMode(runMode, nextMode);
         shooter.cancel();
@@ -510,7 +493,9 @@ public class Robot extends FrcRobotBase
             {
                 if (robotDrive != null && robotDrive.driveBase != null)
                 {
-                    dashboard.displayPrintf(1, "RobotPose: %s, angleWall: %s", robotDrive.driveBase.getFieldPosition(), getAngleToWall());
+                    dashboard.displayPrintf(
+                        1, "RobotPose: %s, angleToWall=%.1f",
+                        robotDrive.driveBase.getFieldPosition(), wallAlignSensor.getAngleToWall());
                 }
 
                 if (shooter != null)
@@ -762,61 +747,4 @@ public class Robot extends FrcRobotBase
         return (pressureSensor.getVoltage() - 0.5) * 50.0;
     }   //getPressure
 
-    private void lidarTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
-    {
-        leftFilter.filterData(leftLidar.getDistanceInches());
-        rightFilter.filterData(rightLidar.getDistanceInches());
-    }
-
-    public void enableRanging()
-    {
-        lidarTaskObj.registerTask(TrcTaskMgr.TaskType.PRECONTINUOUS_TASK);
-        leftFilter.reset();
-        rightFilter.reset();
-    }
-
-    public void disableRanging()
-    {
-        lidarTaskObj.unregisterTask();
-        leftFilter.reset();
-        rightFilter.reset();
-    }
-
-    public double getLeftDistance()
-    {
-        double distance = leftLidar.getDistanceInches();
-        if (lidarTaskObj.isRegistered())
-        {
-            distance = leftFilter.filterData(distance);
-        }
-        return distance + RobotParams.LIDAR_SENSOR_Y_OFFSET;
-    }
-
-    public double getRightDistance()
-    {
-        double distance = rightLidar.getDistanceInches();
-        if (lidarTaskObj.isRegistered())
-        {
-            distance = rightFilter.filterData(distance);
-        }
-        return distance + RobotParams.LIDAR_SENSOR_Y_OFFSET;
-    }
-
-    public double getShortestDistanceToWall()
-    {
-        return Math.cos(Math.toRadians(getAngleToWall())) * getForwardDistanceToWall();
-    }
-
-    public double getForwardDistanceToWall()
-    {
-        return TrcUtil.average(getLeftDistance(), getRightDistance());
-    }
-
-    public double getAngleToWall()
-    {
-        double l = getLeftDistance();
-        double r = getRightDistance();
-        double theta = Math.atan2(l - r, RobotParams.LIDAR_INTER_SENSOR_DIST);
-        return Math.toDegrees(theta);
-    }
 }   //class Robot

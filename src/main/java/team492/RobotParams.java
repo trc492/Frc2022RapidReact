@@ -90,6 +90,9 @@ public class RobotParams
     public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
     public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
 
+    public static final double LIDAR_INTER_SENSOR_DIST          = 16.625; // Inches
+    public static final double LIDAR_SENSOR_Y_OFFSET            = -3.5; // Inches
+
     //
     // Autonomous constants.
     //
@@ -109,7 +112,7 @@ public class RobotParams
 
     public static final TrcPose2D[] startPos = {STARTPOS_1, STARTPOS_2, STARTPOS_3};
 
-    public static final TrcPose2D STARTPOS_AUTO_5BALL = new TrcPose2D(  89.810,  -24.987,   85.5);
+    public static final TrcPose2D STARTPOS_AUTO_5BALL = new TrcPose2D(  89.810,  -24.987,   88.5);
 
     // public static final TrcPose2D BALLPOS_RED_1 = new TrcPose2D(  25.910,  150.790, 0.0);
     // public static final TrcPose2D BALLPOS_RED_2 = new TrcPose2D( 124.946,   88.303, 0.0);
@@ -163,6 +166,9 @@ public class RobotParams
     public static final int CANID_LEFTBACK_STEER_ENCODER        = 9;    // Green
     public static final int CANID_RIGHTBACK_STEER_ENCODER       = 10;   // Blue
 
+    public static final int CANID_LEFT_LIDAR                    = 11;
+    public static final int CANID_RIGHT_LIDAR                   = 12;
+
     public static final int CANID_LEFTFRONT_STEER               = 13;   // Orange: 40A
     public static final int CANID_RIGHTFRONT_STEER              = 14;   // Yellow: 40A
     public static final int CANID_LEFTBACK_STEER                = 15;   // Green: 40A
@@ -206,7 +212,7 @@ public class RobotParams
     //
     // Analog Input ports.
     //
-    public static final int AIN_PRESSURE_SENSOR                 = 0;
+    public static final int AIN_PRESSURE_SENSOR                 = 3;
 
     //
     // Digital Input/Output ports.
@@ -364,7 +370,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.75;     //0.5;      // in seconds
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds //.35
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
@@ -380,8 +386,8 @@ public class RobotParams
     public static final double TILTER_FAR_ANGLE                 = 31.0;
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 0.7;
-    public static final double INTAKE_SPITOUT_POWER             = -0.7;
+    public static final double INTAKE_PICKUP_POWER              = 1.0;
+    public static final double INTAKE_SPITOUT_POWER             = -1.0;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
 
     // Conveyor subsystem.

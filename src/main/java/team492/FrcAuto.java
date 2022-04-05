@@ -120,9 +120,9 @@ public class FrcAuto implements TrcRobot.RobotMode
             allianceMenu.addChoice("Blue", DriverStation.Alliance.Blue, false, true);
             
             autoStrategyMenu.addChoice("Autonomous 1 Ball", AutoStrategy.AUTO_1_BALL, false,  false);
-            autoStrategyMenu.addChoice("Autonomous 2 Balls", AutoStrategy.AUTO_2_BALLS, true, false);
+            autoStrategyMenu.addChoice("Autonomous 2 Balls", AutoStrategy.AUTO_2_BALLS, false, false);
             autoStrategyMenu.addChoice("Autonomous 3 Balls", AutoStrategy.AUTO_3_BALLS, false, false);
-            autoStrategyMenu.addChoice("Autonomous 5 Balls", AutoStrategy.AUTO_5_BALLS, false, false);
+            autoStrategyMenu.addChoice("Autonomous 5 Balls", AutoStrategy.AUTO_5_BALLS, true, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);

@@ -63,6 +63,7 @@ public class FrcDisabled implements TrcRobot.RobotMode
     @Override
     public void startMode(RunMode prevMode, RunMode nextMode)
     {
+        robot.enableRanging();
     }   //startMode
 
     /**
@@ -75,6 +76,7 @@ public class FrcDisabled implements TrcRobot.RobotMode
     @Override
     public void stopMode(RunMode prevMode, RunMode nextMode)
     {
+        robot.disableRanging();
     }   //stopMode
 
     /**

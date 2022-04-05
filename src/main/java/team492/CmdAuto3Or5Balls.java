@@ -250,8 +250,8 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // Shoot once we arrive at the final shoot position
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
-                        driveEvent, 2.0, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -96.0, 180.0));
+                        driveEvent, 2.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                        new TrcPose2D(81.0, -180.8, -20.0));
                     break;
 
                 case DONE:

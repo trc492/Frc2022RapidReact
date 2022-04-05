@@ -146,11 +146,11 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                         event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
                     if (got2ndBall)
                     {
-                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithVision(moduleName, event);
                     }
                     else
                     {
-                        robot.shooter.shootWithNoVision(moduleName, event, ShootLoc.TarmacAuto);
+                        robot.shooter.shootWithVision(moduleName, event);
                     }
                     break;
 
@@ -168,7 +168,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(event);
                     robot.robotDrive.purePursuitDrive.start(
                         null, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, 26.0, 0));
+                        new TrcPose2D(0.0, 30.0, 0.0));
                     break;
 
                 case TURN_AROUND:
@@ -178,7 +178,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -20.0, 180.0));
+                        new TrcPose2D(0.0, 0.0, 180.0));
                     break;
 
                 case GET_OFF_TARMAC:

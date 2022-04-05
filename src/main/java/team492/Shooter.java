@@ -63,6 +63,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean visionAlignEnabled = true;
     private boolean committedToShoot = false;
     private boolean allowToShoot = false;
+    private boolean ballShot = false;
     private Double targetAngle = null;
     private Double targetDistance = null;
 
@@ -1003,14 +1004,13 @@ public class Shooter implements TrcExclusiveSubsystem
                                     msgTracer.traceInfo(funcName, "[%.3f] final ShootParams: %s", matchTime, params);
                                 }
                             }
-
+                            ballShot = false;
                             sm.setState(State.SHOOT_WHEN_READY);
                         }
                     }
                     break;
 
                 case SHOOT_WHEN_READY:
-                    boolean ballShot = false;
                     ballAtEntrance = robot.conveyor.isEntranceSensorActive();
                     ballAtExit = robot.conveyor.isExitSensorActive();
 

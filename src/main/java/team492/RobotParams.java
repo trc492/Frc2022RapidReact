@@ -381,7 +381,7 @@ public class RobotParams
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
-    public static final double FLYWHEEL_ENCODER_PPR             = 2048;     //Falcon integrated encoder: 2048 CPR
+    public static final double FLYWHEEL_ENCODER_PPR             = 2048;     // Falcon integrated encoder: 2048 CPR
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0;
     public static final double FLYWHEEL_MAX_VEL                 =
         FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR; //Tested to be about 220000 SU/s

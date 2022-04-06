@@ -75,6 +75,10 @@ public class RobotDrive
     public TrcPurePursuitDrive purePursuitDrive;
     public double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     public double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+    //
+    // Odometry.
+    //
+    private TrcPose2D endOfAutoRobotPose = null;
 
     /**
      * Constructor: Create an instance of the object.
@@ -110,6 +114,11 @@ public class RobotDrive
             }
             else
             {
+                if (runMode == RunMode.TELEOP_MODE && endOfAutoRobotPose != null)
+                {
+                    driveBase.setFieldPosition(endOfAutoRobotPose);
+                }
+
                 lfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 rfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 lbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
@@ -145,6 +154,10 @@ public class RobotDrive
                 purePursuitDrive.cancel();
             }
 
+            if (runMode == RunMode.AUTO_MODE)
+            {
+                endOfAutoRobotPose = driveBase.getFieldPosition();
+            }
             driveBase.setOdometryEnabled(false);
         }
     }   //stopMode

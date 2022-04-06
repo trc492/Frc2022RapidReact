@@ -42,7 +42,7 @@ public class RobotParams
         public static final boolean usePdp                      = true;
         public static final boolean useTraceLog                 = true;
         public static final boolean useNavX                     = true;
-        public static final boolean useWallAlignSensor          = true;
+        public static final boolean useWallAlignSensor          = false;
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
@@ -186,9 +186,9 @@ public class RobotParams
     public static final int CANID_PDP                           = 31;
 
     //
-    // PDP Channels. (TODO: Need to remap these.)
+    // PDP Channels.
     //
-    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 11;   // Orange: 40A`
+    public static final int PDP_CHANNEL_LEFT_FRONT_DRIVE        = 11;   // Orange: 40A
     public static final int PDP_CHANNEL_RIGHT_FRONT_DRIVE       = 5;    // Yellow: 40A
     public static final int PDP_CHANNEL_LEFT_BACK_DRIVE         = 13;   // Green: 40A
     public static final int PDP_CHANNEL_RIGHT_BACK_DRIVE        = 3;    // Blue: 40A
@@ -295,13 +295,14 @@ public class RobotParams
     public static final double GYRO_TURN_KD                     = 0.0;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
-
-    public static final double GYRO_ALIGN_KP                    = 0.015;    //0.02;
+    // TODO: MAKE NEW GYRO_ALIGN VALUES FOR AUTO AND TELEOP
+                                                                            //these work for 5 ball auto
+    public static final double GYRO_ALIGN_KP                    = 0.015;    //0.015;
     public static final double GYRO_ALIGN_KI                    = 0.0;
-    public static final double GYRO_ALIGN_KD                    = 0.0;      //0.0012;
-    public static final double GYRO_ALIGN_TOLERANCE             = 2.0;      //1.0;
+    public static final double GYRO_ALIGN_KD                    = 0.0012;   //0.0012;
+    public static final double GYRO_ALIGN_TOLERANCE             = 2.0;      //2.0;
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.2;
-    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5;      //1.5;
+    public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5 ;     //2.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
@@ -352,9 +353,9 @@ public class RobotParams
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);
-    public static final double STEER_KP                         = 0.8;//0.8;  //1.2
+    public static final double STEER_KP                         = 1.1;  //0.8;//0.8;//1.2
     public static final double STEER_KI                         = 0.0;
-    public static final double STEER_KD                         = 2.0;//2.0;  //16.0
+    public static final double STEER_KD                         = 14.0; //2.0;//2.0;//16.0
     public static final double STEER_KF                         = 0.0;
     public static final double STEER_CAL_POWER                  = 0.1;
     public static final TrcPidController.PidCoefficients steerCoeffs =
@@ -377,17 +378,18 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // in seconds //.35
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // 0.35;
+    // TODO Settling time should be 0.5 for Autonomous, 0.35 for Teleop
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds
     public static final int FLYWHEEL_MAX_RPM                    = 6400;
     public static final double FLYWHEEL_ENCODER_PPR             = 2048;     // Falcon integrated encoder: 2048 CPR
     public static final double FLYWHEEL_GEAR_RATIO              = 1.0;
     public static final double FLYWHEEL_MAX_VEL                 =
-        FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR; //Tested to be about 220000 SU/s
+        FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR;//Tested to be about 220000 SU/s
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
         new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
-    public static final double SHOT_COMPLETION_DELAY            = 0.2;      // in seconds
+    public static final double SHOT_COMPLETION_DELAY            = 0.3;      // in seconds
 
     public static final double TILTER_CLOSE_ANGLE               = 43.0;
     public static final double TILTER_FAR_ANGLE                 = 31.0;
@@ -395,7 +397,7 @@ public class RobotParams
     // Intake subsystem.
     public static final double INTAKE_PICKUP_POWER              = 1.0;
     public static final double INTAKE_SPITOUT_POWER             = -1.0;
-    public static final double INTAKE_PICKUP_DELAY              = 0.5;  // in seconds.
+    public static final double INTAKE_PICKUP_DELAY              = 0.5;      // in seconds.
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
@@ -404,9 +406,9 @@ public class RobotParams
     public static final double CONVEYOR_MOVE_POWER              = 0.5;
 
     // Climber subsystem.
-    public static final double CLIMBER_KP                       = 0.2;  //0.06;
+    public static final double CLIMBER_KP                       = 0.2;      //0.06;
     public static final double CLIMBER_KI                       = 0.0;
-    public static final double CLIMBER_KD                       = 0.0;  //0.005;
+    public static final double CLIMBER_KD                       = 0.0;      //0.005;
     public static final double CLIMBER_TOLERANCE                = 1.0;
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;

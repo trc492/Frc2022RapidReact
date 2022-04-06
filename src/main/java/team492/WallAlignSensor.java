@@ -27,6 +27,7 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcFrcLib.frclib.FrcCANTimeOfFlight;
+// import TrcFrcLib.frclib.FrcDashboard;
 import TrcFrcLib.frclib.FrcMedianFilter;
 
 public class WallAlignSensor
@@ -44,6 +45,8 @@ public class WallAlignSensor
         rightLidar = new FrcCANTimeOfFlight("RightLidar", RobotParams.CANID_RIGHT_LIDAR);
         rightFilter = new FrcMedianFilter("RightLidarFilter", 5);
 
+        // FrcDashboard.getInstance().displayPrintf(10, "Left: Mode=%s, SampleTime=%.3f", leftLidar.getRangingMode(), leftLidar.getSampleTime());
+        // FrcDashboard.getInstance().displayPrintf(11, "Right: Mode=%s, SampleTime=%.3f", rightLidar.getRangingMode(), rightLidar.getSampleTime());
         lidarTaskObj = TrcTaskMgr.createTask("LidarTask", this::lidarTask);
     }   //WallAlignSensor
 

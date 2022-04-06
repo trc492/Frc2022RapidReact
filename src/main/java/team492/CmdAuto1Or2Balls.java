@@ -27,7 +27,6 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
-import team492.ShootParamTable.ShootLoc;
 
 class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 {

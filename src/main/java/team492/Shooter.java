@@ -68,7 +68,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private Double targetDistance = null;
 
     private boolean usingVision = false;
-    private boolean useOdometry = true;
+    private boolean useOdometry = false;
     private ShootParamTable.Params providedParams = null;
     private TrcEvent onFinishPrepEvent = null;
     private TrcEvent onFinishShootEvent = null;

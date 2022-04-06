@@ -45,6 +45,7 @@ public class Climber
 {
     private static final String moduleName = "Climber";
 
+    public final Robot robot;
     public final FrcCANFalcon climberMotor;
     public final FrcPneumatic climberPneumatic;
     public final FrcDigitalInput climberLowerLimitSwitch;
@@ -65,8 +66,9 @@ public class Climber
      *
      * @param robot specifies the robot object for accessing other global objects.
      */
-    public Climber()
+    public Climber(Robot robot)
     {
+        this.robot = robot;
         climberMotor = createClimberMotor(moduleName + ".motor", RobotParams.CANID_CLIMBER);
         climberPneumatic = new FrcPneumatic(
             moduleName + ".pneumatic", RobotParams.CANID_PCM, PneumaticsModuleType.CTREPCM,
@@ -280,7 +282,8 @@ public class Climber
                     break;
 
                 case DONE:
-                default: 
+                default:
+                    robot.robotDrive.setSteerAngleZero(false);
                     cancel();
                     break; 
             }

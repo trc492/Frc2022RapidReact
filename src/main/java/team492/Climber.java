@@ -235,10 +235,17 @@ public class Climber
             {
                 case PULL_DOWN_PRIMARY_HOOK:
                     climber.setManualOverride(true);
-                    // Pull robot up.
-                    sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
-                    limitSwitchTrigger.setEnabled(true);
-                    setPosition(26.0, true, null);
+                    if (this.isLowerLimitSwitchActive())
+                    {
+                        sm.setState(State.DEPLOY_SECONDARY_HOOK);
+                    }
+                    else
+                    {
+                        // Pull robot up.
+                        sm.waitForSingleEvent(limitSwitchEvent, State.DEPLOY_SECONDARY_HOOK);
+                        limitSwitchTrigger.setEnabled(true);
+                        setPosition(26.0, true, null);
+                    }
                     break;
 
                 case DEPLOY_SECONDARY_HOOK:
@@ -267,7 +274,7 @@ public class Climber
                     // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
-                    timer.set(traversalRung? 1.75: 1.0, event); //TODO: Time engaging of rung tighter?
+                    timer.set(traversalRung? 1.5: 1.0, event); //TODO: Time engaging of rung tighter?
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:
@@ -287,6 +294,7 @@ public class Climber
                     cancel();
                     break; 
             }
+
 
             if (msgTracer != null)
             {

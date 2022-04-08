@@ -203,6 +203,7 @@ public class Robot extends FrcRobotBase
         {
             UsbCamera camera = CameraServer.startAutomaticCapture("DriverDisplay", 0);
             camera.setResolution(160, 120);
+            camera.setFPS(10);
         }
 
         if (RobotParams.Preferences.usePdp)

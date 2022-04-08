@@ -182,7 +182,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // robot.intake.retract();
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
-                        driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                        driveEvent, 2.5, robot.robotDrive.driveBase.getFieldPosition(), false,
                         new TrcPose2D(125.7, -147.7, 0),
                         //robot.ballPickupPoint(RobotParams.BALLPOS_2, 46, -35.25, 15.0, 0.0),
                         robot.ballPickupPoint(RobotParams.BALLPOS_2, 35, -35.25, 0.0, 0.0));
@@ -253,7 +253,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                 case PICKUP_HUMAN_PLAYER_BALL:
                     robot.robotDrive.purePursuitDrive.cancel();
                     robot.robotDrive.purePursuitDrive.start(
-                        null, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0.0, -2.0, 0));
+                        null, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0.0, -12.0, 0));
                     // Human player ball is the amount of time robot spends at the terminal position
                     double humanBallTimeout = 12.0 - elapsedTime;
                     robot.globalTracer.traceInfo(moduleName, "HumanBall timeout=%.3f", humanBallTimeout);

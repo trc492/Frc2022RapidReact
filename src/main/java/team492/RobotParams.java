@@ -46,10 +46,10 @@ public class RobotParams
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
-        public static final boolean doAutoUpdates               = true;
+        public static final boolean doAutoUpdates               = false;
         public static final boolean timDrive                    = true;
-        public static final boolean showSubsystemStatus         = true;
-        public static final boolean showVisionStatus            = true;
+        public static final boolean showSubsystemStatus         = false;
+        public static final boolean showVisionStatus            = false;
 
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugDriveBase              = false;
@@ -61,7 +61,7 @@ public class RobotParams
 
     public static final String ROBOT_NAME                       = "RapidReact_Robot";
     public static final String TEAM_FOLDER                      = "/home/lvuser/trc492";
-    public static final double DASHBOARD_UPDATE_INTERVAL        = 0.1;
+    public static final double DASHBOARD_UPDATE_INTERVAL        = 0.5;
 
     //
     // Field dimensions in inches.
@@ -363,7 +363,7 @@ public class RobotParams
     //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
     public static final double PPD_FOLLOWING_DISTANCE           = 12.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
-    public static final double PPD_TURN_TOLERANCE               = 2.0;
+    public static final double PPD_TURN_TOLERANCE               = 3.0;
     public static final double PPD_MOVE_DEF_OUTPUT_LIMIT        = 0.5;
     public static final double PPD_ROT_DEF_OUTPUT_LIMIT         = 0.3;
 

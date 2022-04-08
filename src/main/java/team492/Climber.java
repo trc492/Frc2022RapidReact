@@ -280,7 +280,7 @@ public class Climber
                 case UNHOOK_PREVIOUS_RUNG:
                     // Pull up to the next rung to unhook the previous rung.
                     sm.waitForSingleEvent(event, State.DONE);//DAMPENED_SWING);
-                    setPosition(26.0/*40.0*/, true, event, 1.8);
+                    setPosition(26.0/*40.0*/, true, event);
                     break;
 
                 case DAMPENED_SWING:

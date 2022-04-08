@@ -227,7 +227,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     //     robot.ballPickupPoint(
                     //         RobotParams.BALLPOS_7, RobotParams.INTAKE_OFFSET - 10.0, 157.35, -2.0, 0.0));
                     robot.robotDrive.purePursuitDrive.start(
-                        driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
+                        driveEvent, 2.5, robot.robotDrive.driveBase.getFieldPosition(), false,
                         new TrcPose2D(63.5, -219, 136),
                         new TrcPose2D(101.6, -263.8, 136));
                     sm.addEvent(driveEvent);

@@ -560,7 +560,7 @@ public class Shooter implements TrcExclusiveSubsystem
         // Don't stop the flywheels, we still want flywheels to be spinning to save time from spinning down and up
         // again for subsequent shooting. 
         robot.conveyor.cancel(currOwner);
-        robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
+        // robot.robotDrive.setAntiDefenseEnabled(currOwner, false);
 
         if (currOwner != null)
         {
@@ -943,7 +943,11 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         visionPidOnTarget = false;
                     }
-                    robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
+
+                    if (!robot.robotDrive.isAntiDefenseEnabled())
+                    {
+                        robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
+                    }
 
                     if (RobotParams.Preferences.debugShooter)
                     {
@@ -991,7 +995,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (goShoot)
                         {
                             robot.robotDrive.driveBase.stop(currOwner);
-                            robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
+                            // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
 
                             if (params != null)
                             {

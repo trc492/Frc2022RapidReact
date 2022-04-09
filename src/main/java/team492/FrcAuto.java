@@ -51,8 +51,10 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
     public static enum AutoStrategy
     {
-        AUTO_1_BALL,
-        AUTO_2_BALLS,
+        AUTO_LAST_RESORT_1_BALL,
+        AUTO_BACK_UP_1_BALL,
+        AUTO_IN_PLACE_2_BALLS,
+        AUTO_ALL_AT_ONCE_2_BALLS,
         AUTO_3_BALLS,
         AUTO_5_BALLS,
         PP_DRIVE,
@@ -119,10 +121,12 @@ public class FrcAuto implements TrcRobot.RobotMode
             allianceMenu.addChoice("Red", DriverStation.Alliance.Red, true, false);
             allianceMenu.addChoice("Blue", DriverStation.Alliance.Blue, false, true);
             
-            autoStrategyMenu.addChoice("Autonomous 1 Ball", AutoStrategy.AUTO_1_BALL, false,  false);
-            autoStrategyMenu.addChoice("Autonomous 2 Balls", AutoStrategy.AUTO_2_BALLS, false, false);
-            autoStrategyMenu.addChoice("Autonomous 3 Balls", AutoStrategy.AUTO_3_BALLS, false, false);
-            autoStrategyMenu.addChoice("Autonomous 5 Balls", AutoStrategy.AUTO_5_BALLS, true, false);
+            autoStrategyMenu.addChoice("Autonomous 1-Ball (Last Resort)", AutoStrategy.AUTO_LAST_RESORT_1_BALL, false,  false);
+            autoStrategyMenu.addChoice("Autonomous 1-Ball (Back Up)", AutoStrategy.AUTO_BACK_UP_1_BALL, false,  false);
+            autoStrategyMenu.addChoice("Autonomous 2-Ball (In Place)", AutoStrategy.AUTO_IN_PLACE_2_BALLS, false, false);
+            autoStrategyMenu.addChoice("Autonomous 2-Ball (All At Once)", AutoStrategy.AUTO_ALL_AT_ONCE_2_BALLS, false, false);
+            autoStrategyMenu.addChoice("Autonomous 3-Ball", AutoStrategy.AUTO_3_BALLS, false, false);
+            autoStrategyMenu.addChoice("Autonomous 5-Ball", AutoStrategy.AUTO_5_BALLS, true, false);
             autoStrategyMenu.addChoice("Pure Pursuit Drive", AutoStrategy.PP_DRIVE);
             autoStrategyMenu.addChoice("PID Drive", AutoStrategy.PID_DRIVE);
             autoStrategyMenu.addChoice("Timed Drive", AutoStrategy.TIMED_DRIVE);
@@ -296,12 +300,16 @@ public class FrcAuto implements TrcRobot.RobotMode
         //
         switch (robot.autoChoices.getStrategy())
         {
-            case AUTO_1_BALL:
-                autoCommand = new CmdAuto1Or2Balls(robot, false);
+            case AUTO_LAST_RESORT_1_BALL:
+                autoCommand = new CmdAuto1Or2Balls(robot, false, true);
                 break;
 
-            case AUTO_2_BALLS:
-                autoCommand = new CmdAuto1Or2Balls(robot, true);
+            case AUTO_BACK_UP_1_BALL:
+                autoCommand = new CmdAuto1Or2Balls(robot, false, false);
+                break;
+
+            case AUTO_IN_PLACE_2_BALLS:
+                autoCommand = new CmdAuto1Or2Balls(robot, true, false);
                 break;
 
             case AUTO_3_BALLS:

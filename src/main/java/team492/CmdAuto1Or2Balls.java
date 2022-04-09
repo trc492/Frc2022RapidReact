@@ -27,6 +27,7 @@ import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
+import team492.ShootParamTable.ShootLoc;
 
 class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
 {
@@ -35,6 +36,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     private enum State
     {
         START_DELAY,
+        BACKUP,
         SHOOT,
         TURN_TO_2ND_BALL,
         PICKUP_2ND_BALL,
@@ -49,20 +51,24 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     private final TrcEvent event;
     private final TrcStateMachine<State> sm;
     private boolean got2ndBall = false;
+    private boolean lastResort = false;
 
     /**
      * Constructor: Create an instance of the object.
      *
      * @param robot specifies the robot object for providing access to various global objects.
      * @param do2Balls specifies true to shoot 2 balls, false to shoot only pre-loaded ball.
+     * @param lastResort specifies true if our robot is completely broken, can't even drive,
+     *        we would just stay inside Tarmac and shoot that one ball.
      */
-    CmdAuto1Or2Balls(Robot robot, boolean do2Balls)
+    CmdAuto1Or2Balls(Robot robot, boolean do2Balls, boolean lastResort)
     {
         robot.globalTracer.traceInfo(
             moduleName, ">>> robot=%s, do2Balls=%s, choices=%s", robot, do2Balls, robot.autoChoices);
 
         this.robot = robot;
         this.do2Balls = do2Balls;
+        this.lastResort = lastResort;
         timer = new TrcTimer(moduleName + ".timer");
         event = new TrcEvent(moduleName + ".event");
         sm = new TrcStateMachine<>(moduleName);
@@ -117,6 +123,8 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
             switch (state)
             {
                 case START_DELAY:
+                    // We shoot in place the pre-loaded ball if it's lastResort or if we are doing 2 balls.
+                    State nextState = lastResort || do2Balls? State.SHOOT: State.BACKUP;
                     //
                     // Set robot starting position in the field.
                     //
@@ -128,24 +136,32 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     double startDelay = robot.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
-                        //
-                        // Intentionally falling through to the next state.
-                        //
-                        sm.setState(State.SHOOT);
+                        sm.setState(nextState);
                     }
                     else
                     {
-                        sm.waitForSingleEvent(event, State.SHOOT);
+                        sm.waitForSingleEvent(event, nextState);
                         timer.set(startDelay, event);
-                        break;
                     }
+                    break;
+
+                case BACKUP:
+                    // We are backing up to shoot if we are doing 1-ball and not lastResort.
+                    sm.waitForSingleEvent(event, State.SHOOT);
+                    robot.robotDrive.purePursuitDrive.start(
+                        event, 1.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        new TrcPose2D(0.0, -40.0, 0.0));
+                    break;
 
                 case SHOOT:
-                    sm.waitForSingleEvent(
-                        event, !do2Balls? State.GET_OFF_TARMAC: !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC);
-                    if (got2ndBall)
+                    // If we are doing lastResort or we are just shooting one ball, we are done.
+                    // Otherwise, if we are doing the first ball of two, we will go get the 2nd ball next.
+                    // Otherwise, we are doing the 2nd ball, get off the tarmac next.
+                    nextState = lastResort || !do2Balls? State.DONE: !got2ndBall? State.TURN_TO_2ND_BALL: State.GET_OFF_TARMAC;
+                    sm.waitForSingleEvent(event, nextState);
+                    if (lastResort || do2Balls && !got2ndBall)
                     {
-                        robot.shooter.shootWithVision(moduleName, event);
+                        robot.shooter.shootWithVision(moduleName, event, ShootLoc.TarmacAuto);
                     }
                     else
                     {

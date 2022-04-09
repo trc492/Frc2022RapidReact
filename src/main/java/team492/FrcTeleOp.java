@@ -284,7 +284,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.BUTTON_X:
-                robot.robotDrive.setAntiDefenseEnabled("AntiDefense", pressed);
+                robot.robotDrive.setAntiDefenseEnabled(null, pressed);
                 break;
 
             case FrcXboxController.BUTTON_Y:
@@ -420,7 +420,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                robot.robotDrive.setAntiDefenseEnabled("AntiDefense", pressed);
+                robot.robotDrive.setAntiDefenseEnabled(null, pressed);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:

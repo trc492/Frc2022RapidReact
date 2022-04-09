@@ -312,6 +312,9 @@ public class FrcAuto implements TrcRobot.RobotMode
                 autoCommand = new CmdAuto1Or2Balls(robot, true, false);
                 break;
 
+            case AUTO_ALL_AT_ONCE_2_BALLS:
+                autoCommand = new CmdAuto2BallsAllAtOnce(robot); 
+
             case AUTO_3_BALLS:
                 autoCommand = new CmdAuto3Balls(robot);
                 break;

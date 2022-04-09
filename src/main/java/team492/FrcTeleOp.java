@@ -549,6 +549,18 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON10:
+                if (pressed)
+                {
+                    hookArmExtended = !hookArmExtended;
+                    if (hookArmExtended)
+                    {
+                        robot.climber.extendHookArm();
+                    }
+                    else
+                    {
+                        robot.climber.retractHookArm();
+                    }
+                }
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON11:

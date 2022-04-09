@@ -46,10 +46,10 @@ public class RobotParams
         public static final boolean useGyroAssist               = false;
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
-        public static final boolean doAutoUpdates               = false;
+        public static final boolean doAutoUpdates               = true;
         public static final boolean timDrive                    = true;
         public static final boolean showSubsystemStatus         = false;
-        public static final boolean showVisionStatus            = false;
+        public static final boolean showVisionStatus            = true;
 
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugDriveBase              = false;
@@ -363,7 +363,7 @@ public class RobotParams
     //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
     public static final double PPD_FOLLOWING_DISTANCE           = 12.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
-    public static final double PPD_TURN_TOLERANCE               = 3.0;
+    public static final double PPD_TURN_TOLERANCE               = 2.0;
     public static final double PPD_MOVE_DEF_OUTPUT_LIMIT        = 0.5;
     public static final double PPD_ROT_DEF_OUTPUT_LIMIT         = 0.3;
 
@@ -377,8 +377,8 @@ public class RobotParams
     public static final double FLYWHEEL_KD                      = 5.0;
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
-    public static final double FLYWHEEL_TOLERANCE               = 100.0;    // in RPM
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.35;      // 0.35;
+    public static final double FLYWHEEL_TOLERANCE               = 50.0;     // in RPM //used to be 100
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // 0.35; //Try .01? worked similarly
     // TODO Settling time should be 0.5 for Autonomous, 0.35 for Teleop
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds

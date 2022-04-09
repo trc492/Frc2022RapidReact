@@ -168,11 +168,11 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     robot.intake.pickup(intakeEvent);
                     // Move forward to pick up the ball right in front of the robot, stop as soon as pickup event triggers.
                     robot.robotDrive.purePursuitDrive.start(
-                        driveEvent, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
+                        null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,
                         new TrcPose2D(0.0, 40.0, 0.0));
                     //sm.addEvent(driveEvent);
                     sm.addEvent(intakeEvent);
-                    sm.waitForEvents(State.GO_TO_FIRST_SHOOT_POS);
+                    sm.waitForEvents(State.GO_TO_FIRST_SHOOT_POS, 1.0);
                     break;
 
                 case GO_TO_FIRST_SHOOT_POS:
@@ -236,17 +236,20 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_TERMINAL_BALL:
+                    // if there is a ball, don't drive forward so go to pickup human player ball state
                     if (robot.conveyor.isExitSensorActive() || robot.conveyor.isEntranceSensorActive())
                     {
                         sm.setState(State.PICKUP_HUMAN_PLAYER_BALL);
                     }
                     else
                     {
+                        //move forward slowly until robot has a ball
                         robot.robotDrive.purePursuitDrive.setMoveOutputLimit(0.1);
                         robot.robotDrive.purePursuitDrive.start(
                             null, robot.robotDrive.driveBase.getFieldPosition(), true, new TrcPose2D(0, 24, 0));
-                        robot.intake.pickup(intakeEvent);
+
                         sm.waitForSingleEvent(intakeEvent, State.PICKUP_HUMAN_PLAYER_BALL);
+                        robot.intake.pickup(intakeEvent);
                     }
                     break;
 
@@ -258,7 +261,6 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     double humanBallTimeout = 12.0 - elapsedTime;
                     robot.globalTracer.traceInfo(moduleName, "HumanBall timeout=%.3f", humanBallTimeout);
                     robot.dashboard.displayPrintf(14, "HumanBall timeout: %.3f", humanBallTimeout);
-                    robot.robotDrive.purePursuitDrive.cancel();
                     if (humanBallTimeout < 0)
                     {
                         sm.setState(State.GO_TO_FINAL_SHOOT_POS);

@@ -128,7 +128,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     //
                     // Set robot starting position in the field.
                     //
-                    robot.robotDrive.setFieldPosition(false);
+                    robot.robotDrive.setFieldPosition(new TrcPose2D(-46.3, -74.4, 33), false);
                     robot.robotDrive.purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_DEF_OUTPUT_LIMIT);
                     //
                     // Do start delay if any.

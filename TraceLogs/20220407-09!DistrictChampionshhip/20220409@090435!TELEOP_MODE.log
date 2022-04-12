@@ -1,0 +1,183 @@
+globalTracer.robotStartMode_Info: [0.284] Sat Apr 09 09:04:35 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.416s)
+globalTracer.extend_Info: [19.083] owner=null
+globalTracer.pickup_Info: [19.087] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [19.091] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [22.487] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.move_Info: [22.495] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [22.503] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.exitEvent_Info: [22.962] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [22.982] active=false, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [22.983] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [23.313] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [23.414] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [23.420] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [23.640] owner=null
+globalTracer.setPower_Info: [23.644] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [23.649] owner=null
+globalTracer.prepareToShoot_Info: [24.544] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [24.548] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.558" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [24.562] Vision: targetAngle=-1.65, targetDistance=167.07
+globalTracer.autoShootTask_Info: [24.562] using interpolated ShootParams: loc=Interpolated, distance=167.1, lowerFwVel=1763, upperFwVel=2463, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [24.568] owner=teleOp, lower=1763.42, upper=2463.42, event=null
+globalTracer.autoShootTask_Info: [24.562] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.587090] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=1649520299.616090, CurrErr=  -1.7, ErrRate=  -0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.562] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.618" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.059s)
+globalTracer.autoShootTask_Info: [24.629] Vision: targetAngle=-1.56, targetDistance=166.87
+globalTracer.autoShootTask_Info: [24.629] using interpolated ShootParams: loc=Interpolated, distance=166.9, lowerFwVel=1761, upperFwVel=2461, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [24.629] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.647821] aligPidCtrl: Target=   0.0, Input=  -1.6, dT=0.061860, CurrErr=  -1.6, ErrRate=   1.5, Output=-0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.629] upperFlywheelPower=1.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.662" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.671] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.671] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [24.683] owner=teleOp, lower=1785.21, upper=2485.21, event=null
+globalTracer.autoShootTask_Info: [24.671] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [24.693971] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.045362, CurrErr=  -1.7, ErrRate=  -2.3, Output=-0.028(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.671] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.713" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.728] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.728] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [24.728] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.747318] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.051583, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.728] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.763" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.772] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.772] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [24.787] owner=teleOp, lower=1785.21, upper=2485.21, event=null
+globalTracer.autoShootTask_Info: [24.772] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.794603] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.050883, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.772] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.814" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.827] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.827] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [24.827] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.848734] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.048745, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.827] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.868" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.882] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.882] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [24.902] owner=teleOp, lower=1785.21, upper=2485.21, event=null
+globalTracer.autoShootTask_Info: [24.882] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.912497] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.065889, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.882] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.923" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.934] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [24.934] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [24.934] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.947903] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.038923, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.934] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.960" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [24.970] Vision: targetAngle=-1.67, targetDistance=167.51
+globalTracer.autoShootTask_Info: [24.970] using interpolated ShootParams: loc=Interpolated, distance=167.5, lowerFwVel=1769, upperFwVel=2469, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [24.970] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [24.984030] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.035599, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [24.970] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="24.995" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [25.007] Vision: targetAngle=-1.67, targetDistance=167.51
+globalTracer.autoShootTask_Info: [25.007] using interpolated ShootParams: loc=Interpolated, distance=167.5, lowerFwVel=1769, upperFwVel=2469, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [25.018] owner=teleOp, lower=1768.93, upper=2468.93, event=null
+globalTracer.autoShootTask_Info: [25.007] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [25.026645] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.043100, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [25.007] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.040" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [25.049] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [25.053] Vision: targetAngle=-1.67, targetDistance=168.82
+globalTracer.autoShootTask_Info: [25.053] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [25.053] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [25.066416] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.040604, CurrErr=  -1.7, ErrRate=   0.0, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [25.053] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [25.082] owner=teleOp, lower=1785.21, upper=2485.21, event=null
+globalTracer.autoShootTask_Info: [25.053] final ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="25.091" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [26.501] active=true, lowerVel=1808, upperVel=2515
+globalTracer.move_Info: [26.511] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [26.503] Shot a ball (lowerFlywheel=1808, upperFlywheel=2515).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.514" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [26.690] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [26.712] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [26.712] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="26.722" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [26.772] active=false, lowerVel=1367, upperVel=2366
+globalTracer.exitEvent_Info: [27.272] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.entranceEvent_Info: [27.292] active=false, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.conveyorEntranceTrigger_Info: [27.299] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.flywheelTriggerEvent_Info: [27.417] active=true, lowerVel=1860, upperVel=2529
+globalTracer.move_Info: [27.424] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [27.424] Shot a ball (lowerFlywheel=1860, upperFlywheel=2529).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.433" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [27.625] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.632" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.635" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [27.708] active=false, lowerVel=1412, upperVel=2382
+globalTracer.cancel_Info: [27.946] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="27.953" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: [28.372] active=true, lowerVel=1872, upperVel=2532
+globalTracer.cancel_Info: [31.280] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [31.465] active=false, lowerVel=1744, upperVel=2434
+globalTracer.cancel_Info: [31.862] Canceling: currOwner=null
+globalTracer.cancel_Info: [32.003] Canceling: currOwner=null
+globalTracer.cancel_Info: [32.162] Canceling: currOwner=null
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: [0.003] Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)
+globalTracer.FrcRobotBase_Info: (TELEOP_MODE->DISABLED_MODE) Performance Metrics: ContinuousLoopCount=31906, PeriodicLoopCount=2394
+globalTracer.FrcRobotBase_Info: RobotInit=2.201432, PrevModeStopTask=0.000742, PrevStopMode=0.000342, PrevRobotStopMode=0.012897, RobotStartMode=0.331452, startMode=0.055941, startTask=0.000036
+globalTracer.FrcRobotBase_Info: PreContinuousTask(Avg/Max)=0.000166/0.025400
+globalTracer.FrcRobotBase_Info: PrePeriodicTask(Avg/Max)=0.000246/0.016942
+globalTracer.FrcRobotBase_Info: RunContinuous(Avg/Max)=0.000016/0.006405
+globalTracer.FrcRobotBase_Info: RunPeriodic(Avg/Max)=0.001266/0.021182
+globalTracer.FrcRobotBase_Info: PostContinuousTask(Avg/Max)=0.000094/0.058806
+globalTracer.FrcRobotBase_Info: PostPeriodicTask(Avg/Max)=0.000073/0.003499
+globalTracer.FrcRobotBase_Info: Updates(Avg/Max)=0.012412/0.039779
+globalTracer.TaskPerformance_Info: DriverController.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000041/0.020291, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: DriverLeftStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000023/0.020291, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: operatorStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000033/0.020290, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: buttonPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000025/0.020290, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: switchPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000013/0.020290, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: FrcPdp.energyUsedTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcRobotBattery.robotBatteryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcMotor.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000161/0.000217, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.cleanupTask: Start=0.000000/0.000000, Stop=0.000298/24.312102, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.001594/0.020846, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.stopTask: Start=0.000000/0.000000, Stop=0.000317/24.312116, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.stopTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: purePursuitDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: LimeLight.visionTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000069/0.001511, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.entranceTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000099/0.020835, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.exitTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000025/0.020832, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pidMotorTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000445/0.020509
+globalTracer.TaskPerformance_Info: Climber.stopMotorTask: Start=0.000000/0.000000, Stop=0.001241/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000012/0.020837, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.limitSWTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.climberTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.lowerFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.upperFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.flywheelVelTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000239/0.020710, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.shooterTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000626/0.003389, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000

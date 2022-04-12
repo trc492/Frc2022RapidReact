@@ -259,7 +259,7 @@ public class Climber
                 case LOWER_ONTO_RUNG: //TODO: Test if doing a slow power on climber works as intended
                     // Run the primary hook up slowly to lower itself onto the rung
                     // This is to avoid the violent release of the current rung
-                    setPower(0.1);
+                    setPower(0.5);
                     sm.waitForSingleEvent(event, State.EXTEND_PRIMARY_HOOK);
                     timer.set(1.0, event);
                     break;

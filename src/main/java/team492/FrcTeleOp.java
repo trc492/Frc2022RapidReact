@@ -149,7 +149,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
             }
 
-            if (robot.robotDrive != null)
+            if (robot.robotDrive != null && !robot.robotDrive.isAntiDefenseEnabled())
             {
                 double[] inputs = robot.robotDrive.getDriveInputs();
                 if (robot.robotDrive.driveBase.supportsHolonomicDrive())
@@ -645,7 +645,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcJoystick.PANEL_BUTTON_GREEN2:
                 if (pressed)
                 {
-                    robot.climber.climber.setTarget(63.5);
+                    robot.climber.climber.setTarget(63.0);
                 }
                 break;
 

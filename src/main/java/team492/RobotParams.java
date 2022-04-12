@@ -378,7 +378,7 @@ public class RobotParams
     public static final double FLYWHEEL_KF                      = 0.0479;
     public static final double FLYWHEEL_IZONE                   = 2000.0;
     public static final double FLYWHEEL_TOLERANCE               = 50.0;     // in RPM //used to be 100
-    public static final double FLYWHEEL_SETTLING_TIME           = 0.5;      // 0.35; //Try .01? worked similarly
+    public static final double FLYWHEEL_SETTLING_TIME           = 0.35;      // 0.35; //Try .01? worked similarly
     // TODO Settling time should be 0.5 for Autonomous, 0.35 for Teleop
     public static final double FLYWHEEL_UPPER2LOWER_VALUE_RATIO = 1.0;
     public static final double FLYWHEEL_UPDATE_INTERVAL         = 0.1;      // in seconds

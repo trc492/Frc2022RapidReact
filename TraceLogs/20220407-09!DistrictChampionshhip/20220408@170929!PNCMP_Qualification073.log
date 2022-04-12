@@ -1,0 +1,1341 @@
+globalTracer.robotStartMode_Info: [0.349] Fri Apr 08 17:09:29 PDT 2022: ***** TELEOP_MODE *****
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.557s)
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.055s)
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-589.00
+globalTracer.startCompetition_Warn: TELEOP_MODE.runPeriodic took too long (0.057s)
+globalTracer.extend_Info: [1.654] owner=null
+globalTracer.pickup_Info: [1.656] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [1.661] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-399.00
+globalTracer.triggerEvent_Info: TrcMotor encoder reset! motor=Climber.motor,pos=-390.00
+globalTracer.stop_Info: [6.169] owner=null
+globalTracer.setPower_Info: [6.170] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [6.200] owner=null
+globalTracer.extend_Info: [6.248] owner=null
+globalTracer.pickup_Info: [6.249] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [6.253] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.stop_Info: [6.309] owner=null
+globalTracer.setPower_Info: [6.314] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [6.321] owner=null
+globalTracer.extend_Info: [8.193] owner=null
+globalTracer.pickup_Info: [8.204] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [8.228] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.startCompetition_Warn: TELEOP_MODE.prePeriodicTasks took too long (0.062s)
+globalTracer.entranceEvent_Info: [8.766] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.move_Info: [8.778] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [8.795] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [9.164] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [9.170] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [9.175] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.stop_Info: [11.090] owner=null
+globalTracer.setPower_Info: [11.092] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [11.101] owner=null
+globalTracer.extend_Info: [11.116] owner=null
+globalTracer.pickup_Info: [11.119] owner=null, event=null, entrance=false, exit=true
+globalTracer.setPower_Info: [11.122] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.stop_Info: [11.308] owner=null
+globalTracer.setPower_Info: [11.311] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [11.322] owner=null
+globalTracer.extend_Info: [12.212] owner=null
+globalTracer.pickup_Info: [12.217] owner=null, event=null, entrance=false, exit=true
+globalTracer.setPower_Info: [12.233] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.stop_Info: [12.636] owner=null
+globalTracer.setPower_Info: [12.638] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [12.642] owner=null
+globalTracer.prepareToShoot_Info: [13.111] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [13.120] Entrance=false, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.128" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [13.144] Vision: targetAngle=14.65, targetDistance=85.12
+globalTracer.autoShootTask_Info: [13.144] using interpolated ShootParams: loc=Interpolated, distance=85.1, lowerFwVel=2471, upperFwVel=1410, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.153] owner=teleOp, lower=2470.57, upper=1409.81, event=null
+globalTracer.autoShootTask_Info: [13.144] visionPidOnTarget=true, rotPower=0.22
+globalTracer.printPidInfo_Info: [13.175107] aligPidCtrl: Target=   0.0, Input=  14.6, dT=13.210923, CurrErr=  14.6, ErrRate=   1.1, Output= 0.221(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.144] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.202" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.060s)
+globalTracer.autoShootTask_Info: [13.209] Vision: targetAngle=14.37, targetDistance=84.49
+globalTracer.autoShootTask_Info: [13.209] using interpolated ShootParams: loc=Interpolated, distance=84.5, lowerFwVel=2487, upperFwVel=1404, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.209] visionPidOnTarget=true, rotPower=0.21
+globalTracer.printPidInfo_Info: [13.215388] aligPidCtrl: Target=   0.0, Input=  14.4, dT=0.043838, CurrErr=  14.4, ErrRate=  -6.4, Output= 0.208(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.209] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.222" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.229] Vision: targetAngle=14.36, targetDistance=84.52
+globalTracer.autoShootTask_Info: [13.229] using interpolated ShootParams: loc=Interpolated, distance=84.5, lowerFwVel=2486, upperFwVel=1405, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.229] visionPidOnTarget=true, rotPower=0.21
+globalTracer.printPidInfo_Info: [13.238581] aligPidCtrl: Target=   0.0, Input=  14.4, dT=0.022122, CurrErr=  14.4, ErrRate=  -0.4, Output= 0.215(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.229] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.252" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.258] Vision: targetAngle=14.37, targetDistance=85.15
+globalTracer.autoShootTask_Info: [13.258] using interpolated ShootParams: loc=Interpolated, distance=85.2, lowerFwVel=2470, upperFwVel=1410, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.264] owner=teleOp, lower=2469.68, upper=1410.11, event=null
+globalTracer.autoShootTask_Info: [13.258] visionPidOnTarget=true, rotPower=0.22
+globalTracer.printPidInfo_Info: [13.270046] aligPidCtrl: Target=   0.0, Input=  14.4, dT=0.032101, CurrErr=  14.4, ErrRate=   0.3, Output= 0.216(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.258] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.282" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.292] Vision: targetAngle=14.35, targetDistance=84.61
+globalTracer.autoShootTask_Info: [13.292] using interpolated ShootParams: loc=Interpolated, distance=84.6, lowerFwVel=2484, upperFwVel=1405, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.292] visionPidOnTarget=true, rotPower=0.21
+globalTracer.printPidInfo_Info: [13.301278] aligPidCtrl: Target=   0.0, Input=  14.3, dT=0.029833, CurrErr=  14.3, ErrRate=  -0.7, Output= 0.214(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.292] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.309" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.314] Vision: targetAngle=14.17, targetDistance=85.09
+globalTracer.autoShootTask_Info: [13.314] using interpolated ShootParams: loc=Interpolated, distance=85.1, lowerFwVel=2471, upperFwVel=1410, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.314] visionPidOnTarget=true, rotPower=0.20
+globalTracer.printPidInfo_Info: [13.323371] aligPidCtrl: Target=   0.0, Input=  14.2, dT=0.022882, CurrErr=  14.2, ErrRate=  -7.9, Output= 0.203(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.314] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.330" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.336] Vision: targetAngle=13.50, targetDistance=85.14
+globalTracer.autoShootTask_Info: [13.336] using interpolated ShootParams: loc=Interpolated, distance=85.1, lowerFwVel=2470, upperFwVel=1410, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.336] visionPidOnTarget=true, rotPower=0.17
+globalTracer.printPidInfo_Info: [13.344882] aligPidCtrl: Target=   0.0, Input=  13.5, dT=0.021838, CurrErr=  13.5, ErrRate= -30.6, Output= 0.166(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.336] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.353" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.358] Vision: targetAngle=12.45, targetDistance=85.22
+globalTracer.autoShootTask_Info: [13.358] using interpolated ShootParams: loc=Interpolated, distance=85.2, lowerFwVel=2468, upperFwVel=1411, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.365] owner=teleOp, lower=2467.78, upper=1410.74, event=null
+globalTracer.autoShootTask_Info: [13.358] visionPidOnTarget=true, rotPower=0.14
+globalTracer.printPidInfo_Info: [13.369427] aligPidCtrl: Target=   0.0, Input=  12.5, dT=0.024837, CurrErr=  12.5, ErrRate= -42.0, Output= 0.136(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.358] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.379" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.386] Vision: targetAngle=10.44, targetDistance=86.20
+globalTracer.autoShootTask_Info: [13.386] using interpolated ShootParams: loc=Interpolated, distance=86.2, lowerFwVel=2442, upperFwVel=1419, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.386] visionPidOnTarget=true, rotPower=0.07
+globalTracer.printPidInfo_Info: [13.399429] aligPidCtrl: Target=   0.0, Input=  10.4, dT=0.028052, CurrErr=  10.4, ErrRate= -71.7, Output= 0.071(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.386] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.412" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.422] Vision: targetAngle=8.28, targetDistance=86.28
+globalTracer.autoShootTask_Info: [13.422] using interpolated ShootParams: loc=Interpolated, distance=86.3, lowerFwVel=2440, upperFwVel=1420, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.422] visionPidOnTarget=true, rotPower=0.06
+globalTracer.printPidInfo_Info: [13.437928] aligPidCtrl: Target=   0.0, Input=   8.3, dT=0.039035, CurrErr=   8.3, ErrRate= -55.3, Output= 0.058(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.422] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.455" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.463] Vision: targetAngle=6.20, targetDistance=87.07
+globalTracer.autoShootTask_Info: [13.463] using interpolated ShootParams: loc=Interpolated, distance=87.1, lowerFwVel=2419, upperFwVel=1427, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.487] owner=teleOp, lower=2419.08, upper=1426.97, event=null
+globalTracer.autoShootTask_Info: [13.463] visionPidOnTarget=true, rotPower=0.05
+globalTracer.printPidInfo_Info: [13.502027] aligPidCtrl: Target=   0.0, Input=   6.2, dT=0.059492, CurrErr=   6.2, ErrRate= -35.0, Output= 0.051(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.463] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.519" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.060s)
+globalTracer.autoShootTask_Info: [13.554] Vision: targetAngle=1.73, targetDistance=88.32
+globalTracer.autoShootTask_Info: [13.554] using interpolated ShootParams: loc=Interpolated, distance=88.3, lowerFwVel=2386, upperFwVel=1438, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.554] visionPidOnTarget=true, rotPower=-0.06
+globalTracer.printPidInfo_Info: [13.563624] aligPidCtrl: Target=   0.0, Input=   1.7, dT=0.064732, CurrErr=   1.7, ErrRate= -69.0, Output=-0.057(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.554] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.580" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.591] Vision: targetAngle=0.87, targetDistance=88.22
+globalTracer.autoShootTask_Info: [13.591] using interpolated ShootParams: loc=Interpolated, distance=88.2, lowerFwVel=2389, upperFwVel=1437, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.610] owner=teleOp, lower=2388.99, upper=1437.00, event=null
+globalTracer.autoShootTask_Info: [13.591] visionPidOnTarget=true, rotPower=-0.00
+globalTracer.printPidInfo_Info: [13.627595] aligPidCtrl: Target=   0.0, Input=   0.9, dT=0.065394, CurrErr=   0.9, ErrRate= -13.2, Output=-0.003(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.591] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.641" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.054s)
+globalTracer.autoShootTask_Info: [13.661] Vision: targetAngle=-0.27, targetDistance=88.10
+globalTracer.autoShootTask_Info: [13.661] using interpolated ShootParams: loc=Interpolated, distance=88.1, lowerFwVel=2392, upperFwVel=1436, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.661] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [13.677406] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.049313, CurrErr=  -0.3, ErrRate= -22.9, Output=-0.032(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.661] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.693" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.709] Vision: targetAngle=0.19, targetDistance=88.30
+globalTracer.autoShootTask_Info: [13.709] using interpolated ShootParams: loc=Interpolated, distance=88.3, lowerFwVel=2387, upperFwVel=1438, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.721] owner=teleOp, lower=2386.87, upper=1437.71, event=null
+globalTracer.autoShootTask_Info: [13.709] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [13.730018] aligPidCtrl: Target=   0.0, Input=   0.2, dT=0.052185, CurrErr=   0.2, ErrRate=   8.7, Output= 0.013(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.709] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.744" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.758] Vision: targetAngle=0.46, targetDistance=88.04
+globalTracer.autoShootTask_Info: [13.758] using interpolated ShootParams: loc=Interpolated, distance=88.0, lowerFwVel=2394, upperFwVel=1435, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.758] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [13.774510] aligPidCtrl: Target=   0.0, Input=   0.5, dT=0.045402, CurrErr=   0.5, ErrRate=   5.9, Output= 0.014(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.758] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.791" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [13.802] Vision: targetAngle=0.46, targetDistance=88.21
+globalTracer.autoShootTask_Info: [13.802] using interpolated ShootParams: loc=Interpolated, distance=88.2, lowerFwVel=2389, upperFwVel=1437, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [13.802] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [13.823007] aligPidCtrl: Target=   0.0, Input=   0.5, dT=0.044480, CurrErr=   0.5, ErrRate=  -0.0, Output= 0.007(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.802] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.835" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [13.846] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [13.854] Vision: targetAngle=0.35, targetDistance=88.09
+globalTracer.autoShootTask_Info: [13.854] using interpolated ShootParams: loc=Interpolated, distance=88.1, lowerFwVel=2392, upperFwVel=1436, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [13.865] owner=teleOp, lower=2392.34, upper=1435.89, event=null
+globalTracer.autoShootTask_Info: [13.854] visionPidOnTarget=true, rotPower=0.00
+globalTracer.printPidInfo_Info: [13.874409] aligPidCtrl: Target=   0.0, Input=   0.3, dT=0.054171, CurrErr=   0.3, ErrRate=  -2.0, Output= 0.003(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [13.886] active=true, lowerVel=2405, upperVel=1498
+globalTracer.autoShootTask_Info: [13.854] upperFlywheelPower=0.2, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [13.895] owner=teleOp, lower=2392.34, upper=1435.89, event=null
+globalTracer.autoShootTask_Info: [13.854] final ShootParams: loc=Interpolated, distance=88.1, lowerFwVel=2392, upperFwVel=1436, tilterAngle=43.00
+globalTracer.flywheelTriggerEvent_Info: [13.914] active=true, lowerVel=2421, upperVel=1503
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.912" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.067s)
+globalTracer.move_Info: [13.947] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [13.947] Shot a ball (lowerFlywheel=2405, upperFlywheel=1493).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.955" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [14.112] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.120" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.153" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [14.214] active=false, lowerVel=2033, upperVel=1320
+globalTracer.cancel_Info: [14.451] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.455" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.cancel_Info: [14.554] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [14.611] active=true, lowerVel=2501, upperVel=1472
+globalTracer.flywheelTriggerEvent_Info: [15.085] active=false, lowerVel=2351, upperVel=1334
+globalTracer.extend_Info: [15.384] owner=null
+globalTracer.pickup_Info: [15.392] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [15.402] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [17.195] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [17.202] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [17.214] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [17.595] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [17.603] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [17.612] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [17.950] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [17.966] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [17.969] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [18.330] owner=null
+globalTracer.setPower_Info: [18.333] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [18.336] owner=null
+globalTracer.prepareToShoot_Info: [18.833] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [18.842] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="18.845" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [18.851] Vision: targetAngle=3.84, targetDistance=123.55
+globalTracer.autoShootTask_Info: [18.851] using interpolated ShootParams: loc=Interpolated, distance=123.6, lowerFwVel=2011, upperFwVel=1578, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [18.859] owner=teleOp, lower=2011.13, upper=1577.74, event=null
+globalTracer.autoShootTask_Info: [18.851] visionPidOnTarget=false, rotPower=0.06
+globalTracer.printPidInfo_Info: [18.863991] aligPidCtrl: Target=   0.0, Input=   3.8, dT=1649462988.094594, CurrErr=   3.8, ErrRate=   0.0, Output= 0.058(-1.000/ 1.000)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="18.877" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [18.890] Vision: targetAngle=6.82, targetDistance=121.90
+globalTracer.autoShootTask_Info: [18.890] using interpolated ShootParams: loc=Interpolated, distance=121.9, lowerFwVel=2052, upperFwVel=1495, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [18.890] visionPidOnTarget=false, rotPower=0.19
+globalTracer.printPidInfo_Info: [18.906588] aligPidCtrl: Target=   0.0, Input=   6.8, dT=0.040097, CurrErr=   6.8, ErrRate=  74.3, Output= 0.191(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [18.890] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="18.921" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [18.940] Vision: targetAngle=9.58, targetDistance=118.84
+globalTracer.autoShootTask_Info: [18.940] using interpolated ShootParams: loc=Interpolated, distance=118.8, lowerFwVel=2109, upperFwVel=1391, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [18.940] visionPidOnTarget=false, rotPower=0.21
+globalTracer.printPidInfo_Info: [18.960668] aligPidCtrl: Target=   0.0, Input=   9.6, dT=0.050704, CurrErr=   9.6, ErrRate=  54.4, Output= 0.209(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [18.940] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="18.990" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.054s)
+globalTracer.autoShootTask_Info: [19.008] Vision: targetAngle=7.31, targetDistance=120.72
+globalTracer.autoShootTask_Info: [19.008] using interpolated ShootParams: loc=Interpolated, distance=120.7, lowerFwVel=2082, upperFwVel=1436, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.032] owner=teleOp, lower=2082.01, upper=1435.99, event=null
+globalTracer.autoShootTask_Info: [19.008] visionPidOnTarget=false, rotPower=0.08
+globalTracer.printPidInfo_Info: [19.050435] aligPidCtrl: Target=   0.0, Input=   7.3, dT=0.091383, CurrErr=   7.3, ErrRate= -24.8, Output= 0.080(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.008] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.091" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.085s)
+globalTracer.autoShootTask_Info: [19.100] Vision: targetAngle=3.34, targetDistance=121.18
+globalTracer.autoShootTask_Info: [19.100] using interpolated ShootParams: loc=Interpolated, distance=121.2, lowerFwVel=2070, upperFwVel=1459, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.100] visionPidOnTarget=false, rotPower=-0.02
+globalTracer.printPidInfo_Info: [19.115485] aligPidCtrl: Target=   0.0, Input=   3.3, dT=0.068542, CurrErr=   3.3, ErrRate= -57.8, Output=-0.019(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.100] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.128" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.139] Vision: targetAngle=-2.13, targetDistance=122.41
+globalTracer.autoShootTask_Info: [19.139] using interpolated ShootParams: loc=Interpolated, distance=122.4, lowerFwVel=2040, upperFwVel=1521, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.145] owner=teleOp, lower=2039.71, upper=1520.58, event=null
+globalTracer.autoShootTask_Info: [19.139] visionPidOnTarget=true, rotPower=-0.19
+globalTracer.printPidInfo_Info: [19.156887] aligPidCtrl: Target=   0.0, Input=  -2.1, dT=0.042844, CurrErr=  -2.1, ErrRate=-127.8, Output=-0.185(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.139] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.173" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.190] Vision: targetAngle=-6.46, targetDistance=122.83
+globalTracer.autoShootTask_Info: [19.190] using interpolated ShootParams: loc=Interpolated, distance=122.8, lowerFwVel=2029, upperFwVel=1542, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.190] visionPidOnTarget=true, rotPower=-0.21
+globalTracer.printPidInfo_Info: [19.209356] aligPidCtrl: Target=   0.0, Input=  -6.5, dT=0.047461, CurrErr=  -6.5, ErrRate= -91.3, Output=-0.206(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.190] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.223" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.235] Vision: targetAngle=-7.47, targetDistance=122.55
+globalTracer.autoShootTask_Info: [19.235] using interpolated ShootParams: loc=Interpolated, distance=122.5, lowerFwVel=2036, upperFwVel=1527, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.245] owner=teleOp, lower=2036.36, upper=1527.27, event=null
+globalTracer.autoShootTask_Info: [19.235] visionPidOnTarget=true, rotPower=-0.14
+globalTracer.printPidInfo_Info: [19.258637] aligPidCtrl: Target=   0.0, Input=  -7.5, dT=0.051081, CurrErr=  -7.5, ErrRate= -19.7, Output=-0.136(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.235] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.274" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.283] Vision: targetAngle=-6.27, targetDistance=123.08
+globalTracer.autoShootTask_Info: [19.283] using interpolated ShootParams: loc=Interpolated, distance=123.1, lowerFwVel=2023, upperFwVel=1554, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.283] visionPidOnTarget=true, rotPower=-0.06
+globalTracer.printPidInfo_Info: [19.299520] aligPidCtrl: Target=   0.0, Input=  -6.3, dT=0.042523, CurrErr=  -6.3, ErrRate=  28.2, Output=-0.060(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.283] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.311" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.320] Vision: targetAngle=-4.03, targetDistance=123.69
+globalTracer.autoShootTask_Info: [19.320] using interpolated ShootParams: loc=Interpolated, distance=123.7, lowerFwVel=2008, upperFwVel=1585, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.320] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [19.332274] aligPidCtrl: Target=   0.0, Input=  -4.0, dT=0.032918, CurrErr=  -4.0, ErrRate=  68.0, Output= 0.021(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.320] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.342" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.352] Vision: targetAngle=-1.73, targetDistance=123.00
+globalTracer.autoShootTask_Info: [19.352] using interpolated ShootParams: loc=Interpolated, distance=123.0, lowerFwVel=2025, upperFwVel=1550, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.357] owner=teleOp, lower=2025.05, upper=1549.90, event=null
+globalTracer.autoShootTask_Info: [19.352] visionPidOnTarget=true, rotPower=0.07
+globalTracer.printPidInfo_Info: [19.360542] aligPidCtrl: Target=   0.0, Input=  -1.7, dT=0.029802, CurrErr=  -1.7, ErrRate=  77.4, Output= 0.067(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.352] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.376" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.385] Vision: targetAngle=2.54, targetDistance=121.72
+globalTracer.autoShootTask_Info: [19.385] using interpolated ShootParams: loc=Interpolated, distance=121.7, lowerFwVel=2057, upperFwVel=1486, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.385] visionPidOnTarget=false, rotPower=0.18
+globalTracer.printPidInfo_Info: [19.399397] aligPidCtrl: Target=   0.0, Input=   2.5, dT=0.035268, CurrErr=   2.5, ErrRate= 121.0, Output= 0.183(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.385] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.409" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.417] Vision: targetAngle=4.25, targetDistance=121.34
+globalTracer.autoShootTask_Info: [19.417] using interpolated ShootParams: loc=Interpolated, distance=121.3, lowerFwVel=2067, upperFwVel=1467, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.417] visionPidOnTarget=false, rotPower=0.13
+globalTracer.printPidInfo_Info: [19.430273] aligPidCtrl: Target=   0.0, Input=   4.2, dT=0.031132, CurrErr=   4.2, ErrRate=  54.9, Output= 0.130(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.417] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.437" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.445] Vision: targetAngle=4.65, targetDistance=121.35
+globalTracer.autoShootTask_Info: [19.445] using interpolated ShootParams: loc=Interpolated, distance=121.3, lowerFwVel=2066, upperFwVel=1467, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.445] visionPidOnTarget=false, rotPower=0.09
+globalTracer.printPidInfo_Info: [19.451281] aligPidCtrl: Target=   0.0, Input=   4.7, dT=0.024719, CurrErr=   4.7, ErrRate=  16.4, Output= 0.089(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.445] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.455" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.462] Vision: targetAngle=4.25, targetDistance=121.35
+globalTracer.autoShootTask_Info: [19.462] using interpolated ShootParams: loc=Interpolated, distance=121.3, lowerFwVel=2066, upperFwVel=1467, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.464] owner=teleOp, lower=2066.34, upper=1467.31, event=null
+globalTracer.autoShootTask_Info: [19.462] visionPidOnTarget=false, rotPower=0.04
+globalTracer.printPidInfo_Info: [19.468202] aligPidCtrl: Target=   0.0, Input=   4.2, dT=0.017174, CurrErr=   4.2, ErrRate= -23.6, Output= 0.035(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.462] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.473" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.481] Vision: targetAngle=4.04, targetDistance=121.34
+globalTracer.autoShootTask_Info: [19.481] using interpolated ShootParams: loc=Interpolated, distance=121.3, lowerFwVel=2067, upperFwVel=1467, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.481] visionPidOnTarget=false, rotPower=0.05
+globalTracer.printPidInfo_Info: [19.492386] aligPidCtrl: Target=   0.0, Input=   4.0, dT=0.022180, CurrErr=   4.0, ErrRate=  -9.2, Output= 0.050(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.481] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.508" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.516] Vision: targetAngle=2.64, targetDistance=121.71
+globalTracer.autoShootTask_Info: [19.516] using interpolated ShootParams: loc=Interpolated, distance=121.7, lowerFwVel=2057, upperFwVel=1486, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.516] visionPidOnTarget=false, rotPower=-0.01
+globalTracer.printPidInfo_Info: [19.534342] aligPidCtrl: Target=   0.0, Input=   2.6, dT=0.037572, CurrErr=   2.6, ErrRate= -37.3, Output=-0.005(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.516] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.546" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.559] Vision: targetAngle=1.12, targetDistance=121.48
+globalTracer.autoShootTask_Info: [19.559] using interpolated ShootParams: loc=Interpolated, distance=121.5, lowerFwVel=2063, upperFwVel=1474, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.573] owner=teleOp, lower=2063.04, upper=1473.92, event=null
+globalTracer.autoShootTask_Info: [19.559] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [19.579833] aligPidCtrl: Target=   0.0, Input=   1.1, dT=0.049796, CurrErr=   1.1, ErrRate= -30.5, Output=-0.020(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.559] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.602" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.616] Vision: targetAngle=-0.21, targetDistance=121.50
+globalTracer.autoShootTask_Info: [19.616] using interpolated ShootParams: loc=Interpolated, distance=121.5, lowerFwVel=2063, upperFwVel=1475, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.616] visionPidOnTarget=true, rotPower=-0.04
+globalTracer.printPidInfo_Info: [19.628370] aligPidCtrl: Target=   0.0, Input=  -0.2, dT=0.048506, CurrErr=  -0.2, ErrRate= -27.4, Output=-0.036(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.616] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.645" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.660] Vision: targetAngle=-2.43, targetDistance=123.20
+globalTracer.autoShootTask_Info: [19.660] using interpolated ShootParams: loc=Interpolated, distance=123.2, lowerFwVel=2020, upperFwVel=1560, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.660] visionPidOnTarget=true, rotPower=-0.10
+globalTracer.printPidInfo_Info: [19.674532] aligPidCtrl: Target=   0.0, Input=  -2.4, dT=0.045336, CurrErr=  -2.4, ErrRate= -49.0, Output=-0.095(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.660] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.688" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.700] Vision: targetAngle=-2.43, targetDistance=122.84
+globalTracer.autoShootTask_Info: [19.700] using interpolated ShootParams: loc=Interpolated, distance=122.8, lowerFwVel=2029, upperFwVel=1542, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.718] owner=teleOp, lower=2028.96, upper=1542.07, event=null
+globalTracer.autoShootTask_Info: [19.700] visionPidOnTarget=true, rotPower=-0.04
+globalTracer.printPidInfo_Info: [19.725009] aligPidCtrl: Target=   0.0, Input=  -2.4, dT=0.050735, CurrErr=  -2.4, ErrRate=  -0.0, Output=-0.036(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.700] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.741" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.755] Vision: targetAngle=-0.30, targetDistance=121.64
+globalTracer.autoShootTask_Info: [19.755] using interpolated ShootParams: loc=Interpolated, distance=121.6, lowerFwVel=2059, upperFwVel=1482, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.755] visionPidOnTarget=true, rotPower=0.06
+globalTracer.printPidInfo_Info: [19.769959] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.042608, CurrErr=  -0.3, ErrRate=  50.1, Output= 0.056(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.755] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.784" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [19.798] Vision: targetAngle=-0.89, targetDistance=123.17
+globalTracer.autoShootTask_Info: [19.798] using interpolated ShootParams: loc=Interpolated, distance=123.2, lowerFwVel=2021, upperFwVel=1558, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [19.798] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [19.811795] aligPidCtrl: Target=   0.0, Input=  -0.9, dT=0.044654, CurrErr=  -0.9, ErrRate= -13.4, Output=-0.029(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.798] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.832" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [19.844] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [19.851] Vision: targetAngle=1.22, targetDistance=121.49
+globalTracer.autoShootTask_Info: [19.851] using interpolated ShootParams: loc=Interpolated, distance=121.5, lowerFwVel=2063, upperFwVel=1475, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [19.864] owner=teleOp, lower=2062.65, upper=1474.69, event=null
+globalTracer.autoShootTask_Info: [19.851] visionPidOnTarget=true, rotPower=0.06
+globalTracer.printPidInfo_Info: [19.877111] aligPidCtrl: Target=   0.0, Input=   1.2, dT=0.065673, CurrErr=   1.2, ErrRate=  32.2, Output= 0.057(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [19.851] upperFlywheelPower=0.2, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.flywheelTriggerEvent_Info: [19.908] active=true, lowerVel=2119, upperVel=1557
+globalTracer.setFlywheelValue_Info: [19.921] owner=teleOp, lower=2062.65, upper=1474.69, event=null
+globalTracer.autoShootTask_Info: [19.851] final ShootParams: loc=Interpolated, distance=121.5, lowerFwVel=2063, upperFwVel=1475, tilterAngle=43.00
+globalTracer.flywheelTriggerEvent_Info: [19.948] active=true, lowerVel=2117, upperVel=1559
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.953" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.106s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.127s)
+globalTracer.move_Info: [19.982] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [19.982] Shot a ball (lowerFlywheel=2103, upperFlywheel=1540).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="19.998" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [20.162] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [20.178] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [20.178] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="20.209" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [20.261] active=false, lowerVel=1750, upperVel=1346
+globalTracer.exitEvent_Info: [20.612] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.entranceEvent_Info: [20.632] active=false, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.conveyorEntranceTrigger_Info: [20.635] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.flywheelTriggerEvent_Info: [20.673] active=true, lowerVel=2157, upperVel=1510
+globalTracer.move_Info: [20.676] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [20.676] Shot a ball (lowerFlywheel=2157, upperFlywheel=1510).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="20.681" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [20.841] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="20.846" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="20.872" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [20.969] active=false, lowerVel=1800, upperVel=1307
+globalTracer.cancel_Info: [21.175] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="21.180" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.cancel_Info: [21.229] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [21.360] active=true, lowerVel=2133, upperVel=1467
+globalTracer.flywheelTriggerEvent_Info: [21.651] active=false, lowerVel=2040, upperVel=1363
+globalTracer.extend_Info: [22.331] owner=null
+globalTracer.pickup_Info: [22.335] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [22.335] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [24.697] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [24.712] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [24.718] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.stop_Info: [24.792] owner=null
+globalTracer.setPower_Info: [24.793] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [24.798] owner=null
+globalTracer.entranceEvent_Info: [25.474] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [25.479] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [25.480] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.extend_Info: [26.251] owner=null
+globalTracer.pickup_Info: [26.261] owner=null, event=null, entrance=false, exit=true
+globalTracer.setPower_Info: [26.285] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [27.653] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [27.657] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [27.658] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [27.868] owner=null
+globalTracer.setPower_Info: [27.869] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [27.872] owner=null
+globalTracer.prepareToShoot_Info: [29.351] owner=teleOp, event=null, success=false (providedParams=null)
+globalTracer.prepareToShoot_Info: shooterOwern=teleOp, conveyorOwner=teleOp, driveBaseOwner=AntiDefense
+globalTracer.commitToShoot_Info: [29.930] owner=teleOp, allowToShoot=false, currOwner=null
+globalTracer.prepareToShoot_Info: [33.512] owner=teleOp, event=null, success=false (providedParams=null)
+globalTracer.prepareToShoot_Info: shooterOwern=teleOp, conveyorOwner=teleOp, driveBaseOwner=AntiDefense
+globalTracer.commitToShoot_Info: [33.849] owner=teleOp, allowToShoot=false, currOwner=null
+globalTracer.cancel_Info: [33.908] Canceling: currOwner=null
+globalTracer.prepareToShoot_Info: [37.228] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [37.236] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.251" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [37.288] Vision: targetAngle=-9.53, targetDistance=141.28
+globalTracer.autoShootTask_Info: [37.288] using interpolated ShootParams: loc=Interpolated, distance=141.3, lowerFwVel=1800, upperFwVel=2133, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [37.313] owner=teleOp, lower=1800.00, upper=2132.57, event=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.322" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.332] Vision: targetAngle=-0.71, targetDistance=146.71
+globalTracer.autoShootTask_Info: [37.332] using interpolated ShootParams: loc=Interpolated, distance=146.7, lowerFwVel=1782, upperFwVel=2218, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [37.332] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [37.348350] aligPidCtrl: Target=   0.0, Input=  -0.7, dT=1649463006.576359, CurrErr=  -0.7, ErrRate=  -0.0, Output=-0.011(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.332] upperFlywheelPower=0.1, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.358" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.367] Vision: targetAngle=7.92, targetDistance=146.24
+globalTracer.autoShootTask_Info: [37.367] using interpolated ShootParams: loc=Interpolated, distance=146.2, lowerFwVel=1794, upperFwVel=2206, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [37.367] visionPidOnTarget=false, rotPower=0.46
+globalTracer.printPidInfo_Info: [37.377353] aligPidCtrl: Target=   0.0, Input=   7.9, dT=0.030407, CurrErr=   7.9, ErrRate= 284.0, Output= 0.460(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.367] upperFlywheelPower=1.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.385" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.393] Vision: targetAngle=14.58, targetDistance=141.41
+globalTracer.autoShootTask_Info: [37.393] using interpolated ShootParams: loc=Interpolated, distance=141.4, lowerFwVel=1800, upperFwVel=2134, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [37.393] visionPidOnTarget=false, rotPower=0.51
+globalTracer.printPidInfo_Info: [37.404141] aligPidCtrl: Target=   0.0, Input=  14.6, dT=0.027582, CurrErr=  14.6, ErrRate= 241.3, Output= 0.508(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.393] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.414" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.423] Vision: targetAngle=19.43, targetDistance=138.91
+globalTracer.autoShootTask_Info: [37.423] using interpolated ShootParams: loc=Interpolated, distance=138.9, lowerFwVel=1800, upperFwVel=2099, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [37.432] owner=teleOp, lower=1800.00, upper=2098.67, event=null
+globalTracer.autoShootTask_Info: [37.423] visionPidOnTarget=false, rotPower=0.46
+globalTracer.printPidInfo_Info: [37.437941] aligPidCtrl: Target=   0.0, Input=  19.4, dT=0.033993, CurrErr=  19.4, ErrRate= 142.8, Output= 0.463(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.423] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.449" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.457] Vision: targetAngle=23.93, targetDistance=132.95
+globalTracer.autoShootTask_Info: [37.457] using interpolated ShootParams: loc=Interpolated, distance=132.9, lowerFwVel=1800, upperFwVel=2014, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [37.457] visionPidOnTarget=false, rotPower=0.56
+globalTracer.printPidInfo_Info: [37.465681] aligPidCtrl: Target=   0.0, Input=  23.9, dT=0.027399, CurrErr=  23.9, ErrRate= 164.1, Output= 0.556(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.457] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.476" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.484] Vision: targetAngle=26.10, targetDistance=129.08
+globalTracer.autoShootTask_Info: [37.484] using interpolated ShootParams: loc=Interpolated, distance=129.1, lowerFwVel=1873, upperFwVel=1854, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [37.484] visionPidOnTarget=false, rotPower=0.48
+globalTracer.printPidInfo_Info: [37.495541] aligPidCtrl: Target=   0.0, Input=  26.1, dT=0.028989, CurrErr=  26.1, ErrRate=  75.1, Output= 0.482(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.484] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.503" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.510] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.510] visionPidOnTarget=true, rotPower=-1.00
+globalTracer.printPidInfo_Info: [37.516856] aligPidCtrl: Target=   0.0, Input=   0.0, dT=0.022074, CurrErr=   0.0, ErrRate=-1182.6, Output=-1.000(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.510] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.535" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.561] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.561] visionPidOnTarget=true, rotPower=0.00
+globalTracer.printPidInfo_Info: [37.575488] aligPidCtrl: Target=   0.0, Input=   0.0, dT=0.057016, CurrErr=   0.0, ErrRate=   0.0, Output= 0.000(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [37.561] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.598" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.616] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.616] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.639" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.662] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.662] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.680" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.698] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.698] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.709" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.713] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.713] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.716" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.719] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.719] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.722" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [37.725] using interpolated ShootParams: null
+globalTracer.autoShootTask_Info: [37.725] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="37.732" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.cancel_Info: [37.738] Canceling: currOwner=teleOp
+globalTracer.commitToShoot_Info: [37.909] owner=teleOp, allowToShoot=false, currOwner=null
+globalTracer.prepareToShoot_Info: [40.911] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [40.931] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="40.938" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [40.948] Vision: targetAngle=-13.74, targetDistance=161.24
+globalTracer.autoShootTask_Info: [40.948] using interpolated ShootParams: loc=Interpolated, distance=161.2, lowerFwVel=1700, upperFwVel=2387, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [40.955] owner=teleOp, lower=1700.00, upper=2387.28, event=null
+globalTracer.autoShootTask_Info: [40.948] visionPidOnTarget=true, rotPower=-0.21
+globalTracer.printPidInfo_Info: [40.962043] aligPidCtrl: Target=   0.0, Input= -13.7, dT=1649463010.192463, CurrErr= -13.7, ErrRate=  -0.0, Output=-0.206(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [40.948] upperFlywheelPower=0.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="40.974" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [40.984] Vision: targetAngle=-16.86, targetDistance=161.75
+globalTracer.autoShootTask_Info: [40.984] using interpolated ShootParams: loc=Interpolated, distance=161.8, lowerFwVel=1700, upperFwVel=2396, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [40.984] visionPidOnTarget=true, rotPower=-0.36
+globalTracer.printPidInfo_Info: [40.996754] aligPidCtrl: Target=   0.0, Input= -16.9, dT=0.033632, CurrErr= -16.9, ErrRate= -92.8, Output=-0.364(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [40.984] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.006" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.017] Vision: targetAngle=-14.61, targetDistance=168.13
+globalTracer.autoShootTask_Info: [41.017] using interpolated ShootParams: loc=Interpolated, distance=168.1, lowerFwVel=1777, upperFwVel=2477, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.017] visionPidOnTarget=true, rotPower=-0.13
+globalTracer.printPidInfo_Info: [41.026426] aligPidCtrl: Target=   0.0, Input= -14.6, dT=0.030634, CurrErr= -14.6, ErrRate=  73.6, Output=-0.131(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.017] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.037" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.045] Vision: targetAngle=-17.42, targetDistance=166.75
+globalTracer.autoShootTask_Info: [41.045] using interpolated ShootParams: loc=Interpolated, distance=166.7, lowerFwVel=1759, upperFwVel=2459, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.045] visionPidOnTarget=true, rotPower=-0.38
+globalTracer.printPidInfo_Info: [41.056977] aligPidCtrl: Target=   0.0, Input= -17.4, dT=0.029522, CurrErr= -17.4, ErrRate= -95.2, Output=-0.376(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.045] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.068" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.076] Vision: targetAngle=-18.99, targetDistance=167.51
+globalTracer.autoShootTask_Info: [41.076] using interpolated ShootParams: loc=Interpolated, distance=167.5, lowerFwVel=1769, upperFwVel=2469, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.084] owner=teleOp, lower=1768.93, upper=2468.93, event=null
+globalTracer.autoShootTask_Info: [41.076] visionPidOnTarget=true, rotPower=-0.34
+globalTracer.printPidInfo_Info: [41.090813] aligPidCtrl: Target=   0.0, Input= -19.0, dT=0.034703, CurrErr= -19.0, ErrRate= -45.3, Output=-0.339(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.076] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.099" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.105] Vision: targetAngle=-17.72, targetDistance=171.76
+globalTracer.autoShootTask_Info: [41.105] using interpolated ShootParams: loc=Interpolated, distance=171.8, lowerFwVel=1835, upperFwVel=2518, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.105] visionPidOnTarget=true, rotPower=-0.21
+globalTracer.printPidInfo_Info: [41.115934] aligPidCtrl: Target=   0.0, Input= -17.7, dT=0.025501, CurrErr= -17.7, ErrRate=  49.9, Output=-0.206(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.105] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.124" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.133] Vision: targetAngle=-17.82, targetDistance=171.77
+globalTracer.autoShootTask_Info: [41.133] using interpolated ShootParams: loc=Interpolated, distance=171.8, lowerFwVel=1835, upperFwVel=2518, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.133] visionPidOnTarget=true, rotPower=-0.27
+globalTracer.printPidInfo_Info: [41.143322] aligPidCtrl: Target=   0.0, Input= -17.8, dT=0.027297, CurrErr= -17.8, ErrRate=  -3.7, Output=-0.272(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.133] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.153" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.160] Vision: targetAngle=-18.80, targetDistance=172.83
+globalTracer.autoShootTask_Info: [41.160] using interpolated ShootParams: loc=Interpolated, distance=172.8, lowerFwVel=1857, upperFwVel=2528, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.160] visionPidOnTarget=true, rotPower=-0.32
+globalTracer.printPidInfo_Info: [41.181552] aligPidCtrl: Target=   0.0, Input= -18.8, dT=0.034218, CurrErr= -18.8, ErrRate= -28.7, Output=-0.316(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.160] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.205" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.052s)
+globalTracer.autoShootTask_Info: [41.235] Vision: targetAngle=-15.82, targetDistance=177.07
+globalTracer.autoShootTask_Info: [41.235] using interpolated ShootParams: loc=Interpolated, distance=177.1, lowerFwVel=1941, upperFwVel=2571, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.259] owner=teleOp, lower=1941.35, upper=2570.67, event=null
+globalTracer.autoShootTask_Info: [41.235] visionPidOnTarget=true, rotPower=-0.20
+globalTracer.printPidInfo_Info: [41.274442] aligPidCtrl: Target=   0.0, Input= -15.8, dT=0.093585, CurrErr= -15.8, ErrRate=  31.8, Output=-0.199(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.235] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.300" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.068s)
+globalTracer.autoShootTask_Info: [41.312] Vision: targetAngle=-9.51, targetDistance=180.50
+globalTracer.autoShootTask_Info: [41.312] using interpolated ShootParams: loc=Interpolated, distance=180.5, lowerFwVel=1817, upperFwVel=2392, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [41.312] visionPidOnTarget=true, rotPower=-0.00
+globalTracer.printPidInfo_Info: [41.325313] aligPidCtrl: Target=   0.0, Input=  -9.5, dT=0.054356, CurrErr=  -9.5, ErrRate= 116.1, Output=-0.003(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.312] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.344" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.363] Vision: targetAngle=-6.59, targetDistance=180.88
+globalTracer.autoShootTask_Info: [41.363] using interpolated ShootParams: loc=Interpolated, distance=180.9, lowerFwVel=1829, upperFwVel=2385, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [41.376] owner=teleOp, lower=1829.19, upper=2385.41, event=null
+globalTracer.autoShootTask_Info: [41.363] visionPidOnTarget=true, rotPower=-0.04
+globalTracer.printPidInfo_Info: [41.390468] aligPidCtrl: Target=   0.0, Input=  -6.6, dT=0.060836, CurrErr=  -6.6, ErrRate=  48.1, Output=-0.041(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.363] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.408" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.418] Vision: targetAngle=-1.25, targetDistance=178.45
+globalTracer.autoShootTask_Info: [41.418] using interpolated ShootParams: loc=Interpolated, distance=178.4, lowerFwVel=1969, upperFwVel=2584, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.418] visionPidOnTarget=true, rotPower=0.11
+globalTracer.printPidInfo_Info: [41.435757] aligPidCtrl: Target=   0.0, Input=  -1.3, dT=0.048841, CurrErr=  -1.3, ErrRate= 109.2, Output= 0.112(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.418] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.461" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.051s)
+globalTracer.autoShootTask_Info: [41.476] Vision: targetAngle=1.64, targetDistance=177.95
+globalTracer.autoShootTask_Info: [41.476] using interpolated ShootParams: loc=Interpolated, distance=178.0, lowerFwVel=1959, upperFwVel=2580, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.488] owner=teleOp, lower=1959.05, upper=2579.53, event=null
+globalTracer.autoShootTask_Info: [41.476] visionPidOnTarget=true, rotPower=0.08
+globalTracer.printPidInfo_Info: [41.496341] aligPidCtrl: Target=   0.0, Input=   1.6, dT=0.061645, CurrErr=   1.6, ErrRate=  47.0, Output= 0.081(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.476] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.517" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.528] Vision: targetAngle=1.31, targetDistance=172.83
+globalTracer.autoShootTask_Info: [41.528] using interpolated ShootParams: loc=Interpolated, distance=172.8, lowerFwVel=1857, upperFwVel=2528, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.528] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [41.541967] aligPidCtrl: Target=   0.0, Input=   1.3, dT=0.043881, CurrErr=   1.3, ErrRate=  -7.7, Output= 0.010(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.528] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.557" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.576] Vision: targetAngle=1.31, targetDistance=172.83
+globalTracer.autoShootTask_Info: [41.576] using interpolated ShootParams: loc=Interpolated, distance=172.8, lowerFwVel=1857, upperFwVel=2528, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.576] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [41.590526] aligPidCtrl: Target=   0.0, Input=   1.3, dT=0.046460, CurrErr=   1.3, ErrRate=   0.0, Output= 0.020(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.576] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.608" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.620] Vision: targetAngle=1.75, targetDistance=174.08
+globalTracer.autoShootTask_Info: [41.620] using interpolated ShootParams: loc=Interpolated, distance=174.1, lowerFwVel=1882, upperFwVel=2541, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.632] owner=teleOp, lower=1881.60, upper=2540.80, event=null
+globalTracer.autoShootTask_Info: [41.620] visionPidOnTarget=true, rotPower=0.04
+globalTracer.printPidInfo_Info: [41.640785] aligPidCtrl: Target=   0.0, Input=   1.7, dT=0.053404, CurrErr=   1.7, ErrRate=   8.3, Output= 0.036(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.620] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.659" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.671] Vision: targetAngle=0.49, targetDistance=173.52
+globalTracer.autoShootTask_Info: [41.671] using interpolated ShootParams: loc=Interpolated, distance=173.5, lowerFwVel=1870, upperFwVel=2535, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.671] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [41.690944] aligPidCtrl: Target=   0.0, Input=   0.5, dT=0.045873, CurrErr=   0.5, ErrRate= -27.5, Output=-0.026(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.671] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.700" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.708] Vision: targetAngle=1.74, targetDistance=174.22
+globalTracer.autoShootTask_Info: [41.708] using interpolated ShootParams: loc=Interpolated, distance=174.2, lowerFwVel=1884, upperFwVel=2542, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.708] visionPidOnTarget=true, rotPower=0.07
+globalTracer.printPidInfo_Info: [41.719672] aligPidCtrl: Target=   0.0, Input=   1.7, dT=0.033574, CurrErr=   1.7, ErrRate=  37.3, Output= 0.071(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.708] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.736" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.742] Vision: targetAngle=0.38, targetDistance=172.83
+globalTracer.autoShootTask_Info: [41.742] using interpolated ShootParams: loc=Interpolated, distance=172.8, lowerFwVel=1857, upperFwVel=2528, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.756] owner=teleOp, lower=1856.64, upper=2528.32, event=null
+globalTracer.autoShootTask_Info: [41.742] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [41.762389] aligPidCtrl: Target=   0.0, Input=   0.4, dT=0.042109, CurrErr=   0.4, ErrRate= -32.2, Output=-0.033(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.742] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.775" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.792] Vision: targetAngle=1.54, targetDistance=175.04
+globalTracer.autoShootTask_Info: [41.792] using interpolated ShootParams: loc=Interpolated, distance=175.0, lowerFwVel=1901, upperFwVel=2550, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.792] visionPidOnTarget=true, rotPower=0.05
+globalTracer.printPidInfo_Info: [41.806616] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.043916, CurrErr=   1.5, ErrRate=  26.4, Output= 0.055(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.792] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.825" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [41.837] active=true, lowerVel=1984, upperVel=2611
+globalTracer.autoShootTask_Info: [41.843] Vision: targetAngle=-0.13, targetDistance=174.90
+globalTracer.autoShootTask_Info: [41.843] using interpolated ShootParams: loc=Interpolated, distance=174.9, lowerFwVel=1898, upperFwVel=2549, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.843] visionPidOnTarget=true, rotPower=-0.04
+globalTracer.printPidInfo_Info: [41.857820] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.048729, CurrErr=  -0.1, ErrRate= -34.3, Output=-0.043(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.843] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.883" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.896] Vision: targetAngle=0.38, targetDistance=176.31
+globalTracer.autoShootTask_Info: [41.896] using interpolated ShootParams: loc=Interpolated, distance=176.3, lowerFwVel=1926, upperFwVel=2563, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [41.903] owner=teleOp, lower=1926.13, upper=2563.06, event=null
+globalTracer.autoShootTask_Info: [41.896] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [41.908716] aligPidCtrl: Target=   0.0, Input=   0.4, dT=0.053979, CurrErr=   0.4, ErrRate=   9.5, Output= 0.017(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.896] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.flywheelTriggerEvent_Info: [41.919] active=true, lowerVel=1958, upperVel=2605
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.917" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.929] Vision: targetAngle=0.09, targetDistance=180.79
+globalTracer.autoShootTask_Info: [41.929] using interpolated ShootParams: loc=Interpolated, distance=180.8, lowerFwVel=1826, upperFwVel=2387, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [41.929] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [41.938510] aligPidCtrl: Target=   0.0, Input=   0.1, dT=0.028950, CurrErr=   0.1, ErrRate= -10.3, Output=-0.011(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.929] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.945" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.952] Vision: targetAngle=-0.33, targetDistance=179.17
+globalTracer.autoShootTask_Info: [41.952] using interpolated ShootParams: loc=Interpolated, distance=179.2, lowerFwVel=1983, upperFwVel=2592, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [41.952] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [41.962467] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.024115, CurrErr=  -0.3, ErrRate= -17.3, Output=-0.026(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.952] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.971" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [41.977] Vision: targetAngle=-0.43, targetDistance=180.64
+globalTracer.autoShootTask_Info: [41.977] using interpolated ShootParams: loc=Interpolated, distance=180.6, lowerFwVel=1821, upperFwVel=2389, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [41.977] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [41.988737] aligPidCtrl: Target=   0.0, Input=  -0.4, dT=0.026399, CurrErr=  -0.4, ErrRate=  -3.9, Output=-0.011(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [41.977] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="41.996" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.003] Vision: targetAngle=-0.03, targetDistance=182.12
+globalTracer.autoShootTask_Info: [42.003] using interpolated ShootParams: loc=Interpolated, distance=182.1, lowerFwVel=1871, upperFwVel=2365, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.009] owner=teleOp, lower=1870.78, upper=2364.61, event=null
+globalTracer.autoShootTask_Info: [42.003] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [42.015149] aligPidCtrl: Target=   0.0, Input=  -0.0, dT=0.027351, CurrErr=  -0.0, ErrRate=  15.0, Output= 0.018(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.003] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.023" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.029] Vision: targetAngle=0.09, targetDistance=186.87
+globalTracer.autoShootTask_Info: [42.029] using interpolated ShootParams: loc=Interpolated, distance=186.9, lowerFwVel=1990, upperFwVel=2310, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.029] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [42.037006] aligPidCtrl: Target=   0.0, Input=   0.1, dT=0.021455, CurrErr=   0.1, ErrRate=   5.2, Output= 0.007(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.029] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.044" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.093] Vision: targetAngle=-0.12, targetDistance=181.72
+globalTracer.autoShootTask_Info: [42.093] using interpolated ShootParams: loc=Interpolated, distance=181.7, lowerFwVel=1857, upperFwVel=2371, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.093] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [42.104332] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.067637, CurrErr=  -0.1, ErrRate=  -3.0, Output=-0.005(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.093] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.113" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.123] Vision: targetAngle=-1.39, targetDistance=183.87
+globalTracer.autoShootTask_Info: [42.123] using interpolated ShootParams: loc=Interpolated, distance=183.9, lowerFwVel=1929, upperFwVel=2336, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.135] owner=teleOp, lower=1928.86, upper=2335.57, event=null
+globalTracer.autoShootTask_Info: [42.123] visionPidOnTarget=true, rotPower=-0.06
+globalTracer.printPidInfo_Info: [42.142661] aligPidCtrl: Target=   0.0, Input=  -1.4, dT=0.037449, CurrErr=  -1.4, ErrRate= -33.9, Output=-0.061(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.123] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.156" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.cancel_Info: [42.164] Canceling: currOwner=teleOp
+globalTracer.commitToShoot_Info: [42.289] owner=teleOp, allowToShoot=false, currOwner=null
+globalTracer.prepareToShoot_Info: [42.459] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [42.470] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.476" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [42.496] Vision: targetAngle=1.04, targetDistance=183.44
+globalTracer.autoShootTask_Info: [42.496] using interpolated ShootParams: loc=Interpolated, distance=183.4, lowerFwVel=1915, upperFwVel=2343, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.512] owner=teleOp, lower=1914.79, upper=2342.61, event=null
+globalTracer.autoShootTask_Info: [42.496] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [42.521090] aligPidCtrl: Target=   0.0, Input=   1.0, dT=1649463011.751617, CurrErr=   1.0, ErrRate=   0.0, Output= 0.016(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.496] upperFlywheelPower=0.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.534" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.542] Vision: targetAngle=-0.13, targetDistance=181.38
+globalTracer.autoShootTask_Info: [42.542] using interpolated ShootParams: loc=Interpolated, distance=181.4, lowerFwVel=1846, upperFwVel=2377, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.542] visionPidOnTarget=true, rotPower=-0.05
+globalTracer.printPidInfo_Info: [42.553262] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.031793, CurrErr=  -0.1, ErrRate= -36.8, Output=-0.046(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.542] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.561" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.568] Vision: targetAngle=-0.03, targetDistance=179.90
+globalTracer.autoShootTask_Info: [42.568] using interpolated ShootParams: loc=Interpolated, distance=179.9, lowerFwVel=1998, upperFwVel=2599, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [42.568] visionPidOnTarget=true, rotPower=0.00
+globalTracer.printPidInfo_Info: [42.578426] aligPidCtrl: Target=   0.0, Input=  -0.0, dT=0.025280, CurrErr=  -0.0, ErrRate=   4.1, Output= 0.004(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.568] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.590" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.593] Vision: targetAngle=1.04, targetDistance=183.44
+globalTracer.autoShootTask_Info: [42.593] using interpolated ShootParams: loc=Interpolated, distance=183.4, lowerFwVel=1915, upperFwVel=2343, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.593] visionPidOnTarget=true, rotPower=0.06
+globalTracer.printPidInfo_Info: [42.605136] aligPidCtrl: Target=   0.0, Input=   1.0, dT=0.026431, CurrErr=   1.0, ErrRate=  40.4, Output= 0.064(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [42.611] active=true, lowerVel=1848, upperVel=2284
+globalTracer.autoShootTask_Info: [42.593] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.625" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.653] Vision: targetAngle=1.24, targetDistance=183.09
+globalTracer.autoShootTask_Info: [42.653] using interpolated ShootParams: loc=Interpolated, distance=183.1, lowerFwVel=1903, upperFwVel=2348, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.671] owner=teleOp, lower=1903.06, upper=2348.47, event=null
+globalTracer.autoShootTask_Info: [42.653] visionPidOnTarget=true, rotPower=0.02
+globalTracer.flywheelTriggerEvent_Info: [42.690] active=true, lowerVel=1861, upperVel=2297
+globalTracer.printPidInfo_Info: [42.692614] aligPidCtrl: Target=   0.0, Input=   1.2, dT=0.079293, CurrErr=   1.2, ErrRate=   2.4, Output= 0.021(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.653] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.725" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.081s)
+globalTracer.startCompetition_Warn: TELEOP_MODE took too long (0.103s)
+globalTracer.autoShootTask_Info: [42.758] Vision: targetAngle=0.34, targetDistance=182.85
+globalTracer.autoShootTask_Info: [42.758] using interpolated ShootParams: loc=Interpolated, distance=182.9, lowerFwVel=1895, upperFwVel=2352, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.758] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [42.765649] aligPidCtrl: Target=   0.0, Input=   0.3, dT=0.080918, CurrErr=   0.3, ErrRate= -11.1, Output=-0.008(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.758] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.775" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.785] Vision: targetAngle=-0.07, targetDistance=182.70
+globalTracer.autoShootTask_Info: [42.785] using interpolated ShootParams: loc=Interpolated, distance=182.7, lowerFwVel=1890, upperFwVel=2355, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.793] owner=teleOp, lower=1889.90, upper=2355.05, event=null
+globalTracer.autoShootTask_Info: [42.785] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [42.800814] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.036514, CurrErr=  -0.1, ErrRate= -11.2, Output=-0.014(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.785] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.808" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [42.813] active=true, lowerVel=1919, upperVel=2359
+globalTracer.autoShootTask_Info: [42.821] Vision: targetAngle=-0.49, targetDistance=183.44
+globalTracer.autoShootTask_Info: [42.821] using interpolated ShootParams: loc=Interpolated, distance=183.4, lowerFwVel=1915, upperFwVel=2343, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.821] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [42.829067] aligPidCtrl: Target=   0.0, Input=  -0.5, dT=0.028405, CurrErr=  -0.5, ErrRate= -14.8, Output=-0.025(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.821] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.844" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [42.862] Vision: targetAngle=-0.49, targetDistance=183.44
+globalTracer.autoShootTask_Info: [42.862] using interpolated ShootParams: loc=Interpolated, distance=183.4, lowerFwVel=1915, upperFwVel=2343, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [42.862] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [42.882151] aligPidCtrl: Target=   0.0, Input=  -0.5, dT=0.047951, CurrErr=  -0.5, ErrRate=   0.0, Output=-0.007(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.862] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.909" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.055s)
+globalTracer.autoShootTask_Info: [42.941] Vision: targetAngle=-0.07, targetDistance=182.70
+globalTracer.autoShootTask_Info: [42.941] using interpolated ShootParams: loc=Interpolated, distance=182.7, lowerFwVel=1890, upperFwVel=2355, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [42.964] owner=teleOp, lower=1889.90, upper=2355.05, event=null
+globalTracer.flywheelTriggerEvent_Info: [42.978] active=true, lowerVel=1927, upperVel=2389
+globalTracer.autoShootTask_Info: [42.941] visionPidOnTarget=true, rotPower=0.00
+globalTracer.printPidInfo_Info: [42.980499] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.097806, CurrErr=  -0.1, ErrRate=   4.3, Output= 0.004(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [42.941] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="42.989" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.052s)
+globalTracer.commitToShoot_Info: [43.002] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [43.005] Vision: targetAngle=-2.20, targetDistance=183.33
+globalTracer.autoShootTask_Info: [43.005] using interpolated ShootParams: loc=Interpolated, distance=183.3, lowerFwVel=1911, upperFwVel=2344, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [43.005] visionPidOnTarget=true, rotPower=-0.10
+globalTracer.printPidInfo_Info: [43.016035] aligPidCtrl: Target=   0.0, Input=  -2.2, dT=0.040328, CurrErr=  -2.2, ErrRate= -52.8, Output=-0.096(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [43.005] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [43.033] owner=teleOp, lower=1911.01, upper=2344.49, event=null
+globalTracer.autoShootTask_Info: [43.005] final ShootParams: loc=Interpolated, distance=183.3, lowerFwVel=1911, upperFwVel=2344, tilterAngle=31.00
+globalTracer.flywheelTriggerEvent_Info: [43.041] active=true, lowerVel=1927, upperVel=2391
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.039" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.move_Info: [43.054] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [43.054] Shot a ball (lowerFlywheel=1927, upperFlywheel=2391).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.064" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [43.249] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [43.257] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [43.257] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.265" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [43.331] active=false, lowerVel=1476, upperVel=2210
+globalTracer.entranceEvent_Info: [43.703] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.conveyorEntranceTrigger_Info: [43.708] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [43.710] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [43.790] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.flywheelTriggerEvent_Info: [43.789] active=true, lowerVel=1998, upperVel=2397
+globalTracer.autoShootTask_Info: [43.790] Shot a ball (lowerFlywheel=1998, upperFlywheel=2397).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.797" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [43.978] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.980" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="43.983" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [44.085] active=false, lowerVel=1563, upperVel=2151
+globalTracer.cancel_Info: [44.292] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="44.295" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: [44.522] active=true, lowerVel=2021, upperVel=2387
+globalTracer.extend_Info: [46.132] owner=null
+globalTracer.pickup_Info: [46.135] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [46.137] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [47.826] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [47.831] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [47.834] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [48.319] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [48.319] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [48.320] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [49.249] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [49.254] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [49.259] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [49.633] owner=null
+globalTracer.setPower_Info: [49.635] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [49.638] owner=null
+globalTracer.prepareToShoot_Info: [50.290] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [50.302] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.303" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [50.316] Vision: targetAngle=-8.58, targetDistance=114.00
+globalTracer.autoShootTask_Info: [50.316] using interpolated ShootParams: loc=Interpolated, distance=114.0, lowerFwVel=2146, upperFwVel=1354, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [50.322] owner=teleOp, lower=2146.15, upper=1353.85, event=null
+globalTracer.autoShootTask_Info: [50.316] visionPidOnTarget=true, rotPower=-0.13
+globalTracer.printPidInfo_Info: [50.330442] aligPidCtrl: Target=   0.0, Input=  -8.6, dT=1649463019.558770, CurrErr=  -8.6, ErrRate=  -0.0, Output=-0.129(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.316] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.341" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.347] Vision: targetAngle=-8.60, targetDistance=114.19
+globalTracer.autoShootTask_Info: [50.347] using interpolated ShootParams: loc=Interpolated, distance=114.2, lowerFwVel=2145, upperFwVel=1355, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.347] visionPidOnTarget=true, rotPower=-0.13
+globalTracer.printPidInfo_Info: [50.359590] aligPidCtrl: Target=   0.0, Input=  -8.6, dT=0.031020, CurrErr=  -8.6, ErrRate=  -0.4, Output=-0.129(-1.000/ 1.000)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.364" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.373] Vision: targetAngle=-8.60, targetDistance=114.52
+globalTracer.autoShootTask_Info: [50.373] using interpolated ShootParams: loc=Interpolated, distance=114.5, lowerFwVel=2142, upperFwVel=1358, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.373] visionPidOnTarget=true, rotPower=-0.13
+globalTracer.printPidInfo_Info: [50.382476] aligPidCtrl: Target=   0.0, Input=  -8.6, dT=0.023596, CurrErr=  -8.6, ErrRate=  -0.1, Output=-0.129(-1.000/ 1.000)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.392" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.399] Vision: targetAngle=-8.08, targetDistance=114.34
+globalTracer.autoShootTask_Info: [50.399] using interpolated ShootParams: loc=Interpolated, distance=114.3, lowerFwVel=2144, upperFwVel=1356, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.399] visionPidOnTarget=true, rotPower=-0.10
+globalTracer.printPidInfo_Info: [50.415730] aligPidCtrl: Target=   0.0, Input=  -8.1, dT=0.033230, CurrErr=  -8.1, ErrRate=  15.6, Output=-0.103(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.399] upperFlywheelPower=0.1, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.426" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.439] Vision: targetAngle=-7.09, targetDistance=114.72
+globalTracer.autoShootTask_Info: [50.439] using interpolated ShootParams: loc=Interpolated, distance=114.7, lowerFwVel=2141, upperFwVel=1359, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [50.449] owner=teleOp, lower=2140.61, upper=1359.39, event=null
+globalTracer.autoShootTask_Info: [50.439] visionPidOnTarget=true, rotPower=-0.08
+globalTracer.printPidInfo_Info: [50.458435] aligPidCtrl: Target=   0.0, Input=  -7.1, dT=0.042115, CurrErr=  -7.1, ErrRate=  23.6, Output=-0.078(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.439] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.471" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.483] Vision: targetAngle=-3.12, targetDistance=116.88
+globalTracer.autoShootTask_Info: [50.483] using interpolated ShootParams: loc=Interpolated, distance=116.9, lowerFwVel=2124, upperFwVel=1376, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.483] visionPidOnTarget=true, rotPower=0.09
+globalTracer.printPidInfo_Info: [50.497217] aligPidCtrl: Target=   0.0, Input=  -3.1, dT=0.035658, CurrErr=  -3.1, ErrRate= 111.3, Output= 0.087(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.483] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.509" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.531] Vision: targetAngle=-1.40, targetDistance=117.64
+globalTracer.autoShootTask_Info: [50.531] using interpolated ShootParams: loc=Interpolated, distance=117.6, lowerFwVel=2118, upperFwVel=1382, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.531] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [50.542210] aligPidCtrl: Target=   0.0, Input=  -1.4, dT=0.047004, CurrErr=  -1.4, ErrRate=  36.6, Output= 0.023(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.531] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.552" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.564] Vision: targetAngle=-0.31, targetDistance=118.31
+globalTracer.autoShootTask_Info: [50.564] using interpolated ShootParams: loc=Interpolated, distance=118.3, lowerFwVel=2113, upperFwVel=1387, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [50.574] owner=teleOp, lower=2113.01, upper=1386.99, event=null
+globalTracer.autoShootTask_Info: [50.564] visionPidOnTarget=true, rotPower=0.03
+globalTracer.printPidInfo_Info: [50.583105] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.040931, CurrErr=  -0.3, ErrRate=  26.6, Output= 0.027(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.564] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.595" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.605] Vision: targetAngle=1.21, targetDistance=116.56
+globalTracer.autoShootTask_Info: [50.605] using interpolated ShootParams: loc=Interpolated, distance=116.6, lowerFwVel=2126, upperFwVel=1374, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.605] visionPidOnTarget=true, rotPower=0.07
+globalTracer.printPidInfo_Info: [50.639276] aligPidCtrl: Target=   0.0, Input=   1.2, dT=0.035115, CurrErr=   1.2, ErrRate=  43.3, Output= 0.070(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.605] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.653" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.660] Vision: targetAngle=1.31, targetDistance=117.52
+globalTracer.autoShootTask_Info: [50.660] using interpolated ShootParams: loc=Interpolated, distance=117.5, lowerFwVel=2119, upperFwVel=1381, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.660] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [50.674129] aligPidCtrl: Target=   0.0, Input=   1.3, dT=0.055521, CurrErr=   1.3, ErrRate=   1.7, Output= 0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.660] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.685" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.695] Vision: targetAngle=1.31, targetDistance=117.88
+globalTracer.autoShootTask_Info: [50.695] using interpolated ShootParams: loc=Interpolated, distance=117.9, lowerFwVel=2116, upperFwVel=1384, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [50.705] owner=teleOp, lower=2116.31, upper=1383.69, event=null
+globalTracer.autoShootTask_Info: [50.695] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [50.714941] aligPidCtrl: Target=   0.0, Input=   1.3, dT=0.041021, CurrErr=   1.3, ErrRate=   0.0, Output= 0.020(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.695] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.729" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.750] Vision: targetAngle=0.51, targetDistance=117.59
+globalTracer.autoShootTask_Info: [50.750] using interpolated ShootParams: loc=Interpolated, distance=117.6, lowerFwVel=2119, upperFwVel=1381, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.750] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [50.762576] aligPidCtrl: Target=   0.0, Input=   0.5, dT=0.048422, CurrErr=   0.5, ErrRate= -16.4, Output=-0.012(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.750] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.775" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.785] Vision: targetAngle=0.09, targetDistance=117.37
+globalTracer.autoShootTask_Info: [50.785] using interpolated ShootParams: loc=Interpolated, distance=117.4, lowerFwVel=2120, upperFwVel=1380, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.785] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [50.795888] aligPidCtrl: Target=   0.0, Input=   0.1, dT=0.034071, CurrErr=   0.1, ErrRate= -12.4, Output=-0.014(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.785] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.811" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [50.821] Vision: targetAngle=2.22, targetDistance=116.56
+globalTracer.autoShootTask_Info: [50.821] using interpolated ShootParams: loc=Interpolated, distance=116.6, lowerFwVel=2126, upperFwVel=1374, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [50.833] owner=teleOp, lower=2126.48, upper=1373.52, event=null
+globalTracer.autoShootTask_Info: [50.821] visionPidOnTarget=false, rotPower=0.09
+globalTracer.printPidInfo_Info: [50.839146] aligPidCtrl: Target=   0.0, Input=   2.2, dT=0.042898, CurrErr=   2.2, ErrRate=  49.7, Output= 0.093(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.821] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.863" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [50.873] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [50.878] Vision: targetAngle=0.41, targetDistance=117.11
+globalTracer.autoShootTask_Info: [50.878] using interpolated ShootParams: loc=Interpolated, distance=117.1, lowerFwVel=2122, upperFwVel=1378, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [50.878] visionPidOnTarget=true, rotPower=-0.04
+globalTracer.printPidInfo_Info: [50.892114] aligPidCtrl: Target=   0.0, Input=   0.4, dT=0.052544, CurrErr=   0.4, ErrRate= -34.4, Output=-0.035(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [50.878] upperFlywheelPower=0.2, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [50.911] owner=teleOp, lower=2122.26, upper=1377.74, event=null
+globalTracer.autoShootTask_Info: [50.878] final ShootParams: loc=Interpolated, distance=117.1, lowerFwVel=2122, upperFwVel=1378, tilterAngle=43.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="50.919" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [50.991] active=true, lowerVel=2142, upperVel=1340
+globalTracer.move_Info: [50.999] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [50.998] Shot a ball (lowerFlywheel=2142, upperFlywheel=1340).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.008" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [51.178] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [51.192] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [51.192] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.201" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [51.264] active=false, lowerVel=1731, upperVel=1240
+globalTracer.entranceEvent_Info: [51.614] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.conveyorEntranceTrigger_Info: [51.619] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [51.623] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.flywheelTriggerEvent_Info: [51.729] active=true, lowerVel=2192, upperVel=1379
+globalTracer.move_Info: [51.741] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [51.741] Shot a ball (lowerFlywheel=2192, upperFlywheel=1379).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.751" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [51.872] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.880" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="51.887" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [51.957] active=false, lowerVel=1718, upperVel=1245
+globalTracer.cancel_Info: [52.192] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="52.198" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.cancel_Info: [52.210] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [52.391] active=true, lowerVel=2167, upperVel=1352
+globalTracer.extend_Info: [52.436] owner=null
+globalTracer.pickup_Info: [52.439] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [52.442] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.flywheelTriggerEvent_Info: [52.641] active=false, lowerVel=2088, upperVel=1273
+globalTracer.entranceEvent_Info: [53.906] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [53.912] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [53.916] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.exitEvent_Info: [54.569] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [54.590] active=false, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [54.590] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [55.441] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [55.442] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [55.451] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [55.692] owner=null
+globalTracer.setPower_Info: [55.694] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [55.696] owner=null
+globalTracer.prepareToShoot_Info: [56.297] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [56.300] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.302" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [56.314] Vision: targetAngle=9.85, targetDistance=99.41
+globalTracer.autoShootTask_Info: [56.314] using interpolated ShootParams: loc=Interpolated, distance=99.4, lowerFwVel=2200, upperFwVel=1431, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.322] owner=teleOp, lower=2200.00, upper=1430.91, event=null
+globalTracer.autoShootTask_Info: [56.314] visionPidOnTarget=false, rotPower=0.15
+globalTracer.printPidInfo_Info: [56.331881] aligPidCtrl: Target=   0.0, Input=   9.9, dT=1649463025.559268, CurrErr=   9.9, ErrRate=   0.0, Output= 0.148(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.314] upperFlywheelPower=0.1, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.346" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.356] Vision: targetAngle=10.92, targetDistance=99.55
+globalTracer.autoShootTask_Info: [56.356] using interpolated ShootParams: loc=Interpolated, distance=99.6, lowerFwVel=2200, upperFwVel=1428, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.356] visionPidOnTarget=false, rotPower=0.20
+globalTracer.printPidInfo_Info: [56.364902] aligPidCtrl: Target=   0.0, Input=  10.9, dT=0.036520, CurrErr=  10.9, ErrRate=  29.2, Output= 0.199(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.356] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.377" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.385] Vision: targetAngle=11.71, targetDistance=100.86
+globalTracer.autoShootTask_Info: [56.385] using interpolated ShootParams: loc=Interpolated, distance=100.9, lowerFwVel=2200, upperFwVel=1406, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.385] visionPidOnTarget=false, rotPower=0.20
+globalTracer.printPidInfo_Info: [56.407984] aligPidCtrl: Target=   0.0, Input=  11.7, dT=0.040564, CurrErr=  11.7, ErrRate=  19.4, Output= 0.199(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.385] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.413" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.424] Vision: targetAngle=8.63, targetDistance=99.60
+globalTracer.autoShootTask_Info: [56.424] using interpolated ShootParams: loc=Interpolated, distance=99.6, lowerFwVel=2200, upperFwVel=1428, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.432] owner=teleOp, lower=2200.00, upper=1427.55, event=null
+globalTracer.autoShootTask_Info: [56.424] visionPidOnTarget=false, rotPower=0.01
+globalTracer.printPidInfo_Info: [56.438395] aligPidCtrl: Target=   0.0, Input=   8.6, dT=0.032088, CurrErr=   8.6, ErrRate= -96.0, Output= 0.014(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.424] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.451" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.458] Vision: targetAngle=7.92, targetDistance=101.06
+globalTracer.autoShootTask_Info: [56.458] using interpolated ShootParams: loc=Interpolated, distance=101.1, lowerFwVel=2200, upperFwVel=1402, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.458] visionPidOnTarget=false, rotPower=0.09
+globalTracer.printPidInfo_Info: [56.470541] aligPidCtrl: Target=   0.0, Input=   7.9, dT=0.032379, CurrErr=   7.9, ErrRate= -21.9, Output= 0.092(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.458] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.488" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.512] Vision: targetAngle=6.34, targetDistance=100.11
+globalTracer.autoShootTask_Info: [56.512] using interpolated ShootParams: loc=Interpolated, distance=100.1, lowerFwVel=2200, upperFwVel=1419, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.512] visionPidOnTarget=false, rotPower=0.06
+globalTracer.printPidInfo_Info: [56.522413] aligPidCtrl: Target=   0.0, Input=   6.3, dT=0.052325, CurrErr=   6.3, ErrRate= -30.2, Output= 0.059(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.512] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.531" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.540] Vision: targetAngle=4.94, targetDistance=101.29
+globalTracer.autoShootTask_Info: [56.540] using interpolated ShootParams: loc=Interpolated, distance=101.3, lowerFwVel=2200, upperFwVel=1398, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.545] owner=teleOp, lower=2200.00, upper=1398.49, event=null
+globalTracer.autoShootTask_Info: [56.540] visionPidOnTarget=false, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.552301] aligPidCtrl: Target=   0.0, Input=   4.9, dT=0.029871, CurrErr=   4.9, ErrRate= -46.6, Output= 0.018(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.540] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.559" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.569] Vision: targetAngle=3.66, targetDistance=101.49
+globalTracer.autoShootTask_Info: [56.569] using interpolated ShootParams: loc=Interpolated, distance=101.5, lowerFwVel=2200, upperFwVel=1395, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.569] visionPidOnTarget=false, rotPower=-0.01
+globalTracer.printPidInfo_Info: [56.577131] aligPidCtrl: Target=   0.0, Input=   3.7, dT=0.024967, CurrErr=   3.7, ErrRate= -51.5, Output=-0.007(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.569] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.584" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.593] Vision: targetAngle=2.75, targetDistance=101.55
+globalTracer.autoShootTask_Info: [56.593] using interpolated ShootParams: loc=Interpolated, distance=101.6, lowerFwVel=2200, upperFwVel=1394, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.593] visionPidOnTarget=false, rotPower=-0.01
+globalTracer.printPidInfo_Info: [56.600949] aligPidCtrl: Target=   0.0, Input=   2.7, dT=0.023401, CurrErr=   2.7, ErrRate= -39.0, Output=-0.006(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.593] upperFlywheelPower=0.3, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.614" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.622] Vision: targetAngle=1.57, targetDistance=102.16
+globalTracer.autoShootTask_Info: [56.622] using interpolated ShootParams: loc=Interpolated, distance=102.2, lowerFwVel=2200, upperFwVel=1384, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.622] visionPidOnTarget=true, rotPower=-0.02
+globalTracer.printPidInfo_Info: [56.631463] aligPidCtrl: Target=   0.0, Input=   1.6, dT=0.030650, CurrErr=   1.6, ErrRate= -38.5, Output=-0.023(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.622] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.640" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.649] Vision: targetAngle=1.47, targetDistance=101.98
+globalTracer.autoShootTask_Info: [56.649] using interpolated ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.665] owner=teleOp, lower=2200.00, upper=1386.52, event=null
+globalTracer.autoShootTask_Info: [56.649] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.678648] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.044623, CurrErr=   1.5, ErrRate=  -2.0, Output= 0.020(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.649] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.694" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: TELEOP_MODE.postContinuousTasks took too long (0.051s)
+globalTracer.autoShootTask_Info: [56.702] Vision: targetAngle=1.17, targetDistance=101.96
+globalTracer.autoShootTask_Info: [56.702] using interpolated ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.702] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [56.716956] aligPidCtrl: Target=   0.0, Input=   1.2, dT=0.037676, CurrErr=   1.2, ErrRate=  -8.2, Output= 0.008(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.702] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.724" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.733] Vision: targetAngle=1.16, targetDistance=102.17
+globalTracer.autoShootTask_Info: [56.733] using interpolated ShootParams: loc=Interpolated, distance=102.2, lowerFwVel=2200, upperFwVel=1383, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.733] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.741468] aligPidCtrl: Target=   0.0, Input=   1.2, dT=0.027660, CurrErr=   1.2, ErrRate=  -0.4, Output= 0.017(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.733] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.752" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.775] Vision: targetAngle=1.46, targetDistance=101.86
+globalTracer.autoShootTask_Info: [56.775] using interpolated ShootParams: loc=Interpolated, distance=101.9, lowerFwVel=2200, upperFwVel=1389, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.788] owner=teleOp, lower=2200.00, upper=1388.62, event=null
+globalTracer.autoShootTask_Info: [56.775] visionPidOnTarget=true, rotPower=0.03
+globalTracer.printPidInfo_Info: [56.795432] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.054557, CurrErr=   1.5, ErrRate=   5.6, Output= 0.029(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.775] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.802" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.806] Vision: targetAngle=1.46, targetDistance=101.81
+globalTracer.autoShootTask_Info: [56.806] using interpolated ShootParams: loc=Interpolated, distance=101.8, lowerFwVel=2200, upperFwVel=1389, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.806] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.816948] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.020938, CurrErr=   1.5, ErrRate=  -0.1, Output= 0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.806] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.824" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.832] Vision: targetAngle=1.46, targetDistance=101.83
+globalTracer.autoShootTask_Info: [56.832] using interpolated ShootParams: loc=Interpolated, distance=101.8, lowerFwVel=2200, upperFwVel=1389, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.832] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.842221] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.025532, CurrErr=   1.5, ErrRate=   0.0, Output= 0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.832] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.850" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.857] Vision: targetAngle=1.47, targetDistance=101.97
+globalTracer.autoShootTask_Info: [56.857] using interpolated ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.857] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.868110] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.025933, CurrErr=   1.5, ErrRate=   0.5, Output= 0.023(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.857] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.876" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [56.881] Vision: targetAngle=1.47, targetDistance=101.97
+globalTracer.autoShootTask_Info: [56.881] using interpolated ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [56.890] owner=teleOp, lower=2200.00, upper=1386.80, event=null
+globalTracer.autoShootTask_Info: [56.881] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.895729] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.027030, CurrErr=   1.5, ErrRate=  -0.3, Output= 0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.881] upperFlywheelPower=0.2, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.902" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [56.910] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [56.913] Vision: targetAngle=1.47, targetDistance=101.97
+globalTracer.autoShootTask_Info: [56.913] using interpolated ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [56.913] visionPidOnTarget=true, rotPower=0.02
+globalTracer.printPidInfo_Info: [56.920929] aligPidCtrl: Target=   0.0, Input=   1.5, dT=0.025192, CurrErr=   1.5, ErrRate=   0.0, Output= 0.022(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [56.913] upperFlywheelPower=0.2, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [56.928] owner=teleOp, lower=2200.00, upper=1386.80, event=null
+globalTracer.autoShootTask_Info: [56.913] final ShootParams: loc=Interpolated, distance=102.0, lowerFwVel=2200, upperFwVel=1387, tilterAngle=43.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.940" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [56.972] active=true, lowerVel=2248, upperVel=1430
+globalTracer.move_Info: [56.974] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [56.972] Shot a ball (lowerFlywheel=2248, upperFlywheel=1430).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="56.991" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [57.178] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [57.183] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [57.183] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="57.190" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [57.286] active=false, lowerVel=1819, upperVel=1279
+globalTracer.entranceEvent_Info: [57.654] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.conveyorEntranceTrigger_Info: [57.655] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [57.656] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.flywheelTriggerEvent_Info: [57.697] active=true, lowerVel=2309, upperVel=1436
+globalTracer.move_Info: [57.707] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [57.700] Shot a ball (lowerFlywheel=2309, upperFlywheel=1436).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="57.712" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [57.887] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="57.894" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="57.911" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [58.010] active=false, lowerVel=1978, upperVel=1228
+globalTracer.cancel_Info: [58.212] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="58.218" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: [58.384] active=true, lowerVel=2303, upperVel=1410
+globalTracer.cancel_Info: [58.413] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [58.923] active=false, lowerVel=2171, upperVel=1278
+globalTracer.extend_Info: [60.014] owner=null
+globalTracer.pickup_Info: [60.016] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [60.017] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [61.386] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [61.392] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [61.397] active=true, exitHasBall=false, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [61.965] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [61.971] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [61.972] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.stop_Info: [62.310] owner=null
+globalTracer.setPower_Info: [62.314] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [62.320] owner=null
+globalTracer.extend_Info: [62.888] owner=null
+globalTracer.pickup_Info: [62.892] owner=null, event=null, entrance=false, exit=true
+globalTracer.setPower_Info: [62.893] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.stop_Info: [63.409] owner=null
+globalTracer.setPower_Info: [63.410] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [63.415] owner=null
+globalTracer.extend_Info: [63.668] owner=null
+globalTracer.pickup_Info: [63.671] owner=null, event=null, entrance=false, exit=true
+globalTracer.setPower_Info: [63.672] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.entranceEvent_Info: [64.804] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [64.813] active=true, exitHasBall=true, onFinishedEvent=null
+globalTracer.setPower_Info: [64.817] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.stop_Info: [64.991] owner=null
+globalTracer.setPower_Info: [64.995] owner=null, delay=0.2, power=0.0, duration=0.000
+globalTracer.retract_Info: [64.998] owner=null
+globalTracer.prepareToShoot_Info: [66.231] owner=teleOp, event=null, success=true (providedParams=null)
+globalTracer.autoShootTask_Info: [66.238] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.242" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [66.254] Vision: targetAngle=5.48, targetDistance=175.16
+globalTracer.autoShootTask_Info: [66.254] using interpolated ShootParams: loc=Interpolated, distance=175.2, lowerFwVel=1903, upperFwVel=2552, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.270] owner=teleOp, lower=1903.22, upper=2551.61, event=null
+globalTracer.autoShootTask_Info: [66.254] visionPidOnTarget=false, rotPower=0.08
+globalTracer.printPidInfo_Info: [66.276675] aligPidCtrl: Target=   0.0, Input=   5.5, dT=1649463035.506556, CurrErr=   5.5, ErrRate=   0.0, Output= 0.082(-1.000/ 1.000)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.289" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.299] Vision: targetAngle=4.24, targetDistance=174.69
+globalTracer.autoShootTask_Info: [66.299] using interpolated ShootParams: loc=Interpolated, distance=174.7, lowerFwVel=1894, upperFwVel=2547, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.299] visionPidOnTarget=false, rotPower=0.03
+globalTracer.printPidInfo_Info: [66.321640] aligPidCtrl: Target=   0.0, Input=   4.2, dT=0.044713, CurrErr=   4.2, ErrRate= -27.8, Output= 0.030(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.299] upperFlywheelPower=1.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.331" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.341] Vision: targetAngle=4.33, targetDistance=171.65
+globalTracer.autoShootTask_Info: [66.341] using interpolated ShootParams: loc=Interpolated, distance=171.7, lowerFwVel=1833, upperFwVel=2517, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.341] visionPidOnTarget=false, rotPower=0.07
+globalTracer.printPidInfo_Info: [66.353299] aligPidCtrl: Target=   0.0, Input=   4.3, dT=0.032321, CurrErr=   4.3, ErrRate=   3.0, Output= 0.069(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.341] upperFlywheelPower=1.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.364" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.374] Vision: targetAngle=4.34, targetDistance=168.47
+globalTracer.autoShootTask_Info: [66.374] using interpolated ShootParams: loc=Interpolated, distance=168.5, lowerFwVel=1781, upperFwVel=2481, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.383] owner=teleOp, lower=1780.86, upper=2480.86, event=null
+globalTracer.autoShootTask_Info: [66.374] visionPidOnTarget=false, rotPower=0.07
+globalTracer.printPidInfo_Info: [66.388348] aligPidCtrl: Target=   0.0, Input=   4.3, dT=0.034621, CurrErr=   4.3, ErrRate=   0.3, Output= 0.065(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.374] upperFlywheelPower=1.0, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.400" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.408] Vision: targetAngle=4.34, targetDistance=166.40
+globalTracer.autoShootTask_Info: [66.408] using interpolated ShootParams: loc=Interpolated, distance=166.4, lowerFwVel=1755, upperFwVel=2455, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.408] visionPidOnTarget=false, rotPower=0.07
+globalTracer.printPidInfo_Info: [66.421177] aligPidCtrl: Target=   0.0, Input=   4.3, dT=0.031546, CurrErr=   4.3, ErrRate=  -0.0, Output= 0.065(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.408] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.431" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.438] Vision: targetAngle=5.58, targetDistance=164.03
+globalTracer.autoShootTask_Info: [66.438] using interpolated ShootParams: loc=Interpolated, distance=164.0, lowerFwVel=1725, upperFwVel=2425, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.438] visionPidOnTarget=false, rotPower=0.13
+globalTracer.printPidInfo_Info: [66.451341] aligPidCtrl: Target=   0.0, Input=   5.6, dT=0.031979, CurrErr=   5.6, ErrRate=  38.9, Output= 0.130(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.438] upperFlywheelPower=0.9, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.462" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.471] Vision: targetAngle=3.82, targetDistance=166.77
+globalTracer.autoShootTask_Info: [66.471] using interpolated ShootParams: loc=Interpolated, distance=166.8, lowerFwVel=1760, upperFwVel=2460, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.471] visionPidOnTarget=false, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.483699] aligPidCtrl: Target=   0.0, Input=   3.8, dT=0.030618, CurrErr=   3.8, ErrRate= -57.5, Output=-0.012(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.471] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.493" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.502] Vision: targetAngle=4.76, targetDistance=167.51
+globalTracer.autoShootTask_Info: [66.502] using interpolated ShootParams: loc=Interpolated, distance=167.5, lowerFwVel=1769, upperFwVel=2469, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.512] owner=teleOp, lower=1768.93, upper=2468.93, event=null
+globalTracer.autoShootTask_Info: [66.502] visionPidOnTarget=false, rotPower=0.10
+globalTracer.printPidInfo_Info: [66.517497] aligPidCtrl: Target=   0.0, Input=   4.8, dT=0.035613, CurrErr=   4.8, ErrRate=  26.4, Output= 0.103(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.502] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.530" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.537] Vision: targetAngle=2.31, targetDistance=168.52
+globalTracer.autoShootTask_Info: [66.537] using interpolated ShootParams: loc=Interpolated, distance=168.5, lowerFwVel=1781, upperFwVel=2481, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.537] visionPidOnTarget=false, rotPower=-0.05
+globalTracer.printPidInfo_Info: [66.551217] aligPidCtrl: Target=   0.0, Input=   2.3, dT=0.033339, CurrErr=   2.3, ErrRate= -73.5, Output=-0.054(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.537] upperFlywheelPower=0.7, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.559" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.571] Vision: targetAngle=1.09, targetDistance=168.99
+globalTracer.autoShootTask_Info: [66.571] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1787, upperFwVel=2487, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.571] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [66.580268] aligPidCtrl: Target=   0.0, Input=   1.1, dT=0.028913, CurrErr=   1.1, ErrRate= -42.2, Output=-0.034(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.571] upperFlywheelPower=0.8, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.593" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.603] Vision: targetAngle=0.07, targetDistance=168.98
+globalTracer.autoShootTask_Info: [66.603] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1787, upperFwVel=2487, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.612] owner=teleOp, lower=1787.24, upper=2487.24, event=null
+globalTracer.autoShootTask_Info: [66.603] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [66.619053] aligPidCtrl: Target=   0.0, Input=   0.1, dT=0.040072, CurrErr=   0.1, ErrRate= -25.5, Output=-0.030(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.603] upperFlywheelPower=0.6, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.632" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.639] Vision: targetAngle=-0.54, targetDistance=168.82
+globalTracer.autoShootTask_Info: [66.639] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.639] visionPidOnTarget=true, rotPower=-0.03
+globalTracer.printPidInfo_Info: [66.653248] aligPidCtrl: Target=   0.0, Input=  -0.5, dT=0.033982, CurrErr=  -0.5, ErrRate= -17.8, Output=-0.029(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.639] upperFlywheelPower=0.5, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.662" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.671] Vision: targetAngle=-0.54, targetDistance=168.82
+globalTracer.autoShootTask_Info: [66.671] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.671] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.682327] aligPidCtrl: Target=   0.0, Input=  -0.5, dT=0.029024, CurrErr=  -0.5, ErrRate=   0.0, Output=-0.008(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.671] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.696" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.702] Vision: targetAngle=-0.54, targetDistance=168.82
+globalTracer.autoShootTask_Info: [66.702] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.715] owner=teleOp, lower=1785.21, upper=2485.21, event=null
+globalTracer.autoShootTask_Info: [66.702] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.719854] aligPidCtrl: Target=   0.0, Input=  -0.5, dT=0.036616, CurrErr=  -0.5, ErrRate=   0.0, Output=-0.008(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.702] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.731" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.738] Vision: targetAngle=-0.44, targetDistance=168.99
+globalTracer.autoShootTask_Info: [66.738] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1787, upperFwVel=2487, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.738] visionPidOnTarget=true, rotPower=-0.00
+globalTracer.printPidInfo_Info: [66.747388] aligPidCtrl: Target=   0.0, Input=  -0.4, dT=0.026960, CurrErr=  -0.4, ErrRate=   3.5, Output=-0.002(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.738] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.759" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.765] Vision: targetAngle=-0.34, targetDistance=169.01
+globalTracer.autoShootTask_Info: [66.765] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1788, upperFwVel=2488, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.765] visionPidOnTarget=true, rotPower=-0.00
+globalTracer.printPidInfo_Info: [66.778958] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.030381, CurrErr=  -0.3, ErrRate=   3.3, Output=-0.001(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.765] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.791" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.801] Vision: targetAngle=-0.13, targetDistance=168.82
+globalTracer.autoShootTask_Info: [66.801] using interpolated ShootParams: loc=Interpolated, distance=168.8, lowerFwVel=1785, upperFwVel=2485, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.801] visionPidOnTarget=true, rotPower=0.01
+globalTracer.printPidInfo_Info: [66.814751] aligPidCtrl: Target=   0.0, Input=  -0.1, dT=0.036568, CurrErr=  -0.1, ErrRate=   5.9, Output= 0.005(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.801] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.826" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.839] Vision: targetAngle=-0.24, targetDistance=169.00
+globalTracer.autoShootTask_Info: [66.839] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1788, upperFwVel=2488, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [66.847] owner=teleOp, lower=1787.50, upper=2487.50, event=null
+globalTracer.autoShootTask_Info: [66.839] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.856928] aligPidCtrl: Target=   0.0, Input=  -0.2, dT=0.044005, CurrErr=  -0.2, ErrRate=  -2.5, Output=-0.007(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.839] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.871" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [66.882] Vision: targetAngle=-0.34, targetDistance=169.01
+globalTracer.autoShootTask_Info: [66.882] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1788, upperFwVel=2488, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.882] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.893179] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.033520, CurrErr=  -0.3, ErrRate=  -3.1, Output=-0.009(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.882] upperFlywheelPower=0.4, allowToShoot=true, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.910" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.commitToShoot_Info: [66.920] owner=teleOp, allowToShoot=true, currOwner=teleOp
+globalTracer.autoShootTask_Info: [66.926] Vision: targetAngle=-0.34, targetDistance=169.01
+globalTracer.autoShootTask_Info: [66.926] using interpolated ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1788, upperFwVel=2488, tilterAngle=43.00
+globalTracer.autoShootTask_Info: [66.926] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.printPidInfo_Info: [66.938374] aligPidCtrl: Target=   0.0, Input=  -0.3, dT=0.045580, CurrErr=  -0.3, ErrRate=  -0.0, Output=-0.005(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [66.926] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=true, goShoot=true
+globalTracer.setFlywheelValue_Info: [66.957] owner=teleOp, lower=1787.61, upper=2487.61, event=null
+globalTracer.autoShootTask_Info: [66.926] final ShootParams: loc=Interpolated, distance=169.0, lowerFwVel=1788, upperFwVel=2488, tilterAngle=43.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="66.965" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [67.169] active=true, lowerVel=1857, upperVel=2568
+globalTracer.move_Info: [67.174] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [67.165] Shot a ball (lowerFlywheel=1857, upperFlywheel=2568).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="67.181" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [67.341] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [67.346] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [67.346] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="67.352" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [67.457] active=false, lowerVel=1535, upperVel=2271
+globalTracer.entranceEvent_Info: [67.790] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.conveyorEntranceTrigger_Info: [67.792] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.exitEvent_Info: [67.794] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.flywheelTriggerEvent_Info: [67.871] active=true, lowerVel=1883, upperVel=2564
+globalTracer.move_Info: [67.879] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [67.876] Shot a ball (lowerFlywheel=1883, upperFlywheel=2563).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="67.890" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [68.019] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="68.028" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="68.040" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [68.120] active=false, lowerVel=1518, upperVel=2309
+globalTracer.cancel_Info: [68.342] Canceling: currOwner=teleOp
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="68.353" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.cancel_Info: [68.534] Canceling: currOwner=null
+globalTracer.flywheelTriggerEvent_Info: [68.554] active=true, lowerVel=1888, upperVel=2523
+globalTracer.flywheelTriggerEvent_Info: [68.931] active=false, lowerVel=1780, upperVel=2382
+globalTracer.extend_Info: [69.769] owner=null
+globalTracer.pickup_Info: [69.771] owner=null, event=null, entrance=false, exit=false
+globalTracer.setPower_Info: [69.772] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.startCompetition_Info: *** Transitioning from TELEOP_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: [0.007] Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)
+globalTracer.FrcRobotBase_Info: (TELEOP_MODE->DISABLED_MODE) Performance Metrics: ContinuousLoopCount=33279, PeriodicLoopCount=3359
+globalTracer.FrcRobotBase_Info: RobotInit=2.114032, PrevModeStopTask=0.003095, PrevStopMode=0.001069, PrevRobotStopMode=0.000000, RobotStartMode=0.463101, startMode=0.030707, startTask=0.000106
+globalTracer.FrcRobotBase_Info: PreContinuousTask(Avg/Max)=0.000171/0.015687
+globalTracer.FrcRobotBase_Info: PrePeriodicTask(Avg/Max)=0.000496/0.062225
+globalTracer.FrcRobotBase_Info: RunContinuous(Avg/Max)=0.000020/0.009108
+globalTracer.FrcRobotBase_Info: RunPeriodic(Avg/Max)=0.001971/0.057490
+globalTracer.FrcRobotBase_Info: PostContinuousTask(Avg/Max)=0.000254/0.105813
+globalTracer.FrcRobotBase_Info: PostPeriodicTask(Avg/Max)=0.000097/0.006992
+globalTracer.FrcRobotBase_Info: Updates(Avg/Max)=0.011661/0.035728
+globalTracer.TaskPerformance_Info: DriverController.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000054/0.021117, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: DriverLeftStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000034/0.021117, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: operatorStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000204/0.021117, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: buttonPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000045/0.021117, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: switchPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000018/0.021117, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: FrcPdp.energyUsedTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcRobotBattery.robotBatteryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcMotor.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000182/0.000277, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.cleanupTask: Start=0.000000/0.000000, Stop=0.001618/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.001579/0.020829, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.stopTask: Start=0.000000/0.000000, Stop=0.000989/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.stopTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: purePursuitDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: LimeLight.visionTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000052/0.002132, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.entranceTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000122/0.020824, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.exitTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000041/0.020821, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pidMotorTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.009419/0.019642
+globalTracer.TaskPerformance_Info: Climber.stopMotorTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000025/0.020827, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.limitSWTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.climberTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.lowerFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.upperFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.flywheelVelTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000261/0.020734, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.shooterTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.002975/0.029691, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000

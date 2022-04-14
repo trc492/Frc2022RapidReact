@@ -165,7 +165,7 @@ public class Shooter implements TrcExclusiveSubsystem
      *              require exclusive access.
      * @param enabled specifies true to enable velocity mode, false to disable.
      */
-    public void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
+    public synchronized void setFlywheelVelocityModeEnabled(String owner, boolean enabled)
     {
         final String funcName = "setFlywheelVelocityModeEnabled";
 
@@ -263,7 +263,7 @@ public class Shooter implements TrcExclusiveSubsystem
      * @param event specifies the event to signal when the upper flywheel is up to speed, can be null if not provided.
      *              This is only applicable if velocity mode is enabled.
      */
-    public void setFlywheelValue(String owner, double lowerValue, double upperValue, TrcEvent event)
+    public synchronized void setFlywheelValue(String owner, double lowerValue, double upperValue, TrcEvent event)
     {
         final String funcName = "setFlywheelValue";
 
@@ -278,14 +278,17 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             if (flywheelInVelocityMode)
             {
-                // We only care about the upper flywheel velocity. This is the exit velocity of the ball.
-                flywheelVelocityTrigger.setTrigger(
-                    upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
-                    RobotParams.FLYWHEEL_SETTLING_TIME);
+                if (upperValue > 0.0)
+                {
+                    // We only care about the upper flywheel velocity. This is the exit velocity of the ball.
+                    flywheelToSpeedEvent = event;
+                    flywheelVelocityTrigger.setTrigger(
+                        upperValue - RobotParams.FLYWHEEL_TOLERANCE, upperValue + RobotParams.FLYWHEEL_TOLERANCE,
+                        RobotParams.FLYWHEEL_SETTLING_TIME);
+                }
                 // Convert values from RPM back to the native unit of encoder count per second.
                 lowerValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
                 upperValue *= RobotParams.FLYWHEEL_ENCODER_PPR / 60.0;
-                flywheelToSpeedEvent = event;
             }
 
             if (lowerValue == 0.0)
@@ -304,15 +307,14 @@ public class Shooter implements TrcExclusiveSubsystem
                 // Stop the flywheels in a gentler way by using coast mode that is only applicable in PercentOutput
                 // mode.
                 upperFlywheelMotor.stopMotor();
-                if (flywheelInVelocityMode)
-                {
-                    flywheelVelocityTrigger.setEnabled(false);
-                }
             }
             else
             {
+                if (isFlywheelInVelocityMode())
+                {
+                    flywheelVelocityTrigger.setEnabled(true);
+                }
                 upperFlywheelMotor.set(upperValue);
-                flywheelVelocityTrigger.setEnabled(true);
             }
         }
     }   //setFlywheelValue

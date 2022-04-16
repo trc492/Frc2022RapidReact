@@ -154,7 +154,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 double[] inputs = robot.robotDrive.getDriveInputs();
                 if (robot.robotDrive.driveBase.supportsHolonomicDrive())
                 {
-                    robot.robotDrive.driveBase.holonomicDrive(inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                    robot.robotDrive.driveBase.holonomicDrive(null, inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
                 }
                 else
                 {

@@ -1,0 +1,650 @@
+globalTracer.robotStartMode_Info: [0.292] Fri Apr 08 13:55:03 PDT 2022: ***** AUTO_MODE *****
+globalTracer.FrcAuto_Info: <Info name="MatchInfo" date="Fri Apr 08 13:55:03 PDT 2022" event="PNCMP" type="Qualification" match=48 replay=1 alliance="Red" location=2 gameMsg="" />
+globalTracer.FrcAuto_Info: <Info name="AutoChoices" alliance="Red" strategy="AUTO_5_BALLS" startPos="0" startDelay=0 sec pathFile="DrivePath.csv" xDistance="6.0 ft" yDistance="6.0 ft" turnDegrees="90 deg" driveTime="4 sec" drivePower="4.0" />
+globalTracer.CmdAuto3Or5Balls_Info: >>> robot=RapidReact_Robot, do5Balls=true, choices=alliance="Red" strategy="AUTO_5_BALLS" startPos="0" startDelay=0 sec pathFile="DrivePath.csv" xDistance="6.0 ft" yDistance="6.0 ft" turnDegrees="90 deg" driveTime="4 sec" drivePower="4.0"
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="0.496" tag=">>>>>" CmdAuto3Or5Balls.state="START_DELAY" />
+globalTracer.startCompetition_Warn: AUTO_MODE.runContinuous took too long (0.071s)
+globalTracer.startCompetition_Warn: AUTO_MODE took too long (1649451096.236s)
+globalTracer.setFlywheelValue_Info: [0.511] owner=null, lower=1900.00, upper=2500.00, event=null
+globalTracer.extend_Info: [0.515] owner=null
+globalTracer.pickup_Info: [0.517] owner=null, event=CmdAuto3Or5Balls.intakeEvent=CLEARED, entrance=true, exit=false
+globalTracer.move_Info: [0.521] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.setPower_Info: [0.523] owner=null, delay=0.5, power=1.0, duration=0.000
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=89.8,y=-25.0,angle=88.5),vel=0.00), TrcWaypoint(pose=(x=129.8,y=-23.9,angle=88.5),vel=0.00)])
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.855" AbsPose="(x=89.8,y=-25.0,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.0,y=40.0,angle=0.0)" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="0.889" tag=">>>>>" CmdAuto3Or5Balls.state="PICKUP_SECOND_BALL" RobotPose=(x=89.8,y=-25.0,angle=88.5) TargetPose=(x=129.8,y=-23.9,angle=88.5) vel=(x=-0.1,y=-0.0,angle=0.0) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=-0.0,y=40.0,angle=0.0),vel=0.00)]) />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.893" AbsPose="(x=89.8,y=-25.0,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.0,y=40.0,angle=0.0)" />
+globalTracer.startCompetition_Warn: AUTO_MODE.runContinuous took too long (0.392s)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.915" AbsPose="(x=90.2,y=-25.0,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.0,y=39.6,angle=0.0)" />
+globalTracer.startCompetition_Warn: AUTO_MODE took too long (0.417s)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.937" AbsPose="(x=90.6,y=-25.0,angle=88.4)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=39.2,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.955" AbsPose="(x=91.0,y=-25.0,angle=88.4)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=38.8,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.975" AbsPose="(x=92.0,y=-24.9,angle=88.4)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=37.8,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="0.997" AbsPose="(x=93.3,y=-24.9,angle=88.4)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=36.5,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.018" AbsPose="(x=94.6,y=-24.8,angle=88.4)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=35.2,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.037" AbsPose="(x=95.8,y=-24.8,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=34.0,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.058" AbsPose="(x=97.3,y=-24.7,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=32.5,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.080" AbsPose="(x=98.8,y=-24.6,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.1,y=31.0,angle=-0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.102" AbsPose="(x=100.2,y=-24.5,angle=88.6)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.2,y=29.6,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.127" AbsPose="(x=101.4,y=-24.4,angle=88.6)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.2,y=28.3,angle=-0.1)" />
+globalTracer.exitEvent_Info: [1.148] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.entranceEvent_Info: [1.169] active=false, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [1.172] active=false, exitHasBall=true, onFinishedEvent=CmdAuto3Or5Balls.intakeEvent=CLEARED
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.162" AbsPose="(x=104.7,y=-24.2,angle=88.7)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.3,y=25.1,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.202" AbsPose="(x=107.5,y=-24.0,angle=88.8)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.3,y=23.6,angle=-0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.228" AbsPose="(x=109.0,y=-23.8,angle=88.8)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.6,y=20.8,angle=-0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.257" AbsPose="(x=112.4,y=-23.5,angle=88.8)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.7,y=19.1,angle=-0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.283" AbsPose="(x=114.0,y=-23.3,angle=88.8)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=0.8,y=17.4,angle=-0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.317" AbsPose="(x=117.4,y=-23.0,angle=88.7)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.2,y=13.8,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.345" AbsPose="(x=119.0,y=-22.9,angle=88.6)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.3,y=12.3,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.373" AbsPose="(x=121.4,y=-22.5,angle=88.5)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.6,y=8.4,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.405" AbsPose="(x=123.9,y=-22.2,angle=88.2)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.8,y=7.1,angle=0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.425" AbsPose="(x=124.9,y=-21.9,angle=88.1)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=2.2,y=4.8,angle=0.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.442" AbsPose="(x=125.9,y=-21.8,angle=88.0)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=2.2,y=3.8,angle=0.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.461" AbsPose="(x=126.8,y=-21.8,angle=87.9)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=2.2,y=2.9,angle=0.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.482" AbsPose="(x=127.5,y=-21.9,angle=87.9)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=2.2,y=2.2,angle=0.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.503" AbsPose="(x=128.2,y=-22.1,angle=88.0)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.9,y=1.5,angle=0.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.524" AbsPose="(x=128.7,y=-22.3,angle=88.0)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.7,y=1.1,angle=0.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.558" AbsPose="(x=128.7,y=-22.3,angle=88.1)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.7,y=1.1,angle=0.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.587" AbsPose="(x=129.0,y=-22.5,angle=88.6)" AbsTarget="(x=129.8,y=-23.9,angle=88.5)" Delta="(x=1.4,y=0.8,angle=-0.1)" />
+globalTracer.flywheelTriggerEvent_Info: [1.743] active=true, lowerVel=1949, upperVel=2559
+globalTracer.entranceEvent_Info: [1.782] active=true, triggerAction=DoNothing, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [1.806] active=true, exitHasBall=true, onFinishedEvent=CmdAuto3Or5Balls.intakeEvent=CLEARED
+globalTracer.setPower_Info: [1.809] owner=null, delay=0.0, power=0.0, duration=0.000
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=130.1,y=-23.9,angle=89.4),vel=0.00), TrcWaypoint(pose=(x=125.7,y=-147.7,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=108.5,y=-153.5,angle=-35.3),vel=0.00)])
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.847" AbsPose="(x=130.1,y=-23.9,angle=89.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=123.7,y=-5.6,angle=-89.4)" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="1.854" tag=">>>>>" CmdAuto3Or5Balls.state="GO_TO_FIRST_SHOOT_POS" RobotPose=(x=130.1,y=-23.9,angle=89.4) TargetPose=(x=108.5,y=-153.5,angle=-35.3) vel=(x=0.1,y=-0.1,angle=1.4) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=123.7,y=-5.6,angle=-89.4),vel=0.00), TrcWaypoint(pose=(x=129.4,y=-22.9,angle=-124.7),vel=0.00)]) />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.865" AbsPose="(x=130.1,y=-23.9,angle=89.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=123.7,y=-5.7,angle=-89.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.886" AbsPose="(x=130.1,y=-24.1,angle=89.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=123.6,y=-5.7,angle=-89.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.908" AbsPose="(x=130.3,y=-24.5,angle=89.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=123.2,y=-5.8,angle=-89.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.937" AbsPose="(x=130.3,y=-24.9,angle=89.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=122.7,y=-5.9,angle=-89.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.955" AbsPose="(x=130.4,y=-25.6,angle=89.3)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=122.0,y=-6.2,angle=-89.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="1.987" AbsPose="(x=130.4,y=-26.2,angle=89.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=121.4,y=-6.5,angle=-89.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.015" AbsPose="(x=130.4,y=-27.5,angle=88.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=120.7,y=-7.7,angle=-88.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.051" AbsPose="(x=130.5,y=-30.1,angle=86.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=119.0,y=-10.3,angle=-87.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.077" AbsPose="(x=130.4,y=-30.8,angle=86.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=117.2,y=-11.4,angle=-86.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.106" AbsPose="(x=130.3,y=-32.0,angle=85.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=114.9,y=-14.6,angle=-85.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.137" AbsPose="(x=130.1,y=-35.1,angle=82.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=113.4,y=-15.8,angle=-84.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.170" AbsPose="(x=130.0,y=-36.5,angle=82.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=109.5,y=-19.8,angle=-82.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.199" AbsPose="(x=129.5,y=-39.5,angle=79.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=107.8,y=-21.0,angle=-81.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.228" AbsPose="(x=129.3,y=-41.1,angle=78.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=105.6,y=-24.0,angle=-79.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.265" AbsPose="(x=128.6,y=-44.4,angle=75.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=101.7,y=-26.3,angle=-77.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.284" AbsPose="(x=128.3,y=-46.2,angle=74.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=99.1,y=-29.3,angle=-75.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.307" AbsPose="(x=128.0,y=-48.1,angle=71.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=96.9,y=-30.4,angle=-74.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.329" AbsPose="(x=127.6,y=-50.0,angle=70.7)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=93.9,y=-33.3,angle=-71.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.361" AbsPose="(x=127.2,y=-52.0,angle=69.5)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=89.1,y=-34.9,angle=-69.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.377" AbsPose="(x=126.7,y=-54.0,angle=67.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=85.9,y=-37.4,angle=-67.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.396" AbsPose="(x=126.2,y=-56.1,angle=65.9)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=83.4,y=-37.9,angle=-65.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.424" AbsPose="(x=124.7,y=-61.4,angle=62.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=80.1,y=-37.6,angle=-64.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.448" AbsPose="(x=124.2,y=-63.6,angle=60.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=76.7,y=-39.6,angle=-62.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.475" AbsPose="(x=123.8,y=-66.0,angle=58.3)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=70.5,y=-41.4,angle=-58.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.500" AbsPose="(x=123.4,y=-68.3,angle=57.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=67.8,y=-41.4,angle=-57.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.520" AbsPose="(x=123.0,y=-70.7,angle=55.7)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=65.1,y=-41.2,angle=-55.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.540" AbsPose="(x=122.8,y=-73.1,angle=53.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=61.5,y=-42.3,angle=-53.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.560" AbsPose="(x=122.5,y=-75.5,angle=52.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=58.8,y=-41.9,angle=-52.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.576" AbsPose="(x=122.3,y=-78.0,angle=50.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=56.1,y=-41.4,angle=-50.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.602" AbsPose="(x=122.1,y=-80.6,angle=48.3)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=52.5,y=-42.0,angle=-48.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.627" AbsPose="(x=122.0,y=-83.2,angle=47.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=49.8,y=-41.3,angle=-47.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.656" AbsPose="(x=122.1,y=-88.4,angle=43.3)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=46.1,y=-41.5,angle=-44.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.682" AbsPose="(x=122.2,y=-91.0,angle=42.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=43.3,y=-40.7,angle=-43.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.711" AbsPose="(x=122.8,y=-96.3,angle=38.3)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=36.9,y=-39.7,angle=-39.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.739" AbsPose="(x=123.2,y=-98.9,angle=37.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=34.1,y=-38.6,angle=-38.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.770" AbsPose="(x=123.7,y=-101.6,angle=34.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=27.7,y=-36.9,angle=-34.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.798" AbsPose="(x=124.6,y=-106.8,angle=31.6)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=24.9,y=-35.7,angle=-33.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.827" AbsPose="(x=125.1,y=-109.4,angle=28.7)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=22.3,y=-34.2,angle=-31.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.856" AbsPose="(x=126.1,y=-114.6,angle=23.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=16.4,y=-31.7,angle=-27.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.884" AbsPose="(x=126.7,y=-117.1,angle=22.0)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=13.0,y=-30.5,angle=-23.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.928" AbsPose="(x=127.2,y=-119.6,angle=20.1)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=8.3,y=-26.9,angle=-20.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.940" AbsPose="(x=128.0,y=-126.1,angle=13.7)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=5.2,y=-25.2,angle=-15.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.955" AbsPose="(x=128.0,y=-126.1,angle=13.7)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=2.8,y=-21.5,angle=-13.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.978" AbsPose="(x=128.5,y=-129.1,angle=11.2)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=0.9,y=-18.8,angle=-11.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="2.996" AbsPose="(x=128.6,y=-130.6,angle=3.4)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=-1.9,y=-17.3,angle=-3.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.016" AbsPose="(x=128.9,y=-132.7,angle=0.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=-3.0,y=-15.0,angle=-0.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.038" AbsPose="(x=129.2,y=-134.8,angle=0.8)" AbsTarget="(x=125.7,y=-147.7,angle=0.0)" Delta="(x=-3.3,y=-12.9,angle=-0.8)" />
+globalTracer.getFollowingPoint_Info: Segment[1:TrcWaypoint(pose=(x=123.7,y=-5.6,angle=-89.4),vel=0.00)->2:TrcWaypoint(pose=(x=129.4,y=-22.9,angle=-124.7),vel=0.00)] PrevIndex=1, Target=TrcWaypoint(simple=false,timestep=0.000,pose=(x=129.4,y=-22.9,angle=-124.7),vel=0.00,encPos=0.0,accel=0.00,jerk=0.00)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.065" AbsPose="(x=129.2,y=-139.1,angle=-9.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-22.7,y=-14.1,angle=-28.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.090" AbsPose="(x=129.0,y=-140.4,angle=-12.8)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-22.7,y=-11.0,angle=-26.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.115" AbsPose="(x=128.9,y=-141.8,angle=-14.4)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-22.9,y=-8.2,angle=-22.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.138" AbsPose="(x=128.0,y=-143.4,angle=-15.8)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-21.6,y=-4.5,angle=-19.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.166" AbsPose="(x=125.3,y=-145.4,angle=-20.2)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-20.0,y=-3.3,angle=-18.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.212" AbsPose="(x=123.7,y=-146.6,angle=-23.4)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-18.6,y=-1.8,angle=-15.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.237" AbsPose="(x=122.0,y=-147.8,angle=-26.7)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-14.6,y=1.0,angle=-8.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.265" AbsPose="(x=120.9,y=-148.6,angle=-28.4)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-13.2,y=1.5,angle=-6.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.294" AbsPose="(x=118.8,y=-149.9,angle=-33.8)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-11.9,y=2.1,angle=-5.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.320" AbsPose="(x=117.8,y=-150.3,angle=-35.6)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-9.5,y=2.8,angle=0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.345" AbsPose="(x=116.9,y=-150.7,angle=-37.2)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-8.4,y=2.8,angle=2.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.372" AbsPose="(x=114.8,y=-151.4,angle=-41.2)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-7.0,y=2.7,angle=4.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.400" AbsPose="(x=114.0,y=-151.6,angle=-42.7)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-6.1,y=2.5,angle=5.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.427" AbsPose="(x=113.4,y=-151.8,angle=-43.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-4.7,y=2.1,angle=7.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.456" AbsPose="(x=112.1,y=-152.1,angle=-42.9)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-4.2,y=1.8,angle=8.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.487" AbsPose="(x=111.7,y=-152.2,angle=-42.5)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-3.6,y=1.4,angle=7.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.516" AbsPose="(x=110.9,y=-152.3,angle=-40.1)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-2.9,y=1.0,angle=6.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.542" AbsPose="(x=110.6,y=-152.3,angle=-39.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-2.6,y=0.6,angle=4.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.566" AbsPose="(x=110.2,y=-152.4,angle=-38.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-2.4,y=0.4,angle=3.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.595" AbsPose="(x=109.6,y=-152.4,angle=-34.9)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-1.8,y=-0.1,angle=0.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.623" AbsPose="(x=109.4,y=-152.5,angle=-34.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-1.5,y=-0.2,angle=-0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.649" AbsPose="(x=109.2,y=-152.6,angle=-32.7)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-1.3,y=-0.4,angle=-1.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.674" AbsPose="(x=109.0,y=-152.7,angle=-32.3)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.9,y=-0.4,angle=-3.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.709" AbsPose="(x=108.8,y=-152.9,angle=-31.9)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.7,y=-0.4,angle=-3.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.733" AbsPose="(x=108.8,y=-152.9,angle=-31.9)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.6,y=-0.3,angle=-3.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.758" AbsPose="(x=108.8,y=-153.0,angle=-31.9)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.5,y=-0.3,angle=-3.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.782" AbsPose="(x=108.7,y=-153.1,angle=-32.0)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.4,y=-0.2,angle=-3.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.809" AbsPose="(x=108.7,y=-153.1,angle=-32.3)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.4,y=-0.2,angle=-3.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="3.830" AbsPose="(x=108.7,y=-153.2,angle=-32.5)" AbsTarget="(x=108.5,y=-153.5,angle=-35.3)" Delta="(x=-0.3,y=-0.2,angle=-2.8)" />
+globalTracer.prepareToShoot_Info: [3.848] owner=CmdAuto3Or5Balls, event=CmdAuto3Or5Balls.shootEvent=CLEARED, success=true (providedParams=null)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.852" tag=">>>>>" CmdAuto3Or5Balls.state="SHOOT" />
+globalTracer.autoShootTask_Info: [3.858] Entrance=true, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.870" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [3.881] Vision: targetAngle=-2.85, targetDistance=197.67
+globalTracer.autoShootTask_Info: [3.881] using interpolated ShootParams: loc=Interpolated, distance=197.7, lowerFwVel=1900, upperFwVel=2459, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [3.897] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2459.34, event=null
+globalTracer.flywheelTriggerEvent_Info: [3.903] active=true, lowerVel=1905, upperVel=2510
+globalTracer.autoShootTask_Info: [3.881] visionPidOnTarget=false, rotPower=-0.04
+globalTracer.printPidInfo_Info: [3.905587] aligPidCtrl: Target=   0.0, Input=  -2.9, dT=1649451307.735822, CurrErr=  -2.9, ErrRate=  -0.0, Output=-0.043(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.881] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.917" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [3.925] Vision: targetAngle=-3.91, targetDistance=196.54
+globalTracer.autoShootTask_Info: [3.925] using interpolated ShootParams: loc=Interpolated, distance=196.5, lowerFwVel=1900, upperFwVel=2434, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [3.925] visionPidOnTarget=false, rotPower=-0.11
+globalTracer.printPidInfo_Info: [3.931207] aligPidCtrl: Target=   0.0, Input=  -3.9, dT=0.027114, CurrErr=  -3.9, ErrRate= -39.0, Output=-0.105(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.925] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.937" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [3.943] Vision: targetAngle=-3.91, targetDistance=196.56
+globalTracer.autoShootTask_Info: [3.943] using interpolated ShootParams: loc=Interpolated, distance=196.6, lowerFwVel=1900, upperFwVel=2435, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [3.943] visionPidOnTarget=false, rotPower=-0.06
+globalTracer.printPidInfo_Info: [3.947676] aligPidCtrl: Target=   0.0, Input=  -3.9, dT=0.016200, CurrErr=  -3.9, ErrRate=  -0.2, Output=-0.059(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.943] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.956" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [3.961] Vision: targetAngle=-2.74, targetDistance=197.68
+globalTracer.autoShootTask_Info: [3.961] using interpolated ShootParams: loc=Interpolated, distance=197.7, lowerFwVel=1900, upperFwVel=2460, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [3.961] visionPidOnTarget=false, rotPower=0.03
+globalTracer.printPidInfo_Info: [3.967336] aligPidCtrl: Target=   0.0, Input=  -2.7, dT=0.019446, CurrErr=  -2.7, ErrRate=  60.3, Output= 0.031(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.961] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.972" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [3.975] Vision: targetAngle=-2.87, targetDistance=197.45
+globalTracer.autoShootTask_Info: [3.975] using interpolated ShootParams: loc=Interpolated, distance=197.4, lowerFwVel=1900, upperFwVel=2454, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [3.975] visionPidOnTarget=false, rotPower=-0.05
+globalTracer.printPidInfo_Info: [3.982109] aligPidCtrl: Target=   0.0, Input=  -2.9, dT=0.013371, CurrErr=  -2.9, ErrRate=  -9.6, Output=-0.054(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.975] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="3.988" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [3.992] Vision: targetAngle=-2.74, targetDistance=197.87
+globalTracer.autoShootTask_Info: [3.992] using interpolated ShootParams: loc=Interpolated, distance=197.9, lowerFwVel=1900, upperFwVel=2464, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [3.992] visionPidOnTarget=false, rotPower=-0.03
+globalTracer.printPidInfo_Info: [3.999811] aligPidCtrl: Target=   0.0, Input=  -2.7, dT=0.018215, CurrErr=  -2.7, ErrRate=   6.9, Output=-0.033(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [3.992] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.006" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.030] Vision: targetAngle=-2.44, targetDistance=197.53
+globalTracer.autoShootTask_Info: [4.030] using interpolated ShootParams: loc=Interpolated, distance=197.5, lowerFwVel=1900, upperFwVel=2456, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [4.047] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2456.23, event=null
+globalTracer.autoShootTask_Info: [4.030] visionPidOnTarget=false, rotPower=-0.03
+globalTracer.flywheelTriggerEvent_Info: [4.062] active=true, lowerVel=1906, upperVel=2479
+globalTracer.printPidInfo_Info: [4.063489] aligPidCtrl: Target=   0.0, Input=  -2.4, dT=0.057901, CurrErr=  -2.4, ErrRate=   5.2, Output=-0.030(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.030] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.094" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.074s)
+globalTracer.autoShootTask_Info: [4.126] Vision: targetAngle=-2.05, targetDistance=197.47
+globalTracer.autoShootTask_Info: [4.126] using interpolated ShootParams: loc=Interpolated, distance=197.5, lowerFwVel=1900, upperFwVel=2455, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.126] visionPidOnTarget=false, rotPower=-0.03
+globalTracer.printPidInfo_Info: [4.150399] aligPidCtrl: Target=   0.0, Input=  -2.0, dT=0.091709, CurrErr=  -2.0, ErrRate=   4.3, Output=-0.026(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.126] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.180" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.061s)
+globalTracer.autoShootTask_Info: [4.209] Vision: targetAngle=-2.14, targetDistance=197.70
+globalTracer.autoShootTask_Info: [4.209] using interpolated ShootParams: loc=Interpolated, distance=197.7, lowerFwVel=1900, upperFwVel=2460, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [4.227] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2459.92, event=null
+globalTracer.autoShootTask_Info: [4.209] visionPidOnTarget=false, rotPower=-0.03
+globalTracer.printPidInfo_Info: [4.241431] aligPidCtrl: Target=   0.0, Input=  -2.1, dT=0.088795, CurrErr=  -2.1, ErrRate=  -1.0, Output=-0.033(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [4.250] active=true, lowerVel=1904, upperVel=2459
+globalTracer.autoShootTask_Info: [4.209] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.269" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.065s)
+globalTracer.autoShootTask_Info: [4.291] Vision: targetAngle=-2.25, targetDistance=197.52
+globalTracer.autoShootTask_Info: [4.291] using interpolated ShootParams: loc=Interpolated, distance=197.5, lowerFwVel=1900, upperFwVel=2456, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.291] visionPidOnTarget=false, rotPower=-0.04
+globalTracer.printPidInfo_Info: [4.312165] aligPidCtrl: Target=   0.0, Input=  -2.3, dT=0.073558, CurrErr=  -2.3, ErrRate=  -1.6, Output=-0.036(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.291] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.325" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.334] Vision: targetAngle=-2.25, targetDistance=197.52
+globalTracer.autoShootTask_Info: [4.334] using interpolated ShootParams: loc=Interpolated, distance=197.5, lowerFwVel=1900, upperFwVel=2456, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [4.342] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2455.91, event=null
+globalTracer.autoShootTask_Info: [4.334] visionPidOnTarget=false, rotPower=-0.03
+globalTracer.printPidInfo_Info: [4.347545] aligPidCtrl: Target=   0.0, Input=  -2.3, dT=0.036181, CurrErr=  -2.3, ErrRate=   0.0, Output=-0.034(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [4.352] active=true, lowerVel=1903, upperVel=2456
+globalTracer.autoShootTask_Info: [4.334] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.364" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.372] Vision: targetAngle=-4.55, targetDistance=197.85
+globalTracer.autoShootTask_Info: [4.372] using interpolated ShootParams: loc=Interpolated, distance=197.8, lowerFwVel=1900, upperFwVel=2463, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.372] visionPidOnTarget=false, rotPower=-0.15
+globalTracer.printPidInfo_Info: [4.381818] aligPidCtrl: Target=   0.0, Input=  -4.6, dT=0.034632, CurrErr=  -4.6, ErrRate= -66.4, Output=-0.148(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.372] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.389" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.408] Vision: targetAngle=-4.55, targetDistance=197.85
+globalTracer.autoShootTask_Info: [4.408] using interpolated ShootParams: loc=Interpolated, distance=197.8, lowerFwVel=1900, upperFwVel=2463, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.408] visionPidOnTarget=false, rotPower=-0.07
+globalTracer.printPidInfo_Info: [4.416868] aligPidCtrl: Target=   0.0, Input=  -4.6, dT=0.035246, CurrErr=  -4.6, ErrRate=   0.0, Output=-0.068(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.408] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.426" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.432] Vision: targetAngle=-3.20, targetDistance=197.37
+globalTracer.autoShootTask_Info: [4.432] using interpolated ShootParams: loc=Interpolated, distance=197.4, lowerFwVel=1900, upperFwVel=2453, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.432] visionPidOnTarget=false, rotPower=0.03
+globalTracer.printPidInfo_Info: [4.441592] aligPidCtrl: Target=   0.0, Input=  -3.2, dT=0.021539, CurrErr=  -3.2, ErrRate=  62.6, Output= 0.027(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.432] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.452" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.466] Vision: targetAngle=-1.42, targetDistance=197.82
+globalTracer.autoShootTask_Info: [4.466] using interpolated ShootParams: loc=Interpolated, distance=197.8, lowerFwVel=1900, upperFwVel=2463, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [4.477] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2462.69, event=null
+globalTracer.autoShootTask_Info: [4.466] visionPidOnTarget=false, rotPower=0.03
+globalTracer.printPidInfo_Info: [4.486897] aligPidCtrl: Target=   0.0, Input=  -1.4, dT=0.045522, CurrErr=  -1.4, ErrRate=  39.2, Output= 0.026(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [4.497] active=true, lowerVel=1901, upperVel=2449
+globalTracer.autoShootTask_Info: [4.466] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.504" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.514] Vision: targetAngle=0.51, targetDistance=198.06
+globalTracer.autoShootTask_Info: [4.514] using interpolated ShootParams: loc=Interpolated, distance=198.1, lowerFwVel=1900, upperFwVel=2468, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.514] visionPidOnTarget=false, rotPower=0.06
+globalTracer.printPidInfo_Info: [4.532868] aligPidCtrl: Target=   0.0, Input=   0.5, dT=0.044603, CurrErr=   0.5, ErrRate=  43.4, Output= 0.060(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.514] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.553" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.568] Vision: targetAngle=1.11, targetDistance=197.83
+globalTracer.autoShootTask_Info: [4.568] using interpolated ShootParams: loc=Interpolated, distance=197.8, lowerFwVel=1900, upperFwVel=2463, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.568] visionPidOnTarget=false, rotPower=0.03
+globalTracer.printPidInfo_Info: [4.581047] aligPidCtrl: Target=   0.0, Input=   1.1, dT=0.048540, CurrErr=   1.1, ErrRate=  12.3, Output= 0.031(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.568] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.596" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.autoShootTask_Info: [4.610] Vision: targetAngle=0.72, targetDistance=198.02
+globalTracer.autoShootTask_Info: [4.610] using interpolated ShootParams: loc=Interpolated, distance=198.0, lowerFwVel=1900, upperFwVel=2467, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [4.618] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2467.11, event=null
+globalTracer.autoShootTask_Info: [4.610] visionPidOnTarget=false, rotPower=0.00
+globalTracer.printPidInfo_Info: [4.633357] aligPidCtrl: Target=   0.0, Input=   0.7, dT=0.050586, CurrErr=   0.7, ErrRate=  -7.8, Output= 0.002(-1.000/ 1.000)
+globalTracer.flywheelTriggerEvent_Info: [4.646] active=true, lowerVel=1899, upperVel=2457
+globalTracer.autoShootTask_Info: [4.610] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=false
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.664" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.058s)
+globalTracer.autoShootTask_Info: [4.681] Vision: targetAngle=-1.46, targetDistance=197.37
+globalTracer.autoShootTask_Info: [4.681] using interpolated ShootParams: loc=Interpolated, distance=197.4, lowerFwVel=1900, upperFwVel=2453, tilterAngle=31.00
+globalTracer.autoShootTask_Info: [4.681] visionPidOnTarget=true, rotPower=-0.06
+globalTracer.printPidInfo_Info: [4.696522] aligPidCtrl: Target=   0.0, Input=  -1.5, dT=0.065144, CurrErr=  -1.5, ErrRate= -33.5, Output=-0.062(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [4.681] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=true
+globalTracer.setFlywheelValue_Info: [4.728] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2452.68, event=null
+globalTracer.autoShootTask_Info: [4.681] final ShootParams: loc=Interpolated, distance=197.4, lowerFwVel=1900, upperFwVel=2453, tilterAngle=31.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.743" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.065s)
+globalTracer.flywheelTriggerEvent_Info: [4.744] active=true, lowerVel=1898, upperVel=2460
+globalTracer.move_Info: [4.765] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [4.764] Shot a ball (lowerFlywheel=1877, upperFlywheel=2452).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.774" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [4.931] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.move_Info: [4.949] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [4.948] Advance ball to exit.
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="4.958" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.flywheelTriggerEvent_Info: [5.014] active=false, lowerVel=1437, upperVel=2352
+globalTracer.exitEvent_Info: [5.350] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.entranceEvent_Info: [5.369] active=false, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.conveyorEntranceTrigger_Info: [5.373] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.flywheelTriggerEvent_Info: [5.495] active=true, lowerVel=1968, upperVel=2482
+globalTracer.move_Info: [5.507] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [5.506] Shot a ball (lowerFlywheel=1968, upperFlywheel=2482).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="5.519" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [5.665] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="5.675" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="5.691" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [5.769] active=false, lowerVel=1539, upperVel=2326
+globalTracer.cancel_Info: [6.007] Canceling: currOwner=CmdAuto3Or5Balls
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="6.067" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.066s)
+globalTracer.startCompetition_Warn: AUTO_MODE took too long (0.107s)
+globalTracer.setFlywheelValue_Info: [6.092] owner=null, lower=2228.00, upper=1900.00, event=null
+globalTracer.pickup_Info: [6.103] owner=null, event=CmdAuto3Or5Balls.intakeEvent=CLEARED, entrance=false, exit=false
+globalTracer.setPower_Info: [6.108] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=108.8,y=-153.4,angle=-36.8),vel=0.00), TrcWaypoint(pose=(x=84.8,y=-121.4,angle=-36.8),vel=0.00)])
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.132" AbsPose="(x=108.8,y=-153.4,angle=-36.8)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=0.0,y=40.0,angle=0.0)" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="6.147" tag=">>>>>" CmdAuto3Or5Balls.state="PICKUP_THIRD_BALL" RobotPose=(x=108.8,y=-153.4,angle=-36.8) TargetPose=(x=84.8,y=-121.4,angle=-36.8) vel=(x=0.4,y=-0.6,angle=-1.0) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=0.0,y=40.0,angle=0.0),vel=0.00)]) />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.153" AbsPose="(x=108.8,y=-153.4,angle=-36.8)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=0.0,y=40.0,angle=0.0)" />
+globalTracer.startCompetition_Warn: AUTO_MODE.runContinuous took too long (0.070s)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.174" AbsPose="(x=108.7,y=-153.4,angle=-36.8)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=0.0,y=40.0,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.201" AbsPose="(x=108.5,y=-153.0,angle=-36.8)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=0.0,y=39.5,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.235" AbsPose="(x=107.6,y=-151.9,angle=-36.7)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.0,y=38.9,angle=-0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.276" AbsPose="(x=106.6,y=-150.5,angle=-36.7)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.1,y=37.2,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.315" AbsPose="(x=105.4,y=-148.9,angle=-36.7)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.1,y=35.4,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.348" AbsPose="(x=104.8,y=-148.0,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.2,y=33.2,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.380" AbsPose="(x=103.5,y=-146.0,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.2,y=32.1,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.420" AbsPose="(x=102.0,y=-143.9,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.3,y=29.6,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.427" AbsPose="(x=102.0,y=-143.9,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.4,y=28.3,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.447" AbsPose="(x=101.2,y=-142.8,angle=-36.5)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.4,y=26.9,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.467" AbsPose="(x=100.3,y=-141.6,angle=-36.5)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.4,y=25.5,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.489" AbsPose="(x=99.4,y=-140.3,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=23.9,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.509" AbsPose="(x=98.6,y=-139.1,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=22.4,angle=-0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.530" AbsPose="(x=97.6,y=-137.7,angle=-36.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=20.8,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.552" AbsPose="(x=96.6,y=-136.4,angle=-36.7)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=19.1,angle=-0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.571" AbsPose="(x=95.7,y=-135.1,angle=-36.8)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=17.4,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.591" AbsPose="(x=94.7,y=-133.7,angle=-36.9)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=15.8,angle=0.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.611" AbsPose="(x=93.8,y=-132.5,angle=-37.0)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=14.3,angle=0.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.632" AbsPose="(x=93.0,y=-131.2,angle=-37.1)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.5,y=12.8,angle=0.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.652" AbsPose="(x=92.1,y=-130.1,angle=-37.3)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=11.4,angle=0.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.674" AbsPose="(x=91.4,y=-129.1,angle=-37.4)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=10.1,angle=0.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.694" AbsPose="(x=90.6,y=-128.0,angle=-37.4)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=8.8,angle=0.7)" />
+globalTracer.flywheelTriggerEvent_Info: [6.720] active=true, lowerVel=2368, upperVel=1879
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.716" AbsPose="(x=89.9,y=-127.0,angle=-37.5)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=7.6,angle=0.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.737" AbsPose="(x=89.3,y=-126.1,angle=-37.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=6.5,angle=0.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.757" AbsPose="(x=88.6,y=-125.3,angle=-37.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.6,y=5.4,angle=0.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="6.777" AbsPose="(x=87.9,y=-124.3,angle=-37.6)" AbsTarget="(x=84.8,y=-121.4,angle=-36.8)" Delta="(x=-0.7,y=4.2,angle=0.9)" />
+globalTracer.entranceEvent_Info: [6.781] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [6.788] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [6.791] active=true, exitHasBall=false, onFinishedEvent=CmdAuto3Or5Balls.intakeEvent=CLEARED
+globalTracer.prepareToShoot_Info: [6.797] owner=CmdAuto3Or5Balls, event=CmdAuto3Or5Balls.shootEvent=CLEARED, success=true (providedParams=null)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="6.805" tag=">>>>>" CmdAuto3Or5Balls.state="SHOOT" />
+globalTracer.autoShootTask_Info: [6.807] Entrance=true, Exit=false
+globalTracer.move_Info: [6.810] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="6.811" tag=">>>>>" Shooter.state="START" />
+globalTracer.exitEvent_Info: [7.036] active=true, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.autoShootTask_Info: [7.040] Vision: targetAngle=-0.95, targetDistance=158.27
+globalTracer.autoShootTask_Info: [7.040] using interpolated ShootParams: loc=Interpolated, distance=158.3, lowerFwVel=1700, upperFwVel=2338, tilterAngle=43.00
+globalTracer.setFlywheelValue_Info: [7.048] owner=CmdAuto3Or5Balls, lower=1700.00, upper=2337.83, event=null
+globalTracer.autoShootTask_Info: [7.040] visionPidOnTarget=true, rotPower=-0.01
+globalTracer.entranceEvent_Info: [7.054] active=false, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.conveyorEntranceTrigger_Info: [7.058] active=false, exitHasBall=true, onFinishedEvent=null
+globalTracer.printPidInfo_Info: [7.060461] aligPidCtrl: Target=   0.0, Input=  -0.9, dT=1649451310.884558, CurrErr=  -0.9, ErrRate=  -0.0, Output=-0.014(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [7.040] upperFlywheelPower=0.4, allowToShoot=false, committedToShoot=false, goShoot=true
+globalTracer.setFlywheelValue_Info: [7.076] owner=CmdAuto3Or5Balls, lower=1700.00, upper=2337.83, event=null
+globalTracer.autoShootTask_Info: [7.040] final ShootParams: loc=Interpolated, distance=158.3, lowerFwVel=1700, upperFwVel=2338, tilterAngle=43.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="7.084" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.flywheelTriggerEvent_Info: [7.633] active=true, lowerVel=1657, upperVel=2380
+globalTracer.move_Info: [7.636] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [7.635] Shot a ball (lowerFlywheel=1657, upperFlywheel=2380).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="7.662" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [7.820] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="7.833" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="7.844" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [7.924] active=false, lowerVel=1306, upperVel=2167
+globalTracer.cancel_Info: [8.152] Canceling: currOwner=CmdAuto3Or5Balls
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="8.167" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.setFlywheelValue_Info: [8.182] owner=null, lower=1900.00, upper=2600.00, event=null
+globalTracer.extend_Info: [8.190] owner=null
+globalTracer.pickup_Info: [8.197] owner=null, event=CmdAuto3Or5Balls.intakeEvent=SIGNALED, entrance=false, exit=false
+globalTracer.setPower_Info: [8.202] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=85.1,y=-120.3,angle=-37.0),vel=0.00), TrcWaypoint(pose=(x=63.5,y=-219.0,angle=136.0),vel=0.00), TrcWaypoint(pose=(x=101.6,y=-263.8,angle=136.0),vel=0.00)])
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.226" AbsPose="(x=85.1,y=-120.3,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.6,y=-65.8,angle=173.0)" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="8.219" tag=">>>>>" CmdAuto3Or5Balls.state="DRIVE_TO_TERMINAL" RobotPose=(x=85.1,y=-120.3,angle=-37.0) TargetPose=(x=101.6,y=-263.8,angle=136.0) vel=(x=0.0,y=-0.0,angle=-0.5) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=-76.6,y=-65.8,angle=173.0),vel=0.00), TrcWaypoint(pose=(x=-73.1,y=-124.5,angle=173.0),vel=0.00)]) />
+globalTracer.startCompetition_Warn: AUTO_MODE.runContinuous took too long (0.057s)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.249" AbsPose="(x=85.1,y=-120.4,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.6,y=-65.8,angle=173.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.269" AbsPose="(x=85.1,y=-120.4,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.6,y=-65.8,angle=173.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.287" AbsPose="(x=85.2,y=-120.5,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.6,y=-65.6,angle=173.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.307" AbsPose="(x=85.1,y=-120.7,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.5,y=-65.4,angle=173.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.328" AbsPose="(x=85.0,y=-121.2,angle=-37.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-76.1,y=-65.1,angle=173.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.350" AbsPose="(x=84.9,y=-121.5,angle=-36.9)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-75.7,y=-65.0,angle=172.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.369" AbsPose="(x=84.9,y=-121.9,angle=-36.7)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-75.2,y=-65.1,angle=172.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.389" AbsPose="(x=84.8,y=-122.3,angle=-36.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-74.3,y=-65.4,angle=172.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.412" AbsPose="(x=84.7,y=-122.9,angle=-35.8)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-73.5,y=-65.5,angle=171.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.431" AbsPose="(x=84.6,y=-123.6,angle=-35.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-72.6,y=-65.5,angle=171.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.453" AbsPose="(x=84.5,y=-124.3,angle=-34.6)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-71.0,y=-66.1,angle=170.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.472" AbsPose="(x=84.3,y=-125.1,angle=-34.1)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-69.9,y=-66.1,angle=170.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.494" AbsPose="(x=83.9,y=-126.9,angle=-33.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-67.2,y=-66.1,angle=169.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.513" AbsPose="(x=83.6,y=-128.3,angle=-32.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-65.5,y=-65.9,angle=168.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.533" AbsPose="(x=83.3,y=-129.3,angle=-31.6)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-63.9,y=-66.0,angle=167.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.554" AbsPose="(x=83.0,y=-130.6,angle=-30.1)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-61.2,y=-66.7,angle=166.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.574" AbsPose="(x=82.6,y=-132.1,angle=-29.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-59.2,y=-66.5,angle=165.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.595" AbsPose="(x=81.8,y=-134.8,angle=-27.7)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-55.3,y=-66.1,angle=163.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.616" AbsPose="(x=81.2,y=-136.4,angle=-26.8)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-53.1,y=-65.7,angle=162.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.636" AbsPose="(x=80.7,y=-138.1,angle=-26.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-50.9,y=-65.2,angle=162.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.657" AbsPose="(x=80.0,y=-139.8,angle=-24.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-47.7,y=-65.3,angle=160.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.678" AbsPose="(x=79.4,y=-141.6,angle=-23.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-45.4,y=-64.7,angle=159.5)" />
+globalTracer.flywheelTriggerEvent_Info: [8.692] active=true, lowerVel=1963, upperVel=2664
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.702" AbsPose="(x=78.5,y=-143.7,angle=-22.7)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-42.9,y=-63.6,angle=158.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.721" AbsPose="(x=77.9,y=-145.2,angle=-21.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-39.9,y=-63.8,angle=157.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.740" AbsPose="(x=76.9,y=-147.4,angle=-20.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-37.2,y=-62.6,angle=156.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.762" AbsPose="(x=76.0,y=-149.3,angle=-19.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-34.7,y=-61.7,angle=155.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.785" AbsPose="(x=75.3,y=-150.3,angle=-17.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-31.7,y=-62.0,angle=153.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.805" AbsPose="(x=74.6,y=-151.9,angle=-16.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-29.5,y=-61.3,angle=152.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.825" AbsPose="(x=73.1,y=-154.5,angle=-14.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-25.2,y=-60.2,angle=150.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.850" AbsPose="(x=72.9,y=-155.5,angle=-14.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-24.7,y=-59.3,angle=150.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.871" AbsPose="(x=71.3,y=-159.5,angle=-10.8)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-18.8,y=-57.0,angle=146.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.891" AbsPose="(x=70.4,y=-161.8,angle=-9.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-16.3,y=-55.3,angle=145.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.912" AbsPose="(x=69.6,y=-164.0,angle=-8.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-13.9,y=-53.6,angle=144.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.933" AbsPose="(x=68.9,y=-166.2,angle=-5.4)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-10.4,y=-52.1,angle=141.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="8.972" AbsPose="(x=67.7,y=-170.7,angle=-2.4)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-8.2,y=-50.2,angle=139.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.003" AbsPose="(x=67.1,y=-173.0,angle=1.0)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-2.8,y=-46.0,angle=135.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.032" AbsPose="(x=65.9,y=-177.7,angle=4.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=-0.9,y=-43.7,angle=133.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.063" AbsPose="(x=65.5,y=-180.0,angle=8.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=0.9,y=-41.4,angle=131.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.076" AbsPose="(x=65.0,y=-182.5,angle=10.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=3.7,y=-38.9,angle=127.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.093" AbsPose="(x=64.5,y=-184.9,angle=12.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=6.3,y=-33.6,angle=123.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.114" AbsPose="(x=64.0,y=-187.2,angle=16.2)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=8.4,y=-30.6,angle=119.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.138" AbsPose="(x=63.7,y=-189.6,angle=18.3)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=8.4,y=-30.6,angle=119.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.156" AbsPose="(x=63.4,y=-192.0,angle=22.8)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=9.1,y=-27.9,angle=117.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.175" AbsPose="(x=62.7,y=-196.6,angle=25.1)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.6,y=-24.9,angle=113.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.196" AbsPose="(x=62.3,y=-198.9,angle=27.6)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.2,y=-19.9,angle=110.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.216" AbsPose="(x=62.2,y=-200.9,angle=32.8)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.4,y=-17.3,angle=108.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.236" AbsPose="(x=61.9,y=-202.8,angle=35.6)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.9,y=-14.5,angle=103.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.257" AbsPose="(x=61.6,y=-204.7,angle=38.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.7,y=-12.3,angle=100.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.278" AbsPose="(x=61.6,y=-204.7,angle=38.5)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.4,y=-10.0,angle=97.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.299" AbsPose="(x=61.1,y=-208.1,angle=47.9)" AbsTarget="(x=63.5,y=-219.0,angle=136.0)" Delta="(x=10.4,y=-7.3,angle=91.3)" />
+globalTracer.getFollowingPoint_Info: Segment[1:TrcWaypoint(pose=(x=-76.6,y=-65.8,angle=173.0),vel=0.00)->2:TrcWaypoint(pose=(x=-73.1,y=-124.5,angle=173.0),vel=0.00)] PrevIndex=1, Target=TrcWaypoint(simple=false,timestep=0.000,pose=(x=-73.1,y=-124.5,angle=173.0),vel=0.00,encPos=0.0,accel=0.00,jerk=0.00)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.326" AbsPose="(x=60.9,y=-209.5,angle=54.4)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=68.5,y=-7.4,angle=88.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.343" AbsPose="(x=60.8,y=-210.8,angle=61.2)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=67.8,y=1.5,angle=81.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.365" AbsPose="(x=60.6,y=-212.0,angle=64.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=66.1,y=10.3,angle=74.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.385" AbsPose="(x=61.0,y=-213.6,angle=68.3)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=64.3,y=14.9,angle=71.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.405" AbsPose="(x=61.7,y=-215.5,angle=75.5)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=61.6,y=19.1,angle=67.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.425" AbsPose="(x=62.7,y=-217.3,angle=78.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=56.7,y=26.5,angle=60.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.449" AbsPose="(x=64.6,y=-220.4,angle=85.5)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=53.2,y=29.3,angle=57.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.464" AbsPose="(x=64.6,y=-220.4,angle=85.5)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=46.2,y=33.4,angle=50.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.482" AbsPose="(x=64.8,y=-220.7,angle=88.6)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=44.0,y=35.7,angle=47.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.503" AbsPose="(x=65.8,y=-222.4,angle=91.5)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=40.5,y=36.9,angle=44.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.525" AbsPose="(x=66.7,y=-224.1,angle=97.0)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=35.2,y=39.5,angle=39.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.545" AbsPose="(x=67.8,y=-225.8,angle=99.6)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=31.8,y=39.7,angle=36.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.567" AbsPose="(x=68.9,y=-227.6,angle=102.1)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=28.5,y=39.6,angle=33.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.589" AbsPose="(x=70.1,y=-229.4,angle=104.4)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=25.5,y=39.1,angle=31.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.608" AbsPose="(x=72.6,y=-232.9,angle=108.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=19.8,y=37.4,angle=27.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.633" AbsPose="(x=75.2,y=-236.5,angle=114.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=17.2,y=36.3,angle=25.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.649" AbsPose="(x=75.2,y=-236.5,angle=114.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=13.6,y=35.4,angle=21.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.673" AbsPose="(x=76.6,y=-238.3,angle=116.8)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=11.5,y=33.8,angle=19.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.700" AbsPose="(x=79.4,y=-241.9,angle=122.2)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=8.5,y=32.4,angle=15.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.722" AbsPose="(x=80.8,y=-243.8,angle=125.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=6.7,y=30.5,angle=13.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.738" AbsPose="(x=82.3,y=-245.7,angle=127.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=4.0,y=28.6,angle=10.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.755" AbsPose="(x=82.3,y=-245.7,angle=127.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=2.5,y=26.4,angle=8.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.775" AbsPose="(x=83.8,y=-247.5,angle=129.4)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=1.3,y=24.1,angle=6.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.815" AbsPose="(x=87.1,y=-250.9,angle=136.0)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-0.3,y=21.7,angle=3.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.845" AbsPose="(x=88.7,y=-252.5,angle=137.4)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-1.5,y=19.3,angle=0.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.871" AbsPose="(x=90.2,y=-254.0,angle=138.8)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-2.1,y=14.8,angle=-2.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.904" AbsPose="(x=93.4,y=-256.7,angle=141.9)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-2.3,y=12.7,angle=-5.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.917" AbsPose="(x=95.6,y=-258.5,angle=142.6)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-1.5,y=7.8,angle=-6.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.937" AbsPose="(x=97.0,y=-259.6,angle=143.4)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-1.2,y=6.1,angle=-7.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.957" AbsPose="(x=98.3,y=-260.4,angle=143.6)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-0.7,y=4.7,angle=-7.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.978" AbsPose="(x=99.4,y=-261.1,angle=143.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=-0.2,y=3.5,angle=-7.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="9.999" AbsPose="(x=100.4,y=-261.7,angle=143.3)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.3,y=2.5,angle=-7.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.025" AbsPose="(x=101.0,y=-262.2,angle=143.1)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.5,y=1.6,angle=-7.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.039" AbsPose="(x=101.5,y=-262.6,angle=142.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.6,y=1.1,angle=-6.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.061" AbsPose="(x=101.8,y=-262.8,angle=141.8)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.8,y=0.7,angle=-5.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.079" AbsPose="(x=102.0,y=-263.1,angle=140.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.8,y=0.7,angle=-5.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.101" AbsPose="(x=102.2,y=-263.3,angle=140.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.8,y=0.0,angle=-4.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.128" AbsPose="(x=102.4,y=-263.6,angle=138.7)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.8,y=-0.4,angle=-2.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.145" AbsPose="(x=102.6,y=-263.6,angle=138.1)" AbsTarget="(x=101.6,y=-263.8,angle=136.0)" Delta="(x=0.9,y=-0.6,angle=-2.1)" />
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=102.6,y=-263.6,angle=138.1),vel=0.00), TrcWaypoint(pose=(x=118.7,y=-281.5,angle=138.1),vel=0.00)])
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.169" AbsPose="(x=102.8,y=-263.8,angle=137.5)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=0.3,y=23.8,angle=0.6)" />
+globalTracer.pickup_Info: [10.159] owner=null, event=CmdAuto3Or5Balls.intakeEvent=CLEARED, entrance=false, exit=false
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.191" AbsPose="(x=102.9,y=-263.9,angle=136.3)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=0.7,y=23.6,angle=1.8)" />
+globalTracer.setPower_Info: [10.194] owner=null, delay=0.0, power=1.0, duration=0.000
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.223" tag=">>>>>" CmdAuto3Or5Balls.state="PICKUP_TERMINAL_BALL" RobotPose=(x=103.0,y=-264.1,angle=135.8) TargetPose=(x=118.7,y=-281.5,angle=138.1) vel=(x=7.4,y=-6.8,angle=-25.1) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=0.0,y=24.0,angle=0.0),vel=0.00)]) />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.214" AbsPose="(x=103.0,y=-264.1,angle=135.8)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=0.9,y=23.4,angle=2.3)" />
+globalTracer.startCompetition_Warn: AUTO_MODE.runContinuous took too long (0.081s)
+globalTracer.startCompetition_Warn: AUTO_MODE took too long (0.105s)
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.251" AbsPose="(x=103.6,y=-264.5,angle=135.0)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=1.2,y=23.2,angle=2.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.261" AbsPose="(x=103.6,y=-264.5,angle=135.0)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=1.3,y=22.7,angle=3.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.281" AbsPose="(x=103.7,y=-264.7,angle=135.0)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=1.3,y=22.4,angle=3.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.300" AbsPose="(x=103.9,y=-265.0,angle=135.2)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=1.2,y=22.1,angle=2.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.321" AbsPose="(x=104.1,y=-265.3,angle=135.4)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=1.1,y=21.8,angle=2.7)" />
+globalTracer.entranceEvent_Info: [10.332] active=true, triggerAction=DoNothing, onFinishedEvent=Shooter.conveyorEvent=SIGNALED
+globalTracer.move_Info: [10.335] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.conveyorEntranceTrigger_Info: [10.342] active=true, exitHasBall=false, onFinishedEvent=CmdAuto3Or5Balls.intakeEvent=CLEARED
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="10.342" AbsPose="(x=104.3,y=-265.5,angle=135.6)" AbsTarget="(x=118.7,y=-281.5,angle=138.1)" Delta="(x=0.9,y=21.5,angle=2.5)" />
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=104.4,y=-265.7,angle=136.2),vel=0.00), TrcWaypoint(pose=(x=87.7,y=-248.4,angle=136.2),vel=0.00)])
+globalTracer.CmdAuto3Or5Balls_Info: HumanBall timeout=1.643
+globalTracer.pickup_Info: [10.382] owner=null, event=CmdAuto3Or5Balls.intakeEvent=CLEARED, entrance=true, exit=false
+globalTracer.move_Info: [10.387] power=0.5, event=null, entrance=true, exit=false, triggerAction=StopOnForward
+globalTracer.setPower_Info: [10.390] owner=null, delay=0.5, power=1.0, duration=0.000
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="10.397" tag=">>>>>" CmdAuto3Or5Balls.state="PICKUP_HUMAN_PLAYER_BALL" />
+globalTracer.entranceEvent_Info: [10.622] active=false, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.conveyorEntranceTrigger_Info: [10.629] active=false, exitHasBall=true, onFinishedEvent=CmdAuto3Or5Balls.intakeEvent=CLEARED
+globalTracer.exitEvent_Info: [10.633] active=true, triggerAction=StopOnForward, onFinishedEvent=null
+globalTracer.start_Info: Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=104.3,y=-265.6,angle=136.0),vel=0.00), TrcWaypoint(pose=(x=81.0,y=-180.8,angle=-20.0),vel=0.00)])
+globalTracer.retract_Info: [12.038] owner=null
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.044" AbsPose="(x=104.3,y=-265.6,angle=136.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.2,y=-77.2,angle=-156.0)" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="12.053" tag=">>>>>" CmdAuto3Or5Balls.state="GO_TO_FINAL_SHOOT_POS" RobotPose=(x=104.3,y=-265.6,angle=136.0) TargetPose=(x=81.0,y=-180.8,angle=-20.0) vel=(x=0.0,y=0.0,angle=0.0) Path=TrcPath(degrees=true, [TrcWaypoint(pose=(x=0.0,y=0.0,angle=0.0),vel=0.00), TrcWaypoint(pose=(x=-42.2,y=-77.2,angle=-156.0),vel=0.00)]) />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.064" AbsPose="(x=104.3,y=-265.6,angle=136.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.1,y=-77.2,angle=-156.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.085" AbsPose="(x=104.3,y=-265.6,angle=136.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.1,y=-77.1,angle=-156.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.105" AbsPose="(x=104.2,y=-265.1,angle=136.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.9,y=-76.7,angle=-156.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.126" AbsPose="(x=104.2,y=-264.7,angle=135.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.8,y=-76.4,angle=-155.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.146" AbsPose="(x=104.2,y=-263.9,angle=135.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.5,y=-75.7,angle=-155.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.167" AbsPose="(x=104.1,y=-263.1,angle=135.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.3,y=-74.8,angle=-155.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.187" AbsPose="(x=104.0,y=-262.2,angle=135.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.1,y=-73.9,angle=-155.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.207" AbsPose="(x=103.9,y=-261.3,angle=134.5)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.3,y=-72.8,angle=-154.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.228" AbsPose="(x=103.8,y=-260.3,angle=134.1)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.1,y=-71.7,angle=-154.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.248" AbsPose="(x=103.7,y=-259.2,angle=133.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.0,y=-70.5,angle=-153.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.269" AbsPose="(x=103.6,y=-258.0,angle=132.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.5,y=-69.0,angle=-152.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.290" AbsPose="(x=103.5,y=-256.9,angle=132.1)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.3,y=-67.7,angle=-152.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.310" AbsPose="(x=103.4,y=-255.6,angle=130.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.0,y=-65.8,angle=-150.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.331" AbsPose="(x=103.2,y=-254.2,angle=130.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.9,y=-64.2,angle=-150.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.351" AbsPose="(x=103.0,y=-253.1,angle=129.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.1,y=-62.7,angle=-149.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.372" AbsPose="(x=102.9,y=-251.2,angle=127.5)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.6,y=-60.2,angle=-147.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.392" AbsPose="(x=102.6,y=-249.7,angle=126.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.5,y=-58.4,angle=-146.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.414" AbsPose="(x=102.4,y=-248.2,angle=125.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.3,y=-56.6,angle=-145.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.435" AbsPose="(x=102.1,y=-246.6,angle=123.8)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-43.0,y=-54.1,angle=-143.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.455" AbsPose="(x=101.5,y=-244.4,angle=122.8)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.4,y=-51.7,angle=-142.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.476" AbsPose="(x=101.1,y=-242.7,angle=120.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-42.7,y=-49.0,angle=-140.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.496" AbsPose="(x=100.5,y=-240.3,angle=120.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.0,y=-47.3,angle=-140.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.517" AbsPose="(x=100.0,y=-238.4,angle=118.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.8,y=-44.0,angle=-138.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.538" AbsPose="(x=99.4,y=-236.5,angle=117.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-41.0,y=-41.9,angle=-137.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.558" AbsPose="(x=98.8,y=-234.5,angle=116.5)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-40.1,y=-39.9,angle=-136.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.581" AbsPose="(x=98.0,y=-232.0,angle=114.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-39.3,y=-36.9,angle=-134.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.600" AbsPose="(x=97.3,y=-229.9,angle=113.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-38.3,y=-34.7,angle=-133.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.621" AbsPose="(x=96.4,y=-227.8,angle=112.1)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-37.8,y=-32.0,angle=-132.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.641" AbsPose="(x=95.5,y=-225.8,angle=111.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-36.7,y=-29.8,angle=-131.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.662" AbsPose="(x=94.6,y=-223.6,angle=110.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-35.5,y=-27.6,angle=-130.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.683" AbsPose="(x=93.1,y=-220.6,angle=108.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-34.0,y=-23.9,angle=-128.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.702" AbsPose="(x=92.1,y=-218.4,angle=107.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-32.6,y=-21.8,angle=-127.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.723" AbsPose="(x=91.1,y=-216.3,angle=106.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-31.2,y=-19.6,angle=-126.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.744" AbsPose="(x=90.2,y=-214.1,angle=103.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-30.1,y=-16.8,angle=-123.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.764" AbsPose="(x=89.2,y=-211.9,angle=102.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-28.6,y=-14.7,angle=-122.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.785" AbsPose="(x=88.2,y=-209.7,angle=101.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-27.0,y=-12.6,angle=-121.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.807" AbsPose="(x=87.3,y=-207.5,angle=97.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-25.6,y=-9.9,angle=-117.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.827" AbsPose="(x=86.8,y=-205.8,angle=96.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-24.2,y=-8.5,angle=-116.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.861" AbsPose="(x=85.2,y=-203.3,angle=90.5)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-22.5,y=-4.3,angle=-110.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.884" AbsPose="(x=84.4,y=-201.3,angle=88.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-20.6,y=-2.8,angle=-108.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.903" AbsPose="(x=82.7,y=-197.7,angle=86.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-17.0,y=-0.6,angle=-106.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.924" AbsPose="(x=82.1,y=-195.7,angle=81.1)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-14.9,y=1.2,angle=-101.1)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.943" AbsPose="(x=81.4,y=-194.1,angle=78.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-13.1,y=2.3,angle=-98.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.965" AbsPose="(x=80.8,y=-192.7,angle=75.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-11.4,y=3.2,angle=-95.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="12.985" AbsPose="(x=80.3,y=-191.5,angle=69.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-9.8,y=4.4,angle=-89.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.006" AbsPose="(x=79.9,y=-190.5,angle=66.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-8.4,y=4.9,angle=-86.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.027" AbsPose="(x=79.6,y=-189.5,angle=59.8)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-6.8,y=5.6,angle=-79.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.049" AbsPose="(x=79.3,y=-188.6,angle=56.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-5.6,y=5.7,angle=-76.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.070" AbsPose="(x=79.1,y=-187.8,angle=49.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-4.1,y=6.0,angle=-69.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.091" AbsPose="(x=78.6,y=-187.2,angle=42.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-2.6,y=6.3,angle=-62.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.110" AbsPose="(x=78.7,y=-186.4,angle=38.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-1.7,y=5.8,angle=-58.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.131" AbsPose="(x=78.6,y=-185.7,angle=35.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=-0.9,y=5.4,angle=-55.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.152" AbsPose="(x=78.5,y=-185.0,angle=28.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.2,y=4.9,angle=-48.6)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.172" AbsPose="(x=78.4,y=-184.5,angle=25.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.8,y=4.4,angle=-45.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.193" AbsPose="(x=78.4,y=-184.0,angle=21.9)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=1.3,y=3.9,angle=-41.9)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.214" AbsPose="(x=78.4,y=-183.6,angle=15.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=1.8,y=3.4,angle=-35.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.235" AbsPose="(x=78.4,y=-183.2,angle=12.2)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.1,y=2.9,angle=-32.2)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.256" AbsPose="(x=78.5,y=-182.9,angle=9.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.2,y=2.4,angle=-29.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.276" AbsPose="(x=78.6,y=-182.6,angle=2.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.4,y=1.9,angle=-22.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.296" AbsPose="(x=78.6,y=-182.3,angle=-0.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.4,y=1.5,angle=-19.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.318" AbsPose="(x=78.5,y=-182.4,angle=-6.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.7,y=1.3,angle=-13.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.344" AbsPose="(x=79.0,y=-181.8,angle=-9.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.7,y=1.3,angle=-13.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.362" AbsPose="(x=79.2,y=-181.4,angle=-14.8)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=2.2,y=0.6,angle=-10.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.381" AbsPose="(x=79.3,y=-181.2,angle=-17.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=1.7,y=-0.1,angle=-2.7)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.402" AbsPose="(x=79.5,y=-181.1,angle=-19.6)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=1.5,y=-0.2,angle=-0.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.421" AbsPose="(x=79.7,y=-180.9,angle=-21.5)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=1.3,y=-0.4,angle=1.5)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.441" AbsPose="(x=79.9,y=-180.7,angle=-24.3)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.9,y=-0.5,angle=4.3)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.463" AbsPose="(x=80.1,y=-180.7,angle=-25.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.8,y=-0.5,angle=5.0)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.483" AbsPose="(x=80.1,y=-180.7,angle=-25.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.8,y=-0.5,angle=5.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.503" AbsPose="(x=80.1,y=-180.7,angle=-25.4)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.8,y=-0.5,angle=5.4)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.525" AbsPose="(x=80.3,y=-180.7,angle=-25.7)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.7,y=-0.4,angle=5.8)" />
+globalTracer.TrcPurePursuitDrive.driveTask_Info: <Event name="RobotPose" time="13.545" AbsPose="(x=80.4,y=-180.7,angle=-25.0)" AbsTarget="(x=81.0,y=-180.8,angle=-20.0)" Delta="(x=0.6,y=-0.4,angle=5.7)" />
+globalTracer.prepareToShoot_Info: [13.554] owner=CmdAuto3Or5Balls, event=CmdAuto3Or5Balls.shootEvent=CLEARED, success=true (providedParams=null)
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.561" tag=">>>>>" CmdAuto3Or5Balls.state="SHOOT" />
+globalTracer.autoShootTask_Info: [13.567] Entrance=false, Exit=true
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.571" tag=">>>>>" Shooter.state="START" />
+globalTracer.autoShootTask_Info: [13.583] Vision: targetAngle=2.43, targetDistance=220.43
+globalTracer.autoShootTask_Info: [13.583] using interpolated ShootParams: loc=Interpolated, distance=220.4, lowerFwVel=1900, upperFwVel=2826, tilterAngle=31.00
+globalTracer.setFlywheelValue_Info: [13.594] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2826.07, event=null
+globalTracer.autoShootTask_Info: [13.583] visionPidOnTarget=true, rotPower=0.04
+globalTracer.printPidInfo_Info: [13.601099] aligPidCtrl: Target=   0.0, Input=   2.4, dT=1649451317.429669, CurrErr=   2.4, ErrRate=   0.0, Output= 0.037(-1.000/ 1.000)
+globalTracer.autoShootTask_Info: [13.583] upperFlywheelPower=0.5, allowToShoot=false, committedToShoot=false, goShoot=true
+globalTracer.setFlywheelValue_Info: [13.635] owner=CmdAuto3Or5Balls, lower=1900.00, upper=2826.07, event=null
+globalTracer.autoShootTask_Info: [13.583] final ShootParams: loc=Interpolated, distance=220.4, lowerFwVel=1900, upperFwVel=2826, tilterAngle=31.00
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="13.644" tag=">>>>>" Shooter.state="PREP_TO_SHOOT" />
+globalTracer.startCompetition_Warn: AUTO_MODE.postContinuousTasks took too long (0.069s)
+globalTracer.flywheelTriggerEvent_Info: [14.105] active=true, lowerVel=1911, upperVel=2854
+globalTracer.move_Info: [14.108] power=0.5, event=Shooter.conveyorEvent=CLEARED, entrance=false, exit=true, triggerAction=StopOnForward
+globalTracer.autoShootTask_Info: [14.108] Shot a ball (lowerFlywheel=1911, upperFlywheel=2854).
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.118" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.exitEvent_Info: [14.227] active=false, triggerAction=StopOnForward, onFinishedEvent=Shooter.conveyorEvent=CLEARED
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.240" tag=">>>>>" Shooter.state="SHOOT_WHEN_READY" />
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.257" tag=">>>>>" Shooter.state="WAIT_FOR_SHOT_COMPLETE" />
+globalTracer.flywheelTriggerEvent_Info: [14.331] active=false, lowerVel=1532, upperVel=2678
+globalTracer.cancel_Info: [14.563] Canceling: currOwner=CmdAuto3Or5Balls
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.596" tag=">>>>>" Shooter.state="DONE" />
+globalTracer.cancel_Info: [14.612] Canceling: currOwner=null
+globalTracer.traceStateInfo_Info: <Event name="StateInfo" time="14.623" tag=">>>>>" CmdAuto3Or5Balls.state="DONE" />
+globalTracer.flywheelTriggerEvent_Info: [14.813] active=true, lowerVel=1968, upperVel=2800
+globalTracer.flywheelTriggerEvent_Info: [14.977] active=false, lowerVel=1921, upperVel=2722
+globalTracer.startCompetition_Info: *** Transitioning from AUTO_MODE to DISABLED_MODE ***
+globalTracer.cancel_Info: [0.003] Canceling: currOwner=null
+globalTracer.cancel_Info: [0.007] Canceling: currOwner=null
+globalTracer.robotStopMode_Info: TotalEnergy=0.000Wh (0.00%)
+globalTracer.FrcRobotBase_Info: (AUTO_MODE->DISABLED_MODE) Performance Metrics: ContinuousLoopCount=2129, PeriodicLoopCount=652
+globalTracer.FrcRobotBase_Info: RobotInit=4.433610, PrevModeStopTask=0.002627, PrevStopMode=0.001885, PrevRobotStopMode=0.017695, RobotStartMode=0.316752, startMode=0.080140, startTask=0.000091
+globalTracer.FrcRobotBase_Info: PreContinuousTask(Avg/Max)=0.000739/0.028548
+globalTracer.FrcRobotBase_Info: PrePeriodicTask(Avg/Max)=0.000482/0.010902
+globalTracer.FrcRobotBase_Info: RunContinuous(Avg/Max)=0.001574/0.391914
+globalTracer.FrcRobotBase_Info: RunPeriodic(Avg/Max)=0.001068/0.013259
+globalTracer.FrcRobotBase_Info: PostContinuousTask(Avg/Max)=0.000752/0.073514
+globalTracer.FrcRobotBase_Info: PostPeriodicTask(Avg/Max)=0.000156/0.014047
+globalTracer.FrcRobotBase_Info: Updates(Avg/Max)=0.009741/0.041826
+globalTracer.TaskPerformance_Info: DriverController.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000017/0.020286, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: DriverLeftStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000010/0.020286, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: operatorStick.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000008/0.020286, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: buttonPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000004/0.020286, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: switchPanel.buttonEvent: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000006/0.020286, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: FrcPdp.energyUsedTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcRobotBattery.robotBatteryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcMotor.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000179/0.000495, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.cleanupTask: Start=0.000000/0.000000, Stop=0.001274/7.692080, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbDrive.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbSteer.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rfWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: lbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.enhancedServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: rbWheel.enhancedServo.stopServoTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.odometryTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.002211/0.021014, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: TrcDriveBase.stopTask: Start=0.000000/0.000000, Stop=0.000293/7.693097, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: pidDrive.stopTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: purePursuitDrive.driveTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.013738/0.041831
+globalTracer.TaskPerformance_Info: LimeLight.visionTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000470/0.007027, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.entranceTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000042/0.020395, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Conveyor.exitTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000015/0.020392, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Intake.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.pidMotorTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000081/0.020352
+globalTracer.TaskPerformance_Info: Climber.stopMotorTask: Start=0.000000/0.000000, Stop=0.002846/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.motor.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000012/0.020394, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.limitSWTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Climber.climberTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.lowerFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.upperFlywheelMotor.velCtrlTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.flywheelVelTrigger.triggerTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000326/0.020812, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.pneumatic.pneumaticTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.000000/0.000000, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000
+globalTracer.TaskPerformance_Info: Shooter.shooterTask: Start=0.000000/0.000000, Stop=0.000000/0.000000, PrePeriodic=0.000000/0.000000, PostPeriodic=0.000000/0.000000, PreContinuous=0.000000/0.000000, PostContinous=0.002637/0.023584, Standalone=0.000000/0.000000, Input=0.000000/0.000000, Output=0.000000/0.000000

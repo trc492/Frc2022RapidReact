@@ -629,7 +629,7 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishShootEvent = event;
             committedToShoot = false;
             sm.start(State.START);
-            shooterTaskObj.registerTask(TaskType.POSTCONTINUOUS_TASK);
+            shooterTaskObj.registerTask(TaskType.FAST_POSTPERIODIC_TASK);
             success = true;
         }
 

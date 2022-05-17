@@ -337,10 +337,13 @@ public class Robot extends FrcRobotBase
         }
 
         robotDrive.stopMode(runMode, nextMode);
-        shooter.cancel();
-        climber.cancel();
-        intake.cancel();
-        conveyor.cancel();
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            shooter.cancel();
+            climber.cancel();
+            intake.cancel();
+            conveyor.cancel();
+        }
         ledIndicator.reset();
 
         if (runMode == RunMode.TELEOP_MODE && pdp != null)

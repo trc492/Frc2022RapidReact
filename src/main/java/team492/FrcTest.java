@@ -352,15 +352,86 @@ public class FrcTest extends FrcTeleOp
     //
     // Must override TeleOp so it doesn't fight with us.
     //
+
+    /**
+     * This method is called periodically at a fast rate. Typically, you put code that requires servicing at a
+     * high frequency here. To make the robot as responsive and as accurate as possible especially in autonomous
+     * mode, you will typically put that code here.
+     *
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
     @Override
-    public void runPeriodic(double elapsedTime)
+    public void fastPeriodic(double elapsedTime)
+    {
+        if (testCommand != null)
+        {
+            testCommand.cmdPeriodic(elapsedTime);
+        }
+        //
+        // Run test Cmd.
+        //
+        switch (testChoices.getTest())
+        {
+            case SENSORS_TEST:
+                super.fastPeriodic(elapsedTime);
+                break;
+
+            case DRIVE_SPEED_TEST:
+                double currTime = TrcUtil.getCurrentTime();
+                TrcPose2D velPose = robot.robotDrive.driveBase.getFieldVelocity();
+                double velocity = TrcUtil.magnitude(velPose.x, velPose.y);
+                double acceleration = 0.0;
+                double turnRate = robot.robotDrive.driveBase.getTurnRate();
+
+                if (prevTime != 0.0)
+                {
+                    acceleration = (velocity - prevVelocity)/(currTime - prevTime);
+                }
+
+                if (velocity > maxDriveVelocity)
+                {
+                    maxDriveVelocity = velocity;
+                }
+
+                if (acceleration > maxDriveAcceleration)
+                {
+                    maxDriveAcceleration = acceleration;
+                }
+
+                if (turnRate > maxTurnRate)
+                {
+                    maxTurnRate = turnRate;
+                }
+
+                prevTime = currTime;
+                prevVelocity = velocity;
+
+                robot.dashboard.displayPrintf(9, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
+                robot.dashboard.displayPrintf(10, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
+                robot.dashboard.displayPrintf(11, "Turn Rate: (%.1f/%.1f)", turnRate, maxTurnRate);
+                break;
+
+            default:
+                break;
+        }
+    }   //fastPeriodic
+
+    /**
+     * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
+     * update here. For example, TeleOp joystick code or status display code can be put here since human responses
+     * are considered slow.
+     *
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
+    @Override
+    public void slowPeriodic(double elapsedTime)
     {
         if (allowTeleOp())
         {
             //
             // Allow TeleOp to run so we can control the robot in subsystem test or drive speed test modes.
             //
-            super.runPeriodic(elapsedTime);
+            super.slowPeriodic(elapsedTime);
         }
 
         //
@@ -425,63 +496,7 @@ public class FrcTest extends FrcTeleOp
         {
             robot.updateStatus();
         }
-    }   //runPeriodic
-
-    @Override
-    public void runContinuous(double elapsedTime)
-    {
-        if (testCommand != null)
-        {
-            testCommand.cmdPeriodic(elapsedTime);
-        }
-        //
-        // Run test Cmd.
-        //
-        switch (testChoices.getTest())
-        {
-            case SENSORS_TEST:
-                super.runContinuous(elapsedTime);
-                break;
-
-            case DRIVE_SPEED_TEST:
-                double currTime = TrcUtil.getCurrentTime();
-                TrcPose2D velPose = robot.robotDrive.driveBase.getFieldVelocity();
-                double velocity = TrcUtil.magnitude(velPose.x, velPose.y);
-                double acceleration = 0.0;
-                double turnRate = robot.robotDrive.driveBase.getTurnRate();
-
-                if (prevTime != 0.0)
-                {
-                    acceleration = (velocity - prevVelocity)/(currTime - prevTime);
-                }
-
-                if (velocity > maxDriveVelocity)
-                {
-                    maxDriveVelocity = velocity;
-                }
-
-                if (acceleration > maxDriveAcceleration)
-                {
-                    maxDriveAcceleration = acceleration;
-                }
-
-                if (turnRate > maxTurnRate)
-                {
-                    maxTurnRate = turnRate;
-                }
-
-                prevTime = currTime;
-                prevVelocity = velocity;
-
-                robot.dashboard.displayPrintf(9, "Drive Vel: (%.1f/%.1f)", velocity, maxDriveVelocity);
-                robot.dashboard.displayPrintf(10, "Drive Accel: (%.1f/%.1f)", acceleration, maxDriveAcceleration);
-                robot.dashboard.displayPrintf(11, "Turn Rate: (%.1f/%.1f)", turnRate, maxTurnRate);
-                break;
-
-            default:
-                break;
-        }
-    }   //runContinuous
+    }   //slowPeriodic
 
     /**
      * This method is called to determine if Test mode is allowed to do teleop control of the robot.

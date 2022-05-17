@@ -86,33 +86,34 @@ public class FrcDisabled implements TrcRobot.RobotMode
     }   //stopMode
 
     /**
-     * This method is called periodically about 50 times a second. Typically, you put code that doesn't require
-     * frequent update here such as updating the dashboard or responding to dashboard input.
+     * This method is called periodically at a fast rate. Typically, you put code that requires servicing at a
+     * high frequency here. To make the robot as responsive and as accurate as possible especially in autonomous
+     * mode, you will typically put that code here.
      * 
      * @param elapsedTime specifies the elapsed time since the mode started.
      */
     @Override
-    public void runPeriodic(double elapsedTime)
+    public void fastPeriodic(double elapsedTime)
+    {
+    }   //fastPeriodic
+
+    /**
+     * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
+     * update here. For example, TeleOp joystick code or status display code can be put here since human responses
+     * are considered slow.
+     * 
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
+    @Override
+    public void slowPeriodic(double elapsedTime)
     {
         //
         // Update robot status.
         //
-        if (RobotParams.Preferences.doAutoUpdates)
-        {
-            robot.updateStatus();
-        }
-    }   //runPeriodic
-
-    /**
-     * This method is called periodically as fast as the control system allows. Typically, you put code that requires
-     * servicing at a higher frequency here such as sampling sensor readings that require high accuracy and
-     * responsiveness.
-     * 
-     * @param elapsedTime specifies the elapsed time since the mode started.
-     */
-    @Override
-    public void runContinuous(double elapsedTime)
-    {
-    }   //runContinuous
+        // if (RobotParams.Preferences.doAutoUpdates)
+        // {
+        //     robot.updateStatus();
+        // }
+    }   //slowPeriodic
 
 }   //class FrcDisabled

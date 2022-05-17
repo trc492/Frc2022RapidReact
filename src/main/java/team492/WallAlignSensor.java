@@ -54,7 +54,7 @@ public class WallAlignSensor
     {
         if (enabled)
         {
-            lidarTaskObj.registerTask(TrcTaskMgr.TaskType.PRECONTINUOUS_TASK);
+            lidarTaskObj.registerTask(TrcTaskMgr.TaskType.FAST_PREPERIODIC_TASK);
         }
         else
         {

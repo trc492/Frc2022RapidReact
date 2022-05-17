@@ -205,7 +205,7 @@ public class Climber
     {
         this.traversalRung = traversalRung;
         sm.start(State.PULL_DOWN_PRIMARY_HOOK);
-        climberTaskObj.registerTask(TaskType.POSTPERIODIC_TASK);
+        climberTaskObj.registerTask(TaskType.SLOW_POSTPERIODIC_TASK);
     }   //traverseOneRung
 
     /**

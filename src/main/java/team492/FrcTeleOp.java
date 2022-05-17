@@ -113,13 +113,29 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     }   //stopMode
 
     /**
-     * This method is called periodically about 50 times a second. Typically, you put code that doesn't require
-     * frequent update here such as reading joystick analog controls and updating dashboard.
+     * This method is called periodically at a fast rate. Typically, you put code that requires servicing at a
+     * high frequency here. To make the robot as responsive and as accurate as possible especially in autonomous
+     * mode, you will typically put that code here.
      * 
      * @param elapsedTime specifies the elapsed time since the mode started.
      */
     @Override
-    public void runPeriodic(double elapsedTime)
+    public void fastPeriodic(double elapsedTime)
+    {
+        //
+        // Do subsystem auto-assist here if necessary.
+        //
+    }   //fastPeriodic
+
+    /**
+     * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
+     * update here. For example, TeleOp joystick code or status display code can be put here since human responses
+     * are considered slow.
+     *
+     * @param elapsedTime specifies the elapsed time since the mode started.
+     */
+    @Override
+    public void slowPeriodic(double elapsedTime)
     {
         if (controlsEnabled)
         {
@@ -185,23 +201,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             robot.updateStatus();
         }
-    }   //runPeriodic
-
-    /**
-     * This method is called periodically as fast as the control system allows. Typically, you put code that requires
-     * servicing at a higher frequency here such as running the auto-assist commands which requires responsiveness and
-     * accuracy.
-     * 
-     * @param elapsedTime specifies the elapsed time since the mode started.
-     */
-    @Override
-    public void runContinuous(double elapsedTime)
-    {
-        //
-        // Do subsystem auto-assist here if necessary.
-        //
-
-    }   //runContinuous
+    }   //slowPeriodic
 
     /**
      * This method update the LED to display the drive orientation status.

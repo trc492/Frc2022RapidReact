@@ -60,18 +60,18 @@ public class Robot extends FrcRobotBase
     //
     public final FrcDashboard dashboard = FrcDashboard.getInstance();
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
-    public final FrcAuto.AutoChoices autoChoices = new FrcAuto.AutoChoices();
-    private double nextDashboardUpdateTime = TrcUtil.getCurrentTime();
+    private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
     private boolean traceLogOpened = false;
+
     //
     // Inputs.
     //
-    // TO-DO: decide what joysticks or game controllers to use.
-    public FrcXboxController driverController;
     public FrcJoystick leftDriveStick, rightDriveStick;
     public FrcJoystick operatorStick;
     public FrcJoystick buttonPanel;
     public FrcJoystick switchPanel;
+    public FrcXboxController driverController;
+
     //
     // Sensors.
     //
@@ -79,14 +79,12 @@ public class Robot extends FrcRobotBase
     public TrcRobotBattery battery;
     public AnalogInput pressureSensor;  // TO-DO: change to use the REV PCM to read the pressure sensor.
     public WallAlignSensor wallAlignSensor;
+
     //
     // Miscellaneous hardware.
     //
-    public LEDIndicator ledIndicator;   // TO-DO: decide what kind of LEDs to use and what status to show.
-    //
-    // DriveBase subsystem.
-    //
-    public SwerveDrive robotDrive;
+    public LEDIndicator ledIndicator;
+
     //
     // Vision subsystem.
     //
@@ -134,6 +132,12 @@ public class Robot extends FrcRobotBase
         .add(ShootLoc.Distance275in, 275.0, 1800, 3600, RobotParams.TILTER_FAR_ANGLE)
         .add(ShootLoc.Distance300in, 300.0, 1800, 3900, RobotParams.TILTER_FAR_ANGLE);
     //tune100again194190
+
+    //
+    // DriveBase subsystem.
+    //
+    public SwerveDrive robotDrive;
+
     //
     // Other subsystems.
     //
@@ -141,6 +145,7 @@ public class Robot extends FrcRobotBase
     public Intake intake;
     public Shooter shooter;
     public Climber climber;
+
     //
     // Miscellaneous.
     //
@@ -159,12 +164,12 @@ public class Robot extends FrcRobotBase
      * This method is called when the robot is first started up and should be used for any initialization code
      * including creation and initialization of all robot hardware and subsystems.
      *
-     * To create new hardware or subsystem, follow the following steps:
+     * To create new hardware or subsystem, follow the steps below:
      * 1. Create a public class variable for the new hardware/subsystem.
      * 2. Instantiate and initialize the new hardware/subsystem object in this method.
      * 3. Put code in updateDashboard to display status of the new hardware/subsystem if necessary.
      * 4. Put code in robotStartMode or robotStopMode to configure/reset hardware/subsystem if necessary.
-     * 5. Put code in FrcTeleOp to operate the subsystem if necessary (i.e. runPeriodic/xxxButtonEvent).
+     * 5. Put code in FrcTeleOp to operate the subsystem if necessary (i.e. slowPeriodic/xxxButtonEvent).
      * 6. Create a getter method for the new sensor only if necessary (e.g. sensor value needs translation).
      */
     @Override
@@ -184,11 +189,11 @@ public class Robot extends FrcRobotBase
         }
         else
         {
+            leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
+            leftDriveStick.setYInverted(true);
             rightDriveStick = new FrcJoystick("DriverRightStick", RobotParams.JSPORT_DRIVER_RIGHTSTICK);
             rightDriveStick.setYInverted(true);
         }
-        leftDriveStick = new FrcJoystick("DriverLeftStick", RobotParams.JSPORT_DRIVER_LEFTSTICK);
-        leftDriveStick.setYInverted(true);
         operatorStick = new FrcJoystick("operatorStick", RobotParams.JSPORT_OPERATORSTICK);
         operatorStick.setYInverted(false);
         if (RobotParams.Preferences.useButtonPanels)
@@ -196,6 +201,7 @@ public class Robot extends FrcRobotBase
             buttonPanel = new FrcJoystick("buttonPanel", RobotParams.JSPORT_BUTTON_PANEL);
             switchPanel = new FrcJoystick("switchPanel", RobotParams.JSPORT_SWITCH_PANEL);
         }
+
         //
         // Create and initialize sensors.
         //
@@ -218,15 +224,12 @@ public class Robot extends FrcRobotBase
         {
             wallAlignSensor = new WallAlignSensor();
         }
+
         //
         // Create and initialize miscellaneous hardware.
         //
         ledIndicator = new LEDIndicator();
-        //
-        // Create and initialize RobotDrive subsystem.
-        //
-        // robotDrive = new WestCoastDrive(this);
-        robotDrive = new SwerveDrive(this);
+
         //
         // Create and initialize Vision subsystem.
         //
@@ -234,6 +237,12 @@ public class Robot extends FrcRobotBase
         {
             vision = new VisionTargeting();
         }
+
+        //
+        // Create and initialize RobotDrive subsystem.
+        //
+        robotDrive = new SwerveDrive(this);
+
         //
         // Create and initialize other subsystems.
         //
@@ -256,10 +265,14 @@ public class Robot extends FrcRobotBase
             shooter.setMsgTracer(globalTracer);
         }
 
+        //
+        // Miscellaneous.
+        //
         if (pdp != null)
         {
             pdp.registerEnergyUsedForAllUnregisteredChannels();
         }
+
         //
         // Create Robot Modes.
         //
@@ -276,10 +289,12 @@ public class Robot extends FrcRobotBase
     public void robotStartMode(RunMode runMode, RunMode prevMode)
     {
         final String funcName = "robotStartMode";
+
         //
         // Read FMS Match info.
         //
         FrcMatchInfo matchInfo = FrcMatchInfo.getMatchInfo();
+
         //
         // Start trace logging.
         //
@@ -291,6 +306,7 @@ public class Robot extends FrcRobotBase
         globalTracer.traceInfo(
             funcName, "[%.3f] %s: ***** %s *****", TrcUtil.getModeElapsedTime(),
             matchInfo.eventDate, runMode);
+
         //
         // Start subsystems.
         //
@@ -328,6 +344,7 @@ public class Robot extends FrcRobotBase
     public void robotStopMode(RunMode runMode, RunMode nextMode)
     {
         final String funcName = "robotStopMode";
+
         //
         // Stop subsystems.
         //
@@ -365,6 +382,7 @@ public class Robot extends FrcRobotBase
         {
             printPerformanceMetrics(globalTracer);
         }
+
         //
         // Stop trace logging.
         //
@@ -380,7 +398,7 @@ public class Robot extends FrcRobotBase
     public void updateStatus()
     {
         final String funcName = "updateStatus";
-        double currTime = TrcUtil.getCurrentTime();
+        double currTime = TrcUtil.getModeElapsedTime();
         RunMode runMode = getCurrentRunMode();
 
         if (currTime >= nextDashboardUpdateTime)
@@ -396,11 +414,10 @@ public class Robot extends FrcRobotBase
                     dashboard.putData("Power/pdpInfo", pdp.getPdpSendable());
                     if (runMode == RunMode.TELEOP_MODE)
                     {
-                        double modeElapsedTime = TrcUtil.getModeElapsedTime();
                         globalTracer.traceInfo(
                             funcName, "[%.3f] Battery: currVoltage=%.2f, lowestVoltage=%.2f",
-                            modeElapsedTime, battery.getVoltage(), battery.getLowestVoltage());
-                        globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", modeElapsedTime, pdp.getTotalCurrent());
+                            currTime, battery.getVoltage(), battery.getLowestVoltage());
+                        globalTracer.traceInfo(funcName, "[%.3f] Total=%.2fA", currTime, pdp.getTotalCurrent());
                     }
                 }
             }
@@ -411,14 +428,14 @@ public class Robot extends FrcRobotBase
 
                 dashboard.putNumber("DriveBase/xPos", robotPose.x);
                 dashboard.putNumber("DriveBase/yPos", robotPose.y);
-                dashboard.putData("DriveBase/heading", ((FrcAHRSGyro)robotDrive.gyro).getGyroSendable());
-                dashboard.putNumber("DriveBase/Yaw", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getYaw());
-                dashboard.putNumber("DriveBase/Pitch", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getPitch());
-                dashboard.putNumber("DriveBase/Roll", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
-                dashboard.putNumber("DriveBase/AccelX", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelX());
-                dashboard.putNumber("DriveBase/AccelY", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelY());
-                dashboard.putNumber("DriveBase/AccelZ", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelZ());
-                dashboard.putNumber("DriverBase/Compass", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getCompassHeading());
+                dashboard.putData("DriveBase/heading", ((FrcAHRSGyro) robotDrive.gyro).getGyroSendable());
+                dashboard.putNumber("DriveBase/Yaw", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getYaw());
+                dashboard.putNumber("DriveBase/Pitch", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getPitch());
+                dashboard.putNumber("DriveBase/Roll", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getRoll());
+                dashboard.putNumber("DriveBase/AccelX", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelX());
+                dashboard.putNumber("DriveBase/AccelY", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelY());
+                dashboard.putNumber("DriveBase/AccelZ", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelZ());
+                dashboard.putNumber("DriverBase/Compass", ((FrcAHRSGyro) robotDrive.gyro).ahrs.getCompassHeading());
 
                 //
                 // DriveBase debug info.
@@ -427,8 +444,9 @@ public class Robot extends FrcRobotBase
                 double rfDriveEnc = robotDrive.rfDriveMotor.getPosition();
                 double lbDriveEnc = robotDrive.lbDriveMotor.getPosition();
                 double rbDriveEnc = robotDrive.rbDriveMotor.getPosition();
+
                 dashboard.displayPrintf(
-                    9, "DriveBase-Drive: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f, avg=%.0f",
+                    8, "DriveBase-Drive: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f, avg=%.0f",
                     lfDriveEnc, rfDriveEnc, lbDriveEnc, rbDriveEnc,
                     (lfDriveEnc + rfDriveEnc + lbDriveEnc + rbDriveEnc) / 4.0);
 
@@ -436,13 +454,14 @@ public class Robot extends FrcRobotBase
                 double rfSteerEnc = robotDrive.rfSteerMotor.getPosition();
                 double lbSteerEnc = robotDrive.lbSteerMotor.getPosition();
                 double rbSteerEnc = robotDrive.rbSteerMotor.getPosition();
+
                 dashboard.displayPrintf(
-                    10, "DriveBase-Steer: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f",
+                    9, "DriveBase-Steer: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f",
                     lfSteerEnc, rfSteerEnc, lbSteerEnc, rbSteerEnc);
 
                 if (RobotParams.Preferences.debugPidDrive)
                 {
-                    int lineNum = 11;
+                    int lineNum = 10;
                     if (robotDrive.encoderXPidCtrl != null)
                     {
                         robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
@@ -455,16 +474,17 @@ public class Robot extends FrcRobotBase
                 else
                 {
                     dashboard.displayPrintf(
-                        11, "Gyro: Yaw=%.2f, Pitch=%.2f, Roll=%.2f",
-                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getYaw(), ((FrcAHRSGyro)robotDrive.gyro).ahrs.getPitch(),
+                        10, "Gyro: Yaw=%.2f, Pitch=%.2f, Roll=%.2f",
+                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getYaw(),
+                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getPitch(),
                         ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
                     dashboard.displayPrintf(
-                        12, "Accel: X=%.2f, Y=%.2f, Z=%.2f",
-                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelX(),
-                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelY(),
-                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getWorldLinearAccelZ());
+                        11, "Accel: X=%.2f, Y=%.2f, Z=%.2f",
+                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelX(),
+                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelY(),
+                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelZ());
                     dashboard.displayPrintf(
-                        13, "Compass: Heading=%.2f", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getCompassHeading());
+                        12, "Compass: Heading=%.2f", ((FrcAHRSGyro)robotDrive.gyro).ahrs.getCompassHeading());
                 }
             }
 

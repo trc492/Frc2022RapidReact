@@ -47,8 +47,9 @@ public class FrcAuto implements TrcRobot.RobotMode
     //
 
     //
-    // Auto Choices Enums.
+    // Auto choices enums.
     //
+
     public static enum AutoStrategy
     {
         AUTO_LAST_RESORT_1_BALL,
@@ -105,7 +106,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         private final FrcUserChoices userChoices = new FrcUserChoices();
         private final FrcChoiceMenu<DriverStation.Alliance> allianceMenu;
         private final FrcChoiceMenu<AutoStrategy> autoStrategyMenu;
-        private final FrcChoiceMenu<AutoStartPos> autoStartPosMenu; 
+        private final FrcChoiceMenu<AutoStartPos> autoStartPosMenu;
 
         public AutoChoices()
         {
@@ -232,6 +233,7 @@ public class FrcAuto implements TrcRobot.RobotMode
     // Global objects.
     //
 
+    public static final AutoChoices autoChoices = new AutoChoices();
     private final Robot robot;
     private TrcRobot.RobotCommand autoCommand;
 
@@ -246,6 +248,7 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Create and initialize global objects.
         //
         this.robot = robot;
+
         //
         // Create auto-assist commands if necessary.
         //
@@ -294,11 +297,11 @@ public class FrcAuto implements TrcRobot.RobotMode
         // Retrieve Auto choices.
         //
         robot.globalTracer.logInfo(moduleName, "MatchInfo", "%s", FrcMatchInfo.getMatchInfo());
-        robot.globalTracer.logInfo(moduleName, "AutoChoices", "%s", robot.autoChoices);
+        robot.globalTracer.logInfo(moduleName, "AutoChoices", "%s", autoChoices);
         //
         // Create autonomous command.
         //
-        switch (robot.autoChoices.getStrategy())
+        switch (autoChoices.getStrategy())
         {
             case AUTO_LAST_RESORT_1_BALL:
                 autoCommand = new CmdAuto1Or2Balls(robot, false, true);
@@ -330,24 +333,22 @@ public class FrcAuto implements TrcRobot.RobotMode
                     robot.robotDrive.turnPidCoeff, robot.robotDrive.velPidCoeff);
                 ((CmdPurePursuitDrive) autoCommand).start(
                     0.0, robot.robotDrive.driveBase.getFieldPosition(), false,
-                    RobotParams.TEAM_FOLDER + "/" + robot.autoChoices.getPathFile(), false);
+                    RobotParams.TEAM_FOLDER + "/" + autoChoices.getPathFile(), false);
                 break;
 
             case PID_DRIVE:
                 autoCommand = new CmdPidDrive(
-                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, robot.autoChoices.getStartDelay(),
-                    robot.autoChoices.getDrivePower(), null,
-                    new TrcPose2D(robot.autoChoices.getXDriveDistance()*12.0,
-                                  robot.autoChoices.getYDriveDistance()*12.0,
-                                  robot.autoChoices.getTurnAngle()));
+                    robot.robotDrive.driveBase, robot.robotDrive.pidDrive, autoChoices.getStartDelay(),
+                    autoChoices.getDrivePower(), null,
+                    new TrcPose2D(autoChoices.getXDriveDistance()*12.0,
+                                  autoChoices.getYDriveDistance()*12.0,
+                                  autoChoices.getTurnAngle()));
                 break;
 
             case TIMED_DRIVE:
                 autoCommand = new CmdTimedDrive(
-                    robot.robotDrive.driveBase,
-                    robot.autoChoices.getStartDelay(),
-                    robot.autoChoices.getDriveTime(), 0.0,
-                    robot.autoChoices.getDrivePower(), 0.0);
+                    robot.robotDrive.driveBase, autoChoices.getStartDelay(), autoChoices.getDriveTime(), 0.0,
+                    autoChoices.getDrivePower(), 0.0);
                 break;
 
             case AUTO_TEST:

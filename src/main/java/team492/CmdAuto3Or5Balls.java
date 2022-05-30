@@ -68,7 +68,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
     CmdAuto3Or5Balls(Robot robot, boolean do5Balls)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, do5Balls=%s, choices=%s", robot, do5Balls, robot.autoChoices);
+            moduleName, ">>> robot=%s, do5Balls=%s, choices=%s", robot, do5Balls, FrcAuto.autoChoices);
 
         this.robot = robot;
         this.do5Balls = do5Balls;
@@ -146,7 +146,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     //
                     // Do start delay if any.
                     //
-                    double startDelay = robot.autoChoices.getStartDelay();
+                    double startDelay = FrcAuto.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
                         sm.setState(State.PICKUP_SECOND_BALL);

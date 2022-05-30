@@ -55,7 +55,7 @@ class CmdAuto2BallsAllAtOnce implements TrcRobot.RobotCommand
     CmdAuto2BallsAllAtOnce(Robot robot)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, choices=%s", robot, robot.autoChoices);
+            moduleName, ">>> robot=%s, choices=%s", robot, FrcAuto.autoChoices);
 
         this.robot = robot;
         timer = new TrcTimer(moduleName + ".timer");
@@ -119,7 +119,7 @@ class CmdAuto2BallsAllAtOnce implements TrcRobot.RobotCommand
                     //
                     // Do start delay if any.
                     //
-                    double startDelay = robot.autoChoices.getStartDelay();
+                    double startDelay = FrcAuto.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
                         //

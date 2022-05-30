@@ -32,31 +32,36 @@ public class RobotParams
 {
     //
     // Robot preferences.
-    //          
+    //
     public static class Preferences
     {
-        public static final boolean useSubsystems               = true;
-        public static final boolean useExternalOdometry         = false;
+        // Inputs
         public static final boolean useXboxController           = true;
         public static final boolean useButtonPanels             = true;
-        public static final boolean usePdp                      = true;
-        public static final boolean useTraceLog                 = true;
-        public static final boolean useNavX                     = true;
-        public static final boolean useWallAlignSensor          = false;
+        public static final boolean doOneStickDrive             = true;
         public static final boolean useGyroAssist               = false;
+        // Sensors
+        public static final boolean useNavX                     = true;
+        public static final boolean usePdp                      = false;
+        public static final boolean useExternalOdometry         = false;
         public static final boolean useVision                   = true;
         public static final boolean useStreamCamera             = true;
+        public static final boolean useWallAlignSensor          = false;
+        // Subsystems
+        public static final boolean useSubsystems               = true;
+        // Miscellaneous
+        public static final boolean useTraceLog                 = true;
         public static final boolean doAutoUpdates               = true;
-        public static final boolean timDrive                    = true;
-        public static final boolean showSubsystemStatus         = false;
+        public static final boolean showSubsystemStatus         = true;
         public static final boolean showVisionStatus            = true;
-
+        // Debug
         public static final boolean debugPowerConsumption       = false;
         public static final boolean debugDriveBase              = false;
         public static final boolean debugPidDrive               = false;
+        public static final boolean debugSubsystems             = false;
         public static final boolean debugVision                 = false;
-        public static final boolean debugShooter                = false;
         public static final boolean debugLoopTime               = false;
+        public static final boolean debugShooter                = false;
     }   //class Preferences
 
     public static final String ROBOT_NAME                       = "RapidReact_Robot";
@@ -72,32 +77,27 @@ public class RobotParams
     //
     // Robot dimensions in inches.
     //
+    public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
+    public static final double ROBOT_LENGTH                     = 37.0;     // Frame dimensions, including bumpers.
+
     public static final double ROBOT_DRIVE_WIDTH                = 23.25;    // Required by swerve drive base.
     public static final double ROBOT_DRIVE_LENGTH               = 25.625;   // Required by swerve drive base.
 
-    public static final double ROBOT_WIDTH                      = 34.5;     // Frame dimensions, including bumpers.
-    public static final double ROBOT_LENGTH                     = 37.0;     // Frame dimensions, including bumpers.
     public static final double INTAKE_OFFSET                    = ROBOT_LENGTH / 2.0 + 8.0;
 
     //
-    // Vision subsystem.
+    // Robot starting positions.
     //
-    public static final double CAMERA_Y_OFFSET                  = 2.5;  // Inches from the center of the robot
-    public static final double CAMERA_X_OFFSET                  = 0.0;  // Inches from the center of the robot
-    public static final double CAMERA_HEIGHT                    = 22.0; // Inches from the floor
-    public static final double CAMERA_ANGLE                     = 36.0; // Degrees from horizontal
-    public static final double CAMERA_DATA_TIMEOUT              = 0.5;  // 500ms
-    public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
-    public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
-    public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
+    public static final TrcPose2D STARTPOS_1 = new TrcPose2D(  86.534,  -14.869,  -80.250);
+    public static final TrcPose2D STARTPOS_2 = new TrcPose2D(  62.800,  -62.800,  -45.000);
+    public static final TrcPose2D STARTPOS_3 = new TrcPose2D( -46.861,  -74.281,   32.250);
+    public static final TrcPose2D[] startPos = {STARTPOS_1, STARTPOS_2, STARTPOS_3};
 
-    public static final double LIDAR_INTER_SENSOR_DIST          = 16.625; // Inches
-    public static final double LIDAR_SENSOR_Y_OFFSET            = -3.5; // Inches
+    public static final TrcPose2D STARTPOS_AUTO_5BALL = new TrcPose2D(  89.810,  -24.987,   88.5);
 
     //
-    // Autonomous constants.
+    // Cargo positions.
     //
-
     // The following info is precisely measured from the Field CAD file. Do NOT modify.
     public static final TrcPose2D BALLPOS_1 = new TrcPose2D( 150.790,  -25.910, 0.0);
     public static final TrcPose2D BALLPOS_2 = new TrcPose2D(  88.303, -124.946, 0.0);
@@ -106,43 +106,6 @@ public class RobotParams
     public static final TrcPose2D BALLPOS_5 = new TrcPose2D( -33.767,  149.227, 0.0);
     public static final TrcPose2D BALLPOS_6 = new TrcPose2D( 124.946,   88.303, 0.0);
     public static final TrcPose2D BALLPOS_7 = new TrcPose2D( 117.725, -282.080, 0.0);
-
-    public static final TrcPose2D STARTPOS_1 = new TrcPose2D(  86.534,  -14.869,  -80.250);
-    public static final TrcPose2D STARTPOS_2 = new TrcPose2D(  62.800,  -62.800,  -45.000);
-    public static final TrcPose2D STARTPOS_3 = new TrcPose2D( -46.861,  -74.281,   32.250);
-
-    public static final TrcPose2D[] startPos = {STARTPOS_1, STARTPOS_2, STARTPOS_3};
-
-    public static final TrcPose2D STARTPOS_AUTO_5BALL = new TrcPose2D(  89.810,  -24.987,   88.5);
-
-    // public static final TrcPose2D BALLPOS_RED_1 = new TrcPose2D(  25.910,  150.790, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_2 = new TrcPose2D( 124.946,   88.303, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_3 = new TrcPose2D( 129.396,  -81.643, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_4 = new TrcPose2D(  33.767, -149.227, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_5 = new TrcPose2D(-149.227,  -33.767, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_6 = new TrcPose2D( -88.303,  124.946, 0.0);
-    // public static final TrcPose2D BALLPOS_RED_7 = new TrcPose2D( 282.080,  117.725, 0.0);
-
-    // public static final TrcPose2D BALLPOS_BLUE_1 = new TrcPose2D( -25.910, -150.790, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_2 = new TrcPose2D(-124.946,  -88.303, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_3 = new TrcPose2D(-129.396,   81.643, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_4 = new TrcPose2D( -33.767,  149.227, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_5 = new TrcPose2D( 149.227,   33.767, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_6 = new TrcPose2D(  88.303, -124.946, 0.0);
-    // public static final TrcPose2D BALLPOS_BLUE_7 = new TrcPose2D(-282.080, -117.725, 0.0);
-
-    // public static final TrcPose2D STARTPOS_RED_1 = new TrcPose2D(  14.869,   86.534, 189.750);
-    // public static final TrcPose2D STARTPOS_RED_2 = new TrcPose2D(  62.800,   62.800, 225.000);
-    // public static final TrcPose2D STARTPOS_RED_3 = new TrcPose2D(  74.281,  -46.861, -57.750);
-    // public static final TrcPose2D STARTPOS_BLUE_1 = new TrcPose2D( -14.869,  -86.534,   9.750);
-    // public static final TrcPose2D STARTPOS_BLUE_2 = new TrcPose2D( -62.800,  -62.800,  45.000);
-    // public static final TrcPose2D STARTPOS_BLUE_3 = new TrcPose2D( -74.281,   46.861, 122.250);
-
-    // public static final TrcPose2D[] startPosRed = {STARTPOS_RED_1, STARTPOS_RED_2, STARTPOS_RED_3};
-    // public static final TrcPose2D[] startPosBlue = {STARTPOS_BLUE_1, STARTPOS_BLUE_2, STARTPOS_BLUE_3};
-
-    // public static final TrcPose2D STARTPOS_RED_AUTO_5BALL = new TrcPose2D( 24.987,  89.810,  15.550);
-    // public static final TrcPose2D STARTPOS_BLUE_AUTO_5BALL = new TrcPose2D(-24.987, -89.810, 195.550);
 
     //
     // Joystick ports.
@@ -250,8 +213,23 @@ public class RobotParams
     // public static final double SONAR_ERROR_THRESHOLD            = 50.0; //value should not jump 50-in per time slice.
 
     //
+    // Vision subsystem.
+    //
+    public static final double CAMERA_Y_OFFSET                  = 2.5;  // Inches from the center of the robot
+    public static final double CAMERA_X_OFFSET                  = 0.0;  // Inches from the center of the robot
+    public static final double CAMERA_HEIGHT                    = 22.0; // Inches from the floor
+    public static final double CAMERA_ANGLE                     = 36.0; // Degrees from horizontal
+    public static final double CAMERA_DATA_TIMEOUT              = 0.5;  // 500ms
+    public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
+    public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
+    public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
+
+    //
     // Wall Alignment Sensor.
     //
+    public static final double LIDAR_INTER_SENSOR_DIST          = 16.625; // Inches
+    public static final double LIDAR_SENSOR_Y_OFFSET            = -3.5; // Inches
+
     public static final double WALL_ALIGN_LOW_THRESHOLD         = -0.5;
     public static final double WALL_ALIGN_HIGH_THRESHOLD        = 0.0;
 

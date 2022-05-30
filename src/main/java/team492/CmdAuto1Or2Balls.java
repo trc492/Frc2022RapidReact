@@ -64,7 +64,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
     CmdAuto1Or2Balls(Robot robot, boolean do2Balls, boolean lastResort)
     {
         robot.globalTracer.traceInfo(
-            moduleName, ">>> robot=%s, do2Balls=%s, choices=%s", robot, do2Balls, robot.autoChoices);
+            moduleName, ">>> robot=%s, do2Balls=%s, choices=%s", robot, do2Balls, FrcAuto.autoChoices);
 
         this.robot = robot;
         this.do2Balls = do2Balls;
@@ -133,7 +133,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     //
                     // Do start delay if any.
                     //
-                    double startDelay = robot.autoChoices.getStartDelay();
+                    double startDelay = FrcAuto.autoChoices.getStartDelay();
                     if (startDelay == 0.0)
                     {
                         sm.setState(nextState);

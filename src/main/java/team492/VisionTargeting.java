@@ -83,4 +83,5 @@ public class VisionTargeting
     {
         return vision.getMedianPose(numFrames, requireAll);
     }
-}
+
+}   //class VisionTargeting

@@ -34,6 +34,9 @@ import TrcFrcLib.frclib.FrcPdp;
  */
 public class MecanumDrive extends RobotDrive
 {
+    private static final boolean logPoseEvents = false;
+    private static final boolean tracePidInfo = false;
+
     /**
      * Constructor: Create an instance of the object.
      *
@@ -51,27 +54,18 @@ public class MecanumDrive extends RobotDrive
         driveBase = new TrcMecanumDriveBase(lfDriveMotor, lbDriveMotor, rfDriveMotor, rbDriveMotor, gyro);
         driveBase.setOdometryScales(RobotParams.MECANUM_X_INCHES_PER_COUNT, RobotParams.MECANUM_Y_INCHES_PER_COUNT);
 
-        if (robot.pdp != null)
-        {
-            robot.pdp.registerEnergyUsed(
-                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfDriveMotor"),
-                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_DRIVE, "lbDriveMotor"),
-                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_DRIVE, "rfDriveMotor"),
-                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_DRIVE, "rbDriveMotor"));
-        }
-
         // if (RobotParams.Preferences.useExternalOdometry)
         // {
         //     //
-        //     // Create the external odometry device that uses the left front encoder port as the X odometry and
-        //     // the left and right back encoder ports as the Y1 and Y2 odometry. Gyro will serve as the angle
+        //     // Create the external odometry device that uses the right back encoder port as the X odometry and
+        //     // the left and right front encoder ports as the Y1 and Y2 odometry. Gyro will serve as the angle
         //     // odometry.
         //     //
         //     TrcDriveBaseOdometry driveBaseOdometry = new TrcDriveBaseOdometry(
-        //         new TrcDriveBaseOdometry.AxisSensor(rightBackWheel, RobotParams.X_ODOMETRY_WHEEL_OFFSET),
+        //         new TrcDriveBaseOdometry.AxisSensor(rbDriveMotor, RobotParams.X_ODOMETRY_WHEEL_OFFSET),
         //         new TrcDriveBaseOdometry.AxisSensor[] {
-        //             new TrcDriveBaseOdometry.AxisSensor(leftFrontWheel, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
-        //             new TrcDriveBaseOdometry.AxisSensor(rightFrontWheel, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
+        //             new TrcDriveBaseOdometry.AxisSensor(lfDriveMotor, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
+        //             new TrcDriveBaseOdometry.AxisSensor(rfDriveMotor, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
         //         gyro);
         //     //
         //     // Set the drive base to use the external odometry device overriding the built-in one.
@@ -81,8 +75,17 @@ public class MecanumDrive extends RobotDrive
         // }
         // else
         // {
-        //     driveBase.setOdometryScales(RobotParams.ENCODER_X_INCHES_PER_COUNT, RobotParams.ENCODER_Y_INCHES_PER_COUNT);
+        //     driveBase.setOdometryScales(RobotParams.MECANUM_X_INCHES_PER_COUNT, RobotParams.MECANUM_Y_INCHES_PER_COUNT);
         // }
+
+        if (robot.pdp != null)
+        {
+            robot.pdp.registerEnergyUsed(
+                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_FRONT_DRIVE, "lfDriveMotor"),
+                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_LEFT_BACK_DRIVE, "lbDriveMotor"),
+                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_DRIVE, "rfDriveMotor"),
+                new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_DRIVE, "rbDriveMotor"));
+        }
 
         //
         // Create and initialize PID controllers.
@@ -117,7 +120,7 @@ public class MecanumDrive extends RobotDrive
         // of the absolute target position.
         pidDrive.setAbsoluteTargetModeEnabled(true);
         pidDrive.setStallDetectionEnabled(true);
-        pidDrive.setMsgTracer(robot.globalTracer, true, true);
+        pidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
 
         purePursuitDrive = new TrcPurePursuitDrive(
             "purePursuitDrive", driveBase, RobotParams.PPD_FOLLOWING_DISTANCE, RobotParams.PPD_POS_TOLERANCE,

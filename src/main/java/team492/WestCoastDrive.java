@@ -34,6 +34,9 @@ import TrcFrcLib.frclib.FrcPdp;
  */
 public class WestCoastDrive extends RobotDrive
 {
+    private static final boolean logPoseEvents = false;
+    private static final boolean tracePidInfo = false;
+
     /**
      * Constructor: Create an instance of the object.
      *
@@ -54,6 +57,28 @@ public class WestCoastDrive extends RobotDrive
         driveBase = new TrcSimpleDriveBase(lfDriveMotor, rfDriveMotor, gyro);
         driveBase.setOdometryScales(RobotParams.WCD_INCHES_PER_COUNT);
 
+        // if (RobotParams.Preferences.useExternalOdometry)
+        // {
+        //     //
+        //     // Create the external odometry device that uses the left and right front encoder ports as the Y1 and Y2
+        //     // odometry. Gyro will serve as the angle odometry.
+        //     //
+        //     TrcDriveBaseOdometry driveBaseOdometry = new TrcDriveBaseOdometry(
+        //         new TrcDriveBaseOdometry.AxisSensor[] {
+        //         new TrcDriveBaseOdometry.AxisSensor(lfDriveMotor, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
+        //         new TrcDriveBaseOdometry.AxisSensor(rfDriveMotor, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
+        //         gyro);
+        //     //
+        //     // Set the drive base to use the external odometry device overriding the built-in one.
+        //     //
+        //     driveBase.setDriveBaseOdometry(driveBaseOdometry);
+        //     driveBase.setOdometryScales(RobotParams.ODWHEEL_Y_INCHES_PER_COUNT);
+        // }
+        // else
+        // {
+        //     driveBase.setOdometryScales(RobotParams.WCD_INCHES_PER_COUNT);
+        // }
+
         if (robot.pdp != null)
         {
             robot.pdp.registerEnergyUsed(
@@ -62,30 +87,6 @@ public class WestCoastDrive extends RobotDrive
                 new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_DRIVE, "rfDriveMotor"),
                 new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_DRIVE, "rbDriveMotor"));
         }
-
-        // if (RobotParams.Preferences.useExternalOdometry)
-        // {
-        //     //
-        //     // Create the external odometry device that uses the left front encoder port as the X odometry and
-        //     // the left and right back encoder ports as the Y1 and Y2 odometry. Gyro will serve as the angle
-        //     // odometry.
-        //     //
-        //     TrcDriveBaseOdometry driveBaseOdometry = new TrcDriveBaseOdometry(
-        //         new TrcDriveBaseOdometry.AxisSensor(rightBackWheel, RobotParams.X_ODOMETRY_WHEEL_OFFSET),
-        //         new TrcDriveBaseOdometry.AxisSensor[] {
-        //             new TrcDriveBaseOdometry.AxisSensor(leftFrontWheel, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
-        //             new TrcDriveBaseOdometry.AxisSensor(rightFrontWheel, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
-        //         gyro);
-        //     //
-        //     // Set the drive base to use the external odometry device overriding the built-in one.
-        //     //
-        //     driveBase.setDriveBaseOdometry(driveBaseOdometry);
-        //     driveBase.setOdometryScales(RobotParams.ODWHEEL_X_INCHES_PER_COUNT, RobotParams.ODWHEEL_Y_INCHES_PER_COUNT);
-        // }
-        // else
-        // {
-        //     driveBase.setOdometryScales(RobotParams.ENCODER_X_INCHES_PER_COUNT, RobotParams.ENCODER_Y_INCHES_PER_COUNT);
-        // }
 
         //
         // Create and initialize PID controllers.
@@ -123,7 +124,7 @@ public class WestCoastDrive extends RobotDrive
             RobotParams.PPD_TURN_TOLERANCE, null, yPosPidCoeff, turnPidCoeff, velPidCoeff);
         purePursuitDrive.setMoveOutputLimit(RobotParams.PPD_MOVE_DEF_OUTPUT_LIMIT);
         purePursuitDrive.setStallDetectionEnabled(true);
-        purePursuitDrive.setMsgTracer(robot.globalTracer, true, true);
+        purePursuitDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
     }   //WestCoastDrive
 
 }   //class WestCoastDrive

@@ -53,7 +53,7 @@ import TrcFrcLib.frclib.FrcPdp;
  */
 public class SwerveDrive extends RobotDrive
 {
-    private static final boolean logPoseEvents = true;
+    private static final boolean logPoseEvents = false;
     private static final boolean tracePidInfo = false;
     private static final String DBKEY_TEST_RUN_MOTORS = "Test/RunMotors";
     private static final String DBKEY_TEST_SET_ANGLE = "Test/SetAngle";
@@ -100,6 +100,35 @@ public class SwerveDrive extends RobotDrive
         lbWheel = createSwerveModule("lbWheel", lbDriveMotor, lbSteerMotor, lbEncoder, zeros[2]);
         rbWheel = createSwerveModule("rbWheel", rbDriveMotor, rbSteerMotor, rbEncoder, zeros[3]);
 
+        driveBase = new TrcSwerveDriveBase(
+            lfWheel, lbWheel, rfWheel, rbWheel, gyro, RobotParams.ROBOT_DRIVE_WIDTH, RobotParams.ROBOT_DRIVE_LENGTH);
+        driveBase.setSynchronizeOdometriesEnabled(false);
+        driveBase.setOdometryScales(RobotParams.SWERVE_INCHES_PER_COUNT);
+
+        // if (RobotParams.Preferences.useExternalOdometry)
+        // {
+        //     //
+        //     // Create the external odometry device that uses the right back encoder port as the X odometry and
+        //     // the left and right front encoder ports as the Y1 and Y2 odometry. Gyro will serve as the angle
+        //     // odometry.
+        //     //
+        //     TrcDriveBaseOdometry driveBaseOdometry = new TrcDriveBaseOdometry(
+        //         new TrcDriveBaseOdometry.AxisSensor(rbDriveMotor, RobotParams.X_ODOMETRY_WHEEL_OFFSET),
+        //         new TrcDriveBaseOdometry.AxisSensor[] {
+        //             new TrcDriveBaseOdometry.AxisSensor(lfDriveMotor, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
+        //             new TrcDriveBaseOdometry.AxisSensor(rfDriveMotor, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
+        //         gyro);
+        //     //
+        //     // Set the drive base to use the external odometry device overriding the built-in one.
+        //     //
+        //     driveBase.setDriveBaseOdometry(driveBaseOdometry);
+        //     driveBase.setOdometryScales(RobotParams.ODWHEEL_X_INCHES_PER_COUNT, RobotParams.ODWHEEL_Y_INCHES_PER_COUNT);
+        // }
+        // else
+        // {
+        //     driveBase.setOdometryScales(RobotParams.SWERVE_INCHES_PER_COUNT);
+        // }
+
         if (robot.pdp != null)
         {
             robot.pdp.registerEnergyUsed(
@@ -112,35 +141,6 @@ public class SwerveDrive extends RobotDrive
                 new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_FRONT_STEER, "rfSteerMotor"),
                 new FrcPdp.Channel(RobotParams.PDP_CHANNEL_RIGHT_BACK_STEER, "rbSteerMotor"));
         }
-
-        driveBase = new TrcSwerveDriveBase(
-            lfWheel, lbWheel, rfWheel, rbWheel, gyro, RobotParams.ROBOT_DRIVE_WIDTH, RobotParams.ROBOT_DRIVE_LENGTH);
-        driveBase.setSynchronizeOdometriesEnabled(false);
-        driveBase.setOdometryScales(RobotParams.SWERVE_INCHES_PER_COUNT);
-
-        // if (RobotParams.Preferences.useExternalOdometry)
-        // {
-        //     //
-        //     // Create the external odometry device that uses the left front encoder port as the X odometry and
-        //     // the left and right back encoder ports as the Y1 and Y2 odometry. Gyro will serve as the angle
-        //     // odometry.
-        //     //
-        //     TrcDriveBaseOdometry driveBaseOdometry = new TrcDriveBaseOdometry(
-        //         new TrcDriveBaseOdometry.AxisSensor(rightBackWheel, RobotParams.X_ODOMETRY_WHEEL_OFFSET),
-        //         new TrcDriveBaseOdometry.AxisSensor[] {
-        //             new TrcDriveBaseOdometry.AxisSensor(leftFrontWheel, RobotParams.Y_LEFT_ODOMETRY_WHEEL_OFFSET),
-        //             new TrcDriveBaseOdometry.AxisSensor(rightFrontWheel, RobotParams.Y_RIGHT_ODOMETRY_WHEEL_OFFSET)},
-        //         gyro);
-        //     //
-        //     // Set the drive base to use the external odometry device overriding the built-in one.
-        //     //
-        //     driveBase.setDriveBaseOdometry(driveBaseOdometry);
-        //     driveBase.setOdometryScales(RobotParams.ODWHEEL_X_INCHES_PER_COUNT, RobotParams.ODWHEEL_Y_INCHES_PER_COUNT);
-        // }
-        // else
-        // {
-        //     driveBase.setOdometryScales(RobotParams.ENCODER_X_INCHES_PER_COUNT, RobotParams.ENCODER_Y_INCHES_PER_COUNT);
-        // }
 
         //
         // Create and initialize PID controllers.

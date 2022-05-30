@@ -47,14 +47,19 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotDrive
 {
+    public enum DriveOrientation
+    {
+        ROBOT, FIELD, INVERTED
+    }   //enum DriveOrientation
+
     //
     // Global objects.
     //
-    protected Robot robot;
+    protected final Robot robot;
     //
     // Sensors.
     //
-    public TrcGyro gyro;
+    public final TrcGyro gyro;
     //
     // Drive motors.
     //
@@ -73,6 +78,10 @@ public class RobotDrive
     //
     public TrcPidDrive pidDrive;
     public TrcPurePursuitDrive purePursuitDrive;
+    //
+    // Miscellaneous.
+    //
+    public DriveOrientation driveOrientation = DriveOrientation.FIELD;
     public double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     public double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
     //
@@ -114,15 +123,15 @@ public class RobotDrive
             }
             else
             {
-                if (runMode == RunMode.TELEOP_MODE && endOfAutoRobotPose != null)
-                {
-                    driveBase.setFieldPosition(endOfAutoRobotPose);
-                }
-
                 lfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 rfDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 lbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
                 rbDriveMotor.motor.configOpenloopRamp(RobotParams.DRIVE_RAMP_RATE);
+
+                if (runMode == RunMode.TELEOP_MODE && endOfAutoRobotPose != null)
+                {
+                    driveBase.setFieldPosition(endOfAutoRobotPose);
+                }
 
                 if (RobotParams.Preferences.useGyroAssist)
                 {
@@ -142,17 +151,7 @@ public class RobotDrive
     {
         if (runMode != RunMode.DISABLED_MODE)
         {
-            driveBase.stop();
-
-            if (pidDrive != null && pidDrive.isActive())
-            {
-                pidDrive.cancel();
-            }
-
-            if (purePursuitDrive != null && purePursuitDrive.isActive())
-            {
-                purePursuitDrive.cancel();
-            }
+            cancel();
 
             if (runMode == RunMode.AUTO_MODE)
             {
@@ -167,12 +166,12 @@ public class RobotDrive
      */
     public void cancel()
     {
-        if (pidDrive.isActive())
+        if (pidDrive != null && pidDrive.isActive())
         {
             pidDrive.cancel();
         }
 
-        if (purePursuitDrive.isActive())
+        if (purePursuitDrive != null && purePursuitDrive.isActive())
         {
             purePursuitDrive.cancel();
         }
@@ -239,7 +238,7 @@ public class RobotDrive
         {
             x = robot.rightDriveStick.getXWithDeadband(false);
             y = robot.rightDriveStick.getYWithDeadband(false);
-            if(RobotParams.Preferences.timDrive)
+            if(RobotParams.Preferences.doOneStickDrive)
             {
                 rot = robot.rightDriveStick.getTwistWithDeadband(true);
             }
@@ -268,6 +267,15 @@ public class RobotDrive
 
         return new double[] { x, y, rot };
     }   //getDriveInput
+
+    /**
+     * This method sets the drive orientation mode and updates the LED state correspondingly.
+     */
+    public void setDriveOrientation(DriveOrientation orientation)
+    {
+        driveOrientation = orientation;
+        robot.ledIndicator.setDriveOrientation(driveOrientation);
+    }   //setDriveOrientation
 
     /**
      * This method saves the compass heading value when the robot is facing field zero.
@@ -313,9 +321,10 @@ public class RobotDrive
 
     /**
      * This method sets the robot's absolute field position. This is typically called at the beginning of a match for
-     * robot localization. The provided pose should be the robot's starting position. Optionally, the caller can set
-     * useCompassHeading to true for using compass heading to determine the true robot heading. This only works if
-     * the robot has been calibrated on the competition field for its field zero position.
+     * robot localization. The provided pose should be the robot's starting position. If null, it will try to get the
+     * robot start pose from the auto choices on the dashboard. Optionally, the caller can set useCompassHeading to
+     * true for using compass heading to determine the true robot heading. This only works if the robot has been
+     * calibrated on the competition field for its field zero position.
      * Note: if reading the field zero calibration file failed, it will behave as if useCompassHeading is false.
      *
      * @param pose speicifies the robot's starting position on the field.
@@ -324,6 +333,12 @@ public class RobotDrive
     public void setFieldPosition(TrcPose2D pose, boolean useCompassHeading)
     {
         TrcPose2D robotPose = pose;
+
+        if (robotPose == null)
+        {
+            int startPos = FrcAuto.autoChoices.getStartPos();
+            robotPose = RobotParams.startPos[startPos];
+        }
 
         if (useCompassHeading)
         {
@@ -337,23 +352,21 @@ public class RobotDrive
         }
 
         driveBase.setFieldPosition(robotPose);
-    }   //setAbsoluteFieldHeading
+    }   //setFieldPosition
 
     /**
      * This method sets the robot's absolute field position. This is typically called at the beginning of a match for
-     * robot localization. The robot pose is specified in the "StartPos" auto choice menu. Optionally, the caller can
-     * set useCompassHeading to true for using compass heading to determine the true robot heading. This only works if
-     * the robot has been calibrated on the competition field for its field zero position.
+     * robot localization. The provided pose should be the robot's starting position. If null, it will try to get the
+     * robot start pose from the auto choices on the dashboard. Optionally, the caller can set  useCompassHeading to
+     * true for using compass heading to determine the true robot heading. This only works if the robot has been
+     * calibrated on the competition field for its field zero position.
      * Note: if reading the field zero calibration file failed, it will behave as if useCompassHeading is false.
      *
-     * @param pose speicifies the robot's starting position on the field.
      * @param useCompassHeading specifies true to use compass to determine the robot's true heading, false otherwise.
      */
     public void setFieldPosition(boolean useCompassHeading)
     {
-        int startPos = robot.autoChoices.getStartPos();
-        TrcPose2D robotPose = RobotParams.startPos[startPos];
-        setFieldPosition(robotPose, useCompassHeading);
+        setFieldPosition(null, useCompassHeading);
     }   //setFieldPosition
 
     /**

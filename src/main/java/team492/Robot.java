@@ -111,6 +111,7 @@ public class Robot extends FrcRobotBase
     //     .add(ShootLoc.Distance17ft, 204.0, 1900, 2600, RobotParams.TILTER_FAR_ANGLE) //double check
     //     .add(ShootLoc.Distance18ft, 216.0, 1900, 2800, RobotParams.TILTER_FAR_ANGLE);
     public final ShootParamTable shootParamTable = new ShootParamTable()
+        .add(ShootLoc.ScienceFair,   0.0, 1000, 1000, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Tower,         71.83, 2600, 900, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.Distance7ft,   84.0, 2500, 1400, RobotParams.TILTER_CLOSE_ANGLE)
         .add(ShootLoc.TarmacAuto,    95.4, 2200, 1500, RobotParams.TILTER_CLOSE_ANGLE)

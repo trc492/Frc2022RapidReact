@@ -30,6 +30,7 @@ public class ShootParamTable
 {
     public static enum ShootLoc
     {
+        ScienceFair,
         TarmacAuto,
         TarmacMid,
         OldThreshold,

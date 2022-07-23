@@ -222,13 +222,14 @@ public class RobotDrive
 
         if (RobotParams.Preferences.useXboxController)
         {
-            x = robot.driverController.getLeftXWithDeadband(false);
-            y = robot.driverController.getLeftYWithDeadband(false);
-            rot = robot.driverController.getRightXWithDeadband(true);
+            x = 0.9 * robot.driverController.getLeftXWithDeadband(false);
+            y = 0.9 * robot.driverController.getLeftYWithDeadband(false);
+            rot = 0.9 * robot.driverController.getRightXWithDeadband(true);
             mag = TrcUtil.magnitude(x, y);
             if (mag > 1.0)
             {
                 x /= mag;
+
                 y /= mag;
                 mag = 1.0;
             }

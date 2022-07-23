@@ -271,10 +271,30 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.BUTTON_B:
+                //field trip shooting 
+                if(pressed){
+                    robot.shooter.shootWithVision("teleOp", null);
+                    //robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
+                }
+                else{
+                    robot.shooter.commitToShoot("teleOp");
+
+                }
                 break;
 
             case FrcXboxController.BUTTON_X:
-                robot.robotDrive.setAntiDefenseEnabled(null, pressed);
+                //robot.robotDrive.setAntiDefenseEnabled(null, pressed);
+                //just for field trip 
+                if (pressed)
+                {
+                    robot.intake.extend();
+                    robot.intake.pickup();
+                }
+                else
+                {
+                    robot.intake.stop(0.2);
+                    robot.intake.retract();
+                }
                 break;
 
             case FrcXboxController.BUTTON_Y:
@@ -292,6 +312,52 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.LEFT_BUMPER:
+            /*
+                if (pressed)
+                {
+                    robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.INVERTED);
+                }
+                else
+                {
+                    robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.FIELD);
+                }
+                break;
+            */
+                if (pressed)
+                {
+                    robot.intake.extend();
+                    robot.intake.pickup();
+                }
+                else
+                {
+                    robot.intake.stop(0.2);
+                    robot.intake.retract();
+                }
+                break;
+
+            case FrcXboxController.RIGHT_BUMPER:
+                //field trip shooting 
+                if(pressed){
+                    robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
+                }
+                else{
+                    robot.shooter.commitToShoot("teleOp");
+
+                }
+                break;
+
+            case FrcXboxController.BACK:
+                robot.shooter.shutdown();
+                robot.conveyor.cancel();
+                robot.intake.cancel();
+                robot.climber.cancel();
+                break;
+
+            case FrcXboxController.START:
+                robot.climber.zeroCalibrateClimber();
+                break;
+
+            case FrcXboxController.LEFT_STICK_BUTTON:
                 if (pressed)
                 {
                     robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.INVERTED);
@@ -302,17 +368,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 break;
 
-            case FrcXboxController.RIGHT_BUMPER:
-                break;
-
-            case FrcXboxController.BACK:
-                break;
-
-            case FrcXboxController.START:
-                break;
-
-            case FrcXboxController.LEFT_STICK_BUTTON:
-                break;
 
             case FrcXboxController.RIGHT_STICK_BUTTON:
                 break;

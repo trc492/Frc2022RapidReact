@@ -150,7 +150,7 @@ class CmdAuto1Or2Balls implements TrcRobot.RobotCommand
                     sm.waitForSingleEvent(event, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         event, 1.0, robot.robotDrive.driveBase.getFieldPosition(), true,
-                        new TrcPose2D(0.0, -40.0, 0.0));
+                        new TrcPose2D(0.0, -52.0, 0.0));
                     break;
 
                 case SHOOT:

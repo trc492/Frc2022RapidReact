@@ -64,6 +64,7 @@ public class Shooter implements TrcExclusiveSubsystem
     private boolean committedToShoot = false;
     private boolean allowToShoot = false;
     private boolean ballShot = false;
+    private boolean fullTurnShooter = true;
     private Double targetAngle = null;
     private Double targetDistance = null;
 
@@ -834,7 +835,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     // calculate the params from robot odometry location.
                     //
                     double xPower = 0.0, yPower = 0.0, rotPower = 0.0;
-                    boolean visionPidOnTarget;
+                    boolean visionPidOnTarget = false;
 
                     targetAngle = null;
                     targetDistance = null;
@@ -846,6 +847,10 @@ public class Shooter implements TrcExclusiveSubsystem
 
                         if (targetInView)
                         {
+                            if(fullTurnShooter){
+                                robot.robotDrive.driveBase.stop(); 
+                                fullTurnShooter = false; 
+                            }
                             targetAngle = robot.vision.getTargetHorizontalAngle();
                             targetDistance = robot.vision.getTargetDistance() + RobotParams.VISION_TARGET_RADIUS;
 
@@ -924,8 +929,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         yPower = inputs[1]*0.3;
                         rotPower = inputs[2]*0.3;
                     }
-
-                    if (visionAlignEnabled && rotPower == 0.0)
+                    if (visionAlignEnabled && rotPower == 0.0 && !fullTurnShooter)
                     {
                         // Vision alignment is enabled and driver is not overriding.
                         rotPower = alignPidCtrl.getOutput();
@@ -948,7 +952,20 @@ public class Shooter implements TrcExclusiveSubsystem
 
                     if (!robot.robotDrive.isAntiDefenseEnabled())
                     {
-                        robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
+                        if(!fullTurnShooter)
+                        {
+                            robot.robotDrive.driveBase.holonomicDrive(currOwner, xPower, yPower, rotPower);
+                        }
+                        else
+                        {
+                            // if((robot.robotDrive.driveBase.getHeading() % 360) > 180){
+                            robot.robotDrive.driveBase.holonomicDrive(currOwner, 0, 0, 0.5);
+                            // }
+                            // else
+                            // {
+                            //     robot.robotDrive.driveBase.holonomicDrive(currOwner, 0, 0, -0.5);
+                            // }
+                        }
                     }
 
                     if (RobotParams.Preferences.debugShooter)
@@ -993,9 +1010,18 @@ public class Shooter implements TrcExclusiveSubsystem
                                 "[%.3f] upperFlywheelPower=%.1f, allowToShoot=%s, committedToShoot=%s, goShoot=%s",
                                 matchTime, upperFlywheelPower, allowToShoot, committedToShoot, goShoot);
                         }
-
-                        if (goShoot)
-                        {
+                        /*
+                        if (visionPidOnTarget && oneClickShooting){
+                            goShoot = true; 
+                            msgTracer.traceInfo(
+                                funcName,
+                                "[%.3f] upperFlywheelPower=%.1f, allowToShoot=%s, committedToShoot=%s, goShoot=%s",
+                                matchTime, upperFlywheelPower, allowToShoot, committedToShoot, goShoot);
+                        }
+                        */
+                        if (goShoot && visionPidOnTarget)
+                        {   
+                            alignPidCtrl.printPidInfo(msgTracer);
                             robot.robotDrive.driveBase.stop(currOwner);
                             // robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
 
@@ -1062,6 +1088,9 @@ public class Shooter implements TrcExclusiveSubsystem
                     break;
 
                 case DONE:
+                    robot.robotDrive.driveBase.stop();
+                    alignPidCtrl.printPidInfo(msgTracer);
+                    
                 default:
                     cancel();
                     break; 

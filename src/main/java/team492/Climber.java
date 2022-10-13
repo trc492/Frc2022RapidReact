@@ -143,6 +143,11 @@ public class Climber
         climber.setPower(power);
     }   //setPower
 
+    public void setPidPower(double power)
+    {
+        climber.setPidPower(power);
+    }   //setPidPower
+
     public void setPosition(double position, boolean hold, TrcEvent event, double timeout)
     {
         climber.setTarget(position, hold, event, null, timeout);
@@ -214,7 +219,7 @@ public class Climber
      */
     public void cancel()
     {
-        climber.setManualOverride(false);
+        // climber.setManualOverride(false);
         sm.stop();
         climberTaskObj.unregisterTask();
     }   //cancel
@@ -234,7 +239,7 @@ public class Climber
             switch (state)
             {
                 case PULL_DOWN_PRIMARY_HOOK:
-                    climber.setManualOverride(true);
+                    // climber.setManualOverride(true);
                     if (this.isLowerLimitSwitchActive())
                     {
                         sm.setState(State.DEPLOY_SECONDARY_HOOK);
@@ -274,7 +279,7 @@ public class Climber
                     // Retract hook arm allowing it to engage the next rung.
                     retractHookArm();
                     sm.waitForSingleEvent(event, State.UNHOOK_PREVIOUS_RUNG);
-                    timer.set(traversalRung? 1.5: 1.0, event); //TODO: Time engaging of rung tighter?
+                    timer.set(traversalRung? 2.5: 1.0, event); //TODO: Time engaging of rung tighter?
                     break;
 
                 case UNHOOK_PREVIOUS_RUNG:

@@ -36,7 +36,7 @@ public class ShootParamTable
         Distance11ft,
         StartFar,
         Calibration125in,
-        Distance12ft,
+        Distance10ft,
         FarThreshold,
         TarmacEdge,
         RingMid,

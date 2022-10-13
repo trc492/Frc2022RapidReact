@@ -299,6 +299,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 else
                 {
                     robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.FIELD);
+                    robot.robotDrive.driveBase.setFieldPosition(new TrcPose2D(robot.robotDrive.driveBase.getXPosition(), 
+                        robot.robotDrive.driveBase.getYPosition(), 0));
                 }
                 break;
 
@@ -448,6 +450,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button)
         {
             case FrcJoystick.LOGITECH_TRIGGER:
+                // if(pressed){
+                //     robot.shooter.oneClickShooting = true; 
+                //     robot.shooter.shootWithVision("teleOp", null);
+                // }
                 if (pressed)
                 {
                     robot.shooter.shootWithVision("teleOp", null, currShootParams);
@@ -512,8 +518,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON7:
-                climberControl = pressed;
-                robot.climber.climber.setManualOverride(pressed);
+                // climberControl = pressed;
+                // robot.climber.climber.setManualOverride(pressed);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON8:
@@ -628,7 +634,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
 
             case FrcJoystick.PANEL_BUTTON_RED2:
                 double power = pressed? -0.5: 0.0;
-                robot.shooter.setFlywheelValue(power);
                 robot.conveyor.setPower(power);
                 robot.intake.setPower(power);
                 break;

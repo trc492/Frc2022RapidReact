@@ -179,7 +179,7 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     // Cancel the previous PurePursuit drive.
                     robot.robotDrive.purePursuitDrive.cancel();
                     // Go right behind the third ball to pick up (closer to the tarmac) to shoot the first two balls.
-                    // robot.intake.retract();
+                    robot.intake.retract();
                     sm.waitForSingleEvent(driveEvent, State.SHOOT);
                     robot.robotDrive.purePursuitDrive.start(
                         driveEvent, 2.5, robot.robotDrive.driveBase.getFieldPosition(), false,
@@ -202,11 +202,12 @@ class CmdAuto3Or5Balls implements TrcRobot.RobotCommand
                     break;
 
                 case PICKUP_THIRD_BALL:
+                    robot.intake.extend();
                     // Picks up the ball close to the tarmac, which is right in front of us
                     // Start setting flywheel velocity to be the one we use for the 3rd ball
                     robot.shooter.setFlywheelValue(2228, 1900);
                     // robot.robotDrive.purePursuitDrive.setMoveOutputLimit(0.5);
-                    sm.waitForSingleEvent(intakeEvent, State.SHOOT); // Shoot after picking up the ball
+                    sm.waitForSingleEvent(intakeEvent, State.SHOOT, 2.0); // Shoot after picking up the ball
                     robot.intake.pickup(intakeEvent);
                     robot.robotDrive.purePursuitDrive.start(
                         null, 0.0, robot.robotDrive.driveBase.getFieldPosition(), true,

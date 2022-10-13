@@ -56,12 +56,12 @@ public class RobotParams
         public static final boolean showVisionStatus            = true;
         // Debug
         public static final boolean debugPowerConsumption       = false;
-        public static final boolean debugDriveBase              = false;
+        public static final boolean debugDriveBase              = true;
         public static final boolean debugPidDrive               = false;
-        public static final boolean debugSubsystems             = false;
-        public static final boolean debugVision                 = false;
+        public static final boolean debugSubsystems             = true;
+        public static final boolean debugVision                 = true;
         public static final boolean debugLoopTime               = false;
-        public static final boolean debugShooter                = false;
+        public static final boolean debugShooter                = true;
     }   //class Preferences
 
     public static final String ROBOT_NAME                       = "RapidReact_Robot";
@@ -268,14 +268,14 @@ public class RobotParams
 
     // 2022-03-01: PID=0.007, 0.0, 0.0007, Tol=2.0
     // 2022-03-30: PID=0.012, 0.0, 0.0, Tol=2.0
-    public static final double GYRO_TURN_KP                     = 0.012;
+    public static final double GYRO_TURN_KP                     = 0.012;//0.0012;
     public static final double GYRO_TURN_KI                     = 0.0;
     public static final double GYRO_TURN_KD                     = 0.0;
     public static final double GYRO_TURN_KF                     = 0.0;
     public static final double GYRO_TURN_TOLERANCE              = 2.0;
     // TODO: MAKE NEW GYRO_ALIGN VALUES FOR AUTO AND TELEOP
                                                                             //these work for 5 ball auto
-    public static final double GYRO_ALIGN_KP                    = 0.015;    //0.015;
+    public static final double GYRO_ALIGN_KP                    = 0.015;//0.015;    //0.01;
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0012;   //0.0012;
     public static final double GYRO_ALIGN_TOLERANCE             = 2.0;      //2.0;
@@ -331,7 +331,7 @@ public class RobotParams
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);
-    public static final double STEER_KP                         = 1.1;  //0.8;//0.8;//1.2
+    public static final double STEER_KP                         = 1.0;  //0.8;//0.8;//1.2
     public static final double STEER_KI                         = 0.0;
     public static final double STEER_KD                         = 14.0; //2.0;//2.0;//16.0
     public static final double STEER_KF                         = 0.0;
@@ -341,7 +341,7 @@ public class RobotParams
     //current kp and kd constants are tuned off of the falcon's integrated sensor, NOT off cancoder (yet)
     public static final double PPD_FOLLOWING_DISTANCE           = 12.0;
     public static final double PPD_POS_TOLERANCE                = 2.0;
-    public static final double PPD_TURN_TOLERANCE               = 2.0;
+    public static final double PPD_TURN_TOLERANCE               = 3.0;
     public static final double PPD_MOVE_DEF_OUTPUT_LIMIT        = 0.5;
     public static final double PPD_ROT_DEF_OUTPUT_LIMIT         = 0.3;
 
@@ -366,7 +366,7 @@ public class RobotParams
     public static final double FLYWHEEL_MAX_VEL                 =
         FLYWHEEL_MAX_RPM / 60.0 * FLYWHEEL_GEAR_RATIO * FLYWHEEL_ENCODER_PPR;//Tested to be about 220000 SU/s
     public static final TrcPidController.PidCoefficients SHOOTER_COEFFS =
-        new TrcPidController.PidCoefficients(0.05, 1e-4, 5, 0.0479, 2000);
+        new TrcPidController.PidCoefficients(FLYWHEEL_KP, FLYWHEEL_KI, FLYWHEEL_KD, FLYWHEEL_KF, FLYWHEEL_IZONE);
     public static final double SHOT_COMPLETION_DELAY            = 0.3;      // in seconds
 
     public static final double TILTER_CLOSE_ANGLE               = 43.0;
@@ -381,7 +381,7 @@ public class RobotParams
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
     public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=true;
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = true;
-    public static final double CONVEYOR_MOVE_POWER              = 0.5;
+    public static final double CONVEYOR_MOVE_POWER              = 0.75;
 
     // Climber subsystem.
     public static final double CLIMBER_KP                       = 0.2;      //0.06;
@@ -391,7 +391,7 @@ public class RobotParams
     public static final int CLIMBER_ENCODER_PPR                 = 4096;
     public static final double CLIMBER_INCHES_PER_COUNT         = 1.392027924751009e-4;
     public static final double CLIMBER_OFFSET                   = 29.6785;
-    public static final double CLIMBER_CAL_POWER                = 0.3;
+    public static final double CLIMBER_CAL_POWER                = 0.5;
     public static final boolean CLIMBER_MOTOR_INVERTED          = true;
     public static final double CLIMBER_MIN_POS                  = 20.0;
     public static final double CLIMBER_MAX_POS                  = 65.0;

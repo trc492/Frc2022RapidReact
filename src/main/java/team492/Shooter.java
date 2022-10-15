@@ -1057,8 +1057,8 @@ public class Shooter implements TrcExclusiveSubsystem
                             if (msgTracer != null)
                             {
                                 msgTracer.traceInfo(
-                                    funcName, "[%.3f] Shot a ball (lowerFlywheel=%.0f, upperFlywheel=%.0f).",
-                                    matchTime, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
+                                    funcName, "[%.3f] Shot a ball (dist=%.0f, lowerFlywheel=%.0f, upperFlywheel=%.0f).",
+                                    matchTime, targetDistance, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
                             }
                         }
                         else

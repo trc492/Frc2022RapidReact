@@ -135,8 +135,8 @@ public class Intake implements TrcExclusiveSubsystem
             // 2. Ball at the entrance: move ball to the exit and start intake.
             // 3. Ball at the exit: start intake.
             // 4. No ball at all (empty): start intake.
-            if (!ballAtEntrance || !ballAtExit)
-            {
+            // if (!ballAtEntrance || !ballAtExit)
+            // {
                 this.onFinishedEvent = event;
                 if (ballAtEntrance)
                 {
@@ -147,7 +147,7 @@ public class Intake implements TrcExclusiveSubsystem
                 {
                     setPower(0.0, RobotParams.INTAKE_PICKUP_POWER, 0.0);
                 }
-            }
+            // }
         }
     }   //pickup
 

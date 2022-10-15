@@ -465,7 +465,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON2:
-                robot.robotDrive.driveBase.setFieldPosition(RobotParams.STARTPOS_AUTO_5BALL);
+                // robot.robotDrive.driveBase.setFieldPosition(RobotParams.STARTPOS_AUTO_5BALL);
                 break;
 
             case FrcJoystick.LOGITECH_BUTTON3:
@@ -634,6 +634,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
 
             case FrcJoystick.PANEL_BUTTON_RED2:
                 double power = pressed? -0.5: 0.0;
+                robot.shooter.setFlywheelValue(3200.0 * power, 0.0);
                 robot.conveyor.setPower(power);
                 robot.intake.setPower(power);
                 break;

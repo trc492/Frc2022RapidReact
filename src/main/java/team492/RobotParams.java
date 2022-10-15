@@ -278,7 +278,7 @@ public class RobotParams
     public static final double GYRO_ALIGN_KP                    = 0.015;//0.015;    //0.01;
     public static final double GYRO_ALIGN_KI                    = 0.0;
     public static final double GYRO_ALIGN_KD                    = 0.0012;   //0.0012;
-    public static final double GYRO_ALIGN_TOLERANCE             = 2.0;      //2.0;
+    public static final double GYRO_ALIGN_TOLERANCE             = 1.5;      //2.0;
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.2;
     public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5 ;     //2.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
@@ -373,15 +373,15 @@ public class RobotParams
     public static final double TILTER_FAR_ANGLE                 = 31.0;
 
     // Intake subsystem.
-    public static final double INTAKE_PICKUP_POWER              = 1.0;
-    public static final double INTAKE_SPITOUT_POWER             = -1.0;
+    public static final double INTAKE_PICKUP_POWER              = 0.75;
+    public static final double INTAKE_SPITOUT_POWER             = -0.75;
     public static final double INTAKE_PICKUP_DELAY              = 0.5;      // in seconds.
 
     // Conveyor subsystem.
     public static final boolean CONVEYOR_MOTOR_INVERTED         = false;
     public static final boolean CONVEYOR_ENTRANCE_SENSOR_INVERTED=true;
     public static final boolean CONVEYOR_EXIT_SENSOR_INVERTED   = true;
-    public static final double CONVEYOR_MOVE_POWER              = 0.75;
+    public static final double CONVEYOR_MOVE_POWER              = 0.3;
 
     // Climber subsystem.
     public static final double CLIMBER_KP                       = 0.2;      //0.06;

@@ -34,6 +34,7 @@ import TrcCommonLib.trclib.TrcMotor;
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobot;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 
@@ -361,7 +362,7 @@ public class FrcTest extends FrcTeleOp
      * @param elapsedTime specifies the elapsed time since the mode started.
      */
     @Override
-    public void fastPeriodic(double elapsedTime)
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
         if (testCommand != null)
         {
@@ -373,11 +374,11 @@ public class FrcTest extends FrcTeleOp
         switch (testChoices.getTest())
         {
             case SENSORS_TEST:
-                super.fastPeriodic(elapsedTime);
+                super.periodic(elapsedTime, false);
                 break;
 
             case DRIVE_SPEED_TEST:
-                double currTime = TrcUtil.getCurrentTime();
+                double currTime = TrcTimer.getCurrentTime();
                 TrcPose2D velPose = robot.robotDrive.driveBase.getFieldVelocity();
                 double velocity = TrcUtil.magnitude(velPose.x, velPose.y);
                 double acceleration = 0.0;
@@ -414,89 +415,81 @@ public class FrcTest extends FrcTeleOp
             default:
                 break;
         }
-    }   //fastPeriodic
 
-    /**
-     * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
-     * update here. For example, TeleOp joystick code or status display code can be put here since human responses
-     * are considered slow.
-     *
-     * @param elapsedTime specifies the elapsed time since the mode started.
-     */
-    @Override
-    public void slowPeriodic(double elapsedTime)
-    {
-        if (allowTeleOp())
+        if (slowPeriodicLoop)
         {
-            //
-            // Allow TeleOp to run so we can control the robot in subsystem test or drive speed test modes.
-            //
-            super.slowPeriodic(elapsedTime);
-        }
-
-        //
-        // Call super.runPeriodic only if you need TeleOp control of the robot.
-        //
-        switch (testChoices.getTest())
-        {
-            case SENSORS_TEST:
-            case SUBSYSTEMS_TEST:
-                displaySensorStates();
-                break;
-
-            case SWERVE_CALIBRATION:
-                robot.robotDrive.steerCalibratePeriodic();
-                displaySensorStates();
-                break;
-
-            case X_TIMED_DRIVE:
-            case Y_TIMED_DRIVE:
-                double lfEnc = robot.robotDrive.lfDriveMotor.getPosition();
-                double rfEnc = robot.robotDrive.rfDriveMotor.getPosition();
-                double lbEnc = robot.robotDrive.lbDriveMotor.getPosition();
-                double rbEnc = robot.robotDrive.rbDriveMotor.getPosition();
-                robot.dashboard.displayPrintf(9, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
-                robot.dashboard.displayPrintf(10, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
-                robot.dashboard.displayPrintf(11, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
-                robot.dashboard.displayPrintf(12, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                break;
+            if (allowTeleOp())
+            {
+                //
+                // Allow TeleOp to run so we can control the robot in subsystem test or drive speed test modes.
+                //
+                super.periodic(elapsedTime, true);
+            }
     
-            case PP_DRIVE:
-            case PID_DRIVE:
-            case TUNE_X_PID:
-            case TUNE_Y_PID:
-            case TUNE_TURN_PID:
-                int lineNum = 10;
-                robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                if (robot.robotDrive.encoderXPidCtrl != null)
-                {
-                    robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
+            //
+            // Call super.runPeriodic only if you need TeleOp control of the robot.
+            //
+            switch (testChoices.getTest())
+            {
+                case SENSORS_TEST:
+                case SUBSYSTEMS_TEST:
+                    displaySensorStates();
+                    break;
+    
+                case SWERVE_CALIBRATION:
+                    robot.robotDrive.steerCalibratePeriodic();
+                    displaySensorStates();
+                    break;
+    
+                case X_TIMED_DRIVE:
+                case Y_TIMED_DRIVE:
+                    double lfEnc = robot.robotDrive.lfDriveMotor.getPosition();
+                    double rfEnc = robot.robotDrive.rfDriveMotor.getPosition();
+                    double lbEnc = robot.robotDrive.lbDriveMotor.getPosition();
+                    double rbEnc = robot.robotDrive.rbDriveMotor.getPosition();
+                    robot.dashboard.displayPrintf(9, "Enc:lf=%.0f,rf=%.0f", lfEnc, rfEnc);
+                    robot.dashboard.displayPrintf(10, "Enc:lb=%.0f,rb=%.0f", lbEnc, rbEnc);
+                    robot.dashboard.displayPrintf(11, "EncAverage=%f", (lfEnc + rfEnc + lbEnc + rbEnc) / 4.0);
+                    robot.dashboard.displayPrintf(12, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                    break;
+        
+                case PP_DRIVE:
+                case PID_DRIVE:
+                case TUNE_X_PID:
+                case TUNE_Y_PID:
+                case TUNE_TURN_PID:
+                    int lineNum = 10;
+                    robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                    if (robot.robotDrive.encoderXPidCtrl != null)
+                    {
+                        robot.robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
+                        lineNum += 2;
+                    }
+                    robot.robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
                     lineNum += 2;
-                }
-                robot.robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
-                lineNum += 2;
-                robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
-                break;
+                    robot.robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
+                    break;
+        
+                case TUNE_VISION_PID:
+                    robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
+                    robot.dashboard.displayPrintf(
+                        10, "horiAngle=%.2f, vertAngle=%.2f, distance=%.2f",
+                        robot.vision.getTargetHorizontalAngle(), robot.vision.getTargetVerticalAngle(),
+                        robot.vision.getTargetDistance());
+                    break;
     
-            case TUNE_VISION_PID:
-                robot.dashboard.displayPrintf(9, "RobotPose=%s", robot.robotDrive.driveBase.getFieldPosition());
-                robot.dashboard.displayPrintf(
-                    10, "horiAngle=%.2f, vertAngle=%.2f, distance=%.2f",
-                    robot.vision.getTargetHorizontalAngle(), robot.vision.getTargetVerticalAngle(),
-                    robot.vision.getTargetDistance());
-                break;
-
-            default:
-                break;
+                default:
+                    break;
+            }
+            //
+            // Update Dashboard.
+            //
+            if (RobotParams.Preferences.doAutoUpdates)
+            {
+                robot.updateStatus();
+            }
         }
-        //
-        // Update Dashboard.
-        //
-        if (RobotParams.Preferences.doAutoUpdates)
-        {
-            robot.updateStatus();
-        }
-    }   //slowPeriodic
+    }   //periodic
 
     /**
      * This method is called to determine if Test mode is allowed to do teleop control of the robot.

@@ -29,6 +29,7 @@ import TrcCommonLib.trclib.TrcPath;
 import TrcCommonLib.trclib.TrcPathBuilder;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcRobotBattery;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcWaypoint;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
@@ -60,7 +61,7 @@ public class Robot extends FrcRobotBase
     //
     public final FrcDashboard dashboard = FrcDashboard.getInstance();
     public final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
-    private double nextDashboardUpdateTime = TrcUtil.getModeElapsedTime();
+    private double nextDashboardUpdateTime = TrcTimer.getModeElapsedTime();
     private boolean traceLogOpened = false;
 
     //
@@ -300,7 +301,7 @@ public class Robot extends FrcRobotBase
             setTraceLogEnabled(true);
         }
         globalTracer.traceInfo(
-            funcName, "[%.3f] %s: ***** %s *****", TrcUtil.getModeElapsedTime(),
+            funcName, "[%.3f] %s: ***** %s *****", TrcTimer.getModeElapsedTime(),
             matchInfo.eventDate, runMode);
 
         //
@@ -394,7 +395,7 @@ public class Robot extends FrcRobotBase
     public void updateStatus()
     {
         final String funcName = "updateStatus";
-        double currTime = TrcUtil.getModeElapsedTime();
+        double currTime = TrcTimer.getModeElapsedTime();
         RunMode runMode = getCurrentRunMode();
 
         if (currTime >= nextDashboardUpdateTime)

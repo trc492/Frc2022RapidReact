@@ -22,6 +22,8 @@
 
 package team492;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
@@ -33,7 +35,6 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcTimer;
-import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcPidActuator.Parameters;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 import TrcFrcLib.frclib.FrcCANFalcon;
@@ -150,12 +151,12 @@ public class Climber
 
     public void setPosition(double position, boolean hold, TrcEvent event, double timeout)
     {
-        climber.setTarget(position, hold, event, null, timeout);
+        climber.setTarget(position, hold, 1.0, event, timeout);
     }   //setPosition
 
     public void setPosition(double position, boolean hold, TrcEvent event)
     {
-        climber.setTarget(position, hold, event, null, 0.0);
+        climber.setTarget(position, hold, 1.0, event, 0.0);
     }   //setPosition
 
     public void setPosition(double position)
@@ -170,7 +171,7 @@ public class Climber
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
-                funcName, "[%.3f] RetractClimber: currPos=%.1f", TrcUtil.getModeElapsedTime(), climber.getPosition());
+                funcName, "[%.3f] RetractClimber: currPos=%.1f", TrcTimer.getModeElapsedTime(), climber.getPosition());
         }
 
         climber.zeroCalibrate();
@@ -210,7 +211,7 @@ public class Climber
     {
         this.traversalRung = traversalRung;
         sm.start(State.PULL_DOWN_PRIMARY_HOOK);
-        climberTaskObj.registerTask(TaskType.SLOW_POSTPERIODIC_TASK);
+        climberTaskObj.registerTask(TaskType.POST_PERIODIC_TASK);
     }   //traverseOneRung
 
     /**
@@ -230,7 +231,7 @@ public class Climber
      * @param taskType specifies the task type.
      * @param runMode specifies the robot run mode.
      */
-    private void autoClimbTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
+    private void autoClimbTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode, boolean slowPeriodicLoop)
     {
         State state = sm.checkReadyAndGetState();
 
@@ -313,9 +314,10 @@ public class Climber
      *
      * @param active specifies true if the climber primary hook has retracted all the way, false otherwise.
      */
-    private void limitSwitchEvent(boolean active)
+    private void limitSwitchEvent(Object context)
     {
         final String funcName = "limitSwitchEvent";
+        boolean active = ((AtomicBoolean) context).get();
 
         if (msgTracer != null)
         {

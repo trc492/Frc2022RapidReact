@@ -21,12 +21,13 @@
  */
 package team492;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcDigitalInputTrigger;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
-import TrcCommonLib.trclib.TrcNotifier;
-import TrcCommonLib.trclib.TrcUtil;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcFrcLib.frclib.FrcCANTalon;
 import TrcFrcLib.frclib.FrcDigitalInput;
 
@@ -45,7 +46,7 @@ public class Conveyor implements TrcExclusiveSubsystem
     private final FrcDigitalInput entranceSensor, exitSensor;
     private final TrcDigitalInputTrigger entranceTrigger, exitTrigger;
 
-    private TrcNotifier.Receiver entranceEventHandler, exitEventHandler;
+    private TrcEvent.Callback entranceEventHandler, exitEventHandler;
     private TrcEvent onFinishedEvent;
     private TriggerAction triggerAction = TriggerAction.DoNothing;
     private TrcDbgTrace msgTracer = null;
@@ -112,7 +113,7 @@ public class Conveyor implements TrcExclusiveSubsystem
      *
      * @param handler event handler to be notified.
      */
-    public void registerEntranceEventHandler(TrcNotifier.Receiver handler)
+    public void registerEntranceEventHandler(TrcEvent.Callback handler)
     {
         entranceEventHandler = handler;
     }   //registerEntranceEventHandler
@@ -122,7 +123,7 @@ public class Conveyor implements TrcExclusiveSubsystem
      *
      * @param handler event handler to be notified.
      */
-    public void registerExitEventHandler(TrcNotifier.Receiver handler)
+    public void registerExitEventHandler(TrcEvent.Callback handler)
     {
         exitEventHandler = handler;
     }   //registerExitEventHandler
@@ -259,7 +260,7 @@ public class Conveyor implements TrcExclusiveSubsystem
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] power=%.1f, event=%s, entrance=%s, exit=%s, triggerAction=%s",
-                TrcUtil.getModeElapsedTime(), power, event, entranceSensor.isActive(), exitSensor.isActive(),
+                TrcTimer.getModeElapsedTime(), power, event, entranceSensor.isActive(), exitSensor.isActive(),
                 triggerAction);
         }
 
@@ -354,15 +355,16 @@ public class Conveyor implements TrcExclusiveSubsystem
      *
      * @param active specifies true if an object has activated the sensor, false if the object has deactivated it.
      */
-    private void entranceEvent(boolean active)
+    private void entranceEvent(Object context)
     {
         final String funcName = "entranceEvent";
+        boolean active = ((AtomicBoolean) context).get();
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
-                TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
+                TrcTimer.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }
 
         if (active)
@@ -397,7 +399,7 @@ public class Conveyor implements TrcExclusiveSubsystem
 
         if (entranceEventHandler != null)
         {
-            entranceEventHandler.notify(active);
+            entranceEventHandler.notify(context);
         }
     }   //entranceEvent
 
@@ -406,15 +408,16 @@ public class Conveyor implements TrcExclusiveSubsystem
      *
      * @param active specifies true if an object has activated the sensor, false if the object has deactivated it.
      */
-    private void exitEvent(boolean active)
+    private void exitEvent(Object context)
     {
         final String funcName = "exitEvent";
+        boolean active = ((AtomicBoolean) context).get();
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, triggerAction=%s, onFinishedEvent=%s",
-                TrcUtil.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
+                TrcTimer.getModeElapsedTime(), active, triggerAction, onFinishedEvent);
         }
 
         if (triggerAction == TriggerAction.StopOnForward)

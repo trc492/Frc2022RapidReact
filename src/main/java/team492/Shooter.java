@@ -22,6 +22,8 @@
 
 package team492;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcExclusiveSubsystem;
@@ -272,7 +274,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, lower=%.2f, upper=%.2f, event=%s",
-                TrcUtil.getModeElapsedTime(), owner, lowerValue, upperValue, event);
+                TrcTimer.getModeElapsedTime(), owner, lowerValue, upperValue, event);
         }
 
         if (validateOwnership(owner))
@@ -387,7 +389,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public boolean isFlywheelVelOnTarget()
     {
-        return flywheelVelocityTrigger.getState();
+        return flywheelVelocityTrigger.getSensorState();
     }   //isFlywheelVelOnTarget
 
     /**
@@ -395,15 +397,16 @@ public class Shooter implements TrcExclusiveSubsystem
      *
      * @param active  specifies true if the trigger is active, false if inactive.
      */
-    private void flywheelTriggerEvent(boolean active)
+    private void flywheelTriggerEvent(Object context)
     {
         final String funcName = "flywheelTriggerEvent";
+        boolean active = ((AtomicBoolean) context).get();
 
         if (msgTracer != null)
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] active=%s, lowerVel=%.0f, upperVel=%.0f",
-                TrcUtil.getModeElapsedTime(), active, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
+                TrcTimer.getModeElapsedTime(), active, getLowerFlywheelVelocity(), getUpperFlywheelVelocity());
         }
 
         if (active && flywheelToSpeedEvent != null)
@@ -557,7 +560,7 @@ public class Shooter implements TrcExclusiveSubsystem
 
         if (msgTracer != null)
         {
-            msgTracer.traceInfo(funcName, "[%.3f] Canceling: currOwner=%s", TrcUtil.getModeElapsedTime(), currOwner);
+            msgTracer.traceInfo(funcName, "[%.3f] Canceling: currOwner=%s", TrcTimer.getModeElapsedTime(), currOwner);
         }
 
         // Don't stop the flywheels, we still want flywheels to be spinning to save time from spinning down and up
@@ -630,7 +633,7 @@ public class Shooter implements TrcExclusiveSubsystem
             onFinishShootEvent = event;
             committedToShoot = false;
             sm.start(State.START);
-            shooterTaskObj.registerTask(TaskType.FAST_POSTPERIODIC_TASK);
+            shooterTaskObj.registerTask(TaskType.POST_PERIODIC_TASK);
             success = true;
         }
 
@@ -638,7 +641,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, event=%s, success=%s (providedParams=%s)",
-                TrcUtil.getModeElapsedTime(), owner, event, success, providedParams);
+                TrcTimer.getModeElapsedTime(), owner, event, success, providedParams);
             if (!success)
             {
                 TrcOwnershipMgr ownershipMgr = TrcOwnershipMgr.getInstance();
@@ -762,7 +765,7 @@ public class Shooter implements TrcExclusiveSubsystem
         {
             msgTracer.traceInfo(
                 funcName, "[%.3f] owner=%s, allowToShoot=%s, currOwner=%s",
-                TrcUtil.getModeElapsedTime(), owner, allowToShoot, currOwner);
+                TrcTimer.getModeElapsedTime(), owner, allowToShoot, currOwner);
         }
 
         if ((robot.isTeleop() || robot.isTest()) &&
@@ -779,14 +782,14 @@ public class Shooter implements TrcExclusiveSubsystem
      * @param taskType specifies the task type.
      * @param runMode specifies the robot run mode.
      */
-    private void autoShootTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
+    private void autoShootTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode, boolean slowPeriodicLoop)
     {
         final String funcName = "autoShootTask";
         State state = sm.checkReadyAndGetState();
 
         if (state != null)
         {
-            double matchTime = TrcUtil.getModeElapsedTime();
+            double matchTime = TrcTimer.getModeElapsedTime();
             ShootParamTable.Params params = null;
             boolean traceState = true;
 
@@ -902,7 +905,7 @@ public class Shooter implements TrcExclusiveSubsystem
                             matchTime, providedParams != null? "provided": "interpolated", params);
                     }
 
-                    double currTime = TrcUtil.getCurrentTime();
+                    double currTime = TrcTimer.getCurrentTime();
                     if (params != null && currTime > nextFlywheelUpdateTime)
                     {
                         // To reduce CAN traffic, we only update flywheel at a slower update interval.

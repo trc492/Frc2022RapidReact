@@ -389,7 +389,7 @@ public class FrcAuto implements TrcRobot.RobotMode
      * @param elapsedTime specifies the elapsed time since the mode started.
      */
     @Override
-    public void fastPeriodic(double elapsedTime)
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
         if (autoCommand != null)
         {
@@ -398,25 +398,17 @@ public class FrcAuto implements TrcRobot.RobotMode
             //
             autoCommand.cmdPeriodic(elapsedTime);
         }
-    }   //fastPeriodic
 
-    /**
-     * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
-     * update here. For example, TeleOp joystick code or status display code can be put here since human responses
-     * are considered slow.
-     * 
-     * @param elapsedTime specifies the elapsed time since the mode started.
-     */
-    @Override
-    public void slowPeriodic(double elapsedTime)
-    {
-        //
-        // Update robot status.
-        //
-        if (RobotParams.Preferences.doAutoUpdates)
+        if (slowPeriodicLoop)
         {
-            robot.updateStatus();
+            //
+            // Update robot status.
+            //
+            if (RobotParams.Preferences.doAutoUpdates)
+            {
+                robot.updateStatus();
+            }
         }
-    }   //slowPeriodic
+    }   //periodic
 
 }   //class FrcAuto

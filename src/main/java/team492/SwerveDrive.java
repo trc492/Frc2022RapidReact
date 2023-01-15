@@ -40,6 +40,7 @@ import TrcCommonLib.trclib.TrcPidDrive;
 import TrcCommonLib.trclib.TrcPurePursuitDrive;
 import TrcCommonLib.trclib.TrcSwerveDriveBase;
 import TrcCommonLib.trclib.TrcSwerveModule;
+import TrcCommonLib.trclib.TrcTimer;
 import TrcCommonLib.trclib.TrcUtil;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcCANFalcon;
@@ -86,11 +87,11 @@ public class SwerveDrive extends RobotDrive
         rbEncoder = createSteerEncoder("rbEncoder", RobotParams.CANID_RIGHTBACK_STEER_ENCODER, true);
 
         lfSteerMotor = createSteerMotor("lfSteer", RobotParams.CANID_LEFTFRONT_STEER, false, lfEncoder);
-        TrcUtil.sleep(50);
+        TrcTimer.sleep(50);
         rfSteerMotor = createSteerMotor("rfSteer", RobotParams.CANID_RIGHTFRONT_STEER, false, rfEncoder);
-        TrcUtil.sleep(50);
+        TrcTimer.sleep(50);
         lbSteerMotor = createSteerMotor("lbSteer", RobotParams.CANID_LEFTBACK_STEER, false, lbEncoder);
-        TrcUtil.sleep(50);
+        TrcTimer.sleep(50);
         rbSteerMotor = createSteerMotor("rbSteer", RobotParams.CANID_RIGHTBACK_STEER, false, rbEncoder);
 
         int[] zeros = getSteerZeroPositions();

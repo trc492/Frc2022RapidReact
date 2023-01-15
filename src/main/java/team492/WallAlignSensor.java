@@ -54,7 +54,7 @@ public class WallAlignSensor
     {
         if (enabled)
         {
-            lidarTaskObj.registerTask(TrcTaskMgr.TaskType.FAST_PREPERIODIC_TASK);
+            lidarTaskObj.registerTask(TrcTaskMgr.TaskType.PRE_PERIODIC_TASK);
         }
         else
         {
@@ -106,7 +106,7 @@ public class WallAlignSensor
         return Math.cos(Math.toRadians(getAngleToWall())) * getForwardDistanceToWall();
     }   //getShortestDistanceToWall
 
-    private void lidarTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode)
+    private void lidarTask(TrcTaskMgr.TaskType taskType, TrcRobot.RunMode runMode, boolean slowPeriodicLoop)
     {
         // Don't cache the data, just keep reading to keep the filters up to date.
         leftFilter.filterData(leftLidar.getDistanceInches());

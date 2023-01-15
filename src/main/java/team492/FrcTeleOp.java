@@ -106,22 +106,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     }   //stopMode
 
     /**
-     * This method is called periodically at a fast rate. Typically, you put code that requires servicing at a
-     * high frequency here. To make the robot as responsive and as accurate as possible especially in autonomous
-     * mode, you will typically put that code here.
-     * 
-     * @param elapsedTime specifies the elapsed time since the mode started.
-     */
-    @Override
-    public void fastPeriodic(double elapsedTime)
-    {
-        //
-        // Do subsystem auto-assist here if necessary.
-        //
-
-    }   //fastPeriodic
-
-    /**
      * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent
      * update here. For example, TeleOp joystick code or status display code can be put here since human responses
      * are considered slow.
@@ -129,69 +113,76 @@ public class FrcTeleOp implements TrcRobot.RobotMode
      * @param elapsedTime specifies the elapsed time since the mode started.
      */
     @Override
-    public void slowPeriodic(double elapsedTime)
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
-        if (controlsEnabled)
-        {
-            //
-            // DriveBase operation.
-            //
-            if (robot.driverController != null)
-            {
-                switch (robot.driverController.getPOV())
-                {
-                    case 0:
-                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
-                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-                        break;
-
-                    case 270:
-                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
-                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
-                        break;
-
-                    case 180:
-                        robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
-                        robot.robotDrive.turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
-                        break;
-                }
-            }
-
-            if (robot.robotDrive != null && !robot.robotDrive.isAntiDefenseEnabled())
-            {
-                double[] inputs = robot.robotDrive.getDriveInputs();
-                if (robot.robotDrive.driveBase.supportsHolonomicDrive())
-                {
-                    robot.robotDrive.driveBase.holonomicDrive(null, inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
-                }
-                else
-                {
-                    robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
-                }
-            }
-            //
-            // Analog control of subsystem is done here if necessary.
-            //
-            if (RobotParams.Preferences.useSubsystems)
-            {
-                if (flywheelEnabled)
-                {
-                    robot.shooter.setFlywheelValue(robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel);
-                }
-
-                if (climberControl)
-                {
-                    double climberPower = robot.operatorStick.getYWithDeadband(true);
-                    robot.climber.setPower(climberPower);
-                }
-            }
-        }
         //
-        // Update robot status.
+        // Do subsystem auto-assist here if necessary.
         //
-        if (RobotParams.Preferences.doAutoUpdates)
+
+        if (slowPeriodicLoop)
         {
-            robot.updateStatus();
+            if (controlsEnabled)
+            {
+                //
+                // DriveBase operation.
+                //
+                if (robot.driverController != null)
+                {
+                    switch (robot.driverController.getPOV())
+                    {
+                        case 0:
+                            robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_FAST_SCALE;
+                            robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                            break;
+
+                        case 270:
+                            robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
+                            robot.robotDrive.turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
+                            break;
+
+                        case 180:
+                            robot.robotDrive.driveSpeedScale = RobotParams.DRIVE_SLOW_SCALE;
+                            robot.robotDrive.turnSpeedScale = RobotParams.TURN_SLOW_SCALE;
+                            break;
+                    }
+                }
+
+                if (robot.robotDrive != null && !robot.robotDrive.isAntiDefenseEnabled())
+                {
+                    double[] inputs = robot.robotDrive.getDriveInputs();
+                    if (robot.robotDrive.driveBase.supportsHolonomicDrive())
+                    {
+                        robot.robotDrive.driveBase.holonomicDrive(null, inputs[0], inputs[1], inputs[2], getDriveGyroAngle());
+                    }
+                    else
+                    {
+                        robot.robotDrive.driveBase.arcadeDrive(inputs[1], inputs[2]);
+                    }
+                }
+                //
+                // Analog control of subsystem is done here if necessary.
+                //
+                if (RobotParams.Preferences.useSubsystems)
+                {
+                    if (flywheelEnabled)
+                    {
+                        robot.shooter.setFlywheelValue(robot.lowerFlywheelUserVel, robot.upperFlywheelUserVel);
+                    }
+
+                    if (climberControl)
+                    {
+                        double climberPower = robot.operatorStick.getYWithDeadband(true);
+                        robot.climber.setPower(climberPower);
+                    }
+                }
+            }
+            //
+            // Update robot status.
+            //
+            if (RobotParams.Preferences.doAutoUpdates)
+            {
+                robot.updateStatus();
+            }
         }
     }   //slowPeriodic
 

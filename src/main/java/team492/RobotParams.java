@@ -296,6 +296,8 @@ public class RobotParams
     public static final double GYRO_X_KD                        = 0.0;
     public static final double GYRO_X_KF                        = 0.0;
     public static final double GYRO_X_TOLERANCE                 = 2.0;
+    public static final double GYRO_X_MAX_PID_POWER             = 0.2;
+    public static final double GYRO_X_PID_RAMP_RATE             = 0.2;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 

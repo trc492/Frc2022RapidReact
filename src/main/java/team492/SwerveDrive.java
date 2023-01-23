@@ -182,8 +182,11 @@ public class SwerveDrive extends RobotDrive
         {
             gyroXPidCoeff = new TrcPidController.PidCoefficients(
                 RobotParams.GYRO_X_KP, RobotParams.GYRO_X_KI, RobotParams.GYRO_X_KD, RobotParams.GYRO_X_KF);
-                gyroXPidCtrl = new TrcPidController(
+            gyroXPidCtrl = new TrcPidController(
                 "gyroXPidCtrl", gyroXPidCoeff, RobotParams.GYRO_X_TOLERANCE, this::getGyroXHeading);
+            gyroXPidCtrl.setOutputLimit(RobotParams.GYRO_X_MAX_PID_POWER);
+            gyroXPidCtrl.setRampRate(RobotParams.GYRO_X_PID_RAMP_RATE);
+                gyroXPidCtrl.setAbsoluteSetPoint(true);
             balancePidDrive = new TrcPidDrive("balancePidDrive", driveBase, encoderXPidCtrl, gyroXPidCtrl, gyroTurnPidCtrl);
             balancePidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
         }

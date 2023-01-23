@@ -178,6 +178,16 @@ public class SwerveDrive extends RobotDrive
         pidDrive.setStallDetectionEnabled(true);
         pidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
 
+        if (RobotParams.Preferences.useBalanceDrive)
+        {
+            gyroXPidCoeff = new TrcPidController.PidCoefficients(
+                RobotParams.GYRO_X_KP, RobotParams.GYRO_X_KI, RobotParams.GYRO_X_KD, RobotParams.GYRO_X_KF);
+                gyroXPidCtrl = new TrcPidController(
+                "gyroXPidCtrl", gyroXPidCoeff, RobotParams.GYRO_X_TOLERANCE, this::getGyroXHeading);
+            balancePidDrive = new TrcPidDrive("balancePidDrive", driveBase, encoderXPidCtrl, gyroXPidCtrl, gyroTurnPidCtrl);
+            balancePidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
+        }
+
         purePursuitDrive = new TrcPurePursuitDrive(
             "purePursuitDrive", driveBase, RobotParams.PPD_FOLLOWING_DISTANCE, RobotParams.PPD_POS_TOLERANCE,
             RobotParams.PPD_TURN_TOLERANCE, xPosPidCoeff, yPosPidCoeff, turnPidCoeff, velPidCoeff);
@@ -505,5 +515,15 @@ public class SwerveDrive extends RobotDrive
             }
         }
     }   //setAntiDefenseEnabled
+
+    /**
+     * This method returns the gyro heading on its x-axis.
+     *
+     * @return gyro x-axis heading.
+     */
+    public double getGyroXHeading()
+    {
+        return gyro.getXHeading().value;
+    }   //getGyroXHeading
 
 }   //class SwerveDrive

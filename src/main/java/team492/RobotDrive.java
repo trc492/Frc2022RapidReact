@@ -72,11 +72,14 @@ public class RobotDrive
     // PID Coefficients and Controllers.
     //
     public TrcPidController.PidCoefficients xPosPidCoeff, yPosPidCoeff, turnPidCoeff, velPidCoeff;
+    public TrcPidController.PidCoefficients gyroXPidCoeff;
     public TrcPidController encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl;
+    public TrcPidController gyroXPidCtrl;
     //
     // Drive Controllers.
     //
     public TrcPidDrive pidDrive;
+    public TrcPidDrive balancePidDrive;
     public TrcPurePursuitDrive purePursuitDrive;
     //
     // Miscellaneous.

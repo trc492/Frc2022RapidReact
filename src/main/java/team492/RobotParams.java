@@ -53,6 +53,7 @@ public class RobotParams
         public static final boolean useWallAlignSensor          = false;
         // Subsystems
         public static final boolean useSubsystems               = true;
+        public static final boolean useBalanceDrive             = true;
         // Miscellaneous
         public static final boolean useTraceLog                 = true;
         public static final boolean doAutoUpdates               = true;
@@ -289,6 +290,12 @@ public class RobotParams
     public static final double GYRO_ALIGN_SETTLING_TIME         = 0.2;
     public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5 ;     //2.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
+
+    public static final double GYRO_X_KP                        = 0.012;//0.0012;
+    public static final double GYRO_X_KI                        = 0.0;
+    public static final double GYRO_X_KD                        = 0.0;
+    public static final double GYRO_X_KF                        = 0.0;
+    public static final double GYRO_X_TOLERANCE                 = 2.0;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 

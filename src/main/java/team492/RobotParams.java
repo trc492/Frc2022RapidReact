@@ -24,6 +24,9 @@ package team492;
 
 import TrcCommonLib.trclib.TrcPidController;
 import TrcCommonLib.trclib.TrcPose2D;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 
 /**
  * This class contains parameters and preferences related to all robot operations.
@@ -44,7 +47,8 @@ public class RobotParams
         public static final boolean useNavX                     = true;
         public static final boolean usePdp                      = false;
         public static final boolean useExternalOdometry         = false;
-        public static final boolean useVision                   = true;
+        public static final boolean useVision                   = false;
+        public static final boolean usePhotonVision             = true;
         public static final boolean useStreamCamera             = true;
         public static final boolean useWallAlignSensor          = false;
         // Subsystems
@@ -223,6 +227,9 @@ public class RobotParams
     public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
     public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
     public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
+    public static final Transform3d CAMERA_TRANSFORM3D          = new Transform3d(
+        new Translation3d(CAMERA_X_OFFSET, CAMERA_Y_OFFSET, CAMERA_HEIGHT),
+        new Rotation3d(0.0, CAMERA_ANGLE, 0.0));
 
     //
     // Wall Alignment Sensor.

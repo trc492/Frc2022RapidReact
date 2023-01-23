@@ -90,6 +90,7 @@ public class Robot extends FrcRobotBase
     // Vision subsystem.
     //
     public VisionTargeting vision;
+    public PhotonVision photonVision;
     // Old set before tuning at Royal.
     public final ShootParamTable shootParamTable = new ShootParamTable()
         .add(ShootLoc.Tower,        71.83, 2700, 1200, RobotParams.TILTER_CLOSE_ANGLE)
@@ -204,7 +205,7 @@ public class Robot extends FrcRobotBase
         //
         if (RobotParams.Preferences.useStreamCamera)
         {
-            UsbCamera camera = CameraServer.startAutomaticCapture("DriverDisplay", 0);
+            UsbCamera camera = CameraServer.startAutomaticCapture("UsbWebcam", 0);
             camera.setResolution(160, 120);
             camera.setFPS(10);
         }
@@ -230,7 +231,11 @@ public class Robot extends FrcRobotBase
         //
         // Create and initialize Vision subsystem.
         //
-        if (RobotParams.Preferences.useVision)
+        if (RobotParams.Preferences.usePhotonVision)
+        {
+            photonVision = new PhotonVision("trc-limelight", globalTracer);
+        }
+        else if (RobotParams.Preferences.useVision)
         {
             vision = new VisionTargeting();
         }

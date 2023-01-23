@@ -22,17 +22,17 @@
 
 package team492;
 
-import TrcFrcLib.frclib.FrcLimeLightVisionProcessor;
+import TrcFrcLib.frclib.FrcLimeLightVision;
 import TrcFrcLib.frclib.FrcRemoteVisionProcessor;
-import TrcFrcLib.frclib.FrcLimeLightVisionProcessor.RingLightMode;
+import TrcFrcLib.frclib.FrcLimeLightVision.RingLightMode;
 
 public class VisionTargeting
 {
-    public final FrcLimeLightVisionProcessor vision;
+    public final FrcLimeLightVision vision;
 
     public VisionTargeting()
     {
-        vision = new FrcLimeLightVisionProcessor("LimeLight");
+        vision = new FrcLimeLightVision("LimeLight", null);
         vision.selectPipeline(0);
         vision.setDepthApproximator(
             "ty",

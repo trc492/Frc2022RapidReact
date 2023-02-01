@@ -4,11 +4,8 @@ import TrcCommonLib.trclib.TrcAutoTask;
 import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
-import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
-import TrcFrcLib.frclib.FrcAHRSGyro;
-import TrcCommonLib.trclib.TrcTimer;
 
 public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
 {
@@ -16,16 +13,15 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
 
     public enum State
     {
-        START_DELAY,
         MOVE_FORWARD,
-        IMPULSE_BACK,
+        BALANCING,
         DONE
     }
     
     private final String owner;
     private final Robot robot;
     private final TrcDbgTrace msgTracer;
-    private final TrcTimer timer;
+    private final TrcEvent event;
     private String currOwner = null;
 
     public TaskAutoBalance(String owner, Robot robot, TrcDbgTrace msgTracer)
@@ -34,21 +30,22 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         this.owner = owner;
         this.robot = robot;
         this.msgTracer = msgTracer;
-        timer = new TrcTimer(moduleName);
-    }
+        event = new TrcEvent(moduleName);
+    }   //TaskAutoBalance
 
     public void autoAssistBalance()
     {
         startAutoTask(State.MOVE_FORWARD, null, null);
-    }
+    }   //autoAssistBalance
 
     public void autoAssistBalanceCancel()
     {
         stopAutoTask(false);
-    }
+    }   //autoAssistBalanceCancel
 
     @Override
-    protected boolean acquireSubsystemsOwnership() {
+    protected boolean acquireSubsystemsOwnership()
+    {
         boolean success = owner == null ||
             (robot.robotDrive.driveBase.acquireExclusiveAccess(owner));
 
@@ -60,70 +57,78 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         {
             releaseSubsystemsOwnership();
         }
+
         return success;
-    }
+    }   //acquireSubsystemsOwnership
 
     @Override
-    protected void releaseSubsystemsOwnership() {
+    protected void releaseSubsystemsOwnership()
+    {
         if(owner != null)
         {
             robot.robotDrive.driveBase.releaseExclusiveAccess(currOwner);
             currOwner = null;
         }
-        
-    }
+    }   //releaseSubsystemsOwnership
 
     @Override
-    protected void stopSubsystems() {
+    protected void stopSubsystems()
+    {
         robot.robotDrive.driveBase.stop(currOwner);
         
-    }
+    }   //stopSubsystems
 
     @Override
-    protected void runTaskState(Object params, State state, TaskType taskType, RunMode runMode,
-            boolean slowPeriodicLoop) {
-        switch (state) {
-            case START_DELAY:
-                msgTracer.traceInfo(moduleName, "Start Delay");
-                // if (autoChoices.getStartDelay() == 0.0) {
-                    sm.setState(State.MOVE_FORWARD);
-                // } else {
-                //     timer.set(autoChoices.getStartDelay(), new TrcEvent.Callback() {
-                //         @Override
-                //         public void notify(Object context) {
-                //             sm.setState(State.MOVE_FORWARD);
-                //         }
-                //     });
-                // }
-                break;
-
+    protected void runTaskState(
+        Object params, State state, TaskType taskType, RunMode runMode, boolean slowPeriodicLoop)
+    {
+        switch (state)
+        {
             case MOVE_FORWARD:
-                float roll = ((FrcAHRSGyro)robot.robotDrive.gyro).ahrs.getRoll();
-                msgTracer.traceInfo(moduleName, "Moving Forward; Gyro:=%.1f", roll);
-                robot.robotDrive.pidDrive.driveMaintainHeading(0.0, 0.1, 0.0);
-                if(Math.abs(roll) < 2.0) {
-                    msgTracer.traceInfo(moduleName, ">>>>> Balanced <<<<<");
-                    sm.setState(State.IMPULSE_BACK);
+                // Move forward slowly until the robot is tipping backward.
+                if (Math.abs(robot.robotDrive.getGyroXHeading()) < 2.0)
+                {
+                    robot.robotDrive.driveBase.holonomicDrive(currOwner, 0.0, 0.2, 0.0);
+                }
+                else
+                {
+                    robot.robotDrive.driveBase.stop(currOwner);
+                    sm.setState(State.BALANCING);
                 }
                 break;
 
-            case IMPULSE_BACK:
-                msgTracer.traceInfo(moduleName, "Impulsing back");
-                robot.robotDrive.driveBase.holonomicDrive(0.0, -0.4, 0.0);
-                timer.set(0.05, new TrcEvent.Callback() {
-                    @Override
-                    public void notify(Object context) {
-                        msgTracer.traceInfo(moduleName, "Finished");
-                        sm.setState(State.DONE);
-                    }
-                });
+            case BALANCING:
+                msgTracer.traceInfo(moduleName, "Balancing.");
+                robot.robotDrive.balancePidDrive.setSensorTarget(
+                    currOwner, 0.0, 0.0, 0.0, true, event, 0.0);
+                sm.waitForSingleEvent(event, State.DONE);
+                // float roll = ((FrcAHRSGyro)robot.robotDrive.gyro).ahrs.getRoll();
+                // msgTracer.traceInfo(moduleName, "Moving Forward; Gyro:=%.1f", roll);
+                // robot.robotDrive.pidDrive.driveMaintainHeading(0.0, 0.1, 0.0);
+                // if(Math.abs(roll) < 2.0) {
+                //     msgTracer.traceInfo(moduleName, ">>>>> Balanced <<<<<");
+                //     sm.setState(State.IMPULSE_BACK);
+                // }
                 break;
+
+            // case IMPULSE_BACK:
+            //     msgTracer.traceInfo(moduleName, "Impulsing back");
+            //     robot.robotDrive.driveBase.holonomicDrive(0.0, -0.4, 0.0);
+            //     timer.set(0.05, new TrcEvent.Callback() {
+            //         @Override
+            //         public void notify(Object context) {
+            //             msgTracer.traceInfo(moduleName, "Finished");
+            //             sm.setState(State.DONE);
+            //         }
+            //     });
+            //     break;
 
             case DONE:
             default:
-                robot.robotDrive.setAntiDefenseEnabled("CmdAutoBalanec", true);
+                robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
                 stopAutoTask(true);
                 break;
         }
-    }
-}
+    }   //runTaskState
+
+}   //class TaskAutoBalance

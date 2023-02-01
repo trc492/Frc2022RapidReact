@@ -27,7 +27,6 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
-import team492.FrcAuto.AutoStartPos;
 import team492.ShootParamTable.ShootLoc;
 
 /**

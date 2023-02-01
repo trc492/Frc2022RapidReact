@@ -22,14 +22,10 @@
 
 package team492;
 
-import javax.lang.model.util.ElementScanner14;
-
 import TrcCommonLib.trclib.TrcEvent;
 import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcStateMachine;
 import TrcCommonLib.trclib.TrcTimer;
-import TrcCommonLib.trclib.TrcUtil;
-import TrcCommonLib.trclib.TrcEvent.Callback;
 import TrcFrcLib.frclib.FrcAHRSGyro;
 
 class CmdAutoBalance implements TrcRobot.RobotCommand
@@ -77,7 +73,6 @@ class CmdAutoBalance implements TrcRobot.RobotCommand
         if (state == null) {
             robot.dashboard.displayPrintf(13, "State: disabled or waiting...");
         } else {
-            String msg;
             robot.dashboard.displayPrintf(13, "State: %s", state);
             switch (state) {
                 case START_DELAY:

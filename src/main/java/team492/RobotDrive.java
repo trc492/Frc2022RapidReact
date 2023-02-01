@@ -174,6 +174,11 @@ public class RobotDrive
             pidDrive.cancel();
         }
 
+        if (balancePidDrive != null && balancePidDrive.isActive())
+        {
+            balancePidDrive.cancel();
+        }
+
         if (purePursuitDrive != null && purePursuitDrive.isActive())
         {
             purePursuitDrive.cancel();

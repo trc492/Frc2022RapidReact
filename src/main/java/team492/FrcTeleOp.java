@@ -27,6 +27,7 @@ import TrcCommonLib.trclib.TrcRobot;
 import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcFrcLib.frclib.FrcJoystick;
 import TrcFrcLib.frclib.FrcXboxController;
+import team492.FrcAuto.AutoStartPos;
 import team492.ShootParamTable.ShootLoc;
 
 /**
@@ -44,6 +45,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean hookArmExtended = false;
     private boolean tilterClose = false;
     private ShootParamTable.Params currShootParams = null;
+    private CmdAutoBalance autoBalance;
+
 
     /**
      * Constructor: Create an instance of the object.
@@ -115,6 +118,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     @Override
     public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
+        if(autoBalance != null)
+        {
+            autoBalance.cmdPeriodic(elapsedTime);
+        }
         //
         // Do subsystem auto-assist here if necessary.
         //
@@ -296,6 +303,17 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.RIGHT_BUMPER:
+                if (pressed)
+                {
+                    if(autoBalance != null)
+                    {
+                        autoBalance = null;
+                    }
+                    else
+                    {
+                        autoBalance = new CmdAutoBalance(robot);
+                    }
+                }
                 break;
 
             case FrcXboxController.BACK:

@@ -143,6 +143,7 @@ public class Robot extends FrcRobotBase
     public Intake intake;
     public Shooter shooter;
     public Climber climber;
+    public TaskAutoBalance autoBalance;
 
     //
     // Miscellaneous.
@@ -266,6 +267,7 @@ public class Robot extends FrcRobotBase
             shooter = new Shooter(this);
             shooter.setMsgTracer(globalTracer);
         }
+        autoBalance = new TaskAutoBalance("AutoBalanceTask", this, globalTracer);
 
         //
         // Miscellaneous.
@@ -532,7 +534,7 @@ public class Robot extends FrcRobotBase
                     else
                     {
                         dashboard.displayPrintf(
-                            1, "RobotPose: %s", robotDrive.driveBase.getFieldPosition());
+                            1, "RobotPose: %s; Roll:%.1f", robotDrive.driveBase.getFieldPosition(), ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
                     }
                 }
 

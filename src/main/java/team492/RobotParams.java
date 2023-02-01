@@ -63,10 +63,10 @@ public class RobotParams
         public static final boolean showVisionStatus            = true;
         // Debug
         public static final boolean debugPowerConsumption       = false;
-        public static final boolean debugDriveBase              = true;
+        public static final boolean debugDriveBase              = false;
         public static final boolean debugPidDrive               = false;
         public static final boolean debugSubsystems             = true;
-        public static final boolean debugVision                 = true;
+        public static final boolean debugVision                 = false;
         public static final boolean debugLoopTime               = false;
         public static final boolean debugShooter                = true;
     }   //class Preferences

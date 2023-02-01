@@ -55,6 +55,7 @@ public class RobotParams
         // Subsystems
         public static final boolean useSubsystems               = true;
         public static final boolean useBalanceDrive             = true;
+        public static final boolean useVacuum                   = false;
         // Miscellaneous
         public static final boolean useTraceLog                 = true;
         public static final boolean doAutoUpdates               = true;

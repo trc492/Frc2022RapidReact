@@ -193,14 +193,17 @@ public class SwerveDrive extends RobotDrive
 
         if (RobotParams.Preferences.useBalanceDrive)
         {
-            gyroXPidCoeff = new TrcPidController.PidCoefficients(
-                RobotParams.GYRO_X_KP, RobotParams.GYRO_X_KI, RobotParams.GYRO_X_KD, RobotParams.GYRO_X_KF);
-            gyroXPidCtrl = new TrcPidController(
-                "gyroXPidCtrl", gyroXPidCoeff, RobotParams.GYRO_X_TOLERANCE, this::getGyroXHeading);
-            gyroXPidCtrl.setOutputLimit(RobotParams.GYRO_X_MAX_PID_POWER);
-            gyroXPidCtrl.setRampRate(RobotParams.GYRO_X_PID_RAMP_RATE);
-                gyroXPidCtrl.setAbsoluteSetPoint(true);
-            balancePidDrive = new TrcPidDrive("balancePidDrive", driveBase, encoderXPidCtrl, gyroXPidCtrl, gyroTurnPidCtrl);
+            gyroPitchPidCoeff = new TrcPidController.PidCoefficients(
+                RobotParams.GYRO_PITCH_KP, RobotParams.GYRO_PITCH_KI, RobotParams.GYRO_PITCH_KD,
+                RobotParams.GYRO_PITCH_KF);
+            gyroPitchPidCtrl = new TrcPidController(
+                "gyroXPidCtrl", gyroPitchPidCoeff, RobotParams.GYRO_PITCH_TOLERANCE,
+                this::getBalanceDriveCompensation, this::getGyroXHeading);
+            gyroPitchPidCtrl.setOutputLimit(RobotParams.GYRO_PITCH_MAX_PID_POWER);
+            gyroPitchPidCtrl.setRampRate(RobotParams.GYRO_PITCH_PID_RAMP_RATE);
+            gyroPitchPidCtrl.setAbsoluteSetPoint(true);
+            balancePidDrive = new TrcPidDrive(
+                "balancePidDrive", driveBase, encoderXPidCtrl, gyroPitchPidCtrl, gyroTurnPidCtrl);
             balancePidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
         }
 
@@ -508,6 +511,17 @@ public class SwerveDrive extends RobotDrive
             }
         }
     }   //setAntiDefenseEnabled
+
+    /**
+     * This method calculates the power compensation for balance PID drive.
+     *
+     * @param power specifies the drive power before compensation.
+     * @return compensation drive power.
+     */
+    private double getBalanceDriveCompensation(double power)
+    {
+        return 0.0;
+    }   //getBalanceDriveCompensation
 
     /**
      * This method returns the gyro heading on its x-axis.

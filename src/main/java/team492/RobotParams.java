@@ -297,13 +297,13 @@ public class RobotParams
     public static final double GYRO_ALIGN_STEADY_STATE_ERROR    = 2.5 ;     //2.5;
     public static final double GYRO_ALIGN_ERRRATE_THRESHOLD     = 1.5;
 
-    public static final double GYRO_X_KP                        = 0.012;//0.0012;
-    public static final double GYRO_X_KI                        = 0.0;
-    public static final double GYRO_X_KD                        = 0.0;
-    public static final double GYRO_X_KF                        = 0.0;
-    public static final double GYRO_X_TOLERANCE                 = 2.0;
-    public static final double GYRO_X_MAX_PID_POWER             = 0.2;
-    public static final double GYRO_X_PID_RAMP_RATE             = 0.2;
+    public static final double GYRO_PITCH_KP                    = 0.012;//0.0012;
+    public static final double GYRO_PITCH_KI                    = 0.0;
+    public static final double GYRO_PITCH_KD                    = 0.0;
+    public static final double GYRO_PITCH_KF                    = 0.0;
+    public static final double GYRO_PITCH_TOLERANCE             = 2.0;
+    public static final double GYRO_PITCH_MAX_PID_POWER         = 0.2;
+    public static final double GYRO_PITCH_PID_RAMP_RATE         = 0.2;
 
     public static final double GYRO_ASSIST_TURN_GAIN            = 0.1;
 

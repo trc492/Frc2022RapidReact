@@ -100,7 +100,7 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
             case BALANCING:
                 msgTracer.traceInfo(moduleName, "Balancing.");
                 robot.robotDrive.balancePidDrive.setSensorTarget(
-                    currOwner, 0.0, 0.0, 0.0, true, event, 0.0);
+                    currOwner, robot.robotDrive.driveBase.getXPosition(), 0.0, 0.0, true, event, 0.0);
                 sm.waitForSingleEvent(event, State.DONE);
                 // float roll = ((FrcAHRSGyro)robot.robotDrive.gyro).ahrs.getRoll();
                 // msgTracer.traceInfo(moduleName, "Moving Forward; Gyro:=%.1f", roll);

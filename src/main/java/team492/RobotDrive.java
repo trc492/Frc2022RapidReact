@@ -84,7 +84,7 @@ public class RobotDrive
     //
     // Miscellaneous.
     //
-    public DriveOrientation driveOrientation = DriveOrientation.FIELD;
+    public DriveOrientation driveOrientation = DriveOrientation.ROBOT;
     public double driveSpeedScale = RobotParams.DRIVE_MEDIUM_SCALE;
     public double turnSpeedScale = RobotParams.TURN_MEDIUM_SCALE;
     //

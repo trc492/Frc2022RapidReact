@@ -200,7 +200,7 @@ public class SwerveDrive extends RobotDrive
                 RobotParams.GYRO_PITCH_KF);
             gyroPitchPidCtrl = new TrcPidController(
                 "gyroXPidCtrl", gyroPitchPidCoeff, RobotParams.GYRO_PITCH_TOLERANCE,
-                this::getBalanceDriveCompensation, this::getGyroXHeading);
+                this::getBalanceDriveCompensation, this::getGyroYHeading);
             gyroPitchPidCtrl.setOutputLimit(RobotParams.GYRO_PITCH_MAX_PID_POWER);
             gyroPitchPidCtrl.setRampRate(RobotParams.GYRO_PITCH_PID_RAMP_RATE);
             gyroPitchPidCtrl.setAbsoluteSetPoint(true);
@@ -522,7 +522,9 @@ public class SwerveDrive extends RobotDrive
      */
     private double getBalanceDriveCompensation(double power)
     {
-        return 0.0;
+        double comp = 0.1*Math.sin((Math.PI*Math.abs(robot.robotDrive.getGyroYHeading())/40));
+        System.out.println(">>> Comp: "+comp);
+        return comp;
     }   //getBalanceDriveCompensation
 
     /**
@@ -534,5 +536,15 @@ public class SwerveDrive extends RobotDrive
     {
         return gyro.getXHeading().value;
     }   //getGyroXHeading
+
+    /**
+     * This method returns the gyro heading on its y-axis.
+     * 
+     * @return gyro y-axis heading.
+     */
+    public double getGyroYHeading()
+    {
+        return gyro.getYHeading().value;
+    }
 
 }   //class SwerveDrive

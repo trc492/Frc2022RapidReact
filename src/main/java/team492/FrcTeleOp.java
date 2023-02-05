@@ -44,7 +44,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     private boolean hookArmExtended = false;
     private boolean tilterClose = false;
     private ShootParamTable.Params currShootParams = null;
-    private CmdAutoBalance autoBalance;
 
 
     /**
@@ -117,10 +116,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     @Override
     public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
-        if(autoBalance != null)
-        {
-            autoBalance.cmdPeriodic(elapsedTime);
-        }
         //
         // Do subsystem auto-assist here if necessary.
         //
@@ -311,7 +306,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcXboxController.BACK:
                 if(pressed)
                 {
-                    robot.autoBalance.autoAssistBalanceCancel();
+                    robot.autoBalance.cancel(false);
                 }
                 break;
 

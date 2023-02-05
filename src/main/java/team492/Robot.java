@@ -267,7 +267,7 @@ public class Robot extends FrcRobotBase
             shooter = new Shooter(this);
             shooter.setMsgTracer(globalTracer);
         }
-        autoBalance = new TaskAutoBalance("AutoBalanceTask", this, globalTracer);
+        autoBalance = new TaskAutoBalance("TaskAutoBalance", this, globalTracer);
 
         //
         // Miscellaneous.
@@ -479,9 +479,9 @@ public class Robot extends FrcRobotBase
                 {
                     dashboard.displayPrintf(
                         10, "Gyro: Yaw=%.2f, Pitch=%.2f, Roll=%.2f",
-                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getYaw(),
-                        ((FrcAHRSGyro) robotDrive.gyro).ahrs.getPitch(),
-                        ((FrcAHRSGyro)robotDrive.gyro).ahrs.getRoll());
+                        robotDrive.gyro.getZHeading().value,
+                        robotDrive.gyro.getXHeading().value,
+                        robotDrive.gyro.getYHeading().value);
                     dashboard.displayPrintf(
                         11, "Accel: X=%.2f, Y=%.2f, Z=%.2f",
                         ((FrcAHRSGyro) robotDrive.gyro).ahrs.getWorldLinearAccelX(),

@@ -1,4 +1,26 @@
-package team492;
+/*
+ * Copyright (c) 2023 Titan Robotics Club (http://www.titanrobotics.com)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+ package team492;
 
 import TrcCommonLib.trclib.TrcAutoTask;
 import TrcCommonLib.trclib.TrcDbgTrace;
@@ -7,6 +29,14 @@ import TrcCommonLib.trclib.TrcRobot.RunMode;
 import TrcCommonLib.trclib.TrcTaskMgr;
 import TrcCommonLib.trclib.TrcTaskMgr.TaskType;
 
+/**
+ * This class implements auto-assist balancing on the charging station.
+ *
+ * Preconditions:
+ * - Robot is on flat ground in front of the charging station.
+ * - Robot should be roughly square with the charging station so that it will tilt backward when climbing the
+ *   charging station.
+ */
 public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
 {
     private static final String moduleName = "TaskAutoBalance";
@@ -24,6 +54,13 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
     private final TrcEvent event;
     private String currOwner = null;
 
+    /**
+     * Constructor: Create an instance of the object.
+     *
+     * @param owner specifies the owner name to take subsystem ownership, can be null if no ownership required.
+     * @param robot specifies the robot object that contains all the necessary subsystems.
+     * @param msgTracer specifies the tracer to use to log events, can be null if not provided.
+     */
     public TaskAutoBalance(String owner, Robot robot, TrcDbgTrace msgTracer)
     {
         super(moduleName, owner, TrcTaskMgr.TaskType.POST_PERIODIC_TASK, msgTracer);
@@ -33,21 +70,39 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         event = new TrcEvent(moduleName);
     }   //TaskAutoBalance
 
-    public void autoAssistBalance()
+    /**
+     * This method starts the auto-assist task to climb and balance on the charging station.
+     *
+     * @param event specifies the event to signal when done, can be null if none provided.
+     */
+    public void autoAssistBalance(TrcEvent event)
     {
-        startAutoTask(State.MOVE_FORWARD, null, null);
+        startAutoTask(State.MOVE_FORWARD, null, event);
     }   //autoAssistBalance
 
-    public void autoAssistBalanceCancel()
+    /**
+     * This method cancels an in progress auto-assist operation if any.
+     */
+    public void autoAssistCancel()
     {
         stopAutoTask(false);
-    }   //autoAssistBalanceCancel
+    }   //autoAssistCancel
 
+    //
+    // Implement TrcAutoTask abstract methods.
+    //
+
+    /**
+     * This method is called by the super class to acquire ownership of all subsystems involved in the auto-assist
+     * operation. This is typically done before starting an auto-assist operation.
+     *
+     * @return true if acquired all subsystems ownership, false otherwise. It releases all ownership if any acquire
+     *         failed.
+     */
     @Override
     protected boolean acquireSubsystemsOwnership()
     {
-        boolean success = owner == null ||
-            (robot.robotDrive.driveBase.acquireExclusiveAccess(owner));
+        boolean success = owner == null || robot.robotDrive.driveBase.acquireExclusiveAccess(owner);
 
         if (success)
         {
@@ -61,6 +116,10 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         return success;
     }   //acquireSubsystemsOwnership
 
+    /**
+     * This method is called by the super class to release ownership of all subsystems involved in the auto-assist
+     * operation. This is typically done if the auto-assist operation is completed or canceled.
+     */
     @Override
     protected void releaseSubsystemsOwnership()
     {
@@ -71,13 +130,25 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         }
     }   //releaseSubsystemsOwnership
 
+    /**
+     * This method is called by the super class to stop all the subsystems.
+     */
     @Override
     protected void stopSubsystems()
     {
         robot.robotDrive.balancePidDrive.cancel();
-        
     }   //stopSubsystems
 
+    /**
+     * This methods is called periodically to run the auto-assist task.
+     *
+     * @param params specifies the task parameters.
+     * @param state specifies the current state of the task.
+     * @param taskType specifies the type of task being run.
+     * @param runMode specifies the competition mode (e.g. Autonomous, TeleOp, Test).
+     * @param slowPeriodicLoop specifies true if it is running the slow periodic loop on the main robot thread,
+     *        false otherwise.
+     */
     @Override
     protected void runTaskState(
         Object params, State state, TaskType taskType, RunMode runMode, boolean slowPeriodicLoop)
@@ -86,6 +157,7 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         {
             case MOVE_FORWARD:
                 // Move forward slowly until the robot is tipping backward.
+                // CodeReview: should not use Math.abs, just check the sign when it's tilting backward.
                 if (Math.abs(robot.robotDrive.getGyroPitch()) < 2.0)
                 {
                     robot.robotDrive.driveBase.holonomicDrive(currOwner, 0.0, 0.2, 0.0);
@@ -102,7 +174,8 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
                 robot.robotDrive.balancePidDrive.setSensorTarget(
                     currOwner, robot.robotDrive.driveBase.getXPosition(), 0.0,
                     robot.robotDrive.driveBase.getHeading(), true, event, 0.0);
-                //TODO: Event never fires (fixed)
+                //TODO: Event never fires
+                // CodeReview: this is now fixed.
                 sm.waitForSingleEvent(event, State.DONE);
                 break;
 

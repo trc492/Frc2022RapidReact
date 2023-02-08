@@ -299,14 +299,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcXboxController.RIGHT_BUMPER:
                 if (pressed)
                 {
-                    robot.autoBalance.autoAssistBalance();
+                    robot.autoBalance.autoAssistBalance(null);
                 }
                 break;
 
             case FrcXboxController.BACK:
                 if(pressed)
                 {
-                    robot.autoBalance.autoAssistBalance();
+                    robot.autoBalance.autoAssistCancel();
                 }
                 break;
 

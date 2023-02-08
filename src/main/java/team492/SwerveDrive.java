@@ -522,9 +522,13 @@ public class SwerveDrive extends RobotDrive
      */
     private double getBalanceDriveCompensation(double power)
     {
-        double comp = 0.1*Math.sin((Math.PI*Math.abs(robot.robotDrive.getGyroYHeading())/40));
-        System.out.println(">>> Comp: "+comp);
-        return comp;
+        // double angle = robot.robotDrive.getGyroYHeading();
+        // if(Math.abs(angle) >= 10) {
+        //     double comp = -0.005*Math.sin(Math.PI*angle/40);
+        //     System.out.printf(">>> Angle:%.3f Comp: %.3f", angle, comp);
+        //     return comp;
+        // }
+        return 0.0;
     }   //getBalanceDriveCompensation
 
     /**

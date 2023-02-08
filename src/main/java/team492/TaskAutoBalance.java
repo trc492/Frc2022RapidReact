@@ -38,10 +38,10 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         startAutoTask(State.MOVE_FORWARD, null, null);
     }   //autoAssistBalance
 
-    public void cancel(boolean completed)
+    public void autoAssistBalanceCancel()
     {
-        stopAutoTask(completed);
-    }   //cancel
+        stopAutoTask(false);
+    }   //autoAssistBalanceCancel
 
     @Override
     protected boolean acquireSubsystemsOwnership()
@@ -108,7 +108,7 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
             case DONE:
             default:
                 robot.robotDrive.setAntiDefenseEnabled(currOwner, true);
-                cancel(true);
+                stopAutoTask(true);
                 break;
         }
     }   //runTaskState

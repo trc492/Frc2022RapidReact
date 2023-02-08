@@ -463,17 +463,26 @@ public class Robot extends FrcRobotBase
                     9, "DriveBase-Steer: lf=%.0f, rf=%.0f, lb=%.0f, rb=%.0f",
                     lfSteerEnc, rfSteerEnc, lbSteerEnc, rbSteerEnc);
 
-                if (RobotParams.Preferences.debugPidDrive)
+                if (RobotParams.Preferences.debugPurePursuitDrive)
                 {
                     int lineNum = 10;
-                    if (robotDrive.encoderXPidCtrl != null)
+                    robotDrive.purePursuitDrive.getXPosPidCtrl().displayPidInfo(lineNum);
+                    lineNum += 2;
+                    robotDrive.purePursuitDrive.getYPosPidCtrl().displayPidInfo(lineNum);
+                    lineNum += 2;
+                    robotDrive.purePursuitDrive.getTurnPidCtrl().displayPidInfo(lineNum);
+                }
+                else if (RobotParams.Preferences.debugPidDrive)
+                {
+                    int lineNum = 10;
+                    if (robotDrive.pidDrive.getXPidCtrl() != null)
                     {
-                        robotDrive.encoderXPidCtrl.displayPidInfo(lineNum);
+                        robotDrive.pidDrive.getXPidCtrl().displayPidInfo(lineNum);
                         lineNum += 2;
                     }
-                    robotDrive.encoderYPidCtrl.displayPidInfo(lineNum);
+                    robotDrive.pidDrive.getYPidCtrl().displayPidInfo(lineNum);
                     lineNum += 2;
-                    robotDrive.gyroTurnPidCtrl.displayPidInfo(lineNum);
+                    robotDrive.pidDrive.getTurnPidCtrl().displayPidInfo(lineNum);
                 }
                 else
                 {

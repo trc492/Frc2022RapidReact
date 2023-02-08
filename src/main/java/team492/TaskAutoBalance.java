@@ -86,7 +86,7 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
         {
             case MOVE_FORWARD:
                 // Move forward slowly until the robot is tipping backward.
-                if (Math.abs(robot.robotDrive.getGyroYHeading()) < 2.0)
+                if (Math.abs(robot.robotDrive.getGyroPitch()) < 2.0)
                 {
                     robot.robotDrive.driveBase.holonomicDrive(currOwner, 0.0, 0.2, 0.0);
                 }

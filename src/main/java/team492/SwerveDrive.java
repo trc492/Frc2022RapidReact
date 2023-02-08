@@ -159,38 +159,34 @@ public class SwerveDrive extends RobotDrive
         // Create and initialize PID controllers.
         //
         // PID Coefficients for X and Y are the same for Swerve Drive.
-        xPosPidCoeff = new TrcPidController.PidCoefficients(
+        xPosPidCoeff = yPosPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
-        encoderXPidCtrl = new TrcPidController(
-            "encoderXPidCtrl", xPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getXPosition);
-        encoderXPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
-        encoderXPidCtrl.setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
-        encoderXPidCtrl.setAbsoluteSetPoint(true);
-    
-        yPosPidCoeff = new TrcPidController.PidCoefficients(
-            RobotParams.SWERVE_KP, RobotParams.SWERVE_KI, RobotParams.SWERVE_KD, RobotParams.SWERVE_KF);
-        encoderYPidCtrl = new TrcPidController(
-            "encoderYPidCtrl", yPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getYPosition);
-        encoderYPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
-        encoderYPidCtrl.setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
-        encoderYPidCtrl.setAbsoluteSetPoint(true);
-    
         turnPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.GYRO_TURN_KP, RobotParams.GYRO_TURN_KI, RobotParams.GYRO_TURN_KD, RobotParams.GYRO_TURN_KF);
-        gyroTurnPidCtrl = new TrcPidController(
-            "gyroPidCtrl", turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
-        gyroTurnPidCtrl.setOutputLimit(RobotParams.DRIVE_MAX_TURNPID_POWER);
-        gyroTurnPidCtrl.setRampRate(RobotParams.DRIVE_MAX_TURNPID_RAMP_RATE);
-        gyroTurnPidCtrl.setAbsoluteSetPoint(true);
-    
         velPidCoeff = new TrcPidController.PidCoefficients(
             RobotParams.ROBOT_VEL_KP, RobotParams.ROBOT_VEL_KI, RobotParams.ROBOT_VEL_KD, RobotParams.ROBOT_VEL_KF);
 
-        pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
+        TrcPidController.PidParameters xPosPidParams = new TrcPidController.PidParameters(
+            xPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getXPosition);
+        TrcPidController.PidParameters yPosPidParams = new TrcPidController.PidParameters(
+            yPosPidCoeff, RobotParams.SWERVE_TOLERANCE, driveBase::getYPosition);
+        TrcPidController.PidParameters turnPidParams = new TrcPidController.PidParameters(
+            turnPidCoeff, RobotParams.GYRO_TURN_TOLERANCE, driveBase::getHeading);
+
+        pidDrive = new TrcPidDrive(
+            "pidDrive", driveBase, xPosPidParams, yPosPidParams, turnPidParams);
+
+        pidDrive.getXPidCtrl().setOutputLimit(RobotParams.DRIVE_MAX_XPID_POWER);
+        pidDrive.getXPidCtrl().setRampRate(RobotParams.DRIVE_MAX_XPID_RAMP_RATE);
+        pidDrive.getYPidCtrl().setOutputLimit(RobotParams.DRIVE_MAX_YPID_POWER);
+        pidDrive.getYPidCtrl().setRampRate(RobotParams.DRIVE_MAX_YPID_RAMP_RATE);
+        pidDrive.getTurnPidCtrl().setOutputLimit(RobotParams.DRIVE_MAX_TURNPID_POWER);
+        pidDrive.getTurnPidCtrl().setRampRate(RobotParams.DRIVE_MAX_TURNPID_RAMP_RATE);
+        pidDrive.getTurnPidCtrl().setAbsoluteSetPoint(true);
+
         // AbsoluteTargetMode eliminates cumulative errors on multi-segment runs because drive base is keeping track
         // of the absolute target position.
         pidDrive.setAbsoluteTargetModeEnabled(true);
-        pidDrive.setStallDetectionEnabled(true);
         pidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
 
         if (RobotParams.Preferences.useBalanceDrive)
@@ -198,14 +194,16 @@ public class SwerveDrive extends RobotDrive
             gyroPitchPidCoeff = new TrcPidController.PidCoefficients(
                 RobotParams.GYRO_PITCH_KP, RobotParams.GYRO_PITCH_KI, RobotParams.GYRO_PITCH_KD,
                 RobotParams.GYRO_PITCH_KF);
-            gyroPitchPidCtrl = new TrcPidController(
-                "gyroXPidCtrl", gyroPitchPidCoeff, RobotParams.GYRO_PITCH_TOLERANCE,
-                this::getBalanceDriveCompensation, this::getGyroYHeading);
-            gyroPitchPidCtrl.setOutputLimit(RobotParams.GYRO_PITCH_MAX_PID_POWER);
-            gyroPitchPidCtrl.setRampRate(RobotParams.GYRO_PITCH_PID_RAMP_RATE);
-            gyroPitchPidCtrl.setAbsoluteSetPoint(true);
+            TrcPidController.PidParameters gyroPitchPidParams = new TrcPidController.PidParameters(
+                yPosPidCoeff, RobotParams.GYRO_PITCH_TOLERANCE, this::getGyroPitch, this::getBalanceDriveCompensation);
+
             balancePidDrive = new TrcPidDrive(
-                "balancePidDrive", driveBase, encoderXPidCtrl, gyroPitchPidCtrl, gyroTurnPidCtrl);
+                "balancePidDrive", driveBase, xPosPidParams, gyroPitchPidParams, turnPidParams);
+
+            balancePidDrive.getXPidCtrl().setAbsoluteSetPoint(true);
+            balancePidDrive.getYPidCtrl().setAbsoluteSetPoint(true);
+            balancePidDrive.getYPidCtrl().setOutputLimit(RobotParams.GYRO_PITCH_MAX_PID_POWER);
+            balancePidDrive.getYPidCtrl().setRampRate(RobotParams.GYRO_PITCH_PID_RAMP_RATE);
             balancePidDrive.setMsgTracer(robot.globalTracer, logPoseEvents, tracePidInfo);
         }
 
@@ -532,23 +530,23 @@ public class SwerveDrive extends RobotDrive
     }   //getBalanceDriveCompensation
 
     /**
-     * This method returns the gyro heading on its x-axis.
+     * This method returns the gyro pitch.
      *
-     * @return gyro x-axis heading.
+     * @return gyro pitch.
      */
-    public double getGyroXHeading()
+    public double getGyroPitch()
     {
         return gyro.getXHeading().value;
-    }   //getGyroXHeading
+    }   //getGyroPitch
 
     /**
-     * This method returns the gyro heading on its y-axis.
+     * This method returns the gyro roll.
      * 
-     * @return gyro y-axis heading.
+     * @return gyro roll.
      */
-    public double getGyroYHeading()
+    public double getGyroRoll()
     {
         return gyro.getYHeading().value;
-    }
+    }   //getGyroRoll
 
 }   //class SwerveDrive

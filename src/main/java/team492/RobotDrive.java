@@ -73,8 +73,6 @@ public class RobotDrive
     //
     public TrcPidController.PidCoefficients xPosPidCoeff, yPosPidCoeff, turnPidCoeff, velPidCoeff;
     public TrcPidController.PidCoefficients gyroPitchPidCoeff;
-    public TrcPidController encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl;
-    public TrcPidController gyroPitchPidCtrl;
     //
     // Drive Controllers.
     //

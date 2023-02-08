@@ -100,8 +100,9 @@ public class TaskAutoBalance extends TrcAutoTask<TaskAutoBalance.State>
             case BALANCING:
                 msgTracer.traceInfo(moduleName, "Balancing.");
                 robot.robotDrive.balancePidDrive.setSensorTarget(
-                    currOwner, robot.robotDrive.driveBase.getXPosition(), 0.0, 0.0, true, event, 0.0);
-                //TODO: Event never fires
+                    currOwner, robot.robotDrive.driveBase.getXPosition(), 0.0,
+                    robot.robotDrive.driveBase.getHeading(), true, event, 0.0);
+                //TODO: Event never fires (fixed)
                 sm.waitForSingleEvent(event, State.DONE);
                 break;
 

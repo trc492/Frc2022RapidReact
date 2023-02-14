@@ -47,6 +47,7 @@ public class RobotParams
         public static final boolean useNavX                     = true;
         public static final boolean usePdp                      = false;
         public static final boolean useExternalOdometry         = false;
+        public static final boolean useCANCoder                 = true;     //set to false to use Analog Encoder.
         public static final boolean useVision                   = false;
         public static final boolean usePhotonVision             = true;
         public static final boolean useStreamCamera             = true;
@@ -181,7 +182,11 @@ public class RobotParams
     //
     // Analog Input ports.
     //
-    public static final int AIN_PRESSURE_SENSOR                 = 3;
+    public static final int AIN_PRESSURE_SENSOR                 = 0;
+    public static final int AIN_LEFTFRONT_STEER_ENCODER         = 0;
+    public static final int AIN_RIGHTFRONT_STEER_ENCODER        = 1;
+    public static final int AIN_LEFTBACK_STEER_ENCODER          = 2;
+    public static final int AIN_RIGHTBACK_STEER_ENCODER         = 3;
 
     //
     // Digital Input/Output ports.

@@ -51,7 +51,8 @@ public class RobotParams
         public static final boolean usePhotonVision             = true;
         public static final boolean useStreamCamera             = true;
         public static final boolean useWallAlignSensor          = false;
-        public static final boolean useCANCoder                 = true;     //set to false to use Analog Encoder.
+        public static final boolean useCANCoder                 = true;
+        public static final boolean useAnalogEncoder            = false;
         // Subsystems
         public static final boolean useSubsystems               = true;
         public static final boolean useBalanceDrive             = true;
@@ -230,14 +231,15 @@ public class RobotParams
     public static final double CAMERA_Y_OFFSET                  = 2.5;  // Inches from the center of the robot
     public static final double CAMERA_X_OFFSET                  = 0.0;  // Inches from the center of the robot
     public static final double CAMERA_HEIGHT                    = 22.0; // Inches from the floor
-    public static final double CAMERA_ANGLE                     = 36.0; // Degrees from horizontal
+    public static final double CAMERA_PITCH                     = 36.0; // Degrees from horizontal
     public static final double CAMERA_DATA_TIMEOUT              = 0.5;  // 500ms
     public static final double VISION_HIGH_TARGET_HEIGHT        = 104.0;// Inches from the floor
     public static final double VISION_TARGET_RADIUS             = 53.375/2.0;// Inches
     public static final double VISION_DISTANCE_FUDGE_FACTOR     = 0.9;  // Compensate unknown discrepancy.
     public static final Transform3d CAMERA_TRANSFORM3D          = new Transform3d(
         new Translation3d(CAMERA_X_OFFSET, CAMERA_Y_OFFSET, CAMERA_HEIGHT),
-        new Rotation3d(0.0, CAMERA_ANGLE, 0.0));
+        new Rotation3d(0.0, CAMERA_PITCH, 0.0));
+    public static final double POLE_TAG_HEIGHT                  = 2.5;      // in inches
 
     //
     // Wall Alignment Sensor.
@@ -338,10 +340,9 @@ public class RobotParams
     // Applicable only for Swerve Drive.
     public static final double CANCODER_CPR                     = 4096.0;
     public static final double FALCON_CPR                       = 2048.0;
-    public static final double STEER_ENCODER_SCALE              = FALCON_CPR / CANCODER_CPR;
     public static final double STEER_GEAR_RATIO                 = (24.0/12.0) * (72.0/14.0);
+    public static final double STEER_MOTOR_CPR                  = FALCON_CPR * STEER_GEAR_RATIO;
 
-    public static final double STEER_DEGREES_PER_TICK           = 360.0 / CANCODER_CPR;
     public static final double STEER_DEGREES_PER_COUNT          = 360.0 / (FALCON_CPR*STEER_GEAR_RATIO);
     public static final double STEER_MAX_REQ_VEL                = 1000.0;   // deg/sec. max commanded velocity, not necessarily max vel
     public static final double STEER_MAX_ACCEL                  = 5000.0;   // deg/sec^2
@@ -351,7 +352,7 @@ public class RobotParams
 
     // order is lf, rf, lr, rr
     // steerzeros.txt: 3974, 3748, 1192, 3487
-    public static final int[] STEER_ZEROS                       = new int[] {2167, 3756, 1194, 3485};//{ 3971, 3743, 1189, 3490 };  // this is a backup if the zeros file isn't found
+    public static final double[] STEER_ZEROS                    = new double[] {2167, 3756, 1194, 3485};//{ 3971, 3743, 1189, 3490 };  // this is a backup if the zeros file isn't found
 
     public static final TrcPidController.PidCoefficients magicSteerCoeff =
         new TrcPidController.PidCoefficients(2.0, 0.01, 0.0, 1023.0 / STEER_MAX_VEL_COUNT_PER_100MS, 5.0 / STEER_DEGREES_PER_COUNT);

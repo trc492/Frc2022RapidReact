@@ -28,6 +28,7 @@ import TrcCommonLib.command.CmdDriveMotorsTest;
 import TrcCommonLib.command.CmdPidDrive;
 import TrcCommonLib.command.CmdTimedDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import team492.PhotonVision.PipelineType;
 import TrcFrcLib.frclib.FrcChoiceMenu;
 import TrcFrcLib.frclib.FrcPhotonVision;
 import TrcFrcLib.frclib.FrcUserChoices;
@@ -571,19 +572,41 @@ public class FrcTest extends FrcTeleOp
      */
     private void doVisionTest()
     {
+        int lineNum = 8;
+
         if (robot.photonVision != null)
         {
+            PipelineType pipelineType = robot.photonVision.getPipeline();
             FrcPhotonVision.DetectedObject targetInfo = robot.photonVision.getBestDetectedObject();
 
             if (targetInfo != null)
             {
-                // robot.globalTracer.traceInfo("doVisionTest", "Photon: %s", targetInfo);
-                robot.dashboard.displayPrintf(14, "Photon: %s", targetInfo);
+                // line 8
+                robot.dashboard.displayPrintf(lineNum, "PhotonVision[%s]: targetInfo=%s", pipelineType, targetInfo);
+                lineNum++;
 
-                TrcPose2D robotPose = robot.photonVision.getRobotFieldPosition(targetInfo);
-                if (robotPose != null)
+                if (pipelineType == PipelineType.APRILTAG)
                 {
-                    robot.dashboard.displayPrintf(15, "RobotPose: %s", robotPose);
+                    // line 9
+                    TrcPose2D robotPose = robot.photonVision.getRobotFieldPosition(targetInfo);
+
+                    if (robotPose != null)
+                    {
+                        robot.dashboard.displayPrintf(lineNum, "RobotPose: %s", robotPose);
+                    }
+                    lineNum++;
+                }
+                else
+                {
+                    // line 9
+                    double targetHeight = pipelineType == PipelineType.POLE? RobotParams.POLE_TAG_HEIGHT: 0.0;
+                    TrcPose2D targetPose = robot.photonVision.getTargetPose2D(targetInfo, targetHeight);
+
+                    if (targetPose != null)
+                    {
+                        robot.dashboard.displayPrintf(lineNum, "TargetPose: %s", targetPose);
+                    }
+                    lineNum++;
                 }
             }
         }

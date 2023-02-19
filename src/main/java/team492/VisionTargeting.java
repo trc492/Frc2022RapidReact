@@ -37,7 +37,7 @@ public class VisionTargeting
         vision.setDepthApproximator(
             "ty",
             y -> (RobotParams.VISION_HIGH_TARGET_HEIGHT - RobotParams.CAMERA_HEIGHT) /
-                 Math.tan(Math.toRadians(y + RobotParams.CAMERA_ANGLE)));
+                 Math.tan(Math.toRadians(y + RobotParams.CAMERA_PITCH)));
         vision.setOffsets(RobotParams.CAMERA_X_OFFSET, RobotParams.CAMERA_Y_OFFSET);
         vision.setFreshnessTimeout(RobotParams.CAMERA_DATA_TIMEOUT);
         vision.setRingLightEnabled(RingLightMode.OFF);
@@ -60,7 +60,7 @@ public class VisionTargeting
 
     public double getTargetVerticalAngle()
     {
-        return vision.getElevation() + RobotParams.CAMERA_ANGLE;
+        return vision.getElevation() + RobotParams.CAMERA_PITCH;
     }   //getTargetVerticalAngle
 
     public double getTargetDistance()

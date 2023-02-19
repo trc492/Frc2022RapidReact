@@ -25,6 +25,8 @@ package team492;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.photonvision.common.hardware.VisionLEDMode;
+
 import TrcCommonLib.trclib.TrcDbgTrace;
 import TrcCommonLib.trclib.TrcPose2D;
 import TrcCommonLib.trclib.TrcTimer;
@@ -42,7 +44,38 @@ public class PhotonVision extends FrcPhotonVision
 {
     private static final String moduleName = "PhotonVision";
     private static final TrcDbgTrace globalTracer = TrcDbgTrace.getGlobalTracer();
-    private static final  boolean debugEnabled = true;
+    private static final boolean debugEnabled = true;
+
+    public enum PipelineType
+    {
+        CUBE(0),
+        POLE(1),
+        CONE(2),
+        APRILTAG(3);
+
+        public int pipelineIndex;
+
+        PipelineType(int value)
+        {
+            pipelineIndex = value;
+        }
+
+        public static PipelineType getType(int index)
+        {
+            PipelineType type = null;
+
+            for (PipelineType pipelineType: PipelineType.values())
+            {
+                if (index == pipelineType.pipelineIndex)
+                {
+                    type = pipelineType;
+                }
+            }
+
+            return type;
+        }   //getType
+
+    }   //enum PipelineType
 
     private final AprilTagFieldLayout aprilTagFieldLayout;
     // private final AprilTagPoseEstimator poseEstimator;
@@ -55,7 +88,7 @@ public class PhotonVision extends FrcPhotonVision
      */
     public PhotonVision(String cameraName, TrcDbgTrace tracer)
     {
-        super(cameraName, tracer);
+        super(cameraName, RobotParams.CAMERA_HEIGHT, RobotParams.CAMERA_PITCH, tracer);
 
         double startTime = TrcTimer.getModeElapsedTime();
         try
@@ -72,6 +105,9 @@ public class PhotonVision extends FrcPhotonVision
             globalTracer.traceInfo(
                 moduleName, "[%.3f] Loading AprilTag field layout took %.3f sec.", endTime, endTime - startTime);
         }
+
+        setPipeline(PipelineType.POLE);
+        setLED(VisionLEDMode.kOn);
 
         // poseEstimator = new AprilTagPoseEstimator(
         //     new AprilTagPoseEstimator.Config(
@@ -119,9 +155,7 @@ public class PhotonVision extends FrcPhotonVision
 
             if (debugEnabled)
             {
-                globalTracer.traceInfo(
-                    funcName, "[%d] AprilTagPose=%s, RobotPose=%s, yaw=%.1f",
-                    aprilTagId, aprilTagPose, robotPose, aprilTagObj.target.getYaw());
+                globalTracer.traceInfo(funcName, "[%d] RobotPose=%s", aprilTagId, robotPose);
             }
         }
 
@@ -137,5 +171,25 @@ public class PhotonVision extends FrcPhotonVision
         //             camPose.transformBy(Constants.kCameraToRobot).toPose2d(), imageCaptureTime);
         // }        
     }   //getRobotFieldPosition
+
+    /**
+     * This method sets the active pipeline type used in the LimeLight.
+     *
+     * @param pipelineType specifies the pipeline to activate in the LimeLight.
+     */
+    public void setPipeline(PipelineType pipelineType)
+    {
+        setPipelineIndex(pipelineType.pipelineIndex);
+    }   //setPipeline
+
+    /**
+     * This method returns the active pipeline of the LimeLight.
+     *
+     * @return active pipeline.
+     */
+    public PipelineType getPipeline()
+    {
+        return PipelineType.getType(getPipelineIndex());
+    }   //getPipeline
 
 }   //class PhotonVision

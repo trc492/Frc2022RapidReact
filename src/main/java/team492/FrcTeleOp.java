@@ -331,7 +331,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 break;
 
-            case FrcXboxController
             /* 
             //field trip shooting 
                 if(pressed){

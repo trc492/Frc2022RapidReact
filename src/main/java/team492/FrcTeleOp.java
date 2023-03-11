@@ -322,12 +322,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 if (pressed)
                 {
                     robot.intake.spitOut();
+                    robot.conveyor.setPower(-1.0);
                 }
                 else
                 {
                     robot.intake.stop(0.2);
+                    robot.conveyor.cancel();
                 }
                 break;
+
+            case FrcXboxController
             /* 
             //field trip shooting 
                 if(pressed){

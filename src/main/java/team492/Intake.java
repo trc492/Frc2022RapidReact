@@ -258,32 +258,32 @@ public class Intake implements TrcExclusiveSubsystem
 
     private void conveyorEntranceTrigger(Object active)
     {
-        final String funcName = "conveyorEntranceTrigger";
-        boolean exitHasBall = robot.conveyor.isExitSensorActive();
+        // final String funcName = "conveyorEntranceTrigger";
+        // boolean exitHasBall = robot.conveyor.isExitSensorActive();
 
-        if (msgTracer != null)
-        {
-            msgTracer.traceInfo(
-                funcName, "[%.3f] active=%s, exitHasBall=%s, onFinishedEvent=%s",
-                TrcTimer.getModeElapsedTime(), active, exitHasBall, onFinishedEvent);
-        }
+        // if (msgTracer != null)
+        // {
+        //     msgTracer.traceInfo(
+        //         funcName, "[%.3f] active=%s, exitHasBall=%s, onFinishedEvent=%s",
+        //         TrcTimer.getModeElapsedTime(), active, exitHasBall, onFinishedEvent);
+        // }
 
-        if ((boolean) active)
-        {
-            // Stop only when a ball has reached exit. If the conveyor has only one ball, that ball will be
-            // transported all the way to the exit before we will stop the conveyor. Keep the intake spinning
-            // and we will stop the intake when we pick up the second ball.
-            if (exitHasBall)
-            {
-                setPower(0.0, 0.0, 0.0);
-            }
+        // if ((boolean) active)
+        // {
+        //     // Stop only when a ball has reached exit. If the conveyor has only one ball, that ball will be
+        //     // transported all the way to the exit before we will stop the conveyor. Keep the intake spinning
+        //     // and we will stop the intake when we pick up the second ball.
+        //     if (exitHasBall)
+        //     {
+        //         setPower(0.0, 0.0, 0.0);
+        //     }
 
-            if (onFinishedEvent != null)
-            {
-                onFinishedEvent.signal();
-                onFinishedEvent = null;
-            }
-        }
+        //     if (onFinishedEvent != null)
+        //     {
+        //         onFinishedEvent.signal();
+        //         onFinishedEvent = null;
+        //     }
+        // }
     }   //conveyorEntranceTrigger
 
 }   //class Intake

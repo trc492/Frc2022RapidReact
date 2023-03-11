@@ -148,6 +148,16 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                     }
                 }
 
+                double rightTrigger =  robot.driverController.getRightTriggerAxis();
+                        if (rightTrigger > 0.5) 
+                            {
+                                robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
+                            }
+                        else
+                            {
+                                robot.shooter.commitToShoot("teleOp");
+                             }
+
                 if (robot.robotDrive != null && !robot.robotDrive.isAntiDefenseEnabled())
                 {
                     double[] inputs = robot.robotDrive.getDriveInputs();
@@ -331,7 +341,6 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 break;
 
-            case FrcXboxController
             /* 
             //field trip shooting 
                 if(pressed){

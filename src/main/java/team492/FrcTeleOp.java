@@ -104,7 +104,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         {
             robot.vision.setEnabled(false);
         }
-    }   //stopMode
+    }   //stopMode1
 
     /**
      * This method is called periodically at a slow rate. Typically, you put code that doesn't require frequent

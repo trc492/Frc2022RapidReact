@@ -62,9 +62,9 @@ public class Shooter implements TrcExclusiveSubsystem
     private double nextFlywheelUpdateTime = 0.0;
 
     private String currOwner = null;
-    private boolean visionAlignEnabled = true;
-    private boolean committedToShoot = false;
-    private boolean allowToShoot = false;
+    private boolean visionAlignEnabled = false; //changed to false
+    private boolean committedToShoot = true; //changed to true
+    private boolean allowToShoot = true; //changed to true
     private boolean ballShot = false;
     private boolean fullTurnShooter = true;
     private Double targetAngle = null;
@@ -517,7 +517,7 @@ public class Shooter implements TrcExclusiveSubsystem
      */
     public void setVisionAlignEnabled(boolean enabled)
     {
-        visionAlignEnabled = enabled;
+        visionAlignEnabled = false;
     }   //setVisionAlignEnabled
 
     /**
@@ -772,7 +772,7 @@ public class Shooter implements TrcExclusiveSubsystem
             allowToShoot && currOwner != null && validateOwnership(owner))
         {
             committedToShoot = true;
-            allowToShoot = false;
+            allowToShoot = true;
         }
     }   //commitToShoot
 
@@ -814,7 +814,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
                         sm.waitForSingleEvent(conveyorEvent, State.PREP_TO_SHOOT);
-                        robot.conveyor.advance(currOwner, conveyorEvent);
+                        // robot.conveyor.advance(currOwner, conveyorEvent);
                     }
                     else
                     {
@@ -1055,7 +1055,7 @@ public class Shooter implements TrcExclusiveSubsystem
                         if (isFlywheelVelOnTarget())
                         {
                             sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
-                            robot.conveyor.advance(currOwner, conveyorEvent);
+                            // robot.conveyor.advance(currOwner, conveyorEvent);
                             ballShot = true;
                             if (msgTracer != null)
                             {
@@ -1073,7 +1073,7 @@ public class Shooter implements TrcExclusiveSubsystem
                     {
                         // No ball at the exit but there is a ball at the entrance, advance it.
                         sm.waitForSingleEvent(conveyorEvent, State.SHOOT_WHEN_READY);
-                        robot.conveyor.advance(currOwner, conveyorEvent);
+                        // robot.conveyor.advance(currOwner, conveyorEvent);
                         if (msgTracer != null)
                         {
                             msgTracer.traceInfo(funcName, "[%.3f] Advance ball to exit.", matchTime);

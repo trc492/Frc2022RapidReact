@@ -151,11 +151,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 double rightTrigger =  robot.driverController.getRightTriggerAxis();
                         if (rightTrigger > 0.5) 
                             {
-                                robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
+                                robot.shooter.setFlywheelValue(null, 2000, null);
+                                robot.conveyor.setPower(0.4, 1.0, 0.0);
+
                             }
                         else
                             {
-                                robot.shooter.commitToShoot("teleOp");
+                                robot.shooter.stopFlywheel();
+                                robot.conveyor.cancel();
                              }
 
                 if (robot.robotDrive != null && !robot.robotDrive.isAntiDefenseEnabled())
@@ -273,22 +276,29 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.BUTTON_B:
-                break;
-
-            case FrcXboxController.BUTTON_X:
-                //robot.robotDrive.setAntiDefenseEnabled(null, pressed);
-                //just for field trip 
                 if (pressed)
                 {
-                    robot.intake.extend();
-                    robot.intake.pickup();
+                    robot.conveyor.setPower(1.0);
                 }
                 else
                 {
-                    robot.intake.stop(0.2);
-                    robot.intake.retract();
+                    robot.conveyor.cancel();
                 }
                 break;
+
+            case FrcXboxController.BUTTON_X:
+                robot.robotDrive.setAntiDefenseEnabled(null, pressed);
+                break;
+                //just for field trip 
+                // if (pressed)
+                // {
+                //     robot.conveyor.setPower(-1.0);
+                // }
+                // else
+                // {
+                //     robot.conveyor.cancel();
+                // }
+                // break;
 
             case FrcXboxController.BUTTON_Y:
                 if (pressed)
@@ -305,17 +315,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
                 
             case FrcXboxController.LEFT_BUMPER:
-            /*
-                if (pressed)
-                {
-                    robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.INVERTED);
-                }
-                else
-                {
-                    robot.robotDrive.setDriveOrientation(RobotDrive.DriveOrientation.FIELD);
-                }
-                break;
-            */
+
                 if (pressed)
                 {
                     robot.intake.extend();
@@ -329,7 +329,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.RIGHT_BUMPER:
-                if (pressed)
+
+                if(pressed)
                 {
                     robot.intake.spitOut();
                     robot.conveyor.setPower(-1.0);
@@ -341,17 +342,19 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 }
                 break;
 
-            /* 
+            
             //field trip shooting 
-                if(pressed){
-                    robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
-                }
-                else{
-                    robot.shooter.commitToShoot("teleOp");
+                // if(pressed){
+                //     robot.shooter.setFlywheelValue(0.5);
+                //     //robot.shooter.shootWithNoVision("teleOp", null, ShootLoc.TarmacAuto);
+                // }
+                // else{
+                //     robot.shooter.stopFlywheel();
+                //     robot.conveyor.cancel();                 
 
-                }
-                break;
-            */
+                // }
+                // break;
+            
 
             /*
             case FrcXboxController.BACK:
